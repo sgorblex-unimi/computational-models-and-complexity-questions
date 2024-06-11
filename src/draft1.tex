@@ -1,0 +1,72 @@
+\chapter{On sweeping \texorpdfstring{$k$-limited}{k-limited} automata}
+
+
+
+% \section{Introduction}
+
+
+
+\section{Crossing sequences}
+Given a two-way machine and one of its possible computations over a certain input, consider a tape cell and one of the two boundaries at its sides.
+A crossing sequence $[q_1,q_2,\dots]$ is the sequence of states that the machine enters while the head crosses such boundary, i.e.\ when entering and leaving the cell from/to the chosen side.
+
+In general, because of loops and nondeterminism, a crossing sequence may be of infinite length.
+However, we will see that we may restrict our interest to some finite set of finite sequences, depending on the model in question.
+
+The first state of a crossing sequence is always entered by the machine while moving right, while subsequent crossings must be in alternate directions.
+Therefore, odd-numbered elements of a crossing sequence represent states entered after surpassing the boundary to the right, while even-numbered elements represent states entered after surpassing the boundary to the left:
+\begin{fact}\label{fact:crossing-parity}
+	In a crossing sequence, odd-numbered states are entered after moves to the right, while even-numbered states are entered after moves to the left.
+\end{fact}
+
+Furthermore, because in the models we will consider the input is accepted by crossing the right boundary of the tape, the last crossing of any boundary must be towards the right:
+\begin{fact}\label{fact:crossing-length}
+	A crossing sequence of an accepting computation has odd length.
+\end{fact}
+
+
+\subsection{2DFA}
+We will now consider the specific case of two-way deterministic finite automata (2DFA).
+If a 2DFA accepts an input, the (one and only) computation on that input will never enter the same state twice while moving on a same cell in the same direction, otherwise the machine, being deterministic, would run in a loop and thus not accept.
+In terms of crossing sequences:
+\begin{fact}\label{fact:crossing-2dfa-parity}
+	No crossing sequence of an accepting computation of a 2DFA may contain the same state in two odd- or even-numbered positions.
+\end{fact}
+
+We are now ready to give the definition of \emph{valid crossing sequence} for 2DFAs:
+\begin{defn}
+	Given a 2DFA, crossing sequence is called valid if and only if:
+	\begin{itemize}
+		\item its length is odd and bounded by $2n-1$, where $n$ is the number of states;
+		\item no state is repeated in two odd- or even-numbered positions.
+	\end{itemize}
+\end{defn}
+
+% TODO: note about the finiteness of the set of valid crossing sequences and explanation of its cardinality
+
+Notice that, following facts \ref{fact:crossing-parity}, \ref{fact:crossing-length}, and \ref{fact:crossing-2dfa-parity}, the following holds:
+\begin{fact}
+	All crossing sequences of accepting computations of a 2DFA are valid.
+\end{fact}
+
+\subsubsection{Matching crossing sequences}
+In an accepting computation, the two crossing sequences adjacent to each cell are compatible, meaning their states are the result of valid transitions given the cell's content.
+In general, given a tape cell and two crossing sequences $[q_1,\dots,q_k]$ and $[p_1,\dots,p_l]$, we can check for local compatibility as follows.
+If the head moves left from the cell in state $q_i$, restart the automaton on the cell in state $q_{i+1}$; if it moves right in state $p_i$, assume the automaton going back to the cell in state $p_{i+1}$.
+Then check that the resulting computation is composed by states in the two crossing sequences in their correct order.
+
+We recursively define left- and right-matching pairs of crossing sequences with respect to a cell containing symbol $\sigma$.
+Sequence $[q_1,\dots,q_k]$ right-matches sequence $[p_1,\dots,p_l]$ when they are locally compatible starting with a transition to the right on the cell containing $\sigma$ in state $q_1$ and ending to its right, while we have a left-match when the initial transition is to the left in state $p_1$ (while still ending to the right of the cell).
+
+% TODO: add pictures
+\begin{defn}
+	Given a 2DFA $A=(Q,\Sigma,\delta,s,F)$ we define left- and right-matching pairs of crossing sequences with respect to a symbol $\sigma\in\Sigma$ as follows:
+	\begin{enumerate}[i.]
+		\item \label{itm:crossmatch2dfa-1} The empty sequence $[~]$ right-matches and left-matches itself with respect to $\sigma$.
+		\item \label{itm:crossmatch2dfa-2} If $[q_3,\dots,q_k]$ right-matches $[p_1,\dots,p_l]$ with respect to $\sigma$ and $\delta(q_1,\sigma)=(q_2,\tl)$, then $[q_1,\dots,q_k]$ right-matches $[p_1,\dots,p_l]$ with respect to $\sigma$. The computation enters the cell from the left in state $q_1$, turns around right away leaving it to the left in $q_2$, and eventually comes back to it in $q_3$, to which we apply induction.
+		\item \label{itm:crossmatch2dfa-3} If $[q_2,\dots,q_k]$ left-matches $[p_2,\dots,p_l]$ with respect to $\sigma$ and $\delta(q_1,\sigma)=(p_1,\tr)$, then $[q_1,\dots,q_k]$ right-matches $[p_1,\dots,p_l]$ with respect to $\sigma$. The computation enters the cell from the right in state $p_1$, immediately leaves it to the left in $q_1$, and eventually comes back to it in $q_2$, to which we apply induction.
+		\item \label{itm:crossmatch2dfa-4} Similarly to \ref{itm:crossmatch2dfa-2}, if $[q_1,\dots,q_k]$ left-matches $[p_3,\dots,p_l]$ with respect to $\sigma$ and $\delta(p_1,\sigma)=(p_2,\tr)$, then $[q_1,\dots,q_k]$ left-matches $[p_1,\dots,p_l]$ with respect to $\sigma$.
+		\item \label{itm:crossmatch2dfa-5} Similarly to \ref{itm:crossmatch2dfa-3}, if $[q_2,\dots,q_k]$ left-matches $[p_2,\dots,p_l]$ with respect to $\sigma$ and $\delta(p_1,\sigma)=(q_1,\tl)$, then $[q_1,\dots,q_k]$ left-matches $[p_1,\dots,p_l]$ with respect to $\sigma$.
+	\end{enumerate}
+\end{defn}
+Note that two crossing sequence need not be valid in order to match (e.g. the empty sequence).
