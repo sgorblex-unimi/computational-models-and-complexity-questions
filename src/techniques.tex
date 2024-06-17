@@ -1,10 +1,11 @@
-\chapter{On sweeping \texorpdfstring{$k$-limited}{k-limited} automata}
+\chapter{From \emph{one-way} to \emph{two-way} automata}
 
 
 
 % TODO
 % TODO: specify that the first part is heavily based on HopUll
-% \section{Introduction}
+\section{Introduction}
+\dots
 
 
 
@@ -27,6 +28,7 @@ Furthermore, because in the models we will consider the input is accepted by cro
 \end{fact}
 
 
+% TODO: present right away the simulation for the version with end-markers
 \subsection{2DFAs}
 We will now consider the specific case of two-way deterministic finite automata (2DFAs).
 If a 2DFA accepts an input, the (one and only) computation on that input will never enter the same state twice while moving on a same cell in the same direction, otherwise the machine, being deterministic, would run in a loop and thus not accept.
@@ -73,7 +75,7 @@ Sequence $[q_1,\dots,q_k]$ right-matches sequence $[p_1,\dots,p_l]$ when they ar
 \end{defn}
 Note that two crossing sequence need not be valid in order to match (e.g. the empty sequence).
 
-
+% TODO: use newly designed structure
 \subsubsection{From 2DFA to 1NFA}
 We will now prove that a 2DFA can be simulated by a 1NFA whose states are the valid crossing sequences of the 2DFA.
 Intuitively, the simulating machine puts together pieces of the computation of $A$ by guessing successive crossing sequences. The full trajectory can be interpreted as a computation of the original machine, where acceptance is only possible if the right boundary of the tape is surpassed on a final state.
@@ -118,7 +120,8 @@ Intuitively, the simulating machine puts together pieces of the computation of $
 \end{proof}
 
 
-\subsection{2DFAs with end-markers}
+% TODO: switch to new structure: merge this with 2DFA without end-markers, giving only one simulation
+\subsection{2DFA with end-markers}
 We will now extend our consideration to the case of two-way deterministic finite automata (2DFAs) \emph{with end-markers}.
 % TODO: better describe the model? Where to explain that in this model the computation starts on the lem?
 In two-way models with end-markers, the finite tape is enclosed in a tape segment by two special symbols, the \emph{left end-marker} ($\lem$) on the left and the \emph{right end-marker} ($\rem$) to the right.
@@ -140,3 +143,12 @@ This model can be exponentially more succinct than its counterpart without end-m
 
 	As these modifications will only remove states, the exponential upper bound is preserved.
 \end{proof}
+
+
+\subsection{Sweeping 2DFA}
+
+
+
+% TODO
+\section{Transition tables}
+\dots
