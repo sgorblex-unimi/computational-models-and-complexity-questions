@@ -16,28 +16,27 @@ A crossing sequence $[q_1,q_2,\dots]$ is the sequence of states that the machine
 In general, because of loops and nondeterminism, a crossing sequence may be of infinite length.
 However, we will see that we may restrict our interest to some finite set of finite sequences, depending on the model in question.
 
-The first state of a crossing sequence is always entered by the machine while moving right, while subsequent crossings must be in alternate directions.
+Because two-way machines start their computations on the left end-marker, the first state of a crossing sequence (which is entered on the first visit of the cell to the right of the boundary) is always entered while moving right, while subsequent crossings must be in alternate directions.
 Therefore, odd-numbered elements of a crossing sequence represent states entered after surpassing the boundary to the right, while even-numbered elements represent states entered after surpassing the boundary to the left:
 \begin{fact}\label{fact:crossing-parity}
 	In a crossing sequence, odd-numbered states are entered after moves to the right, while even-numbered states are entered after moves to the left.
 \end{fact}
 
-Furthermore, because in the models we will consider the input is accepted by crossing the right boundary of the tape, the last crossing of any boundary must be towards the right:
+Furthermore, because in the models we will consider the input is accepted by crossing the right boundary of the tape, the last crossing of any boundary must be towards the right, i.e.\ in an odd position:
 \begin{fact}\label{fact:crossing-length}
-	A crossing sequence of an accepting computation has odd length.
+	Any crossing sequence of an accepting computation has odd length.
 \end{fact}
 
 
-% TODO: present right away the simulation for the version with end-markers
-\subsection{2DFAs}
-We will now consider the specific case of two-way deterministic finite automata (2DFAs).
+\subsection{2\DFAs{}}
+We will now consider the specific case of two-way deterministic finite automata (2\DFAs{}).
 If a 2DFA accepts an input, the (one and only) computation on that input will never enter the same state twice while moving on a same cell in the same direction, otherwise the machine, being deterministic, would run in a loop and thus not accept.
 In terms of crossing sequences:
-\begin{fact}\label{fact:crossing-2dfa-parity}
+\begin{fact}\label{fact:crossing-2DFA-parity}
 	No crossing sequence of an accepting computation of a 2DFA may contain the same state in two odd- or even-numbered positions.
 \end{fact}
 
-We are now ready to give the definition of \emph{valid crossing sequence} for 2DFAs:
+We are now ready to give the definition of \emph{valid crossing sequence} for 2\DFAs{}:
 \begin{defn}
 	Given a 2DFA, crossing sequence is called valid if and only if:
 	\begin{itemize}
@@ -46,12 +45,39 @@ We are now ready to give the definition of \emph{valid crossing sequence} for 2D
 	\end{itemize}
 \end{defn}
 
-% TODO: note about the finiteness of the set of valid crossing sequences and explanation of its cardinality
-
-Notice that, following facts \ref{fact:crossing-parity}, \ref{fact:crossing-length}, and \ref{fact:crossing-2dfa-parity}, the following holds:
+Notice that, following facts \ref{fact:crossing-parity}, \ref{fact:crossing-length}, and \ref{fact:crossing-2DFA-parity}, the following holds:
 \begin{fact}
 	All crossing sequences of accepting computations of a 2DFA are valid.
 \end{fact}
+
+Obviously, since the length of valid crossing sequences is bounded, their number is finite.
+In order to calculate this number, consider the following sequence of choices:
+\begin{enumerate}
+	\item \label{itm:num-crosseq-1} the first state is chosen among $n$,
+	\item \label{itm:num-crosseq-2} the second state is chosen among $n$,
+	\item the third state is chosen among $n-1$, since the state chosen at step \ref{itm:num-crosseq-1} can no longer appear in an odd-numbered position,
+	\item the fourth state is chosen among $n-1$, since the state chosen at step \ref{itm:num-crosseq-2} can no longer appear in an even-numbered position,
+	\item the fifth state is chosen among $n-2$,
+	\item[] \dots
+\end{enumerate}
+By the \emph{fundamental principle of counting}, the total number of choices is obtained by multiplying the choices at each step.
+Therefore, if we fix the length $2l-1$ (with $l\in\set{1,\dots,n}$), the number of possible crossing sequences is:
+\begin{equation*}
+	n \cdot n \cdot (n-1) \cdot (n-1) \cdots \underbrace{(n-l+2)}_{(2l-3)\text{-th}} \cdot \underbrace{(n-l+2)}_{(2l-2)\text{-th}} \cdot \underbrace{(n-l+1)}_{(2l-1)\text{-th}} \text,
+\end{equation*}
+which, by grouping odd- and even-numbered choices, we can write in the form
+\begin{equation*}
+	= \underbrace{n \cdot (n-1) \cdots (n-l+2) \cdot (n-l+1)}_{=\dfrac{n!}{(n-l)!}} \; \cdot \; \underbrace{n \cdot (n-1) \cdots (n-l+2)}_{=\dfrac{n!}{(n-l+1)!}} \\
+\end{equation*}
+Therefore, including all possible lengths, the total number of valid crossing sequences is
+\begin{align*}
+	\sum_{l=1}^n \frac{n!}{(n-l)!}\cdot\frac{n!}{(n-l+1)!} \approx (n!)^2 \approx n^{2n} = 2^{2n \log_2 n} \text.
+\end{align*}
+
+\begin{fact}\label{fact:crossing-2DFA-num}
+	The number of valid crossing sequences of a 2DFA is exponential in the number of states.
+\end{fact}
+
 
 \subsubsection{Matching crossing sequences}
 In an accepting computation, the two crossing sequences adjacent to each cell are compatible, meaning their states are the result of valid transitions given the cell's content.
@@ -59,6 +85,7 @@ In general, given a tape cell and two crossing sequences $[q_1,\dots,q_k]$ and $
 If the head moves left from the cell in state $q_i$, restart the automaton on the cell in state $q_{i+1}$; if it moves right in state $p_i$, assume the automaton going back to the cell in state $p_{i+1}$.
 Then check that the resulting computation is composed by states in the two crossing sequences in their correct order.
 
+% TODO I don't like the phrasing
 We recursively define left- and right-matching pairs of crossing sequences with respect to a cell containing symbol $\sigma$.
 Sequence $[q_1,\dots,q_k]$ right-matches sequence $[p_1,\dots,p_l]$ when they are locally compatible starting with a transition to the right on the cell containing $\sigma$ in state $q_1$ and ending to its right, while we have a left-match when the initial transition is to the left in state $p_1$ (while still ending to the right of the cell).
 
@@ -67,38 +94,63 @@ Sequence $[q_1,\dots,q_k]$ right-matches sequence $[p_1,\dots,p_l]$ when they ar
 	Given a 2DFA $A=(Q,\Sigma,\delta,q_0,F)$ we define left- and right-matching pairs of crossing sequences with respect to a symbol $\sigma\in\Sigma$ as follows:
 	\begin{enumerate}[i.]
 		\item The empty sequence $[~]$ right-matches and left-matches itself with respect to $\sigma$.
-		\item \label{itm:crossmatch2dfa-2} If $[q_3,\dots,q_k]$ right-matches $[p_1,\dots,p_l]$ with respect to $\sigma$ and $\delta(q_1,\sigma)=(q_2,\tl)$, then $[q_1,\dots,q_k]$ right-matches $[p_1,\dots,p_l]$ with respect to $\sigma$. The computation enters the cell from the left in state $q_1$, turns around right away leaving it to the left in $q_2$, and eventually comes back to it in $q_3$, to which we apply induction.
-		\item \label{itm:crossmatch2dfa-3} If $[q_2,\dots,q_k]$ left-matches $[p_2,\dots,p_l]$ with respect to $\sigma$ and $\delta(q_1,\sigma)=(p_1,\tr)$, then $[q_1,\dots,q_k]$ right-matches $[p_1,\dots,p_l]$ with respect to $\sigma$. The computation enters the cell from the right in state $p_1$, immediately leaves it to the left in $q_1$, and eventually comes back to it in $q_2$, to which we apply induction.
-		\item Similarly to \ref{itm:crossmatch2dfa-2}, if $[q_1,\dots,q_k]$ left-matches $[p_3,\dots,p_l]$ with respect to $\sigma$ and $\delta(p_1,\sigma)=(p_2,\tr)$, then $[q_1,\dots,q_k]$ left-matches $[p_1,\dots,p_l]$ with respect to $\sigma$.
-		\item Similarly to \ref{itm:crossmatch2dfa-3}, if $[q_2,\dots,q_k]$ left-matches $[p_2,\dots,p_l]$ with respect to $\sigma$ and $\delta(p_1,\sigma)=(q_1,\tl)$, then $[q_1,\dots,q_k]$ left-matches $[p_1,\dots,p_l]$ with respect to $\sigma$.
+		\item \label{itm:crossmatch2DFA-2} If $[q_3,\dots,q_k]$ right-matches $[p_1,\dots,p_l]$ with respect to $\sigma$ and $\delta(q_1,\sigma)=(q_2,\tl)$, then $[q_1,\dots,q_k]$ right-matches $[p_1,\dots,p_l]$ with respect to $\sigma$. The computation enters the cell from the left in state $q_1$, turns around right away leaving it to the left in $q_2$, and eventually comes back to it in $q_3$, to which we apply induction.
+		\item \label{itm:crossmatch2DFA-3} If $[q_2,\dots,q_k]$ left-matches $[p_2,\dots,p_l]$ with respect to $\sigma$ and $\delta(q_1,\sigma)=(p_1,\tr)$, then $[q_1,\dots,q_k]$ right-matches $[p_1,\dots,p_l]$ with respect to $\sigma$. The computation enters the cell from the right in state $p_1$, immediately leaves it to the left in $q_1$, and eventually comes back to it in $q_2$, to which we apply induction.
+		\item Similarly to \ref{itm:crossmatch2DFA-2}, if $[q_1,\dots,q_k]$ left-matches $[p_3,\dots,p_l]$ with respect to $\sigma$ and $\delta(p_1,\sigma)=(p_2,\tr)$, then $[q_1,\dots,q_k]$ left-matches $[p_1,\dots,p_l]$ with respect to $\sigma$.
+		\item Similarly to \ref{itm:crossmatch2DFA-3}, if $[q_2,\dots,q_k]$ left-matches $[p_2,\dots,p_l]$ with respect to $\sigma$ and $\delta(p_1,\sigma)=(q_1,\tl)$, then $[q_1,\dots,q_k]$ left-matches $[p_1,\dots,p_l]$ with respect to $\sigma$.
 	\end{enumerate}
 \end{defn}
-Note that two crossing sequence need not be valid in order to match (e.g. the empty sequence).
+Note that two crossing sequences need not be valid in order to match (e.g. the empty sequence).
 
-% TODO: use newly designed structure
-\subsubsection{From 2DFA to 1NFA}
+\subsubsection{From 2\DFAs{} to 1NFA}
 We will now prove that a 2DFA can be simulated by a 1NFA whose states are the valid crossing sequences of the 2DFA.
-Intuitively, the simulating machine puts together pieces of the computation of $A$ by guessing successive crossing sequences. The full trajectory can be interpreted as a computation of the original machine, where acceptance is only possible if the right boundary of the tape is surpassed on a final state.
-% TODO: update to the precise number of states?
-\begin{thrm}\label{thm:2DFAto1NFA}
-	Let $A$ an $n$-state 2DFA. $A$ can be simulated by a 1NFA with an exponential number of states in $n$.
-\end{thrm}
+By Fact \ref{fact:crossing-2DFA-num} this also proves that there is an exponential upper bound to the distance in descriptional complexity between the two models.
+
+Intuitively, the simulating machine puts together pieces of the computation of $A$ by guessing successive crossing sequences.
+The full trajectory can be interpreted as a computation of the original machine, where acceptance is only possible if the right end-marker is surpassed on a final state.
+Because \NFAs{} do not read end-markers, the starting state will be guessed among the crossing sequences that match the one entering the left end-marker.
+For the same reason, final states correspond to crossing sequences that are compatible to the one surpassing the right end-marker.
+
+Let $A:=(Q,\Sigma,\delta,q_0,F)$ a 2DFA.
+Define the NFA $A':=(Q',\Sigma,\delta',I,F')$ where
+\footnote{
+	Originally, the construction was introduced for 2\DFAs{} without end-markers.
+	In that case, $[q_0]$ is the crossing sequence of the left tape boundary, and it constitutes the initial state of the NFA.
+	Similarly, the right tape boundary is surpassed in a state $f\in F$, therefore all crossing sequences $[f]$ are set as final in the NFA.
+	Simulating 2\DFAs{} with end-markers is generally a stronger result, as they are in some cases exponentially smaller than equivalent 2\DFAs{} without end-markers.
+}
+\begin{itemize}
+	\item $Q'$ is the set of valid crossing sequences of $A$.
+	\item $\delta'(c,\sigma):=\set{d \mid \text{$d$ is right-matched by $c$ with respect to $\sigma$}}$.
+	\item $I:=\set{d\mid \text{$d$ is right-matched by $[q_0]$ with respect to $\lem$}}$.
+	\item $F':=\set{d\mid \exists f\in F: \text{$d$ right-matches $[f]$ with respect to $\rem$}}$.
+\end{itemize}
+
+% TODO: ugly phrasing
+In order to prove that $A'$ accepts the same language as $A$, we prove two separate lemmas:
+\begin{lemm}\label{lem:2DFAto1NFA-1}
+	$\genlang(A)\subseteq\genlang(A')$.
+\end{lemm}
 \begin{proof}
-	Let $A:=(Q,\Sigma,\delta,q_0,F)$. Define $A':=(Q',\Sigma,\delta',q_0',F')$ where
-	\begin{itemize}
-		\item $Q'$ is the set of valid crossing sequences for $A$.
-		\item $q_0'$ is the crossing sequence $[q_0]$.
-		\item $F':=\set{[q_f] \mid q_f\in F}$.
-		\item $\delta'(c,\sigma):=\set{d \mid \text{$d$ is right-matched by $c$ with respect to $\sigma$}}$.
-	\end{itemize}
+	Given a word $w\in\genlang(A)$, consider the crossing sequences generated by an accepting computation of $A$ on $w$.
 
-	If a word $w$ is in $\genlang(A)$, consider the crossing sequences generated by an accepting computation of $A$ on $w$.
-	The leftmost cell of the tape is entered on state $q_0$ and the rightmost cell is left on a final state $q_f$, therefore the crossing sequences of the two boundaries in question are the initial state $[q_0]$ of $A$ and its final state $[q_f]$.
-	Furthermore, each crossing sequence right-matches the one at the next boundary, therefore $A'$ can guess the proper crossing sequences and accept.
-	% TODO: explain why.
-	% TODO: explain why the crossing sequences are valid.
-	% TODO: better phrasing of the part about final states
+	$A$ enters the left end-marker on state $q_0$, hence the crossing sequence of its left boundary is $[q_0]$.
+	The crossing sequence of the next boundary right-matches by construction $[q_0]$ with respect to $\lem$.
+	$A'$ guesses this crossing sequence by nondeterministically selecting its initial state.
 
+	As each crossing sequence right-matches the one at the next boundary, $A'$ can guess, for each symbol, the correct crossing sequence, up to the one that corresponds to the left boundary of $\rem$ (after reading the last symbol of $w$).
+
+	Because $A$ surpasses the right end-marker on a final state $f\in F$, the crossing sequence of the right boundary of $\rem$ is $[f]$.
+	Since $A'$ guessed the correct crossing sequence at the left boundary of $\lem$ in the accepting computation of $A$, such sequence must right-match $[f]$.
+	Therefore, the current state of $A'$ is final and the machine accepts.
+\end{proof}
+
+
+\begin{lemm}\label{lem:2DFAto1NFA-2}
+	$\genlang(A')\subseteq\genlang(A)$.
+\end{lemm}
+% TODO: review and finish proof
+\begin{proof}
 	Conversely, consider a word $w:=w_1\cdots w_n\in\genlang(A')$.
 	For each $i\in\set{0,\dots,n}$, let $c_i$ the crossing sequence (state) guessed by $A'$ after reading $w_i$ in a fixed accepting computation, with $c_0:=[q_0]$.
 	By definition of $\delta'$, for each $i<n$, $c_i$ right-matches $c_{i+1}$ with respect to $w_i$.
@@ -114,38 +166,30 @@ Intuitively, the simulating machine puts together pieces of the computation of $
 		\item[Step] Assume $A'$ enters state $c_i=[p_1,\dots,p_l]$ from state $c_{i-1}=[q_1,\dots,q_k]$ after reading $w_i$.
 		      % TODO: finish. I don't like the way HopUll explains it. What exactly makes $q_1$ the state on the first entry on cell i+1?
 		      % Since $c_{i-1}$ right-matches $c_i$ with respect to $w_i$, and because $k$ and $l$ are both odd, there must be an odd $j$ such that $A$ in state $q_j$ on input $a_i$ moves right.
+
+		      \dots
 	\end{description}
 
 	Because $c_n=[q_f]$, where $q_f\in F$, implies by \ref{itm:2DFA1NFA-1} that $A$ first moves past the right tape edge in state $q_f$, we have that $A$ accepts $w$.
 \end{proof}
 
-
-% TODO: switch to new structure: merge this with 2DFA without end-markers, giving only one simulation
-\subsection{2DFA with end-markers}
-We will now extend our consideration to the case of two-way deterministic finite automata (2DFAs) \emph{with end-markers}.
-% TODO: better describe the model? Where to explain that in this model the computation starts on the lem?
-In two-way models with end-markers, the finite tape is enclosed in a tape segment by two special symbols, the \emph{left end-marker} ($\lem$) on the left and the \emph{right end-marker} ($\rem$) to the right.
-This model can be exponentially more succinct than its counterpart without end-markers, therefore it's natural to wonder if its simulation by a 1NFA has a greater cost in size.
-
-\begin{thrm}
-	Let $A$ an $n$-state 2DFA with end-markers. $A$ can be simulated by a 1NFA with multiple starting states (or $\epsilon$-transitions) with an exponential number of states in $n$.
+Since the inclusion holds both ways, we can conclude that the two machines accept the same language.
+In general:
+\begin{thrm}\label{thm:2DFAto1NFA}
+	Any $n$-state 2DFA can be simulated by a 1NFA with an exponential number of states in $n$.
 \end{thrm}
 \begin{proof}
-	The 2DFA with end-markers $A$ over alphabet $\Sigma$ can be interpreted as a 2DFA without end-markers $\tilde A$ over the alphabet $\Sigma\cup\set{\lem,\rem}$ which accepts $\lem\genlang(A)\rem$.
-	The size of $\tilde A$ is the same as the one of $A$, as we are only interpreting the same machine as a different model.
-	By applying to $\tilde A$ the construction from theorem \ref{thm:2DFAto1NFA} we obtain a NFA $\tilde A'$ for $\lem\genlang(A)\rem$ that has exponential size in the size of $\tilde A$.
-	Because $\lem$ and $\rem$ do not appear in $\genlang(A)$, the only (useful) transitions on the end-markers will be the ones leaving the starting state or reaching the final states.
-	We can obtain a NFA $A'$ for $\genlang(A)$ by applying the following modifications to $\tilde A'$:
-	\begin{itemize}
-		\item We remove the starting state, and set as starting states the ones reached by it on $\lem$. If $\epsilon$-moves are allowed, and a single starting state is preferred, the original starting state can be kept and the transitions exchanged with $\epsilon$-moves.
-		\item We remove the final states, and set as new final states the union of the ones reached by each removed final state on $\rem$. (This could also be done via $\epsilon$-moves if less or one final states are preferred).
-	\end{itemize}
+	Let $A$ be an $n$-state 2DFA and $A'$ the 1NFA built with the construction presented above.
+	Since $\genlang(A)\subseteq\genlang(A')$ by Lemma \ref{lem:2DFAto1NFA-1} and $\genlang(A')\subseteq\genlang(A)$ by Lemma \ref{lem:2DFAto1NFA-2}, it holds that $\genlang(A)=\genlang(A')$, i.e. $A'$ correctly simulates $A$.
 
-	As these modifications will only remove states, the exponential upper bound is preserved.
+	Furthermore, the number of states in $A'$ is the number of valid crossing sequences of $A$, which by Fact \ref{fact:crossing-2DFA-num} is exponential in $n$.
 \end{proof}
 
+% TODO: notes on the possibility to change the number of starting states to one without affecting the simulation cost (proof here or in appendix)
 
-\subsection{Sweeping 2DFA}
+
+% TODO
+\subsection{Sweeping 2\DFAs{}}
 
 
 
