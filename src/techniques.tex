@@ -22,7 +22,7 @@ Therefore, odd-numbered elements of a crossing sequence represent states entered
 \end{fact}
 
 Furthermore, because in the models we will consider the input is accepted by crossing the right boundary of the tape\footnote{%
-Other models can be easily be converted to this behavior: if a machine accepts when a transition is undefined on a final state, that transition can be defined to bring to a new final state, which brings the head to surpass the right boundary.}%
+	Other models can be easily be converted to this behavior: if a machine accepts when a transition is undefined on a final state, that transition can be defined to bring to a new final state, which brings the head to surpass the right boundary.}%
 , the last crossing of any boundary must be towards the right, \ie in an odd position:
 \begin{fact}\label{fact:crossing-length}
 	Any crossing sequence of an accepting computation has odd length.
@@ -106,32 +106,32 @@ For a visual representation of the rules (except rule \ref{itm:crossmatch2DFA-1}
 Note that two crossing sequences need not be valid in order to match (\eg the empty sequence).
 
 \begin{figure}
-    \centering
-    \begin{subfigure}{0.246\textwidth}
-        \centering
+	\centering
+	\begin{subfigure}{0.246\textwidth}
+		\centering
 		\input{tikz/cross2.tikz}
 		\caption*{\ref{itm:crossmatch2DFA-2} r.m.\tto r.m.}
-    \end{subfigure}
-    \hfill
-    \begin{subfigure}{0.242\textwidth}
-        \centering
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}{0.242\textwidth}
+		\centering
 		\input{tikz/cross3.tikz}
 		\caption*{\ref{itm:crossmatch2DFA-3} l.m.\tto r.m.}
-    \end{subfigure}
-    \hfill
-    \begin{subfigure}{0.242\textwidth}
-        \centering
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}{0.242\textwidth}
+		\centering
 		\input{tikz/cross4.tikz}
 		\caption*{\ref{itm:crossmatch2DFA-4} l.m.\tto l.m.}
-    \end{subfigure}
-    \hfill
-    \begin{subfigure}{0.246\textwidth}
-        \centering
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}{0.246\textwidth}
+		\centering
 		\input{tikz/cross5.tikz}
 		\caption*{\ref{itm:crossmatch2DFA-5} r.m.\tto l.m.}
-    \end{subfigure}
-	\caption{Inductive definition of \emph{$[q_1,\dots,q_k]$ left/right-matches $[p_1,\dots,p_l]$}.}
-    \label{fig:2DFA-crossmatch}
+	\end{subfigure}
+	\caption{Inductive definition of \emph{$[q_1,\dots,q_k]$ left/right-matches $[p_1,\dots,p_l]$}. The parts labeled r.m.\ (right-matching) and l.m.\ (left-matching) represent the inductive hypotheses.}
+	\label{fig:2DFA-crossmatch}
 \end{figure}
 
 \subsubsection{From 2\DFAs{} to 1NFA}
@@ -198,13 +198,13 @@ In order to prove that $A'$ accepts the same language as $A$, we prove two separ
 	\end{enumerate}
 	\begin{description}
 		\item[Base] By definition of $I$, $c_0$ is right-matched by $[q_0]$ with respect to $\lem$. Since position $0$ contains $\lem$, which cannot be surpassed to the left, the right-match must follow from rule \ref{itm:crossmatch2DFA-3}, hence $\delta(q_0,\lem)=(q_1,\tr)$ and $[~]$ left-matches $[q_2,\dots,q_k]$.
-			\ref{lem:2DFAto1NFA-2-1} is satisfied as $A$ moves for the first time in position $1$ in state $q_1$.
-			\ref{lem:2DFAto1NFA-2-2} follows from the fact that the left-match with $[~]$ must follow from repeated applications of rule \ref{itm:crossmatch2DFA-4}, giving $\delta(q_{2j},\lem)=(q_{2j+1},\tr)$ for all values of $j$.
+		      \ref{lem:2DFAto1NFA-2-1} is satisfied as $A$ moves for the first time in position $1$ in state $q_1$.
+		      \ref{lem:2DFAto1NFA-2-2} follows from the fact that the left-match with $[~]$ must follow from repeated applications of rule \ref{itm:crossmatch2DFA-4}, giving $\delta(q_{2j},\lem)=(q_{2j+1},\tr)$ for all values of $j$.
 		\item[Step] Assume $A'$ transitions from state $c_{i-1}=[q_1,\dots,q_k]$ to state $c_i=[p_1,\dots,p_l]$ after reading $w_i$.
-			Since $c_{i-1}$ right-matches $c_i$, and $l$ and $k$ are odd ($c_{i-1}$ and $c_i$ being \emph{valid}), in the recursively defined right-match there must be an application of rule \ref{itm:crossmatch2DFA-3} (after a number of applications of rule \ref{itm:crossmatch2DFA-2}).
-			Therefore there exists some smallest $j_1$ such that $\delta(q_{j_1},w_i)=(p_1,\tr)$ (which proves \ref{lem:2DFAto1NFA-2-1}) and that $[q_{j_1+1},\dots,q_k]$ left-matches $[p_2,\dots,p_l]$.
-			If the left-match follows from sole applications of rule \ref{itm:crossmatch2DFA-4}, then \ref{lem:2DFAto1NFA-2-2} is satisfied.
-			Otherwise by rule \ref{itm:crossmatch2DFA-5} a right-match is derived and the argument repeats. \qedhere
+		      Since $c_{i-1}$ right-matches $c_i$, and $l$ and $k$ are odd ($c_{i-1}$ and $c_i$ being \emph{valid}), in the recursively defined right-match there must be an application of rule \ref{itm:crossmatch2DFA-3} (after a number of applications of rule \ref{itm:crossmatch2DFA-2}).
+		      Therefore there exists some smallest $j_1$ such that $\delta(q_{j_1},w_i)=(p_1,\tr)$ (which proves \ref{lem:2DFAto1NFA-2-1}) and that $[q_{j_1+1},\dots,q_k]$ left-matches $[p_2,\dots,p_l]$.
+		      If the left-match follows from sole applications of rule \ref{itm:crossmatch2DFA-4}, then \ref{lem:2DFAto1NFA-2-2} is satisfied.
+		      Otherwise by rule \ref{itm:crossmatch2DFA-5} a right-match is derived and the argument repeats. \qedhere
 	\end{description}
 \end{proof}
 
@@ -225,7 +225,7 @@ In general:
 
 % TODO
 \subsection{Sweeping 2\DFAs{}}
-
+\dots
 
 
 % TODO
