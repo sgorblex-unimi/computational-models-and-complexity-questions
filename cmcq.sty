@@ -24,5 +24,14 @@
 \newcommand{\NFAs}{NFAs}
 \newcommand{\ie}[1][]{i.e.#1\ }
 \newcommand{\eg}[1][]{e.g.#1\ }
+\newcommand{\tto}{\textrightarrow}
 
 \renewcommand{\epsilon}{\varepsilon}
+
+\usepackage{subcaption}
+\usepackage{tikz}
+\usetikzlibrary{external}
+\usetikzlibrary{chains,automata,decorations.pathreplacing}
+\tikzexternalize[prefix=tikz_cache/]
+\tikzset{tapeseg/.style={minimum height=1.5em,minimum width=1.5em,outer sep=0pt,node distance=0pt},cell/.style={rectangle,draw,tapeseg},transition/.style={->,shorten <=.3mm,shorten >=.3mm}}
+\tikzset{smalldashed/.style={dash pattern={on 1.5pt off 1.5pt}},brace/.style={decorate,decoration={brace,amplitude=3}}}

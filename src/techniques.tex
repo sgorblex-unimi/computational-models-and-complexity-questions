@@ -90,11 +90,10 @@ Then check that the resulting computation is composed by states in the two cross
 We recursively define left- and right-matching pairs of crossing sequences with respect to a cell containing symbol $\sigma$.
 Sequence $[q_1,\dots,q_k]$ right-matches sequence $[p_1,\dots,p_l]$ when they are locally compatible starting with a transition to the right on the cell containing $\sigma$ in state $q_1$ and ending to its right, while we have a left-match when the initial transition is to the left in state $p_1$ (while still ending to the right of the cell).
 
-% TODO: add pictures
 \begin{defn}
 	Given a 2DFA $A=(Q,\Sigma,\delta,q_0,F)$ we define left- and right-matching pairs of crossing sequences with respect to a symbol $\sigma\in\Sigma$ as follows:
 	\begin{enumerate}[i.]
-		\item The empty sequence $[~]$ right-matches and left-matches itself with respect to $\sigma$.
+		\item \label{itm:crossmatch2DFA-1} The empty sequence $[~]$ right-matches and left-matches itself with respect to $\sigma$.
 		\item \label{itm:crossmatch2DFA-2} If $[q_3,\dots,q_k]$ right-matches $[p_1,\dots,p_l]$ with respect to $\sigma$ and $\delta(q_1,\sigma)=(q_2,\tl)$, then $[q_1,\dots,q_k]$ right-matches $[p_1,\dots,p_l]$ with respect to $\sigma$.
 		      The computation enters the cell from the left in state $q_1$, turns around right away leaving it to the left in $q_2$, and eventually comes back to it in $q_3$, to which we apply induction.
 		\item \label{itm:crossmatch2DFA-3} If $[q_2,\dots,q_k]$ left-matches $[p_2,\dots,p_l]$ with respect to $\sigma$ and $\delta(q_1,\sigma)=(p_1,\tr)$, then $[q_1,\dots,q_k]$ right-matches $[p_1,\dots,p_l]$ with respect to $\sigma$.
@@ -103,7 +102,37 @@ Sequence $[q_1,\dots,q_k]$ right-matches sequence $[p_1,\dots,p_l]$ when they ar
 		\item \label{itm:crossmatch2DFA-5} Similarly to \ref{itm:crossmatch2DFA-3}, if $[q_2,\dots,q_k]$ left-matches $[p_2,\dots,p_l]$ with respect to $\sigma$ and $\delta(p_1,\sigma)=(q_1,\tl)$, then $[q_1,\dots,q_k]$ left-matches $[p_1,\dots,p_l]$ with respect to $\sigma$.
 	\end{enumerate}
 \end{defn}
+For a visual representation of the rules (except rule \ref{itm:crossmatch2DFA-1}) see Figure \ref{fig:2DFA-crossmatch}.
 Note that two crossing sequences need not be valid in order to match (\eg the empty sequence).
+
+\begin{figure}
+    \centering
+    \begin{subfigure}{0.246\textwidth}
+        \centering
+		\input{tikz/cross2.tikz}
+		\caption*{\ref{itm:crossmatch2DFA-2} r.m.\tto r.m.}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{0.242\textwidth}
+        \centering
+		\input{tikz/cross3.tikz}
+		\caption*{\ref{itm:crossmatch2DFA-3} l.m.\tto r.m.}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{0.242\textwidth}
+        \centering
+		\input{tikz/cross4.tikz}
+		\caption*{\ref{itm:crossmatch2DFA-4} l.m.\tto l.m.}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{0.246\textwidth}
+        \centering
+		\input{tikz/cross5.tikz}
+		\caption*{\ref{itm:crossmatch2DFA-5} r.m.\tto l.m.}
+    \end{subfigure}
+	\caption{Inductive definition of \emph{$[q_1,\dots,q_k]$ left/right-matches $[p_1,\dots,p_l]$}.}
+    \label{fig:2DFA-crossmatch}
+\end{figure}
 
 \subsubsection{From 2\DFAs{} to 1NFA}
 We will now prove that a 2DFA can be simulated by a 1NFA whose states are the valid crossing sequences of the 2DFA.

@@ -1,0 +1,34 @@
+\begin{tikzpicture}[tapeseg/.append style={minimum width=2.5em}]
+	\node[cell,thick] (sigma) {$\sigma$};
+	\draw[thick,dashed] (sigma.north west) -- ++(-6mm,0) (sigma.south west) -- ++(-6mm,0);
+	\draw[thick,dashed] (sigma.north east) -- ++(+6mm,0) (sigma.south east) -- ++(+6mm,0);
+	\draw[dashed,shorten <=.1cm,thin] (sigma.south west) -- ++(0cm,-28mm);
+	\draw[dashed,shorten <=.1cm,thin] (sigma.south east) -- ++(0cm,-28mm);
+
+	\node[tapeseg,node distance=1pt] (leftalign) at ([xshift=-1.5mm]sigma) {};
+	\node[tapeseg,node distance=1pt] (leftleftalign) at ([xshift=-7mm]sigma) {};
+	\node[tapeseg,node distance=1pt] (rightalign) at ([xshift=1.5mm]sigma) {};
+	\node[tapeseg,node distance=1pt] (rightrightalign) at ([xshift=7mm]sigma) {};
+
+	\node (q1) [below=.5mm of leftalign] {$q_1$};
+	\node (p1) [below=4mm of rightrightalign] {$p_1$};
+	\draw[transition] ([shift={(-5mm,2mm)}]q1.south) -- (q1.south);
+	\draw[transition] (q1.south) -- (p1.south);
+
+	\draw[dotted,thin] ([shift={(-6mm,-13mm)}]sigma.west) -- ([shift={(6mm,-13mm)}]sigma.east);
+
+	\node (p2) [below=10.5mm of rightalign] {$p_2$};
+	\draw[transition,smalldashed] (p1.south) .. controls +(.5,-.3) .. (p2.south);
+	\node (pdots) [below=5.5mm of p1] {$\vdots$};
+	\node (pl) [below=-1mm of pdots] {$p_l$};
+	\draw[transition] ([shift={(-5mm,2mm)}]pl.south) -- (pl.south);
+
+	\node (q2) [below=12mm of leftleftalign] {$q_2$};
+	\node (qdots) [below=8mm of q1] {$\vdots$};
+	\node (qk) [below=-1mm of qdots] {$q_k$};
+	\draw[transition] ([shift={(5mm,2mm)}]q2.south) -- (q2.south);
+	\draw[transition] ([shift={(-5mm,2mm)}]qk.south) -- (qk.south);
+
+	\scriptsize
+	\draw[brace] ([shift={(1mm,13.5mm)}]pl.east) -- node[right=2pt] {l.m.} ([shift={(1mm,-3.5mm)}]pl.east);
+\end{tikzpicture}
