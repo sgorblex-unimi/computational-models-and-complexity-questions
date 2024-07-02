@@ -28,10 +28,16 @@
 
 \renewcommand{\epsilon}{\varepsilon}
 
+\usepackage{caption}
+\captionsetup{tableposition=top,figureposition=bottom,font=small,labelfont={sf,bf}}%,format=hang}
 \usepackage{subcaption}
+
 \usepackage{tikz}
 \usetikzlibrary{external}
 \usetikzlibrary{chains,automata,decorations.pathreplacing}
 \tikzexternalize[prefix=tikz_cache/]
 \tikzset{tapeseg/.style={minimum height=1.5em,minimum width=1.5em,outer sep=0pt,node distance=0pt},cell/.style={rectangle,draw,tapeseg},transition/.style={->,shorten <=.3mm,shorten >=.3mm}}
 \tikzset{smalldashed/.style={dash pattern={on 1.5pt off 1.5pt}},brace/.style={decorate,decoration={brace,amplitude=3}}}
+
+\usepackage[isbn=false,citestyle=numeric-comp,sorting=none,sortcites=true]{biblatex}
+\addbibresource{bibliography.bib}
