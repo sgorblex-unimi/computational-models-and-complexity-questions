@@ -1,16 +1,35 @@
-\usepackage[shortlabels]{enumitem}
 \usepackage{amsmath,amssymb}
 
+
 \usepackage{amsthm}
+\usepackage[capitalise]{cleveref}
+
 \theoremstyle{plain}
 \newtheorem{thrm}{Theorem}[chapter]
-\newtheorem{crll}[thrm]{Corollary}
-\newtheorem{lemm}[thrm]{Lemma}
+\crefname{thrm}{theorem}{theorems}
 \newtheorem{fact}[thrm]{Fact}
+\crefname{fact}{fact}{facts}
+\newtheorem{lemm}[thrm]{Lemma}
+\crefname{lemma}{lemma}{lemmas}
+
+% \theoremstyle{remark}
+% \newtheorem{exmp}{Example}[chapter]
+
 \theoremstyle{definition}
 \newtheorem{defn}{Definition}[chapter]
-\theoremstyle{remark}
-\newtheorem{exmp}{Example}[chapter]
+\crefname{defn}{definition}{definitions}
+
+
+\usepackage[shortlabels]{enumitem}
+
+\newlist{rules}{enumerate}{1}
+\setlist[rules]{label={\roman*.},ref={\roman*}}
+\crefname{rulesi}{rule}{rules}
+
+\newlist{statements}{enumerate}{1}
+\setlist[statements]{label={(\arabic*)}}
+\crefname{statementsi}{statement}{statements}
+
 
 \newcommand{\tl}{\mathtt L}
 \newcommand{\tr}{\mathtt R}
