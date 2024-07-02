@@ -29,15 +29,15 @@ Furthermore, since in the models we consider the input is accepted by crossing t
 \end{fact}
 
 
-\subsection{2\DFAs{}}
-We now consider the specific case of two-way deterministic finite automata (2\DFAs{}).
+\subsection{2\DFAs}
+We now consider the specific case of two-way deterministic finite automata (2\DFAs).
 If a 2DFA accepts an input word $w$, the computation on $w$ will never enter the same state twice while surpassing the same boundary in the same direction, otherwise the machine, being deterministic, would run in a loop and thus not accept.
 In terms of crossing sequences:
 \begin{fact}\label{fact:crossing-2DFA-parity}
 	No crossing sequence of an accepting computation of a 2DFA may contain the same state in two positions of the same parity.
 \end{fact}
 
-We are now ready to define \emph{valid crossing sequences} for 2\DFAs{}:
+We are now ready to define \emph{valid crossing sequences} for 2\DFAs:
 \begin{defn}
 	Given a 2DFA $A$, a crossing sequence over the states of $A$ is called \emph{valid} if and only if:
 	\begin{itemize}
@@ -132,7 +132,7 @@ Note that two crossing sequences need not be valid in order to match (\eg the em
 	\label{fig:2DFA-crossmatch}
 \end{figure}
 
-\subsubsection{From 2\DFAs{} to 1NFA}
+\subsubsection{From 2\DFAs to 1NFA}
 We now prove that a 2DFA can be simulated by a 1NFA whose states are the valid crossing sequences of the 2DFA.
 By \Cref{fact:crossing-2DFA-num} this also proves that an exponential number of states in the size of the 2DFA is sufficient for such a simulation.
 
@@ -142,16 +142,16 @@ The full trajectory can be interpreted as a computation of the original machine,
 Let $A:=(Q,\Sigma,\delta,q_I,F)$ a 2DFA.
 Define the NFA $A':=(Q',\Sigma,\delta',I,F')$ where%
 \footnote{
-	Originally, the construction was introduced for 2\DFAs{} without end-markers \cite{RabSco59}.
+	Originally, the construction was introduced for 2\DFAs without end-markers \cite{RabSco59}.
 	In that case, $[q_I]$ is the crossing sequence of the left tape boundary, and it constitutes the initial state of the NFA.
 	Similarly, the right tape boundary is passed in a state $q_f\in F$, therefore all crossing sequences $[q_f]$ are set as final in the NFA (for details see, \eg[,] \cite{HopUll79}).
-	Simulating 2\DFAs{} with end-markers is generally a stronger result, as they are in some cases exponentially smaller than equivalent 2\DFAs{} without end-markers:
+	Simulating 2\DFAs with end-markers is generally a stronger result, as they are in some cases exponentially smaller than equivalent 2\DFAs without end-markers:
 }
 \begin{itemize}
 	\item $Q'$ is the set of valid crossing sequences of $A$.
 	\item $\delta'(c,\sigma):=\set{d \mid \text{$d$ is right-matched by $c$ with respect to~$\sigma$}}$.
 \end{itemize}
-Since \NFAs{} do not read end-markers, the starting state will be guessed among the crossing sequences that match the one entering the left end-marker.
+Since \NFAs do not read end-markers, the starting state will be guessed among the crossing sequences that match the one entering the left end-marker.
 For the same reason, final states correspond to crossing sequences that are compatible to the one passing the right end-marker:
 \begin{itemize}
 	\item $I:=\set{d\mid \text{$d$ is right-matched by $[q_I]$ with respect to $\lem$}}$.
@@ -222,7 +222,7 @@ In general:
 
 
 % TODO
-\subsection{Sweeping 2\DFAs{}}
+\subsection{Sweeping 2\DFAs}
 \dots
 
 
