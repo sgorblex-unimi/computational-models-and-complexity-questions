@@ -141,7 +141,7 @@ The full trajectory can be interpreted as a computation of the original machine,
 
 Let $A:=(Q,\Sigma,\delta,q_I,F)$ a 2DFA.
 Define the NFA $A':=(Q',\Sigma,\delta',I,F')$ where%
-\footnote{
+\footnote{ % TODO: move in models chapter
 	Originally, the construction was introduced for 2\DFAs without end-markers \cite{RabSco59}.
 	In that case, $[q_I]$ is the crossing sequence of the left tape boundary, and it constitutes the initial state of the NFA.
 	Similarly, the right tape boundary is passed in a state $q_f\in F$, therefore all crossing sequences $[q_f]$ are set as final in the NFA (for details see, \eg[,] \cite{HopUll79}).

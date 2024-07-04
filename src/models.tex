@@ -1,3 +1,70 @@
-% TODO
 \chapter{Computational models}
-\dots
+The language accepted by a machine $M$ is denoted by $\genlang(M)$.
+
+% A machine working over a single letter alphabet is called unary, as its generated language.
+
+\begin{defn}
+	A machine with transition function $\delta:S\to\subsets{T}$ is said to be deterministic whenever $\card{\delta(s)}\le1$, for any $s\in S$.
+
+	In this case, $\delta$ can be interpreted as a partial function, with the notation $\delta(s)=t$ used as a shorthand for $\delta(s)=\set{t}$.
+\end{defn}
+
+\begin{defn}[one-way finite automata]
+	A \emph{(one-way) nondeterministic finite automaton} (1NFA or simply NFA) is a quintuple $(Q,\Sigma,\delta,q_I,F)$ where:
+	\begin{itemize}
+		\item $Q$ is the finite and nonempty set of \emph{states},
+		\item $\Sigma$ is the finite \emph{input alphabet},
+		\item $\delta:Q\times\Sigma\to\subsets Q$ is the \emph{transition function},
+		\item $q_I\in Q$ is the \emph{initial state}, and
+		\item $F\subseteq Q$ is the set of \emph{accepting} (or \emph{final}) \emph{states}.
+	\end{itemize}
+	The input word $w$ is read from left to right, one symbol at a time.
+	With each step, the machine changes its state, with the transition function $\delta$ representing the possible next states based on the current state and the symbol read.
+	The NFA accepts an input string $w=w_1\cdots w_n$ if there is a sequence of states $q_0,q_1,\dots,q_n$ such that $q_0=q_I$, $q_n\in F$, and for each $i\in\set{0,1,\dots,n-1}$, $q_{i+1}\in\delta(q_i,w_i)$.
+
+	The deterministic version of 1NFA is indicated with 1DFA, or simply DFA.
+\end{defn}
+
+
+
+\begin{defn}[two-way finite automata]
+	A \emph{two-way nondeterministic finite automaton} (2NFA) is a quintuple $(Q,\Sigma,\delta,q_I,F)$ where:
+	\begin{itemize}
+		\item $Q$, $\Sigma$, $q_I$ and $F$ are defined as for 1NFAs, and
+		\item $\delta:Q\times(\Sigma\cup\set{\lem,\rem})\to\subsets{Q\times\set{\tl,\tr}}$ is the \emph{transition function}, with the two special symbols $\lem,\rem\notin\Sigma$ called the left and the right end-markers, respectively,
+	\end{itemize}
+	The input word $w$ is stored onto a tape surrounded by the two end-markers, the left end-marker being at position zero and the right end-marker at position $\len w+1$.
+	The tape has a head initially pointing at $\lem$.
+	In one move, the machine reads an input symbol, changes its state, and moves the tape head one position left or right, depending on whether $\delta$ returns $\tl$ or $\tr$, respectively.
+	Furthermore, the head cannot surpass the end-markers, except at the end of computation, to accept the input.
+	The machine accepts the input if there exists a computation path that starts in the initial state $q_I$ and ends in a final state $q_f\in F$ after moving right from $\rem$.
+
+	The deterministic version of 2NFA is indicated with 2DFA.
+\end{defn}
+
+
+
+
+
+\begin{defn}[limited automata]
+	Given an integer $k\ge0$, a \emph{$k$-limited automaton} ($k$-LA) is a 6-tuple $(Q,\Sigma,\Gamma,\delta,q_I,F)$ where:
+	\begin{itemize}
+		\item $Q$, $\Sigma$, $q_I$ and $F$ are defined as for 2NFAs,
+		\item $\Gamma$ is the finite \emph{working alphabet}, partitioned into $\Gamma_0\cup\Gamma_1\cup\cdots\cup\Gamma_k$, where $\Gamma_0=\Sigma$, and
+		\item $\delta:Q\times\Gamma\to\subsets{Q\times(\Gamma\setminus\set{\lem,\rem})\times\set{\tl,\tr}}$ is the \emph{transition function},
+	\end{itemize}
+	The tape is initially setup as for 2NFAs.
+	In one move the machine, besides changing its state and moving the tape head, changes the content of the cell under the head according to the transition function.
+
+	Furthermore, the transition function is subject to restrictions which, essentially, allow to modify the content of a cell only during the first $k$ visits.
+	In order to implement these restrictions, $\delta$ is required to satisfy the following condition. For each $(t,y,d)\in\delta(s,x)$, with $x\in\Gamma_i$:
+	\begin{enumerate}[(1)]
+		\item if $i=k$ then $x=y$,
+		\item if $i<k$ and $d=\tr$ then $y\in\Gamma_j$, with $j=\min\set{\ceil{\frac{i}{2}}\cdot 2+1,k}$, and
+		\item if $i<k$ and $d=\tl$ then $y\in\Gamma_j$, with $j=\min\set{\ceil{\frac{i+1}{2}}\cdot 2,k}$.
+	\end{enumerate}
+
+	\noindent Acceptance is defined as for 2NFAs.
+
+	\noindent The deterministic version of $k$-LA is indicated with $k$-DLA.
+\end{defn}
