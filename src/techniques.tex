@@ -227,6 +227,36 @@ In general:
 \dots
 
 
-% TODO
 \section{Transition tables}
-\dots
+
+\begin{defn}
+	Given a 2DFA $A=(Q,\Sigma,\delta,q_I,F)$ a transition table of $A$ is a partial function $\tau:Q\to Q$.
+	A transition table is assigned to each word. In particular:
+	\begin{rules}
+		\item for each $r\in Q$, $\tau_\emptyword(r):=s$, where $\delta(r,\lem)=(s,\tr)$,
+		\item for each $r\in Q,w\in\Sigma\star,\sigma\in\Sigma$, $\tau_{w\sigma}(r):=s$, if either $\delta(r,a)=(s,\tr)$, or there exist an integer $k\ge1$ and states $q_1,\dots,q_k,r_1,\dots,r_k$ such that
+		\begin{itemize}
+			\item $\delta(r,a)=(q_1,\tl)$,
+			\item $\tau_w(q_i)=r_i$ for all $i\in\set{1,\dots,k}$,
+			\item $\delta(r_i,\sigma)=(q_{i+1},\tl)$ for all $i\in\set{1,\dots,k-1}$, and
+			\item $\delta(q_k,\sigma)=(s,\tr)$.
+		\end{itemize}
+	\end{rules}
+	We denote with $\transtabset$ the set of the transition tables of $A$.
+	Notice that if $\tau_w$ is known, knowledge of $w$ is not needed in order to calculate $\tau_{w\sigma}$.
+	For this reason we define, for each $\sigma\in\Sigma$, the function $t_\sigma:\transtabset\to\transtabset$ that maps a transition table $\tau_w$ to $\tau_{w\sigma}$.
+\end{defn}
+
+
+% TODO: make A' recognise lem w rem ? In that case, change q'_I to a new initial state and F' to the obvious
+
+Let $A:=(Q,\Sigma,\delta,q_I,F)$ a 2DFA.
+Define the DFA $A':=(Q',\Sigma,\delta',q'_I,F')$ where
+\begin{itemize}
+	\item $Q':=Q\times\transtabset$, where $\transtabset$ is the set of transition tables of $A$,
+	\item $\delta'((r,\tau),\sigma):=(s,\pi)$, with $\pi:=t_\sigma(\tau)$ and $s:=\pi(r)$,
+	\item $q'_I:=(s,\tau_\emptyword)$, where $\delta(q_I,\lem)=(s,\tr)$ and
+	\item $F':=\set{(p,\tau)\mid \exists q_f\in F \st t_\rem(\tau)=q}$.
+\end{itemize}
+
+% TODO: proof: induction to prove that $\delta'(q'_I,w)=(p,\tau)$ iff there exists a computation of $A$ that ends in state p after reading w (follows that $A'$ accepts w iff $A$ does)
