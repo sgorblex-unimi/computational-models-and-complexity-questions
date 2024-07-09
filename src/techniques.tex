@@ -9,6 +9,7 @@
 
 
 \section{Crossing sequences}
+% TODO: add example (with pic)?
 Given a two-way machine and one of its possible computations over a certain input, consider a tape cell and one of the two \emph{boundaries} at its sides.
 A crossing sequence $[q_1,q_2,\dots]$ is the sequence of states that the machine enters as the head crosses such boundary, \ie it enters or leaves the cell on the chosen side.
 
@@ -94,9 +95,9 @@ For a visual representation of the formal definition see \Cref{fig:2DFA-crossmat
 	\begin{rules}
 		\item \label{itm:crossmatch2DFA-1} The empty sequence $[~]$ right-matches and left-matches itself with respect to~$\sigma$.
 		\item \label{itm:crossmatch2DFA-2} If $[q_3,\dots,q_k]$ right-matches $[p_1,\dots,p_l]$ with respect to~$\sigma$ and $\delta(q_1,\sigma)=(q_2,\tl)$, then $[q_1,\dots,q_k]$ right-matches $[p_1,\dots,p_l]$ with respect to~$\sigma$.
-		      The computation enters the cell from the left in state $q_1$, turns around right away leaving it to the left in $q_2$, and eventually comes back to it in $q_3$, to which we apply induction.
+		The computation enters the cell from the left in state $q_1$, turns around right away leaving it to the left in $q_2$, and eventually comes back to it in $q_3$, to which we apply induction.
 		\item \label{itm:crossmatch2DFA-3} If $[q_2,\dots,q_k]$ left-matches $[p_2,\dots,p_l]$ with respect to~$\sigma$ and $\delta(q_1,\sigma)=(p_1,\tr)$, then $[q_1,\dots,q_k]$ right-matches $[p_1,\dots,p_l]$ with respect to~$\sigma$.
-		      The computation enters the cell from the right in state $p_1$, immediately leaves it to the left in $q_1$, and eventually comes back to it in $q_2$, to which we apply induction.
+		The computation enters the cell from the right in state $p_1$, immediately leaves it to the left in $q_1$, and eventually comes back to it in $q_2$, to which we apply induction.
 		\item \label{itm:crossmatch2DFA-4} Similarly to \Cref{itm:crossmatch2DFA-2}, if $[q_1,\dots,q_k]$ left-matches $[p_3,\dots,p_l]$ with respect to~$\sigma$ and $\delta(p_1,\sigma)=(p_2,\tr)$, then $[q_1,\dots,q_k]$ left-matches $[p_1,\dots,p_l]$ with respect to~$\sigma$.
 		\item \label{itm:crossmatch2DFA-5} Similarly to \Cref{itm:crossmatch2DFA-3}, if $[q_2,\dots,q_k]$ right-matches $[p_2,\dots,p_l]$ with respect to~$\sigma$ and $\delta(p_1,\sigma)=(q_1,\tl)$, then $[q_1,\dots,q_k]$ left-matches $[p_1,\dots,p_l]$ with respect to~$\sigma$.
 	\end{rules}
@@ -208,7 +209,7 @@ In order to prove that $A'$ accepts the same language as $A$, we prove two separ
 
 Since the inclusion between $\genlang(A)$ and $\genlang(A')$ holds both ways, we can conclude that the two machines accept the same language.
 In general:
-\begin{thrm}\label{thm:2DFAto1NFA}
+\begin{thrm}
 	Every $n$-state 2DFA can be simulated by a 1NFA with an exponential number of states in $n$.
 \end{thrm}
 \begin{proof}
