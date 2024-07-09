@@ -1,3 +1,28 @@
-% TODO
 \chapter{Sweeping limited automata}
-\dots
+
+% TODO: definition of valid crossing sequence (fixed length ~k?)
+
+\begin{defn}
+	Given a sweeping $k$-DLA $A:=(Q,\Sigma,\Gamma,\delta,q_I,F)$, we define the relations $\RM,\LM\subseteq(\crosseqset\times\crosseqset\times\Gamma\times\Gamma)$ or right- and left-matching as follows.
+	If $(c,d,\sigma,\lambda)\in\RM$ ($\LM$), we say that $c$ right-matches (left-matches) $d$ with respect to $\sigma$ leaving $\lambda$.
+	\begin{rules}
+		% TODO: remove first rule and mention 0-LA separately?
+		\item \label{itm:crossmatchswepDLA-1} $([~],[~],\sigma,\lambda)\in\RM$ and $([~],[~],\sigma,\lambda)\in\LM$ for any $\sigma,\lambda\in\Gamma$. % only necessary for 0-LA
+		\item \label{itm:crossmatchswepDLA-2} If $\delta(p,\sigma)=(q,\lambda,\tl)$, then $([q],[p],\sigma,\lambda)\in\LM$.
+		\item \label{itm:crossmatchswepDLA-3} If $([q_2,\dots,q_h], [p_2,\dots,p_l], \sigma', \lambda) \in \LM$, $h,l\ge1$, and $\delta(q_1,\sigma)=(p_1,\sigma',\tr)$, then $([q_1,\dots,q_h],[p_1,\dots,p_l],\sigma,\lambda)\in\RM$.
+		% The computation enters the cell containing $\sigma$ from the right in state $p_1$, immediately leaves it to the left in $q_1$, and eventually comes back to it in $q_2$, to which we apply induction.
+		\item \label{itm:crossmatchswepDLA-4} If $([q_2,\dots,q_h], [p_2,\dots,p_l], \sigma', \lambda) \in \RM$, $h,l\ge1$, and $\delta(p_1,\sigma)=(q_1,\sigma',\tl)$, then $([q_1,\dots,q_h],[p_1,\dots,p_l],\sigma,\lambda)\in\LM$.
+	\end{rules}
+\end{defn}
+
+
+Let $A:=(Q,\Sigma,\Gamma,\delta,q_I,F)$ a sweeping $k$-DLA.
+Let $\crosseqset$ the set of its valid crossing sequences, $\transtabset$ is the set of its transition tables, and $\RM\subseteq(\crosseqset\times\crosseqset\times\Gamma\times\Gamma)$ the relation of its right-matching crossing sequences.
+
+Define the NFA $A':=(Q',\Sigma,\delta',q_I,F')$, where
+\begin{itemize}
+	\item $Q'=(\mathcal C\times\mathcal T\times Q)\cup\set{q_I}$,
+	\item $\delta'((c,\tau,r),\sigma):=\set{(d,\pi,s) \mid (c,d,\sigma,\lambda)\in\RM, \pi=t_\lambda(\tau), s=\pi(r)}$.
+	\item $q_I\in Q'$ is the \emph{initial state}, and
+	\item $F':=\set{(c,\tau,s)\mid s\in F}$.
+\end{itemize}
