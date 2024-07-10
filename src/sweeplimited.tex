@@ -1,28 +1,80 @@
 \chapter{Sweeping limited automata}
 
-% TODO: definition of valid crossing sequence (fixed length ~k?)
 
+
+\section{Crossing sequences}
+
+
+\subsection{Matching crossing sequences}
+% TODO: it can technically hold for any LBA
 \begin{defn}
-	Given a sweeping $k$-DLA $A:=(Q,\Sigma,\Gamma,\delta,q_I,F)$, we define the relations $\RM,\LM\subseteq(\crosseqset\times\crosseqset\times\Gamma\times\Gamma)$ or right- and left-matching as follows.
-	If $(c,d,\sigma,\lambda)\in\RM$ ($\LM$), we say that $c$ right-matches (left-matches) $d$ with respect to $\sigma$ leaving $\lambda$.
+	Given a $k$-DLA $A:=(Q,\Sigma,\Gamma,\delta,q_I,F)$, we define left- and right-matching pairs of crossing sequences with respect to a symbol $\sigma\in\Gamma$ as follows:
 	\begin{rules}
-		% TODO: remove first rule and mention 0-LA separately?
-		\item \label{itm:crossmatchswepDLA-1} $([~],[~],\sigma,\lambda)\in\RM$ and $([~],[~],\sigma,\lambda)\in\LM$ for any $\sigma,\lambda\in\Gamma$. % only necessary for 0-LA
-		\item \label{itm:crossmatchswepDLA-2} If $\delta(p,\sigma)=(q,\lambda,\tl)$, then $([q],[p],\sigma,\lambda)\in\LM$.
-		\item \label{itm:crossmatchswepDLA-3} If $([q_2,\dots,q_h], [p_2,\dots,p_l], \sigma', \lambda) \in \LM$, $h,l\ge1$, and $\delta(q_1,\sigma)=(p_1,\sigma',\tr)$, then $([q_1,\dots,q_h],[p_1,\dots,p_l],\sigma,\lambda)\in\RM$.
-		% The computation enters the cell containing $\sigma$ from the right in state $p_1$, immediately leaves it to the left in $q_1$, and eventually comes back to it in $q_2$, to which we apply induction.
-		\item \label{itm:crossmatchswepDLA-4} If $([q_2,\dots,q_h], [p_2,\dots,p_l], \sigma', \lambda) \in \RM$, $h,l\ge1$, and $\delta(p_1,\sigma)=(q_1,\sigma',\tl)$, then $([q_1,\dots,q_h],[p_1,\dots,p_l],\sigma,\lambda)\in\LM$.
+		\item \label{itm:crossmatchswepDLA-1} The empty sequence $[~]$ right-matches and left-matches itself with respect to~$\sigma$.
+		\item \label{itm:crossmatchswepDLA-2} If $[q_3,\dots,q_h]$ right-matches $[p_1,\dots,p_l]$ with respect to~$\sigma'$ and $\delta(q_1,\sigma)=(q_2,\sigma',\tl)$, then $[q_1,\dots,q_h]$ right-matches $[p_1,\dots,p_l]$ with respect to~$\sigma$.
+		The computation enters the cell from the left in state $q_1$, turns around right away leaving it to the left in $q_2$ writing $\sigma$, and eventually comes back to it in $q_3$, to which we apply induction.
+		\item \label{itm:crossmatchswepDLA-3} If $[q_2,\dots,q_h]$ left-matches $[p_2,\dots,p_l]$ with respect to~$\sigma'$ and $\delta(q_1,\sigma)=(p_1,\sigma',\tr)$, then $[q_1,\dots,q_h]$ right-matches $[p_1,\dots,p_l]$ with respect to~$\sigma$.
+		The computation enters the cell from the right in state $p_1$, immediately leaves it to the left in $q_1$ writing $\sigma$, and eventually comes back to it in $q_2$, to which we apply induction.
+		\item \label{itm:crossmatchswepDLA-4} Similarly to \Cref{itm:crossmatchswepDLA-2}, if $[q_1,\dots,q_h]$ left-matches $[p_3,\dots,p_l]$ with respect to~$\sigma'$ and $\delta(p_1,\sigma)=(p_2,\sigma',\tr)$, then $[q_1,\dots,q_h]$ left-matches $[p_1,\dots,p_l]$ with respect to~$\sigma$.
+		\item \label{itm:crossmatchswepDLA-5} Similarly to \Cref{itm:crossmatchswepDLA-3}, if $[q_2,\dots,q_h]$ right-matches $[p_2,\dots,p_l]$ with respect to~$\sigma'$ and $\delta(p_1,\sigma)=(q_1,\sigma',\tl)$, then $[q_1,\dots,q_h]$ left-matches $[p_1,\dots,p_l]$ with respect to~$\sigma$.
 	\end{rules}
 \end{defn}
 
+% TODO: as for previous, it can technically hold for any LBA
+\begin{defn}
+	Given a $k$-DLA, we define the partial function $\last:\crosseqset\times\crosseqset\times\Gamma\to\Gamma$ as follows:
 
+	Given crossing sequences $c=[q_1,\dots,q_h]$ and $d=[p_1,\dots,p_l]$ and a symbol $\sigma\in\Gamma$:
+	\begin{itemize}
+		\item If $c$ right-matches $d$ with respect to $\sigma$ via \Cref{itm:crossmatchswepDLA-2}, then $\delta(q_1,\sigma)=(q_2,\sigma',\tl)$ for some $\sigma'$, and we define:
+		      \begin{equation*}
+			      \last(c,d,\sigma):=\begin{cases}
+				      \sigma'                                        & \text{if } c=[q_1,q_2]\land d=[~], \\
+				      \last([q_3,\dots,q_h],[p_1,\dots,p_l],\sigma') & \text{otherwise}.
+				      % \last([q_3,\dots,q_h],d,\sigma') & \text{otherwise}.
+			      \end{cases}
+		      \end{equation*}
+		\item If $c$ right-matches $d$ with respect to $\sigma$ via \Cref{itm:crossmatchswepDLA-3}, then $\delta(q_1,\sigma)=(p_1,\sigma',\tr)$ for some $\sigma'$, and we define:
+		      \begin{equation*}
+			      \last(c,d,\sigma):=\begin{cases}
+				      \sigma'                                        & \text{if } c=[q_1]\land d=[p_1],~~ \\
+				      \last([q_2,\dots,q_h],[p_2,\dots,p_l],\sigma') & \text{otherwise}.
+			      \end{cases}
+		      \end{equation*}
+		\item If $c$ left-matches $d$ with respect to $\sigma$ via \Cref{itm:crossmatchswepDLA-4}, then $\delta(p_1,\sigma)=(p_2,\sigma',\tr)$ for some $\sigma'$, and we define:
+		      \begin{equation*}
+			      \last(c,d,\sigma):=\begin{cases}
+				      \sigma'                                        & \text{if } c=[~]\land d=[p_1,p_2], \\
+				      \last([q_1,\dots,q_h],[p_3,\dots,p_l],\sigma') & \text{otherwise}.
+				      % \last(c,[p_3,\dots,p_l],\sigma') & \text{otherwise}.
+			      \end{cases}
+		      \end{equation*}
+		\item If $c$ left-matches $d$ with respect to $\sigma$ via \Cref{itm:crossmatchswepDLA-5}, then $\delta(p_1,\sigma)=(q_1,\sigma',\tl)$ for some $\sigma'$, and we define:
+		      \begin{equation*}
+			      \last(c,d,\sigma):=\begin{cases}
+				      \sigma'                                        & \text{if } c=[q_1]\land d=[p_1],~~ \\
+				      \last([q_2,\dots,q_h],[p_2,\dots,p_l],\sigma') & \text{otherwise}.
+			      \end{cases}
+		      \end{equation*}
+	\end{itemize}
+\end{defn}
+
+
+\subsection{Active crossing sequences}
+% TODO: definition of "active" crossing sequence (fixed length ~k?)
+\dots
+
+
+\section{Simulation by NFA}
 Let $A:=(Q,\Sigma,\Gamma,\delta,q_I,F)$ a sweeping $k$-DLA.
-Let $\crosseqset$ the set of its valid crossing sequences, $\transtabset$ is the set of its transition tables, and $\RM\subseteq(\crosseqset\times\crosseqset\times\Gamma\times\Gamma)$ the relation of its right-matching crossing sequences.
+Let $\crosseqset$ the set of its active crossing sequences, $\transtabset$ is the set of its transition tables, and $\RM\subseteq(\crosseqset\times\crosseqset\times\Gamma\times\Gamma)$ the relation of its right-matching crossing sequences.
 
-Define the NFA $A':=(Q',\Sigma,\delta',q_I,F')$, where
+Define the NFA $A':=(Q',\Sigma',\delta',I,F')$, where
 \begin{itemize}
-	\item $Q'=(\mathcal C\times\mathcal T\times Q)\cup\set{q_I}$,
-	\item $\delta'((c,\tau,r),\sigma):=\set{(d,\pi,s) \mid (c,d,\sigma,\lambda)\in\RM, \pi=t_\lambda(\tau), s=\pi(r)}$.
-	\item $q_I\in Q'$ is the \emph{initial state}, and
+	\item $Q'=\mathcal C\times\mathcal T\times Q$,
+	\item $\Sigma'=\Sigma\cup\set{\lem,\rem}$,
+	\item $\delta'((c,\tau,r),\sigma):=\set{(d,\pi,s) \mid \text{$d$ is right-matched by $c$ w.r.t. $\sigma$ and,}\\
+			      \text{\hspace{8em}defined $\sigma':=\last(c,d,\sigma)$,\quad$\pi=\trapp_{\sigma'}(\tau)$ and $s=\pi(r)$}}$,
+	\item $I:=\set{(c,\tau_\emptyword,r) \mid \text{$c=[q_1,\dots,r]$ is right-matched by $[q_I]$ w.r.t. $\lem$}}$, and
 	\item $F':=\set{(c,\tau,s)\mid s\in F}$.
 \end{itemize}
