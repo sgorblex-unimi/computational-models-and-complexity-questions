@@ -1,4 +1,5 @@
 \chapter{Sweeping limited automata}
+% TODO: everywhere, add context and explanation
 
 
 
@@ -19,6 +20,7 @@
 		\item \label{itm:crossmatchswepDLA-5} Similarly to \Cref{itm:crossmatchswepDLA-3}, if $[q_2,\dots,q_h]$ right-matches $[p_2,\dots,p_l]$ with respect to~$\sigma'$ and $\delta(p_1,\sigma)=(q_1,\sigma',\tl)$, then $[q_1,\dots,q_h]$ left-matches $[p_1,\dots,p_l]$ with respect to~$\sigma$.
 	\end{rules}
 \end{defn}
+% TODO: specify that in the case of sweeping automata (of any kind), rules ii and iv only apply to end-markers
 
 % As for previous, it can technically hold for any LBA
 \begin{defn}
@@ -61,7 +63,7 @@
 
 
 \subsection{Equivalent sweeping \texorpdfstring{$k$}{k}-DLAs}
-\begin{thrm}
+\begin{thrm}\label{thm:equiv-swep-dla}
 	Let $k$ a natural number and $k':=2\ceil{\frac{k}{2}}$ (namely the smallest even number greater or equal to $k$).
 	Every sweeping $k$-DLA with $n$ states can be converted into an equivalent sweeping $k$-DLA with $2n+3$ states and the same working alphabet that performs at least $k'+1$ sweeps on each accepting computation.
 \end{thrm}
@@ -123,7 +125,7 @@
 	Formally, given $\sigma\in\Gamma_i$, $i\ne k$, and called $\sigma_j$ an arbitrary element of $\Gamma_j$:
 	\begin{align*}
 		\delta'(q_0,\sigma) & = \begin{cases}
-			                        (q_0,\sigma_{i+1},\tr) \qquad & \text{if $i$ is even}    \\
+			                        (q_0,\sigma_{i+1},\tr) \qquad & \text{if $i$ is even}   \\
 			                        (q_0,\sigma_{i+1},\tl) \qquad & \text{otherwise} \text,
 		                        \end{cases} \\[1ex]
 		\delta'(q_0,\lem)   & = (q_0,\lem,\tr)                                          \\
@@ -138,29 +140,32 @@
 	\end{align*}
 	As for $\ql$ and $\qr$, for any $\sigma\in\Gamma$:
 	\begin{align*}
-		\delta'(\ql,\sigma) & :=(\ql,\sigma,\tl) \\
-		\delta'(\ql,\lem)   & :=(\qr,\lem,\tr)   \\
-		\delta'(\qr,\sigma) & :=(\qr,\sigma,\tr) \\
+		\delta'(\ql,\sigma) & :=(\ql,\sigma,\tl)               \\
+		\delta'(\ql,\lem)   & :=(\qr,\lem,\tr)                 \\
+		\delta'(\qr,\sigma) & :=(\qr,\sigma,\tr)               \\
 		\delta'(\qr,\rem)   & :=(\qr,\rem,\tr) \text. \qedhere
 	\end{align*}
 \end{proof}
 
 
 \subsection{Active crossing sequences}
-% TODO: definition of "active" crossing sequence (fixed length ~k)
-\dots
+\begin{defn}
+	Given a sweeping $k$-LA $A$, a crossing sequence over the states of $A$ is called \emph{active} if and only if its length is exactly $k':=2\ceil{\frac{k}{2}}$.
+\end{defn}
 
 
 \section{Simulation by NFA}
 Let $A:=(Q,\Sigma,\Gamma,\delta,q_I,F)$ a sweeping $k$-DLA.
-Let $\crosseqset$ the set of its active crossing sequences, $\transtabset$ is the set of its transition tables, and $\RM\subseteq(\crosseqset\times\crosseqset\times\Gamma\times\Gamma)$ the relation of its right-matching crossing sequences.
+Without loss of generality (\cref{thm:equiv-swep-dla}), $A$ performs at least $k'+1$ sweeps on each accepting computation.
+Let $\crosseqset$ the set of its active crossing sequences and $\transtabset$ is the set of its transition tables.
 
-Define the NFA $A':=(Q',\Sigma',\delta',I,F')$, where
+Define the NFA $A':=(Q',\Sigma,\delta',I,F')$, where
 \begin{itemize}
 	\item $Q'=\mathcal C\times\mathcal T\times Q$,
-	\item $\Sigma'=\Sigma\cup\set{\lem,\rem}$,
 	\item $\delta'((c,\tau,r),\sigma):=\set{(d,\pi,s) \mid \text{$d$ is right-matched by $c$ w.r.t. $\sigma$ and,}\\
-			      \text{\hspace{8em}defined $\sigma':=\last(c,d,\sigma)$,\quad$\pi=\trapp_{\sigma'}(\tau)$ and $s=\pi(r)$}}$,
-	\item $I:=\set{(c,\tau_\emptyword,r) \mid \text{$c=[q_1,\dots,r]$ is right-matched by $[q_I]$ w.r.t. $\lem$}}$, and
-	\item $F':=\set{(c,\tau,s)\mid s\in F}$.
+		\phantom{\delta'((c,\tau,r),\sigma):=\{}\text{defined $\sigma':=\last(c,d,\sigma)$,\quad$\pi=\trapp_{\sigma'}(\tau)$ and $s=\pi(r)$}}$,
+	\item $I:=\set{(c,\tau_\lem,s) \mid \text{$c=[q_1,\dots,r]$ is right-matched by $[q_I]$ w.r.t. $\lem$ and}\\
+		\phantom{I:=\{}\delta(r,\lem)=(s,\lem,\tr)}$, and
+	\item $F':=\set{(c,\tau,r) \mid \text{$c$ right-matches $[~]$ w.r.t. $\rem$ and } t_\rem(\tau)(r)\in F}\\
+		\phantom{F':=}\cup\set{q\in I\mid q_I\in F}$.
 \end{itemize}
