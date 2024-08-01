@@ -92,3 +92,28 @@ We also use the transitive closure of $\delta$ in order to use strings as second
 
 	The NFA $A'$ has $n-1$ states but contains multiple starting states. By applying \Cref{thm:mult-start-states} an equivalent $n$-state NFA with a single starting state can be constructed.
 \end{proof}
+
+
+\begin{thrm}
+	For each $n$-state NFA accepting a language in the form $L\gamma$, with $L\in\Sigma\star$ for some alphabet $\Sigma$ and $\gamma\notin\Sigma$ is a symbol, there exists an $n$-state NFA accepting the language $L$.
+\end{thrm}
+\begin{proof}
+	Let $A:=(Q,\Sigma\cup\set{\gamma},\delta,q_I,F)$ an NFA such that $\genlang(A)=L\gamma$, $\gamma\notin\Sigma$.
+
+	The NFA resulting from this construction accepts in those states that would reach an original accepting state upon reading $\gamma$.
+
+	Define the NFA $A':=(Q,\Sigma,\delta',q_I,F')$, where
+	\begin{itemize}
+		\item for each $q\in Q$ and $\sigma\in\Sigma$, $\delta'(q,\sigma)=\delta(q,\sigma)$, and
+		\item $F':=\set{q\in Q\mid \delta(q,\gamma)\cap F\ne\emptyset}$.
+	\end{itemize}
+
+	For any $w\in\Sigma\star$, it holds that
+	\begin{align*}
+		w\in\genlang(A') & \iff \delta'(q_I,w)\cap F'\ne\emptyset                                                 \\
+		                 & \iff \delta(q_I,w)\cap \set{q\in Q\mid \delta(q,\gamma)\cap F\ne\emptyset}\ne\emptyset \\
+		                 & \iff \exists q\in\delta(q_I,w)\mid \delta(q,\gamma)\cap F\ne\emptyset                  \\
+		                 & \iff \delta(q_I,w\gamma)\cap F\ne\emptyset                                             \\
+		                 & \iff w\gamma\in\genlang(A) \text. \qedhere
+	\end{align*}
+\end{proof}
