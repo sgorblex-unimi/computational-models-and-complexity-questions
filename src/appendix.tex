@@ -66,8 +66,6 @@ We also use the transitive closure of $\delta$ in order to use strings as second
 
 
 \subsection{Languages with a symbol prefix or suffix}
-% TODO: adaptation of the previous subsec to transform an NFA for xL in an NFA for L; construction for the mirrored problem; conclusions on the fact that we can build an NFA for lem L rem and then converting it in one for L
-
 % TODO: context. The following is equivalent to making all those transitions eps-transitions and delete those (but as will be said above there is no universal way for the removal of eps-transitions)
 \begin{thrm}
 	For each $n$-state NFA accepting a language in the form $\gamma L$, with $L\in\Sigma\star$ for some alphabet $\Sigma$ and $\gamma\notin\Sigma$ is a symbol, there exists an $n$-state NFA accepting the language $L$.
@@ -117,3 +115,9 @@ We also use the transitive closure of $\delta$ in order to use strings as second
 		                 & \iff w\gamma\in\genlang(A) \text. \qedhere
 	\end{align*}
 \end{proof}
+
+
+\begin{corol}
+	For each $n$-state NFA accepting a language in the form $\gamma_1 L\gamma_2$, with $L\in\Sigma\star$ for some alphabet $\Sigma$ and $\gamma_1,\gamma_2\notin\Sigma$ are symbols, there exists an $n$-state NFA accepting the language $L$.
+\end{corol}
+% TODO: context: explain what does this mean in terms of building simulations for two-way automata with end-markers
