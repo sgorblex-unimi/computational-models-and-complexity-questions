@@ -14,7 +14,7 @@ We also use the transitive closure of $\delta$ in order to use strings as second
 
 \subsection{\NFAs with multiple starting states}
 % TODO: context. Mention that eps-transitions can not be eliminated cheaply in general (citation), so using eps-transitions is not a so immediate solution
-\begin{thrm}
+\begin{thrm}\label{thm:mult-start-states}
 	Every $n$-state NFA with multiple starting states can be simulated by an $(n+1)$-state NFA with a single starting state.
 \end{thrm}
 \begin{proof}
@@ -67,3 +67,28 @@ We also use the transitive closure of $\delta$ in order to use strings as second
 
 \subsection{Languages with a symbol prefix or suffix}
 % TODO: adaptation of the previous subsec to transform an NFA for xL in an NFA for L; construction for the mirrored problem; conclusions on the fact that we can build an NFA for lem L rem and then converting it in one for L
+
+% TODO: context. The following is equivalent to making all those transitions eps-transitions and delete those (but as will be said above there is no universal way for the removal of eps-transitions)
+\begin{thrm}
+	For each $n$-state NFA accepting a language in the form $\gamma L$, with $L\in\Sigma\star$ for some alphabet $\Sigma$ and $\gamma\notin\Sigma$ is a symbol, there exists an $n$-state NFA accepting the language $L$.
+\end{thrm}
+\begin{proof}
+	Let $A:=(Q,\Sigma\cup\set{\gamma},\delta,q_I,F)$ an NFA such that $\genlang(A)=\gamma L$, $\gamma\notin\Sigma$.
+
+	All the \emph{useful}\footnote{Meaning they are part of an accepting computation.} transitions defined from $q_I$ are labeled $\gamma$, otherwise there would exist an accepted word not starting with $\gamma$.
+	Conversely, all useful transitions from states other than $q_I$ are not labeled $\gamma$, otherwise there would exist an accepted word containing the symbol $\gamma$ in a position other than the first.
+	For the same reason, $q_I$ is not reachable by any useful transition (note that $q_I\notin F$, otherwise $\emptyword$, which is not in the required form, would be accepted).
+	The following construction "skips" and removes $q_I$, making initial all the states reached from it by $\gamma$-transitions.
+
+	Define the NFA $A':=(Q',\Sigma,\delta',I,F)$, where
+	\begin{itemize}
+		\item $Q':=Q\setminus\set{q_I}$,
+		\item for each $q\in Q'$ and $\sigma\in\Sigma$, $\delta'(q,\sigma)=\delta(q,\sigma)$, and
+		\item $I:=\delta(q_I,\gamma)$.
+	\end{itemize}
+
+	By the definitions of $\delta$ and $\delta'$, it holds that for any $w\in\Sigma\star$, $\delta'(I,w)=\delta(q_I,\gamma w)$.
+	Therefore $w\in\genlang(A')\iff \gamma w\in\genlang(A)$.
+
+	The NFA $A'$ has $n-1$ states but contains multiple starting states. By applying \Cref{thm:mult-start-states} an equivalent $n$-state NFA with a single starting state can be constructed.
+\end{proof}
