@@ -19,35 +19,35 @@ We also use the transitive closure of $\delta$ in order to use strings as second
 \end{thrm}
 \begin{proof}
 	Let $A:=(Q,\Sigma,\delta,I,F)$ a multiple starting state NFA, where $I\subseteq Q$ is the set of starting states.
-	Define the NFA $A':=(Q',\Sigma,\delta',q_0,F')$, where
+	Define the NFA $A':=(Q',\Sigma,\delta',q_I,F')$, where
 	\begin{itemize}
-		\item $Q':=Q\cup\set{q_0}$,
-		\item $q_0\notin Q$ is the new, only starting state
+		\item $Q':=Q\cup\set{q_I}$,
+		\item $q_I\notin Q$ is the new, only starting state
 		\item $\delta'$ is defined as follows:
 		      \begin{itemize}
-			      \item $\delta'(q_0,\sigma):=\delta(I,\sigma)$
-			      \item for all $q\ne q_0$, $\delta'(q,\sigma)=\delta(q,\sigma)$, and
+			      \item $\delta'(q_I,\sigma):=\delta(I,\sigma)$
+			      \item for all $q\ne q_I$, $\delta'(q,\sigma)=\delta(q,\sigma)$, and
 		      \end{itemize}
-		\item $F':=F\cup\set{q_0\mid I\cap F\ne\emptyset}$
+		\item $F':=F\cup\set{q_I\mid I\cap F\ne\emptyset}$
 	\end{itemize}
 	The logic behind the construction is that the new state simulates the behavior of all the original starting states at the same time, by making use of nondeterminism and creating "short circuits" for the transitions from the original starting states.
 
 	Obviously, if $n:=\card Q$, then $\card{Q'}=\card Q+1=n+1$. Therefore, it is only left to prove that $\genlang(A)=\genlang(A')$.
 	We start from the definition of $\genlang(A')$ and we temporarily ignore the possible presence of the empty word:
 	\begin{align*}
-		\genlang(A')\setminus\set{\emptyword} & = \set{w\in\Sigma\plus\mid \delta'(q_0,w)\cap F'\ne\emptyset}
+		\genlang(A')\setminus\set{\emptyword} & = \set{w\in\Sigma\plus\mid \delta'(q_I,w)\cap F'\ne\emptyset}
 	\end{align*}
-	Because $F'$ can only differ from $F$ by the possible presence of $q_0$, and $q_0\notin\delta'(q_0,w)$ for any $w\in\Sigma\plus$, we have that $\delta'(q_0,w)\cap F'=\delta'(q_0,w)\cap F$:
+	Because $F'$ can only differ from $F$ by the possible presence of $q_I$, and $q_I\notin\delta'(q_I,w)$ for any $w\in\Sigma\plus$, we have that $\delta'(q_I,w)\cap F'=\delta'(q_I,w)\cap F$:
 	\begin{align*}
-		 & = \set{w\in\Sigma\plus\mid \delta'(q_0,w)\cap F\ne\emptyset}                                                                    \\
-		 & = \set{w\in\Sigma\plus\mid w=\sigma x, x\in\Sigma\star,\sigma\in\Sigma,\delta'(q_0,\sigma x)\cap F\ne\emptyset}                 \\
-		 & = \set{w\in\Sigma\plus\mid w=\sigma x, x\in\Sigma\star,\sigma\in\Sigma,\delta'(\delta'(q_0,\sigma),x)\cap F\ne\emptyset} \text.
+		 & = \set{w\in\Sigma\plus\mid \delta'(q_I,w)\cap F\ne\emptyset}                                                                    \\
+		 & = \set{w\in\Sigma\plus\mid w=\sigma x, x\in\Sigma\star,\sigma\in\Sigma,\delta'(q_I,\sigma x)\cap F\ne\emptyset}                 \\
+		 & = \set{w\in\Sigma\plus\mid w=\sigma x, x\in\Sigma\star,\sigma\in\Sigma,\delta'(\delta'(q_I,\sigma),x)\cap F\ne\emptyset} \text.
 	\end{align*}
-	By definition of $\delta(q_0,\cdot)$, the last set is equal to
+	By definition of $\delta(q_I,\cdot)$, the last set is equal to
 	\begin{align*}
 		 & = \set{w\in\Sigma\plus\mid w=\sigma x, x\in\Sigma\star,\sigma\in\Sigma,\delta'(\delta(I,\sigma),x)\cap F\ne\emptyset} \text.
 	\end{align*}
-	Because $q_0\notin\delta(I,\sigma)$, in the last expression $\delta'$ can be replaced with $\delta$, as per its definition:
+	Because $q_I\notin\delta(I,\sigma)$, in the last expression $\delta'$ can be replaced with $\delta$, as per its definition:
 	\begin{align*}
 		 & = \set{w\in\Sigma\plus\mid w=\sigma x, x\in\Sigma\star,\sigma\in\Sigma,\delta(\delta(I,\sigma),x)\cap F\ne\emptyset} \\
 		 & = \set{w\in\Sigma\plus\mid w=\sigma x, x\in\Sigma\star,\sigma\in\Sigma,\delta(I,\sigma x)\cap F\ne\emptyset}         \\
