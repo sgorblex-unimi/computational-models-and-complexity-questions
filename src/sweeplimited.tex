@@ -13,9 +13,9 @@
 	\begin{rules}
 		\item \label{itm:crossmatchswepDLA-1} The empty sequence $[~]$ right-matches and left-matches itself with respect to~$\sigma$.
 		\item \label{itm:crossmatchswepDLA-2} If $[q_3,\dots,q_h]$ right-matches $[p_1,\dots,p_l]$ with respect to~$\sigma'$ and $\delta(q_1,\sigma)=(q_2,\sigma',\tl)$, then $[q_1,\dots,q_h]$ right-matches $[p_1,\dots,p_l]$ with respect to~$\sigma$.
-		The computation enters the cell from the left in state $q_1$, turns around right away leaving it to the left in $q_2$ writing $\sigma$, and eventually comes back to it in $q_3$, to which we apply induction.
+		The computation enters the cell from the left in state $q_1$, turns around right away leaving it to the left in $q_2$ writing $\sigma'$, and eventually comes back to it in $q_3$, to which we apply induction.
 		\item \label{itm:crossmatchswepDLA-3} If $[q_2,\dots,q_h]$ left-matches $[p_2,\dots,p_l]$ with respect to~$\sigma'$ and $\delta(q_1,\sigma)=(p_1,\sigma',\tr)$, then $[q_1,\dots,q_h]$ right-matches $[p_1,\dots,p_l]$ with respect to~$\sigma$.
-		The computation enters the cell from the right in state $p_1$, immediately leaves it to the left in $q_1$ writing $\sigma$, and eventually comes back to it in $q_2$, to which we apply induction.
+		The computation enters the cell from the right in state $p_1$, immediately leaves it to the left in $q_1$ writing $\sigma'$, and eventually comes back to it in $q_2$, to which we apply induction.
 		\item \label{itm:crossmatchswepDLA-4} Similarly to \Cref{itm:crossmatchswepDLA-2}, if $[q_1,\dots,q_h]$ left-matches $[p_3,\dots,p_l]$ with respect to~$\sigma'$ and $\delta(p_1,\sigma)=(p_2,\sigma',\tr)$, then $[q_1,\dots,q_h]$ left-matches $[p_1,\dots,p_l]$ with respect to~$\sigma$.
 		\item \label{itm:crossmatchswepDLA-5} Similarly to \Cref{itm:crossmatchswepDLA-3}, if $[q_2,\dots,q_h]$ right-matches $[p_2,\dots,p_l]$ with respect to~$\sigma'$ and $\delta(p_1,\sigma)=(q_1,\sigma',\tl)$, then $[q_1,\dots,q_h]$ left-matches $[p_1,\dots,p_l]$ with respect to~$\sigma$.
 	\end{rules}
@@ -31,7 +31,7 @@
 		\item If $c$ right-matches $d$ with respect to $\sigma$ via \Cref{itm:crossmatchswepDLA-2}, then $\delta(q_1,\sigma)=(q_2,\sigma',\tl)$ for some $\sigma'$, and we define:
 		      \begin{equation*}
 			      \last(c,d,\sigma):=\begin{cases}
-				      \sigma'                                        & \text{if } c=[q_1,q_2]\land d=[~], \\
+				      \sigma'                                        & \text{if } c=[q_1,q_2] \text{ and } d=[~], \\
 				      \last([q_3,\dots,q_h],[p_1,\dots,p_l],\sigma') & \text{otherwise}.
 				      % \last([q_3,\dots,q_h],d,\sigma') & \text{otherwise}.
 			      \end{cases}
@@ -39,14 +39,14 @@
 		\item If $c$ right-matches $d$ with respect to $\sigma$ via \Cref{itm:crossmatchswepDLA-3}, then $\delta(q_1,\sigma)=(p_1,\sigma',\tr)$ for some $\sigma'$, and we define:
 		      \begin{equation*}
 			      \last(c,d,\sigma):=\begin{cases}
-				      \sigma'                                        & \text{if } c=[q_1]\land d=[p_1],~~ \\
+				      \sigma'                                        & \text{if } c=[q_1] \text{ and } d=[p_1],~~ \\
 				      \last([q_2,\dots,q_h],[p_2,\dots,p_l],\sigma') & \text{otherwise}.
 			      \end{cases}
 		      \end{equation*}
 		\item If $c$ left-matches $d$ with respect to $\sigma$ via \Cref{itm:crossmatchswepDLA-4}, then $\delta(p_1,\sigma)=(p_2,\sigma',\tr)$ for some $\sigma'$, and we define:
 		      \begin{equation*}
 			      \last(c,d,\sigma):=\begin{cases}
-				      \sigma'                                        & \text{if } c=[~]\land d=[p_1,p_2], \\
+				      \sigma'                                        & \text{if } c=[~] \text{ and } d=[p_1,p_2], \\
 				      \last([q_1,\dots,q_h],[p_3,\dots,p_l],\sigma') & \text{otherwise}.
 				      % \last(c,[p_3,\dots,p_l],\sigma') & \text{otherwise}.
 			      \end{cases}
@@ -54,7 +54,7 @@
 		\item If $c$ left-matches $d$ with respect to $\sigma$ via \Cref{itm:crossmatchswepDLA-5}, then $\delta(p_1,\sigma)=(q_1,\sigma',\tl)$ for some $\sigma'$, and we define:
 		      \begin{equation*}
 			      \last(c,d,\sigma):=\begin{cases}
-				      \sigma'                                        & \text{if } c=[q_1]\land d=[p_1],~~ \\
+				      \sigma'                                        & \text{if } c=[q_1] \text{ and } d=[p_1],~~ \\
 				      \last([q_2,\dots,q_h],[p_2,\dots,p_l],\sigma') & \text{otherwise}.
 			      \end{cases}
 		      \end{equation*}
@@ -64,14 +64,14 @@
 
 \subsection{Equivalent sweeping \texorpdfstring{$k$}{k}-DLAs}
 \begin{thrm}\label{thm:equiv-swep-dla}
-	Let $k$ a natural number and $k':=2\ceil{\frac{k}{2}}$ (namely the smallest even number greater or equal to $k$).
+	Let $k$ be a natural number and $k':=2\ceil{\frac{k}{2}}$ (namely the smallest even number greater or equal to $k$).
 	Every sweeping $k$-DLA with $n$ states can be converted into an equivalent sweeping $k$-DLA with $2n+3$ states and the same working alphabet that performs at least $k'+1$ sweeps on each accepting computation.
 \end{thrm}
 \begin{proof}
 	\newcommand{\ql}{q_{1\mathtt{L}}}
 	\newcommand{\qr}{q_{1\mathtt{R}}}
 
-	Let $A:=(Q,\Sigma,\Gamma,\delta,q_I,F)$ a sweeping $k$-DLA.
+	Let $A:=(Q,\Sigma,\Gamma,\delta,q_I,F)$ be a sweeping $k$-DLA.
 	Define the sweeping $k$-DLA $A':=(Q',\Sigma,\Gamma,\delta',q'_I,F')$, where
 	\begin{itemize}
 		\item $Q'=(Q\times\set{0,1})\cup\set{q_0,\ql,\qr}$,
@@ -79,47 +79,47 @@
 		\item $F':=(F\times\set{1})\cup\set{\qr}$.
 	\end{itemize}
 
-	The automaton $A'$ starts by simulating $A$ using the first component of the states in $Q\times\set{0,1}$, while the second component is a bit which remembers whether a symbol from $\Gamma_k$ has ever been read.
+	The automaton $A'$ simulates $A$ using the first component of the states in $Q\times\set{0,1}$ for a direct simulation of the states of $A$, and the second component to remember whether a symbol from $\Gamma_k$ has ever been read along the computation (bit set to $1$), or not (bit set to $0$).
 	The automaton proceeds like this until $A$ would accept.
 	That is, for each $q\in Q$ and $\sigma\in\Gamma$ such that $\delta(q,\sigma)=(q',\sigma',d)$:
 	\begin{align*}
 		\delta'((q,0),\sigma) & :=\begin{cases}
 			                          ((q',1),\sigma',d) \qquad & \text{if }\sigma\in\Gamma_k \\
-			                          ((q',0),\sigma',d) \qquad & \text{otherwise}
+			                          ((q',0),\sigma',d) \qquad & \text{otherwise,}
 		                          \end{cases} \\[1ex]
-		\delta'((q,0),\lem)   & :=((q',0),\lem,\tr)                                       \\
-		\delta'((q,1),\sigma) & :=((q',1),\sigma',d)                                      \\
+		\delta'((q,0),\lem)   & :=((q',0),\lem,\tr) \text,                                \\
+		\delta'((q,1),\sigma) & :=((q',1),\sigma',d) \text,                               \\
 		\delta'((q,1),\lem)   & :=((q',1),\lem,\tr) \text,
 	\end{align*}
 	and if $\delta(q,\rem)=(q',\rem,\tl)$:
 	\begin{align*}
-		\delta'((q,0),\rem) & =((q',0),\rem,\tl)        \\
+		\delta'((q,0),\rem) & =((q',0),\rem,\tl) \text, \\
 		\delta'((q,1),\rem) & =((q',1),\rem,\tl) \text.
 	\end{align*}
 
-	When $A$ would accept (by surpassing the right end-marker in a final state), different cases occur:
+	When a transition that would bring the simulated device to accept (by passing the right end-marker in a final state) is detected, different cases occur:
 	\begin{enumerate}
-		\item If a symbol in $\Gamma_k$ was never read (i.e. the stored bit is set to $0$), less than $k+1\le k'+1$ sweeps have been performed, therefore $A'$ enters the special state $q_0$, which has the task to perform the remaining sweeps (see below for details).
+		\item If a symbol in $\Gamma_k$ was never read (i.e. the bit of the second state component is set to $0$), less than $k+1\le k'+1$ sweeps have been performed, therefore $A'$ enters the special state $q_0$, which has the task to perform the remaining sweeps (see below for details).
 		\item If a symbol in $\Gamma_k$ has been read (i.e. the stored bit is set to $1$), the automaton has performed at least $k+1$ sweeps. In particular:
 		      \begin{enumerate}
 			      \item If $k$ is even, $k+1=k'+1$ and the desired number of sweeps has been reached.
 			      \item If $k$ is odd, then $k'+1=k+2$. However, the $(k+1)$-th sweep was performed towards the left, thus, since the right end-marker has been reached, at least $k+2=k'+1$ sweeps have been performed.
 		      \end{enumerate}
-		      In both cases, $A'$ can surpass $\rem$ and accept.
+		      In both cases, $A'$ can pass $\rem$ and accept.
 	\end{enumerate}
 
 	Formally, if $\delta(q,\rem)=(q_f,\rem,\tr)$ (with $q_f$ final):
 	\begin{align*}
-		\delta'((q,0),\rem) & := (q_0,\rem,\tl)     \\
-		\delta'((q,1),\rem) & := ((q_f,1),\rem,\tr)
+		\delta'((q,0),\rem) & := (q_0,\rem,\tl) \text,     \\
+		\delta'((q,1),\rem) & := ((q_f,1),\rem,\tr) \text.
 	\end{align*}
 
-	Computation on the state $q_0$ proceeds by performing each $j$-th sweep and writing an arbitrary symbol from $\Gamma_j$.
+	The computation on the state $q_0$ proceeds by performing the remaining sweeps, writing for the $j$-th sweep an arbitrary symbol from $\Gamma_j$.
 	Only one state is necessary for both directions, as the move will be to the right if the read symbol belongs to an even-indexed $\Gamma_i$ (or the left end-marker is read), and to the left otherwise.
 	When a symbol from $\Gamma_k$ is read, similarly to above, the $k+1$ sweep is being performed. Two cases can occur:
 	\begin{enumerate}
-		\item If $k$ is even, the automaton can reach the right end-marker and surpass it, accepting. This is done via a state $\qr$.
-		\item If $k$ is odd, the automaton is moving to the left, and must finish the sweep in this direction before performing a last one to the right and accept. This is done via a state $\ql$, which turns right in state $\qr$ as $\lem$ is reached.
+		\item If $k$ is even, the automaton can reach the right end-marker and pass it, accepting. This is done using a state $\qr$.
+		\item If $k$ is odd, the automaton is moving to the left, and must finish the sweep in this direction before performing a last one to the right and accept. This is done by entering a state $\ql$ and finishing the sweep before turning right in state $\qr$ as $\lem$ is reached.
 	\end{enumerate}
 
 	Formally, given $\sigma\in\Gamma_i$, $i\ne k$, and called $\sigma_j$ an arbitrary element of $\Gamma_j$:
@@ -128,8 +128,8 @@
 			                        (q_0,\sigma_{i+1},\tr) \qquad & \text{if $i$ is even}   \\
 			                        (q_0,\sigma_{i+1},\tl) \qquad & \text{otherwise} \text,
 		                        \end{cases} \\[1ex]
-		\delta'(q_0,\lem)   & = (q_0,\lem,\tr)                                          \\
-		\delta'(q_0,\rem)   & = (q_0,\rem,\tl)
+		\delta'(q_0,\lem)   & = (q_0,\lem,\tr) \text,                                   \\
+		\delta'(q_0,\rem)   & = (q_0,\rem,\tl) \text,
 	\end{align*}
 	and given $\sigma\in\Gamma_k$:
 	\begin{align*}
@@ -140,9 +140,9 @@
 	\end{align*}
 	As for $\ql$ and $\qr$, for any $\sigma\in\Gamma$:
 	\begin{align*}
-		\delta'(\ql,\sigma) & :=(\ql,\sigma,\tl)               \\
-		\delta'(\ql,\lem)   & :=(\qr,\lem,\tr)                 \\
-		\delta'(\qr,\sigma) & :=(\qr,\sigma,\tr)               \\
+		\delta'(\ql,\sigma) & :=(\ql,\sigma,\tl) \text,        \\
+		\delta'(\ql,\lem)   & :=(\qr,\lem,\tr) \text,          \\
+		\delta'(\qr,\sigma) & :=(\qr,\sigma,\tr) \text,        \\
 		\delta'(\qr,\rem)   & :=(\qr,\rem,\tr) \text. \qedhere
 	\end{align*}
 \end{proof}
@@ -155,17 +155,17 @@
 
 
 \section{Simulation by NFA}
-Let $A:=(Q,\Sigma,\Gamma,\delta,q_I,F)$ a sweeping $k$-DLA.
-Without loss of generality (\cref{thm:equiv-swep-dla}), $A$ performs at least $k'+1$ sweeps on each accepting computation.
-Let $\crosseqset$ the set of its active crossing sequences and $\transtabset$ is the set of its transition tables.
+Let $A:=(Q,\Sigma,\Gamma,\delta,q_I,F)$ be a sweeping $k$-DLA.
+Without loss of generality (\Cref{thm:equiv-swep-dla}), $A$ performs at least $k'+1$ sweeps on each accepting computation.
+Let $\crosseqset$ be the set of its active crossing sequences and $\transtabset$ is the set of its transition tables.
 
 Define the NFA $A':=(Q',\Sigma,\delta',I,F')$, where
 \begin{itemize}
 	\item $Q'=\mathcal C\times\mathcal T\times Q$,
 	\item $\delta'((c,\tau,r),\sigma):=\set{(d,\pi,s) \mid \text{$d$ is right-matched by $c$ w.r.t. $\sigma$ and,}\\
-		\phantom{\delta'((c,\tau,r),\sigma):=\{}\text{defined $\sigma':=\last(c,d,\sigma)$,\quad$\pi=\trapp_{\sigma'}(\tau)$ and $s=\pi(r)$}}$,
+			      \phantom{\delta'((c,\tau,r),\sigma):=\{}\text{defined $\sigma':=\last(c,d,\sigma)$,\quad$\pi=\trapp_{\sigma'}(\tau)$ and $s=\pi(r)$}}$,
 	\item $I:=\set{(c,\tau_\lem,s) \mid \text{$c=[q_1,\dots,r]$ is right-matched by $[q_I]$ w.r.t. $\lem$ and}\\
-		\phantom{I:=\{}\delta(r,\lem)=(s,\lem,\tr)}$, and
+		      \phantom{I:=\{}\delta(r,\lem)=(s,\lem,\tr)}$, and
 	\item $F':=\set{(c,\tau,r) \mid \text{$c$ right-matches $[~]$ w.r.t. $\rem$ and } t_\rem(\tau)(r)\in F}\\
-		\phantom{F':=}\cup\set{q\in I\mid q_I\in F}$.
+		      \phantom{F':=}\cup\set{q\in I\mid q_I\in F}$.
 \end{itemize}
