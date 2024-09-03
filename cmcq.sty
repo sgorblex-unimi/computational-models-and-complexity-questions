@@ -73,3 +73,22 @@
 
 \usepackage[isbn=false,citestyle=numeric-comp,sorting=none,sortcites=true]{biblatex}
 \addbibresource{bibliography.bib}
+
+
+% ADVANCED SPACING COMMANDS
+
+\newlength{\negph@wd}
+\DeclareRobustCommand{\negphantom}[1]{%
+	\ifmmode
+		\mathpalette\negph@math{#1}%
+	\else
+		\negph@do{#1}%
+	\fi
+}
+\newcommand{\negph@math}[2]{\negph@do{$\m@th#1#2$}}
+\newcommand{\negph@do}[1]{%
+	\settowidth{\negph@wd}{#1}%
+	\hspace*{-\negph@wd}%
+}
+
+\DeclareRobustCommand{\crossphantom}[2]{#1\negphantom{#1}\phantom{#2}} % write #1 but take the space of #2

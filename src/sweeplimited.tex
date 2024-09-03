@@ -63,6 +63,7 @@
 
 
 \subsection{Equivalent sweeping \texorpdfstring{$k$}{k}-DLAs}
+% TODO: REDO: new definition of k' and k'+2 sweeps
 \begin{thrm}\label{thm:equiv-swep-dla}
 	Let $k$ be a natural number and $k':=2\ceil{\frac{k}{2}}$ (namely the smallest even number greater or equal to $k$).
 	Every sweeping $k$-DLA with $n$ states can be converted into an equivalent sweeping $k$-DLA with $2n+3$ states and the same working alphabet that performs at least $k'+1$ sweeps on each accepting computation.
@@ -147,25 +148,44 @@
 	\end{align*}
 \end{proof}
 
+\begin{table}
+	\centering
+	\begin{tabular}{lcc}
+		\toprule
+		~        & $k'$  & \# sweeps \\
+		\midrule
+		$k$ even & $k+1$ & $k+3$     \\
+		$k$ odd  & $k$   & $k+2$     \\
+		\bottomrule
+	\end{tabular}
+	\caption{Summary of the values of $k'$ and the number of sweeps performed by the output automaton from the construction in \Cref{thm:equiv-swep-dla}.}
+\end{table}
+
 
 \subsection{Active crossing sequences}
 \begin{defn}
-	Given a sweeping $k$-LA $A$, a crossing sequence over the states of $A$ is called \emph{active} if and only if its length is exactly $k':=2\ceil{\frac{k}{2}}$.
+	Given a sweeping $k$-LA $A$, a crossing sequence over the states of $A$ is called \emph{active} if and only if its length is exactly $k':=2\floor{\frac{k}{2}}+1$.
 \end{defn}
 
 
 \section{Simulation by NFA}
 Let $A:=(Q,\Sigma,\Gamma,\delta,q_I,F)$ be a sweeping $k$-DLA.
-Without loss of generality (\Cref{thm:equiv-swep-dla}), $A$ performs at least $k'+1$ sweeps on each accepting computation.
+Without loss of generality (\Cref{thm:equiv-swep-dla}), $A$ performs at least $k'+2$ sweeps on each accepting computation.
 Let $\crosseqset$ be the set of its active crossing sequences and $\transtabset$ is the set of its transition tables.
 
 Define the NFA $A':=(Q',\Sigma,\delta',I,F')$, where
 \begin{itemize}
-	\item $Q'=\mathcal C\times\mathcal T\times Q$,
-	\item $\delta'((c,\tau,r),\sigma):=\set{(d,\pi,s) \mid \text{$d$ is right-matched by $c$ w.r.t. $\sigma$ and,}\\
-			      \phantom{\delta'((c,\tau,r),\sigma):=\{}\text{defined $\sigma':=\last(c,d,\sigma)$,\quad$\pi=\trapp_{\sigma'}(\tau)$ and $s=\pi(r)$}}$,
-	\item $I:=\set{(c,\tau_\lem,s) \mid \text{$c=[q_1,\dots,r]$ is right-matched by $[q_I]$ w.r.t. $\lem$ and}\\
-		      \phantom{I:=\{}\delta(r,\lem)=(s,\lem,\tr)}$, and
-	\item $F':=\set{(c,\tau,r) \mid \text{$c$ right-matches $[~]$ w.r.t. $\rem$ and } t_\rem(\tau)(r)\in F}\\
-		      \phantom{F':=}\cup\set{q\in I\mid q_I\in F}$.
+	\item $Q'=\crosseqset\times Q\times\transtabset\times Q$,
+	\item $\delta'((c,p,\tau,r),\sigma):=\{(d,q,\pi,s) \mid \text{$d$ is right-matched by $c$ w.r.t. $\sigma$,}$\\
+	      \newcommand{\phant}{\phantom{\delta'((c,p,\tau,r),\sigma):=\{(d,q,\pi,s) \mid ~}}
+	      $\phant \sigma':=\last(c,d,\sigma)$, \\
+	      $\phant \delta(q,\sigma')=(p,\sigma',\tl)$, \\
+	      $\phant \pi=\trapp_{\sigma'}(\tau)$, \\
+	      $\phant \crossphantom{s=\pi(r)}{\text{$d$ is right-matched by $c$ w.r.t. $\sigma$,}}\}$,
+	\item $I:=\{(c,p,\tau_\lem,s) \mid \text{$c$ is right-matched by $[q_I]$ w.r.t. $\lem$},\\
+		      \phantom{I:=\{(c,p,\tau_\lem,s) \mid~} \crossphantom{\delta(p,\lem)=(s,\lem,\tr)}{\text{$c$ is right-matched by $[q_I]$ w.r.t. $\lem$},}\}$, and
+	\item $F':=\{(c,p,\tau,r) \mid c=[q_1,\dots,q_{k'}]$, \\
+	      \renewcommand{\phant}{\phantom{F':=\{(c,p,\tau,r) \mid ~}}
+	      $\phant \delta(q_{k'},\rem)=(p,\rem,\tr)$, \\
+	      $\phant \crossphantom{t_\rem(\tau)(r)\in F}{\delta(q_{k'},\rem)=(p,\rem,\tr)\text,}\}$.
 \end{itemize}
