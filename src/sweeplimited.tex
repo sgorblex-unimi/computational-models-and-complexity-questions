@@ -63,24 +63,24 @@
 
 
 \subsection{Equivalent sweeping \texorpdfstring{$k$}{k}-DLAs}
-% TODO: REDO: new definition of k' and k'+2 sweeps
 \begin{thrm}\label{thm:equiv-swep-dla}
-	Let $k$ be a natural number and $k':=2\ceil{\frac{k}{2}}$ (namely the smallest even number greater or equal to $k$).
-	Every sweeping $k$-DLA with $n$ states can be converted into an equivalent sweeping $k$-DLA with $2n+3$ states and the same working alphabet that performs at least $k'+1$ sweeps on each accepting computation.
+	Let $k$ be a natural number and $k':=2\floor{\frac{k}{2}}+1$ (namely the smallest odd number greater or equal to $k$).
+	Every sweeping $k$-DLA with $n$ states can be converted into an equivalent sweeping $k$-DLA with $2n+4$ states and the same working alphabet that performs at least $k'+2$ sweeps on every accepting computation.
 \end{thrm}
 \begin{proof}
 	\newcommand{\ql}{q_{1\mathtt{L}}}
 	\newcommand{\qr}{q_{1\mathtt{R}}}
+	\newcommand{\qqr}{q_{2\mathtt{R}}}
 
 	Let $A:=(Q,\Sigma,\Gamma,\delta,q_I,F)$ be a sweeping $k$-DLA.
 	Define the sweeping $k$-DLA $A':=(Q',\Sigma,\Gamma,\delta',q'_I,F')$, where
 	\begin{itemize}
-		\item $Q'=(Q\times\set{0,1})\cup\set{q_0,\ql,\qr}$,
+		\item $Q'=(Q\times\set{0,1})\cup\set{q_0,\ql,\qr,\qqr}$,
 		\item $q'_I:=(q_I,0)$,
 		\item $F':=(F\times\set{1})\cup\set{\qr}$.
 	\end{itemize}
 
-	The automaton $A'$ simulates $A$ using the first component of the states in $Q\times\set{0,1}$ for a direct simulation of the states of $A$, and the second component to remember whether a symbol from $\Gamma_k$ has ever been read along the computation (bit set to $1$), or not (bit set to $0$).
+	The automaton $A'$ initially simulates $A$ using the first component of the states in $Q\times\set{0,1}$ for a direct simulation of the states of $A$, and the second component to remember whether a symbol from $\Gamma_k$ has ever been read along the computation (bit set to $1$), or not (bit set to $0$).
 	The automaton proceeds like this until $A$ would accept.
 	That is, for each $q\in Q$ and $\sigma\in\Gamma$ such that $\delta(q,\sigma)=(q',\sigma',d)$:
 	\begin{align*}
@@ -100,27 +100,37 @@
 
 	When a transition that would bring the simulated device to accept (by passing the right end-marker in a final state) is detected, different cases occur:
 	\begin{enumerate}
-		\item If a symbol in $\Gamma_k$ was never read (i.e. the bit of the second state component is set to $0$), less than $k+1\le k'+1$ sweeps have been performed, therefore $A'$ enters the special state $q_0$, which has the task to perform the remaining sweeps (see below for details).
-		\item If a symbol in $\Gamma_k$ has been read (i.e. the stored bit is set to $1$), the automaton has performed at least $k+1$ sweeps. In particular:
+		\item If a symbol in $\Gamma_k$ was never read (\ie the bit of the second state component is set to $0$), less than $k+1<k'+2$ sweeps have been performed, therefore $A'$ enters the special state $q_0$, which has the task to perform the remaining sweeps (see below for details).
+		\item If a symbol in $\Gamma_k$ has been read (\ie the stored bit is set to $1$), the automaton has performed at least $k+1$ sweeps. In particular:
 		      \begin{enumerate}
-			      \item If $k$ is even, $k+1=k'+1$ and the desired number of sweeps has been reached.
-			      \item If $k$ is odd, then $k'+1=k+2$. However, the $(k+1)$-th sweep was performed towards the left, thus, since the right end-marker has been reached, at least $k+2=k'+1$ sweeps have been performed.
+			      \item If $k$ is even, $k'+2=k+3$, therefore in the worst case two more sweeps need to be performed.
+			            This is done by entering the state $\ql$ and performing a sweep before turning right in state $\qr$ as $\lem$ is reached and continuing to the right until $\rem$ is passed, accepting.
+			      \item If $k$ is odd, then $k'+2=k+2$. However, the $(k+1)$-th sweep was performed towards the left, thus, since the right end-marker has been reached, at least $k+2=k'+2$ sweeps have been performed. Therefore $A'$ can pass $\rem$ and accept.
 		      \end{enumerate}
-		      In both cases, $A'$ can pass $\rem$ and accept.
 	\end{enumerate}
 
 	Formally, if $\delta(q,\rem)=(q_f,\rem,\tr)$ (with $q_f$ final):
 	\begin{align*}
-		\delta'((q,0),\rem) & := (q_0,\rem,\tl) \text,     \\
-		\delta'((q,1),\rem) & := ((q_f,1),\rem,\tr) \text.
+		\delta'((q,0),\rem) & := (q_0,\rem,\tl) \text,                              \\
+		\delta'((q,1),\rem) & = \begin{cases}
+			                        (\ql,\rem,\tl) \qquad     & \text{if $k$ is even}   \\
+			                        ((q_f,1),\rem,\tr) \qquad & \text{otherwise} \text.
+		                        \end{cases}
+	\end{align*}
+	As for $\ql$ and $\qr$, for any $\sigma\in\Gamma$:
+	\begin{align*}
+		\delta'(\ql,\sigma) & :=(\ql,\sigma,\tl) \text, \\
+		\delta'(\ql,\lem)   & :=(\qr,\lem,\tr) \text,   \\
+		\delta'(\qr,\sigma) & :=(\qr,\sigma,\tr) \text, \\
+		\delta'(\qr,\rem)   & :=(\qr,\rem,\tr) \text.
 	\end{align*}
 
 	The computation on the state $q_0$ proceeds by performing the remaining sweeps, writing for the $j$-th sweep an arbitrary symbol from $\Gamma_j$.
 	Only one state is necessary for both directions, as the move will be to the right if the read symbol belongs to an even-indexed $\Gamma_i$ (or the left end-marker is read), and to the left otherwise.
 	When a symbol from $\Gamma_k$ is read, similarly to above, the $k+1$ sweep is being performed. Two cases can occur:
 	\begin{enumerate}
-		\item If $k$ is even, the automaton can reach the right end-marker and pass it, accepting. This is done using a state $\qr$.
-		\item If $k$ is odd, the automaton is moving to the left, and must finish the sweep in this direction before performing a last one to the right and accept. This is done by entering a state $\ql$ and finishing the sweep before turning right in state $\qr$ as $\lem$ is reached.
+		\item If $k$ is even, the automaton is moving to the right, and must finish the current sweep and perform two more. This is done using a state $\qqr$ (first sweep) and the states $\ql$ and $\qr$ (last two sweeps).
+		\item If $k$ is odd, the automaton is moving to the left, and must finish the current sweep before performing a last one to the right and accept. As before, this can be done using the states $\ql$ and $\qr$.
 	\end{enumerate}
 
 	Formally, given $\sigma\in\Gamma_i$, $i\ne k$, and called $\sigma_j$ an arbitrary element of $\Gamma_j$:
@@ -135,16 +145,14 @@
 	and given $\sigma\in\Gamma_k$:
 	\begin{align*}
 		\delta'(q_0,\sigma) & = \begin{cases}
-			                        (\qr,\sigma,\tr) \qquad & \text{if $k$ is even}   \\
-			                        (\ql,\sigma,\tl) \qquad & \text{otherwise} \text.
+			                        (\qqr,\sigma,\tr) \qquad & \text{if $k$ is even}   \\
+			                        (\ql,\sigma,\tl) \qquad  & \text{otherwise} \text.
 		                        \end{cases}
 	\end{align*}
-	As for $\ql$ and $\qr$, for any $\sigma\in\Gamma$:
+	As for $\qqr$, for any $\sigma\in\Gamma$:
 	\begin{align*}
-		\delta'(\ql,\sigma) & :=(\ql,\sigma,\tl) \text,        \\
-		\delta'(\ql,\lem)   & :=(\qr,\lem,\tr) \text,          \\
-		\delta'(\qr,\sigma) & :=(\qr,\sigma,\tr) \text,        \\
-		\delta'(\qr,\rem)   & :=(\qr,\rem,\tr) \text. \qedhere
+		\delta'(\qqr,\sigma) & :=(\qqr,\sigma,\tr) \text,       \\
+		\delta'(\qqr,\rem)   & :=(\ql,\rem,\tl) \text. \qedhere
 	\end{align*}
 \end{proof}
 
