@@ -253,10 +253,10 @@ In general:
 Let $A:=(Q,\Sigma,\delta,q_I,F)$ be a 2DFA.
 Define the DFA $A':=(Q',\Sigma,\delta',q'_I,F')$ where
 \begin{itemize}
-	\item $Q':=Q\times\transtabset$, where $\transtabset$ is the set of transition tables of $A$,
-	\item $\delta'((r,\tau),\sigma):=(s,\pi)$, with $\pi:=t_\sigma(\tau)$ and $s:=\pi(r)$,
-	\item $q'_I:=(s,\tau_\emptyword)$, where $\delta(q_I,\lem)=(s,\tr)$ and
-	\item $F':=\set{(p,\tau)\mid \exists q_f\in F \st t_\rem(\tau)(p)=q}$.
+	\item $Q':=\transtabset\times Q$, where $\transtabset$ is the set of transition tables of $A$,
+	\item $\delta'((\tau,r),\sigma):=(\pi,s)$, with $\pi:=t_\sigma(\tau)$ and $s:=\pi(r)$,
+	\item $q'_I:=(\tau_\emptyword,s)$, where $\delta(q_I,\lem)=(s,\tr)$, and
+	\item $F':=\set{(\tau,p)\mid t_\rem(\tau)(p)\in F}$.
 \end{itemize}
 
 % TODO: proof: induction to prove that $\delta'(q'_I,w)=(p,\tau)$ iff there exists a computation of $A$ that ends in state p after reading w (follows that $A'$ accepts w iff $A$ does)
