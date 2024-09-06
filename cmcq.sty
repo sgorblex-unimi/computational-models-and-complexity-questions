@@ -1,11 +1,5 @@
-\usepackage{csquotes}
-\MakeOuterQuote{"}
-
-
-\usepackage{amsmath,amssymb}
-
-
-\usepackage{amsthm}
+% MATHS
+\usepackage{amsmath,amssymb,amsthm}
 \usepackage[capitalise]{cleveref}
 
 \theoremstyle{plain}
@@ -24,6 +18,13 @@
 \crefname{defn}{definition}{definitions}
 
 
+% TYPOGRAPHY
+\usepackage{xspace}
+
+\usepackage{csquotes}
+\MakeOuterQuote{"}
+
+% CUSTOM ENUMERATE
 \usepackage[shortlabels]{enumitem}
 
 \newlist{rules}{enumerate}{1}
@@ -35,32 +36,14 @@
 \crefname{statementsi}{statement}{statements}
 
 
-\usepackage{xspace}
+% GRAPHICS
 
-\newcommand{\DFAs}{DFAs\xspace}
-\newcommand{\NFAs}{NFAs\xspace}
-\newcommand{\tl}{\mathtt L}
-\newcommand{\tr}{\mathtt R}
-\newcommand{\set}[1]{\{#1\}}
-\newcommand{\genlang}{\mathcal L}
-\renewcommand{\star}{^*}
-\newcommand{\floor}[1]{\lfloor #1 \rfloor}
-\newcommand{\ceil}[1]{\lceil #1 \rceil}
-\newcommand{\lem}{\rhd}
-\newcommand{\rem}{\lhd}
-\newcommand{\ie}[1][]{i.e.#1\ }
-\newcommand{\eg}[1][]{e.g.#1\ }
-\newcommand{\tto}{\textrightarrow}
-\newcommand{\subsets}[1]{2^{#1}}
-\newcommand{\len}[1]{\lvert #1 \rvert}
-\newcommand{\card}[1]{\# #1}
-\newcommand{\transtabset}{\mathcal T}
-\newcommand{\st}{\text{ s.t. }}
-\renewcommand{\epsilon}{\varepsilon}
-\newcommand{\emptyword}{\epsilon}
+\usepackage{xcolor}
+\usepackage{colortbl}
+\usepackage{booktabs}
 
 \usepackage{caption}
-\captionsetup{tableposition=top,figureposition=bottom,font=small,labelfont={sf,bf}}%,format=hang}
+\captionsetup{tableposition=bottom,figureposition=bottom,font=small,labelfont={sf,bf}}%,format=hang}
 \usepackage{subcaption}
 
 \usepackage{tikz}
@@ -70,5 +53,77 @@
 \tikzset{tapeseg/.style={minimum height=1.5em,minimum width=1.5em,outer sep=0pt,node distance=0pt},cell/.style={rectangle,draw,tapeseg},transition/.style={->,shorten <=.3mm,shorten >=.3mm}}
 \tikzset{smalldashed/.style={dash pattern={on 1.5pt off 1.5pt}},brace/.style={decorate,decoration={brace,amplitude=3}}}
 
+
+% BIBLIOGRAPHY
 \usepackage[isbn=false,citestyle=numeric-comp,sorting=none,sortcites=true]{biblatex}
 \addbibresource{bibliography.bib}
+
+
+% ALIASES
+
+% MODELS
+\newcommand{\NFA}{\textsc{nfa}\xspace}
+\newcommand{\ONFA}{\textsc{1nfa}\xspace}
+\newcommand{\TNFA}{\textsc{2nfa}\xspace}
+\newcommand{\DFA}{\textsc{dfa}\xspace}
+\newcommand{\ODFA}{\textsc{1dfa}\xspace}
+\newcommand{\TDFA}{\textsc{2dfa}\xspace}
+\newcommand{\LA}[1]{\ensuremath{#1}\textsc{-la}\xspace}
+\newcommand{\OLA}{\LA1}
+\newcommand{\KLA}{\LA k}
+\newcommand{\DLA}[1]{\ensuremath{#1}\textsc{-dla}\xspace}
+\newcommand{\ODLA}{\DLA1}
+\newcommand{\KDLA}{\DLA k}
+\newcommand{\OMOLA}{\textsc{om-$1$-la}\xspace}
+\newcommand{\OMODLA}{\textsc{om-$1$-dla}\xspace}
+
+% TODO: fix in text, then rename to lowercase (for consistency)
+\newcommand{\DFAs}{\DFA{}s\xspace}
+\newcommand{\NFAs}{\NFA{}s\xspace}
+
+% COMPLEXITIES
+\newcommand{\Cexp}{\mathsf{exp}}
+\newcommand{\Cdexp}{\mathsf{2exp}}
+\newcommand{\Cpoly}{\mathsf{poly}}
+\newcommand{\Ctriv}{\tGr{trivial}}
+\newcommand{\CsubGe}{e^{\Omega(\sqrt{n\ln n})}}
+\newcommand{\CsubLe}{e^{O(\sqrt{n\ln n})}}
+\newcommand{\CsubEq}{e^{\Theta(\sqrt{n\ln n})}}
+\newcommand{\Csubln}{e^{O(\ln^2n)}}
+
+% TABLE COLORS
+\newcommand{\cR}{\cellcolor{red!20}}
+\newcommand{\cG}{\cellcolor{green!80!black!20}}
+\newcommand{\cB}{\cellcolor{blue!15}}
+\newcommand{\cY}{\cellcolor{black!15}}
+\newcommand{\tGr}{\textcolor{darkgray}}
+
+% TABLE SPACING
+\newcommand{\rbt}[2][.5]{\raisebox{-#1ex}{#2}} % "raisebox table"
+\newcommand{\hstdef}{.5}
+\newcommand{\hst}[1][\hstdef]{\hspace{#1em}} % "hspace table"
+
+% SYMBOLS
+\newcommand{\tl}{\mathtt L}
+\newcommand{\tr}{\mathtt R}
+\newcommand{\genlang}{\mathcal L}
+\renewcommand{\star}{^*}
+\newcommand{\lem}{\rhd}
+\newcommand{\rem}{\lhd}
+\newcommand{\len}[1]{\lvert #1 \rvert}
+\newcommand{\transtabset}{\mathcal T}
+\newcommand{\emptyword}{\epsilon}
+
+% MATHS
+\newcommand{\floor}[1]{\lfloor #1 \rfloor}
+\newcommand{\ceil}[1]{\lceil #1 \rceil}
+\newcommand{\tto}{\textrightarrow}
+\newcommand{\subsets}[1]{2^{#1}}
+\newcommand{\card}[1]{\# #1}
+
+% MISC
+\newcommand{\set}[1]{\{#1\}}
+\newcommand{\ie}[1][]{i.e.#1\ }
+\newcommand{\eg}[1][]{e.g.#1\ }
+\newcommand{\st}{\text{ s.t. }}
+\renewcommand{\epsilon}{\varepsilon}
