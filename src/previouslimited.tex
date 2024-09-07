@@ -1,4 +1,5 @@
 \chapter{Previous results}
+% TODO: add sections
 The tables in this chapter summarize the cost of simulations (conversions) between various regular language acceptors.
 Each cell contains upper and lower bounds for the cost of the simulation of a machine of the kind given by the row by a machine of the kind given by the column.
 When the bounds match, one cost is displayed (two exponential bounds will be considered to match even if the match is not exact).
@@ -61,8 +62,6 @@ Here we give a description of each nontrivial result:
 \end{itemize}
 
 
-
-
 \begin{table}
 	\centering
 	\renewcommand{\hstdef}{.55}
@@ -79,6 +78,71 @@ Here we give a description of each nontrivial result:
 	\caption{Descriptional complexity of the simulations between basic regular language recognisers and $1$-limited automata, general case.}
 	\label{tab:sims-1la-general}
 \end{table}
+
+\Cref{tab:sims-1la-general} contains the costs of simulations between basic regular language acceptors and $1$-limited automata.
+In addition to the cells highlighted in red for the Sakoda and Sipser conjecture, we have blue and green cells.
+The cells highlighted in blue consist in a relaxed version of the problem, with an extension of \TNFA, namely \ODLA, as the simulating machine.
+The cells highlighted in green consist in a harder version of the problem, with an extension of \NFA, namely \OLA, as the simulated machine.
+Here we give a description of each nontrivial result that hasn't been explained previously:
+
+\paragraph{\ONFA{}\tto\ODLA}
+\begin{itemize}
+	\item $\le\exp$: since \hyperref[cost:1NFAto1DFA]{\ONFA{}\tto\ODFA} is $\le\exp$ and \ODFA\tto\ODLA is $O(n)$
+	\item relaxed form of the Sakoda and Sipser conjecture with extended \TDFA
+\end{itemize}
+\paragraph{\TNFA{}\tto\ODLA}
+\begin{itemize}
+	\item $\le\exp$: since \hyperref[cost:2NFAto1DFA]{\TNFA{}\tto\ODFA} is $\le\exp$ and \ODFA\tto\ODLA is $O(n)$
+	\item relaxed form of the Sakoda and Sipser conjecture with extended \TDFA
+\end{itemize}
+\paragraph{\OLA{}\tto\ODFA}\label{cost:1LAto1DFA}
+\begin{itemize}
+	\item $\le\Cdexp$: transition table construction \cite{PigPis14}
+	\item $\ge\Cdexp$: block witness language $L_n$ \cite{PigPis14}; "reset" witness languages \cite{PigPri+22}
+\end{itemize}
+\paragraph{\OLA{}\tto\ONFA}\label{cost:1LAto1NFA}
+\begin{itemize}
+	\item $\le\exp$: transition table construction \cite{PigPis14}
+	\item $\ge\exp$: \ONFA requires $\exp$ for block witness language $L_n$, otherwise with \hyperref[cost:1NFAto1DFA]{\ONFA{}\tto\ODFA} we would get a \ODFA for $L_n$ with $<\Cdexp$ \cite{PigPis14}
+\end{itemize}
+\paragraph{\OLA{}\tto\TDFA}
+\begin{itemize}
+	\item $\le\Cdexp$: since \hyperref[cost:1LAto1DFA]{\OLA{}\tto\ODFA} is $\le\Cdexp$ and \ODFA\tto\TDFA is $O(n)$
+	\item $\ge\exp$: otherwise \hyperref[cost:1LAto1DFA]{\OLA{}\tto\ODFA} would be $<\Cdexp$ since \hyperref[cost:2DFAto1DFA]{\TDFA{}\tto\ODFA} is $\exp$
+\end{itemize}
+\paragraph{\OLA{}\tto\TNFA}
+\begin{itemize}
+	\item $\le\exp$: since \hyperref[cost:1LAto1NFA]{\OLA{}\tto\ONFA} is $\le\exp$ and \ONFA\tto\TNFA is $O(n)$
+	\item $\ge\exp$: otherwise \hyperref[cost:1LAto1DFA]{\OLA{}\tto\ODFA} would be $<\Cdexp$ since \TNFA\tto\ODFA is $\exp$
+\end{itemize}
+\paragraph{\ODLA{}\tto\ODFA}\label{cost:1DLAto1DFA}
+\begin{itemize}
+	\item $\le\exp$: transition table construction \cite{PigPis14}
+	\item $\ge\exp$: otherwise with \hyperref[cost:1DLAto1DFA]{\ODLA{}\tto\ODFA} we would get a \ODFA for $L_n$ with $<\Cdexp$ as a \ODLA (\TDFA) of size $\exp$ accepts $L_n$ \cite{PigPis14}
+\end{itemize}
+\paragraph{\OLA{}\tto\ODLA}
+\begin{itemize}
+	\item $\le\Cdexp$: since \hyperref[cost:1LAto1DFA]{\OLA{}\tto\ODFA} is $\le\Cdexp$ and \ODFA\tto\ODLA is $O(n)$
+	\item $\ge\exp$: otherwise \hyperref[cost:1LAto1DFA]{\OLA{}\tto\ODFA} would be $<\Cdexp$ since \ODLA\tto\ODFA is $\exp$
+\end{itemize}
+\paragraph{\ODLA{}\tto\TNFA}\label{cost:1DLAto2NFA}
+\begin{itemize}
+	\item $\le\exp$: since \hyperref[cost:1DLAto1DFA]{\ODLA{}\tto\ODFA} is $\le\exp$ and \ODFA\tto\TNFA is $O(n)$
+	\item $\ge\exp$: unary witness language $\set{a^{2^n}}\star$ (recognized with \ODLA presented in \cite{PigPri19} and with \TNFA lower bound proven in \cite{MerPig00})
+\end{itemize}
+\paragraph{\ODLA{}\tto\ONFA}
+\begin{itemize}
+	\item $\le\exp$: since \hyperref[cost:1DLAto1DFA]{\ODLA{}\tto\ODFA} is $\le\exp$ and \ODFA\tto\ONFA is $O(n)$
+	\item $\ge\exp$: otherwise \hyperref[cost:1DLAto2NFA]{\ODLA{}\tto\TNFA} would be $<\exp$ since \ONFA\tto\TNFA is $O(n)$
+\end{itemize}
+\paragraph{\ODLA{}\tto\TDFA}
+\begin{itemize}
+	\item $\le\exp$: since \hyperref[cost:1DLAto1DFA]{\ODLA{}\tto\ODFA} is $\le\exp$ and \ODFA\tto\TDFA is $O(n)$
+	\item $\ge\exp$: otherwise \hyperref[cost:1DLAto2NFA]{\ODLA{}\tto\TNFA} would be $<\exp$ since \TDFA\tto\TNFA is $O(n)$
+\end{itemize}
+
+
+
 
 \begin{table}
 	\centering
