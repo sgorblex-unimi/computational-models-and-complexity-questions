@@ -1,10 +1,9 @@
 \chapter{Previous results}
+The tables in this chapter summarize the cost of simulations (conversions) between various regular language acceptors.
+Each cell contains upper and lower bounds for the cost of the simulation of a machine of the kind given by the row by a machine of the kind given by the column.
+When the bounds match, one cost is displayed (two exponential bounds will be considered to match even if the match is not exact).
+The simulations marked $\Ctriv$ are ones where the simulated machine is virtually a subcase of the simulating one, therefore close to no size growth ($O(n)$) is required.
 
-\begin{itemize}
-	\item red: Sakoda \& Sipser
-	\item green: Relaxed Sakoda \& Sipser
-	\item blue: Harder Sakoda \& Sipser
-\end{itemize}
 
 \begin{table}
 	\centering
@@ -18,7 +17,51 @@
 		\TNFA & $\Cexp$ & $\Cexp$ & \cR $\le\Cexp\hst$ $\ge\Cpoly$ & \cY    \\ \hline
 	\end{tabular}
 	\caption{Descriptional complexity of the simulations between basic regular language recognisers, general case.}
+	\label{tab:sims-core-general}
 \end{table}
+
+\Cref{tab:sims-core-general} contains the costs of simulations between basic regular language acceptors.
+The cells highlighted in red represent the unsolved Sakoda and Sipser problem \cite{SakSip78} about the cost of removal of nondeterminism from finite state automata.
+Here we give a description of each nontrivial result:
+
+\paragraph{\ONFA{}\tto\ODFA}\label{cost:1NFAto1DFA}
+\begin{itemize}
+	\item $\le\Cexp$: subset construction \cite{RabSco59},
+	\item $\ge\Cexp$: witness languages: Meyer and Fischer's automaton (distinguishability) \cite{MeyFis71}, Moore's automaton \cite{Moo71}.
+\end{itemize}
+\paragraph{\ONFA{}\tto\TDFA}
+\begin{itemize}
+	\item $\le\Cexp$: since \hyperref[cost:1NFAto1DFA]{\ONFA{}\tto\ODFA} is $\le\Cexp$ and \ODFA{}\tto\TDFA is $O(n)$
+	\item Sakoda and Sipser conjecture that it's $=\Cexp$ \cite{SakSip78}
+\end{itemize}
+\paragraph{\TDFA{}\tto\ONFA}\label{cost:2DFAto1NFA}
+\begin{itemize}
+	\item $\le\Cexp$: since \hyperref[cost:1NFAto1DFA]{\ONFA{}\tto\ODFA} is $\le\Cexp$ and \ODFA{}\tto\ONFA is $O(n)$
+	\item $\ge\Cexp$: proven in \cite{Bir93} (cited in \cite{PigPis14})
+\end{itemize}
+\paragraph{\TDFA{}\tto\ODFA}\label{cost:2DFAto1DFA}
+\begin{itemize}
+	\item $\le\Cexp$: proven in \cite{She59} (transition tables) and in parallel in \cite{RabSco59} (crossing sequences)
+	\item $\ge\Cexp$: otherwise \hyperref[cost:2DFAto1NFA]{\TDFA{}\tto\ONFA} would be $<\Cexp$ since \ODFA{}\tto\ONFA is $O(n)$
+\end{itemize}
+\paragraph{\TNFA{}\tto\ODFA}\label{cost:2NFAto1DFA}
+\begin{itemize}
+	\item $\le\Cexp$: generally attributed to the same articles of \hyperref[cost:2DFAto1DFA]{\TDFA{}\tto\ODFA}
+	\item $\ge\Cexp$: otherwise \hyperref[cost:1NFAto1DFA]{\ONFA{}\tto\ODFA} would be $<\Cexp$ since \ONFA{}\tto\TNFA is $O(n)$
+\end{itemize}
+\paragraph{\TNFA{}\tto\ONFA}
+\begin{itemize}
+	\item $\le\Cexp$: proven in \cite{Kap05} (precisely $\binom{2n}{n+1}$)
+	\item $\ge\Cexp$: proven in \cite{Kap05} (precisely $\binom{2n}{n+1}$)
+\end{itemize}
+\paragraph{\TNFA{}\tto\TDFA}
+\begin{itemize}
+	\item $\le\Cexp$: since \hyperref[cost:2NFAto1DFA]{\TNFA{}\tto\ODFA} is $\le\Cexp$ and \ODFA{}\tto\TDFA is $O(n)$
+	\item Sakoda and Sipser conjecture that it's $=\Cexp$ \cite{SakSip78}
+\end{itemize}
+
+
+
 
 \begin{table}
 	\centering
@@ -34,6 +77,7 @@
 		\ODLA & $\Cexp$            & $\Cexp$ & $\Cexp$                                          & $\Cexp$ & \Ctriv & \cY                                              \\ \hline
 	\end{tabular}
 	\caption{Descriptional complexity of the simulations between basic regular language recognisers and $1$-limited automata, general case.}
+	\label{tab:sims-1la-general}
 \end{table}
 
 \begin{table}
@@ -48,6 +92,7 @@
 		\TNFA & \rbt{$\CsubEq$} & \rbt{$\CsubEq$} & \cR \rbt[.4]{$\le\Csubln$} \rbt[.3]{$\ge\Cpoly$} & \cY    \\ \hline
 	\end{tabular}
 	\caption{Descriptional complexity of the simulations between basic regular language recognisers, unary case.}
+	\label{tab:sims-core-unary}
 \end{table}
 
 \begin{table}
@@ -65,6 +110,7 @@
 		\ODLA & $\Cexp$         & $\Cexp$         & $\Cexp$                                          & $\Cexp$ & \Ctriv & \cY                            \\ \hline
 	\end{tabular}
 	\caption{Descriptional complexity of the simulations between basic regular language recognisers and $1$-limited automata, unary case.}
+	\label{tab:sims-1la-unary}
 \end{table}
 
 \begin{table}
@@ -82,4 +128,5 @@
 		\OMODLA & $\Cexp$            & $\Cexp$ & \rbt[.1]{$O(n^3)$}                           & \rbt[.1]{$O(n^3)$} & \Ctriv & \cY                                           \\ \hline
 	\end{tabular}
 	\caption{Descriptional complexity of the simulations between basic regular language recognisers and once-marking $1$-limited automata, general case.}
+	\label{tab:sims-om-general}
 \end{table}
