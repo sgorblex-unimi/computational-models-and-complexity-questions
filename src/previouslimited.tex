@@ -216,6 +216,64 @@ Here we give a description of each nontrivial result:
 	\label{tab:sims-1la-unary}
 \end{table}
 
+\Cref{tab:sims-1la-unary} contains the costs of simulations between basic regular language acceptors and $1$-limited automata, for unary languages.
+Here we give a description of each nontrivial result that hasn't been explained previously:
+
+\paragraph{\ONFA{}\tto\ODLA}\label{cost:1NFAto1DLAu}
+\begin{itemize}
+	\item $\le O(n^2)$: since \hyperref[cost:1NFAto2DFAu]{\ONFA{}\tto\TDFA} is $\le O(n^2)$ and \TDFA{}\tto\ODLA is $O(n)$
+\end{itemize}
+\paragraph{\TNFA{}\tto\ODLA}
+\begin{itemize}
+	\item $\le e^{O(\ln^2n)}$: since \hyperref[cost:2NFAto2DFAu]{\TNFA{}\tto\TDFA} is $\le e^{O(\ln^2n)}$ and \TDFA{}\tto\ODLA is $O(n)$
+	\item relaxed form of the Sakoda and Sipser conjecture with extended 2DFA
+\end{itemize}
+\paragraph{\ODLA{}\tto\TNFA}\label{cost:1DLAto2NFAu}
+\begin{itemize}
+	\item $\le\exp$: since \hyperref[cost:1DLAto1DFAu]{\ODLA{}\tto\ODFA} is $\le\exp$ and \ODFA{}\tto\TNFA is $O(n)$
+	\item $\ge\exp$: witness language $\{a^{2^n}\}^*$ (recognized with 1-DLA presented in \cite{PigPri19} and with \TNFA lower bound proven in \cite{MerPig00}) (honorable mention: $\ge\CsubGe$ by \cite{KutPig+18})
+\end{itemize}
+\paragraph{\ODLA{}\tto\ODFA}\label{cost:1DLAto1DFAu}
+\begin{itemize}
+	\item $\le\exp$: transition table construction \cite{PigPis14}
+	\item $\ge\exp$: otherwise \hyperref[cost:1DLAto2NFAu]{\ODLA{}\tto\TNFA} would be $<\exp$ since \ODFA{}\tto\TNFA is $O(n)$
+\end{itemize}
+\paragraph{\ODLA{}\tto\ONFA}\label{cost:1LAto1NFAu}
+\begin{itemize}
+	\item $\le\exp$: since \hyperref[cost:1DLAto1DFAu]{\ODLA{}\tto\ODFA} is $\le\exp$ and \ODFA{}\tto\ONFA is $O(n)$
+	\item $\ge\exp$: otherwise \hyperref[cost:1DLAto2NFAu]{\ODLA{}\tto\TNFA} would be $<\exp$ since \ONFA{}\tto\TNFA is $O(n)$
+\end{itemize}
+\paragraph{\ODLA{}\tto\TDFA}\label{cost:1DLAto2DFAu}
+\begin{itemize}
+	\item $\le\exp$: since \hyperref[cost:1DLAto1DFAu]{\ODLA{}\tto\ODFA} is $\le\exp$ and \ODFA{}\tto\TDFA is $O(n)$
+	\item $\ge\exp$: otherwise \hyperref[cost:1DLAto2NFAu]{\ODLA{}\tto\TNFA} would be $<\exp$ since \TDFA{}\tto\TNFA is $O(n)$
+\end{itemize}
+\paragraph{\OLA{}\tto\ODFA}
+\begin{itemize}
+	\item $\le\Cdexp$: transition table construction for the general case \cite{PigPis14}
+	\item $\ge\exp$: otherwise \hyperref[cost:1DLAto1DFAu]{\ODLA{}\tto\ODFA} would be $<\exp$ since \ODLA{}\tto\OLA is $O(n)$
+\end{itemize}
+\paragraph{\OLA{}\tto\ONFA}\label{cost:1DLAto1NFAu}
+\begin{itemize}
+	\item $\le\exp$: transition table construction for the general case \cite{PigPis14}
+	\item $\ge\exp$: otherwise \hyperref[cost:1DLAto1NFAu]{\OLA{}\tto\ONFA} would be $<\exp$ since \ODLA{}\tto\OLA is $O(n)$
+\end{itemize}
+\paragraph{\OLA{}\tto\TDFA}
+\begin{itemize}
+	\item $\le\exp$: since \hyperref[cost:1LAto1NFAu]{\ODLA{}\tto\ONFA} is $\le\exp$ and \hyperref[cost:1NFAto2DFAu]{\ONFA{}\tto\TDFA} is $\le O(n^2)$
+	\item $\ge\exp$: otherwise \hyperref[cost:1DLAto2DFAu]{\ODLA{}\tto\TDFA} would be $<\exp$ since \ODLA{}\tto\OLA is $O(n)$
+\end{itemize}
+\paragraph{\OLA{}\tto\TNFA}
+\begin{itemize}
+	\item $\le\exp$: since \hyperref[cost:1LAto1NFAu]{\ODLA{}\tto\ONFA} is $\le\exp$ and \ONFA{}\tto\TNFA is $O(n)$
+	\item $\ge\exp$: otherwise \hyperref[cost:1DLAto2DFAu]{\ODLA{}\tto\TDFA} would be $<\exp$ since \ODLA{}\tto\OLA is $O(n)$
+\end{itemize}
+\paragraph{\OLA{}\tto\ODLA}
+\begin{itemize}
+	\item $\le\exp$: since \hyperref[cost:1LAto1NFAu]{\ODLA{}\tto\ONFA} is $\le\exp$ and \hyperref[cost:1NFAto1DLAu]{\ONFA{}\tto\ODLA} is $\le O(n^2)$
+\end{itemize}
+
+
 \begin{table}
 	\centering
 	\renewcommand{\arraystretch}{1.1}
