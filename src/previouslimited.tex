@@ -142,8 +142,6 @@ Here we give a description of each nontrivial result that hasn't been explained 
 \end{itemize}
 
 
-
-
 \begin{table}
 	\centering
 	\renewcommand{\arraystretch}{1.2}
@@ -158,6 +156,47 @@ Here we give a description of each nontrivial result that hasn't been explained 
 	\caption{Descriptional complexity of the simulations between basic regular language recognisers, unary case.}
 	\label{tab:sims-core-unary}
 \end{table}
+
+\Cref{tab:sims-core-unary} contains the costs of simulations between basic regular language acceptors for unary languages.
+Here we give a description of each nontrivial result:
+
+\paragraph{\ONFA{}\tto\ODFA}
+\begin{itemize}
+	\item $\le\CsubLe$: \cite{Chr86}
+	\item $\ge\CsubGe$: \cite{Chr86}
+\end{itemize}
+\paragraph{\TDFA{}\tto\ODFA}\label{cost:2DFAto1DFAu}
+\begin{itemize}
+	\item $\le\CsubLe$: \cite{Chr86}
+	\item $\ge\CsubGe$: \cite{Chr86}
+\end{itemize}
+\paragraph{\TDFA{}\tto\ONFA}\label{cost:2DFAto1NFAu}
+\begin{itemize}
+	\item $\le\CsubLe$: since \hyperref[cost:2DFAto1DFAu]{\TDFA{}\tto\ODFA} is $\le\CsubLe$ and \ODFA\tto\ONFA is $O(n)$ (\cite{Chr86})
+	\item $\ge\CsubGe$: \cite{Chr86} (shown as an improvement of the lower bound of \hyperref[cost:2DFAto1DFAu]{\TDFA{}\tto\ODFA})
+\end{itemize}
+\paragraph{\ONFA{}\tto\TDFA}\label{cost:1NFAto2DFAu}
+\begin{itemize}
+	\item $\le O(n^2)$: \cite{Chr86}
+	\item $\ge \Omega(n^2)$: \cite{Chr86}
+\end{itemize}
+\paragraph{\TNFA{}\tto\ODFA}\label{cost:2NFAto1DFAu}
+\begin{itemize}
+	\item $\le\CsubLe$: \cite{MerPig01}
+	\item $\ge\CsubGe$: otherwise \hyperref[cost:2DFAto1DFAu]{\TDFA{}\tto\ODFA} would be $<\CsubLe$ since \TDFA\tto\TNFA is $O(n)$
+\end{itemize}
+\paragraph{\TNFA{}\tto\ONFA}
+\begin{itemize}
+	\item $\le\CsubLe$: since \hyperref[cost:2NFAto1DFAu]{\TNFA{}\tto\ODFA} is $\le\exp$ and \ODFA\tto\ONFA is $O(n)$
+	\item $\ge\CsubGe$: otherwise \hyperref[cost:2DFAto1NFAu]{\TDFA{}\tto\ONFA} would be $<\CsubLe$ since \TDFA\tto\TNFA is $O(n)$
+\end{itemize}
+\paragraph{\TNFA{}\tto\TDFA}\label{cost:2NFAto2DFAu}
+\begin{itemize}
+	\item $\le e^{O(\ln^2n)}$: \cite{GefMer+03} (mentioned in \cite{Pig15})
+	\item (already proven $\le\CsubLe$ since \hyperref[cost:2NFAto1DFAu]{\TNFA{}\tto\ODFA} is $\le\CsubLe$ and \ODFA\tto\TDFA is $O(n)$)
+	\item Sakoda and Sipser conjecture (the case \hyperref[cost:1NFAto2DFAu]{\ONFA{}\tto\TDFA} is solved for the unary case)
+\end{itemize}
+
 
 \begin{table}
 	\centering
