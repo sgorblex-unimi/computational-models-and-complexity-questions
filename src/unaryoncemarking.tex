@@ -21,3 +21,56 @@
 	\caption{Descriptional complexity of the simulations between basic regular language recognisers and once-marking $1$-limited automata, unary case.}
 	\label{tab:sims-om-unary}
 \end{table}
+
+\Cref{tab:sims-om-unary} contains the costs of simulations between basic regular language acceptors and once-marking $1$-limited automata, in the unary case.
+Here we give a description of each nontrivial result that hasn't been explained previously:
+
+\paragraph{\ONFA{}\tto\OMODLA}\label{cost:1NFAtoOM1DLAu}
+\begin{itemize}
+	\item $\le O(n^2)$: since \hyperref[cost:1NFAto2DFAu]{\ONFA{}\tto\TDFA} is $\le O(n^2)$ and \TDFA{}\tto\OMODLA is $O(n)$
+\end{itemize}
+\paragraph{\TNFA{}\tto\OMODLA}
+\begin{itemize}
+	\item $\le e^{O(\ln^2n)}$: since \hyperref[cost:2NFAto2DFAu]{\TNFA{}\tto\TDFA} is $\le e^{O(\ln^2n)}$ and \TDFA{}\tto\OMODLA is $O(n)$
+	\item relaxed form of the Sakoda and Sipser conjecture with extended \TDFA
+\end{itemize}
+\paragraph{\OMOLA{}\tto\ODFA}
+\begin{itemize}
+	\item $\le\Cdexp$: transition table construction for the general case \cite{PigPis14}
+	\item $\ge\CsubGe$: otherwise \hyperref[cost:2DFAto1DFAu]{\TDFA{}\tto\ODFA} would be $<\CsubLe$ since \TDFA{}\tto\OMOLA is $O(n)$
+\end{itemize}
+\paragraph{\OMOLA{}\tto\ONFA}\label{cost:OM1LAto1NFAu}
+\begin{itemize}
+	\item $\le\exp$: transition table construction for the general case \cite{PigPis14}
+	\item $\ge\CsubGe$: otherwise \hyperref[cost:2DFAto1NFAu]{\TDFA{}\tto\ONFA} would be $<\CsubLe$ since \TDFA{}\tto\OMOLA is $O(n)$
+\end{itemize}
+\paragraph{\OMOLA{}\tto\TDFA}
+\begin{itemize}
+	\item $\le\exp$: since \hyperref[cost:OM1LAto1NFAu]{\OMOLA{}\tto\ONFA} is $\le\exp$ and \ONFA{}\tto\TDFA is $O(n^2)$
+\end{itemize}
+\paragraph{\OMOLA{}\tto\TNFA}
+\begin{itemize}
+	\item $\le\exp$: since \hyperref[cost:OM1LAto1NFAu]{\OMOLA{}\tto\ONFA} is $\le\exp$ and \ONFA{}\tto\TNFA is $O(n)$
+\end{itemize}
+\paragraph{\OMOLA{}\tto\OMODLA}
+\begin{itemize}
+	\item $\le\exp$: since \hyperref[cost:OM1LAto1NFAu]{\OMOLA{}\tto\ONFA} is $\le\exp$ and \hyperref[cost:1NFAtoOM1DLAu]{\ONFA{}\tto\OMODLA} is $\le O(n^2)$
+\end{itemize}
+\paragraph{\OMODLA{}\tto\ODFA}
+\begin{itemize}
+	\item $\le\exp$: transition table construction for the general case \cite{PigPis14}
+	\item $\ge\CsubGe$: otherwise \hyperref[cost:2DFAto1DFAu]{\TDFA{}\tto\ODFA} would be $<\CsubLe$ since \TDFA{}\tto\OMODLA is $O(n)$
+\end{itemize}
+\paragraph{\OMODLA{}\tto\ONFA}
+\begin{itemize}
+	\item $\le\exp$: transition table construction for the general case \cite{PigPis14}
+	\item $\ge\CsubGe$: otherwise \hyperref[cost:2DFAto1NFAu]{\TDFA{}\tto\ONFA} would be $<\CsubLe$ since \TDFA{}\tto\OMODLA is $O(n)$
+\end{itemize}
+\paragraph{\OMODLA{}\tto\TDFA}\label{cost:OM1DLAto2DFAu}
+\begin{itemize}
+	\item $\le O(n^3)$: simulation via computation trees for the general case \cite{PigPri23a}
+\end{itemize}
+\paragraph{\OMODLA{}\tto\TNFA}
+\begin{itemize}
+	\item $\le O(n^3)$: since \hyperref[cost:OM1DLAto2DFAu]{\OMODLA{}\tto\TDFA} is $\le O(n^3)$ and \TDFA{}\tto\TNFA is $O(n)$
+\end{itemize}
