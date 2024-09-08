@@ -1,10 +1,11 @@
 \chapter{Previous results}
-% TODO: add sections
 The tables in this chapter summarize the cost of simulations (conversions) between various regular language acceptors.
 Each cell contains upper and lower bounds for the cost of the simulation of a machine of the kind given by the row by a machine of the kind given by the column.
 When the bounds match, one cost is displayed (two exponential bounds will be considered to match even if the match is not exact).
 The simulations marked $\Ctriv$ are ones where the simulated machine is virtually a subcase of the simulating one, therefore close to no size growth ($O(n)$) is required.
 
+
+\section{The general case}
 
 \begin{table}
 	\centering
@@ -141,6 +142,8 @@ Here we give a description of each nontrivial result that hasn't been explained 
 	\item $\ge\exp$: otherwise \hyperref[cost:1DLAto2NFA]{\ODLA{}\tto\TNFA} would be $<\exp$ since \TDFA{}\tto\TNFA is $O(n)$
 \end{itemize}
 
+
+\section{The unary case}
 
 \begin{table}
 	\centering
