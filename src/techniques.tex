@@ -209,7 +209,7 @@ In order to prove that $A'$ accepts the same language as $A$, we prove two separ
 
 Since the inclusion between $\genlang(A)$ and $\genlang(A')$ holds both ways, we can conclude that the two machines accept the same language.
 In general:
-\begin{thrm}
+\begin{thrm}\label{thm:2DFAto1NFA}
 	Every $n$-state 2DFA can be simulated by a 1NFA with an exponential number of states in $n$.
 \end{thrm}
 \begin{proof}
@@ -259,4 +259,50 @@ Define the DFA $A':=(Q',\Sigma,\delta',q'_I,F')$ where
 	\item $F':=\set{(\tau,p)\mid t_\rem(\tau)(p)\in F}$.
 \end{itemize}
 
-% TODO: proof: induction to prove that $\delta'(q'_I,w)=(p,\tau)$ iff there exists a computation of $A$ that ends in state p after reading w (follows that $A'$ accepts w iff $A$ does)
+A simple induction gives
+\begin{lemm}
+	For all $w\in\Sigma\star$, the first component of $\delta(q'_I,w)$ is $\tau\in\transtabset$ if and only if $\tau=\tau_w$.
+\end{lemm}
+
+\begin{lemm}\label{lem:transtab2DFA}
+	For each $w\in\Sigma\star$ and $p\in Q$, $\delta'(q'_I,w)=(\tau_w,p)$ if and only if there exists a computation of $A$ on input $w$ that passes the last symbol of $w$ for the first time in state $p$.
+\end{lemm}
+\begin{proof}
+	By induction on $w$:
+	\begin{description}
+		\item[Base] $\delta'(q'_I,\emptyword)=q'_I=(\tau_\emptyword,s)$, where $\delta(q_I,\lem)=(s,\tr)$. The statement is trivially proven.
+		      % TODO: PICTURE(s)
+		\item[Step] Given $x\in\Sigma\star$ and $r\in Q$, assume $\delta'(q'_I,x)=(\tau_x,r)$ if and only if there exists a computation of $A$ on input $x$ that passes the last symbol of $x$ for the first time in state $r$, and let the tape contain $w=:x\sigma$, with $\sigma\in\Sigma$.
+		      \begin{description}
+			      \item[$\Rightarrow$)] Assume $\delta'(q'_I,w)=(\tau_w,p)$.
+			            We have $\delta'(q'_I,w)=\delta'(\delta'(q'_I,x),\sigma)$, with $\delta'(q'_I,x)=(\tau_x,r)$ for some $r\in Q$.
+			            By induction hypothesis, there exists a computation of $A$ on input $x\sigma$ that reads $\sigma$ for the first time in state $r$.
+			            By definition of $\delta'$, we have that $p=\tau_w(r)$.
+			            By definition of transition table, there is a computation path that starts on $\sigma$ and first passes it to the right in state $p$.
+			            By combining the two computations we get the desideratum.
+			      \item[$\Leftarrow$)] Assume that there exists a computation of $A$ on input $w=x\sigma$ that passes $\sigma$ for the first time in state $r$.
+			            Such computation can be split in two parts, the first ending when $\sigma$ is first read in a state $r$.
+			            By applying the induction hypothesis on the first part of the computation, we obtain $\delta'(q'_I,x)=(\tau_x,r)$.
+			            The second part of the computation describes a path that starts in state $r$ on $\sigma$ and first ends to its right in state $p$, therefore $\tau_w(r)=p$.
+			            By definition of $\delta'$ we have $\delta'((\tau_x,r),\sigma)=(\tau_w,\tau_w(r))=(\tau_w,p)$.
+		      \end{description}
+	\end{description}
+\end{proof}
+
+We can now prove that the two machines are equivalent:
+\begin{thrm}\label{thm:transtab2DFA}
+	$\genlang(A')=\genlang(A)$.
+\end{thrm}
+\begin{proof}
+	By \Cref{lem:transtab2DFA}, $\delta'(q'I_,w)=(\tau_w,p)$ if and only if there exists a computation of $A$ on input $w$ that reaches $\rem$ for the first time in state $p$.
+	\begin{description}
+		\item[$\genlang(A')\subseteq\genlang(A)$:] If $\delta'(q'I_,w)=(\tau_w,p)$ and $(\tau_w,p)$ is final, by definition $t_\rem(\tau_w)(p)\in F$, therefore $A$ on input $w$ finishes its computation by passing $\rem$ in a final state.
+		\item[$\genlang(A')\subseteq\genlang(A)$:] If $A$ accepts $w$ the accepting computation can be split as in the previous proof, giving $\delta'(q'I_,w)=(\tau_w,p)$ and $t_\rem(\tau_w)(p)\in F$, thus proving that $A'$ accepts.
+	\end{description}
+\end{proof}
+
+Thanks to \Cref{thm:transtab2DFA} we can now show that
+\begin{thrm}
+	Every $n$-state 2DFA can be simulated by a 1DFA with an exponential number of states in $n$.
+\end{thrm}
+Which doubles as a proof of \Cref{thm:2DFAto1NFA}.
