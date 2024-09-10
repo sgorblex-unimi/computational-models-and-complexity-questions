@@ -261,6 +261,26 @@ Define the NFA $A':=(Q',\Sigma,\delta',I,F')$, where
 \begin{lemm}\label{lem:swkLAtoNFA-2}
 	$\genlang(A')\subseteq\genlang(A)$.
 \end{lemm}
+\begin{proof}
+	Let $w=w_1\cdots w_n\in\genlang(A')$, and for each $i\in\set{1,\dots,n}$, let $(c_i,p_i,\tau_i,r_i)$ be the state guessed by $A'$ after reading $w_i$ in a fixed accepting computation, with $(c_0,p_0,\tau_0,r_0)$ the guessed starting state.
+	\begin{enumerate}
+		\item By a very similar argument\footnote{%
+			      Firstly, since we are not interested in a crossing sequence for the right boundary of $\rem$, there is no state $n+1$.
+			      Second, the right-matching rules applied in this case are of course the ones defined for sweeping $k$-DLAs, and not 2DFAs, however the only difference is that the symbols with respect of which the right-matches are defined changes with every application of the rules.
+			      Though not known a priori, the correctness of the construction implies, being $A$ a sweeping machine, that all the right-matches, with the sole exception of the one including $[q_I]$, are built by alternating applications of \Cref{itm:crossmatchswepDLA-3,itm:crossmatchswepDLA-5}.
+			      Finally, of course the proof does not show that a word accepted by $A'$ is also accepted by $A$, but only that the guessed crossing sequences are accurate.}
+		      to the one presented for the proof of \Cref{lem:2DFAto1NFA-2}, the components $c_i$ represent actual crossing sequences for the first $k'$ sweeps of $A$.
+		\item The components $p_i$ of the sequence imply the existence of a computation path in $A$ where, called $\sigma_i=\last(c_{i-1},c_i,w_i)$, $\delta(p_i,\sigma_i)=(p_{i-1},\sigma_i,\tl)$, for all $i\in\set{0,\dots,n}$.
+		      Furthermore, being $p_n$ part of a final state, it holds that $\delta(q_{k'},\rem)=(p_n,\rem,\tl)$, where $c_n=[q_1,\dots,q_{k'}]$.
+		\item Being $p_0$ part of an initial state, it must be $\delta(p_0,\lem)=(r_0,\lem,\tr)$.
+		      We also know that there exist a computation path where $\tau_0=\tau_\lem$ and, for each $i\in\set{1,\dots,n}$, $\tau_i=t_{\sigma_i}(\tau_{i-1})$ and $r_i=\tau_i(r_{i-1})$.
+		      Furthermore, being $\tau_n$ and $r_n$ part of a final state, we have $t_\rem(\tau_n)(r_n)\in F$.
+		      By the same proof of \Cref{thm:transtab2DFA}\footnote{%
+			      Here, $p_0$ has the role that the initial state had in the 2DFA.}
+		      there exist a computation of $A$ that starts in state $r_0$, performs a two-way computation over the entire frozen tape, and ends after passing the right end-marker in a final state.
+	\end{enumerate}
+	By putting together these three results, we obtain a computation that performs $k'$ sweeps (represented by the crossing sequences) ending in state $q_{k'}$, enters state $p_n$ and performs a sweep to the left (represented by the second component) ending in $p_0$, enters $r_0$ and performs a number of sweeps (represented by the transition tables) before accepting by passing the right end-marker in a final state.
+\end{proof}
 
 \begin{thrm}\label{thm:swkLAtoNFA}
 	$\genlang(A')=\genlang(A)$.
