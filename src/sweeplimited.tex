@@ -1,9 +1,24 @@
 \chapter{Sweeping limited automata}
-% TODO: everywhere, add context and explanation
 
 
 
-\section{Equivalent sweeping \texorpdfstring{$k$}{k}-DLAs}
+\section{Introduction}
+Given a natural number $k$, a sweeping $k$-limited automaton is a sweeping machine that can only write on its first $k$ sweeps (see \Cref{def:kla,def:sweeping} for a formal description).
+In this chapter we show that, for every $k$, deterministic sweeping $k$-LAs characterize regular languages, by proving that they are as powerful as \NFAs. We also study this equivalence from a descriptional complexity point of view.
+
+In order to prove the equivalence, we describe a way to construct, given a sweeping $k$-DLA, an equivalent NFA.
+This simulation requires the sweeping $k$-DLA to be converted in a specific normal form, as described in \Cref{sec:equiv-swep-dla}.
+\Cref{sec:crossseqswdla} extends the concept of crossing sequence, required by the simulation, to our model.
+Finally, \Cref{sec:swkdla-to-NFA} describes the simulation and proves its correctness.
+
+
+
+\section{A normal form for sweeping \texorpdfstring{$k$}{k}-DLAs}\label{sec:equiv-swep-dla}
+A possibly problematic characteristic of sweeping $k$-DLAs is that they may accept during the \emph{active} part of computation, that is, while writing is still possible.
+Here we describe a way to convert a sweeping $k$-DLA in a normal form that isolates the active computation by forcing the number of sweeps to be more than $k$ on every accepting computation.
+The way the lower bound on the number of sweeps is chosen also forces a read-only sweep to the left, which will be useful in the main simulation of this chapter (\Cref{sec:swkdla-to-NFA}).
+\Cref{tab:kprimesweep} shows the exact number of sweeps on each accepting computation of a sweeping $k$-DLA in normal form.
+In such a machine, we refer to the first $k'$ sweeps as the active computation.
 \begin{thrm}\label{thm:equiv-swep-dla}
 	Let $k$ be a natural number and $k':=2\floor{\frac{k}{2}}+1$ (namely the smallest odd number greater or equal to $k$).
 	Every sweeping $k$-DLA with $n$ states can be converted into an equivalent sweeping $k$-DLA with $2n+4$ states and the same working alphabet that performs at least $k'+2$ sweeps on every accepting computation.
@@ -108,11 +123,12 @@
 		\bottomrule
 	\end{tabular}
 	\caption{Summary of the values of $k'$ and the number of sweeps performed by the output automaton from the construction in \Cref{thm:equiv-swep-dla}.}
+	\label{tab:kprimesweep}
 \end{table}
 
 
 
-\section{Crossing sequences}
+\section{Crossing sequences}\label{sec:crossseqswdla}
 
 
 \subsection{Matching crossing sequences}
@@ -178,10 +194,21 @@
 
 
 
-\section{Simulation by NFA}
+\section{Simulation by NFA}\label{sec:swkdla-to-NFA}
+We are now ready to describe the simulation of sweeping $k$-DLAs by 1\NFAs.
+The simulation combines three techniques: crossing sequences, the automaton for the reversal, and transition tables (see \Cref{sec:transtab2DFA}).
+
+We want to build the simulation so that there is a one-to-one correspondence between accepting computations of the sweeping $k$-DLA in normal form and the ones of the simulating NFA.
+To do so we divide each of the former in three parts:
+\begin{itemize}
+	\item the first part is composed by the first $k'$ sweeps, ending to the right with the tape in a frozen state. We simulate this part by using crossing sequences, which also give us a way to calculate the last symbol written on each cell,
+	\item the second part consists in the following sweep to the left, simulated by the reversal construction,
+	\item the third part corresponds to the remaining sweeps and it's simulated by transition tables.
+\end{itemize}
+
 Let $A:=(Q,\Sigma,\Gamma,\delta,q_I,F)$ be a sweeping $k$-DLA.
-Without loss of generality (\Cref{thm:equiv-swep-dla}), $A$ performs at least $k'+2$ sweeps on each accepting computation.
 Let $\crosseqset$ be the set of its active crossing sequences and $\transtabset$ is the set of its transition tables.
+Without loss of generality (\Cref{thm:equiv-swep-dla}), $A$ performs at least $k'+2$ sweeps on each accepting computation.
 
 Define the NFA $A':=(Q',\Sigma,\delta',I,F')$, where
 \begin{itemize}
@@ -199,3 +226,20 @@ Define the NFA $A':=(Q',\Sigma,\delta',I,F')$, where
 	      $\phant \delta(q_{k'},\rem)=(p,\rem,\tr)$, \\
 	      $\phant \crossphantom{t_\rem(\tau)(r)\in F}{\delta(q_{k'},\rem)=(p,\rem,\tr)\text,}\}$.
 \end{itemize}
+
+\begin{lemm}\label{lem:swkLAtoNFA-1}
+	$\genlang(A)\subseteq\genlang(A')$.
+\end{lemm}
+
+\begin{lemm}\label{lem:swkLAtoNFA-2}
+	$\genlang(A')\subseteq\genlang(A)$.
+\end{lemm}
+
+\begin{thrm}\label{thm:swkLAtoNFA}
+	$\genlang(A')=\genlang(A)$.
+\end{thrm}
+
+Thanks to \Cref{thm:swkLAtoNFA} we can now show that
+\begin{thrm}
+	Every $n$-state sweeping $k$-LA can be simulated by a 1NFA with an exponential number of states in $n$.
+\end{thrm}
