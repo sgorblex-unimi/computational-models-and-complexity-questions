@@ -1,0 +1,61 @@
+\begin{tikzpicture}[tapeseg/.append style={minimum width=2.5em},mirrorbrace/.style={decorate,decoration={brace,mirror}}]
+	\node[cell,thick] (w1) {$\raisebox{2.7mm}{$\scriptstyle \sigma_1$}\hspace{-1.5mm}w_1$};
+	\draw[shorten >=6pt,shorten <=7pt] ([yshift=-2.1mm]w1.north east) -- ([shift={(1mm,0.3mm)}]w1.south west);
+	\node[tapeseg,thick] [minimum width=0, left=-0.5mm of w1] (lem) {\Large$\lem$};
+
+	% tape
+	\draw[thick,dashed] (w1.north east) -- ++(+6mm,0) (w1.south east) -- ++(+6mm,0);
+	\draw[dashed,shorten <=.1cm,thin] (w1.south west) -- ++(0cm,-34mm);
+	\draw[dashed,shorten <=.1cm,thin] (w1.south east) -- ++(0cm,-34mm);
+
+	% alignment helpers
+	\node[tapeseg,node distance=1pt] (leftalign) at ([xshift=-2.2mm]w1) {};
+	\node[tapeseg,node distance=1pt] (leftleftalign) at ([xshift=-6.6mm]w1) {};
+	\node[tapeseg,node distance=1pt] (rightalign) at ([xshift=2.2mm]w1) {};
+	\node[tapeseg,node distance=1pt] (rightrightalign) at ([xshift=7mm]w1) {};
+
+	% active computation (phase 1)
+	\node (qi) [below=-0.5mm of leftleftalign] {$q_I$};
+	\node (q1) [below=2mm of leftalign] {};
+	\draw[transition] (qi.south) -- (q1.south);
+	\node (p1) [below=2.5mm of rightrightalign] {};
+	\draw[transition] (q1.south) -- (p1.south);
+	\node (p2) [below=5mm of rightalign] {};
+	\draw[transition,smalldashed] (p1.south) .. controls +(.5,-.1) .. (p2.south);
+	\node (q2) [below=5.5mm of leftleftalign] {};
+	\draw[transition] (p2.south) -- (q2.south);
+	\node (q3) [below=8.0mm of leftalign] {};
+	\draw[transition] (q2.south) .. controls +(-.2,-.08) .. (q3.south);
+	\node (p3) [below=8.7mm of rightrightalign] {};
+	\draw[transition] (q3.south) -- (p3.south);
+	\node (qk) [below=13.6mm of leftalign] {};
+	\draw[transition] ([shift={(-5mm,0.5mm)}]qk.south) -- (qk.south);
+	\node (pl) [below=14.4mm of rightrightalign] {};
+	\draw[transition] (qk.south) -- (pl.south);
+	\node (dots) [below=7.9mm of w1] {$\vdots$};
+
+	% crossing sequence labels
+	\draw[mirrorbrace] ([shift={(-7.4mm,13.8mm)}]qk.west) -- node(cim)[left=2pt] {$c_0$} ([shift={(-7.4mm,-2.5mm)}]qk.west);
+	\draw[brace] ([shift={(2.5mm,14.5mm)}]pl.east) -- node(ci)[right=2pt] {$c_1$} ([shift={(2.5mm,-1.7mm)}]pl.east);
+
+	% separator phases 1-2
+	\draw[dotted,thin] ([shift={(-6mm,-21mm)}]w1.west) -- ([shift={(6mm,-21mm)}]w1.east);
+
+	% reversal (phase 2)
+	\node (pi) [below=18mm of rightalign] {$p_1$};
+	\draw[transition,smalldashed] (pl.south) .. controls +(.6,-.2) and +(.7, 0) .. (pi.south);
+	\node (pim) [below=18.5mm of leftleftalign] {\hspace{-2mm}$p_0$};
+	\draw[transition] (pi.south) -- (pim.south);
+
+	% separator phases 2-3
+	\draw[dotted,thin] ([shift={(-6mm,-27.5mm)}]w1.west) -- ([shift={(6mm,-27.5mm)}]w1.east);
+
+	% final computation (phase 3)
+	\node (rim) [below=24.8mm of leftalign] {\hspace{3mm}$r_0$};
+	\draw[transition] (pim.south) .. controls +(-.2,-.2) and +(-.5,0) .. (rim.south);
+	\node (ri) [below=25.5mm of rightrightalign] {$r_1$};
+	\draw[transition] (rim.south) -- (ri.south);
+
+	% transition table labels
+	\draw[brace] ([shift={(0mm,1.5mm)}]lem.north west) -- node(cim)[above=2pt] {$\tau_\lem$} ([shift={(-0.8mm,1.5mm)}]lem.north east);
+\end{tikzpicture}
