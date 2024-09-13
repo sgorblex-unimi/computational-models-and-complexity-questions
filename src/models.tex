@@ -10,7 +10,7 @@ The language accepted by a machine $M$ is denoted by $\genlang(M)$.
 \end{defn}
 
 \begin{defn}[one-way finite automata]
-	A \emph{(one-way) nondeterministic finite automaton} (1NFA or simply NFA) is a quintuple $(Q,\Sigma,\delta,q_I,F)$ where:
+	A \emph{(one-way) nondeterministic finite automaton} (\ONFA or simply \NFA) is a quintuple $(Q,\Sigma,\delta,q_I,F)$ where:
 	\begin{itemize}
 		\item $Q$ is the finite and nonempty set of \emph{states},
 		\item $\Sigma$ is the finite \emph{input alphabet},
@@ -20,17 +20,17 @@ The language accepted by a machine $M$ is denoted by $\genlang(M)$.
 	\end{itemize}
 	The input word $w$ is read from left to right, one symbol at a time.
 	At every step, the machine reads an input symbol and changes its state, with the transition function $\delta$ representing the possible next states based on the current state and the symbol read.
-	The NFA accepts an input string $w=w_1\cdots w_n$ if there is a sequence of states $q_0,q_1,\dots,q_n$ such that $q_0=q_I$, $q_n\in F$, and for each $i\in\set{0,1,\dots,n-1}$, $q_{i+1}\in\delta(q_i,w_i)$.
+	The \NFA accepts an input string $w=w_1\cdots w_n$ if there is a sequence of states $q_0,q_1,\dots,q_n$ such that $q_0=q_I$, $q_n\in F$, and for each $i\in\set{0,1,\dots,n-1}$, $q_{i+1}\in\delta(q_i,w_i)$.
 
-	The deterministic version of 1NFA is denoted 1DFA, or simply DFA.
+	The deterministic version of \ONFA is denoted \ODFA, or simply \DFA.
 \end{defn}
 
 
 
 \begin{defn}[two-way finite automata]
-	A \emph{two-way nondeterministic finite automaton} (2NFA) is a quintuple $(Q,\Sigma,\delta,q_I,F)$ where:
+	A \emph{two-way nondeterministic finite automaton} (\TNFA) is a quintuple $(Q,\Sigma,\delta,q_I,F)$ where:
 	\begin{itemize}
-		\item $Q$, $\Sigma$, $q_I$ and $F$ are defined as for 1NFAs, and
+		\item $Q$, $\Sigma$, $q_I$ and $F$ are defined as for \ONFAs, and
 		\item $\delta:Q\times(\Sigma\cup\set{\lem,\rem})\to\subsets{Q\times\set{\tl,\tr}}$ is the \emph{transition function}, where the two special symbols $\lem,\rem\notin\Sigma$ are called the left and the right end-markers, respectively.
 	\end{itemize}
 	At the beginning of the computation, the input word $w$ is stored onto a tape surrounded by the two end-markers, the left end-marker being at position zero and the right end-marker at position $\len w+1$.
@@ -41,7 +41,7 @@ The language accepted by a machine $M$ is denoted by $\genlang(M)$.
 	Furthermore, the head cannot pass the end-markers, except at the end of computation, to accept the input.
 	The machine accepts the input if there exists a computation path that starts in the initial configuration and ends in a final state $q_f\in F$ after moving right from $\rem$.
 
-	The deterministic version of 2NFA is denoted 2DFA.
+	The deterministic version of \TNFA is denoted \TDFA.
 \end{defn}
 
 
@@ -49,13 +49,13 @@ The language accepted by a machine $M$ is denoted by $\genlang(M)$.
 
 
 \begin{defn}[limited automata]\label{def:kla}
-	Given an integer $k\ge0$, a \emph{$k$-limited automaton} ($k$-LA) is a 6-tuple $(Q,\Sigma,\Gamma,\delta,q_I,F)$ where:
+	Given an integer $k\ge0$, a \emph{$k$-limited automaton} (\kLA) is a 6-tuple $(Q,\Sigma,\Gamma,\delta,q_I,F)$ where:
 	\begin{itemize}
-		\item $Q$, $\Sigma$, $q_I$ and $F$ are defined as for 2NFAs,
+		\item $Q$, $\Sigma$, $q_I$ and $F$ are defined as for \TNFAs,
 		\item $\Gamma$ is the finite \emph{working alphabet}, partitioned into $\Gamma_0\cup\Gamma_1\cup\cdots\cup\Gamma_k$, where $\Gamma_0=\Sigma$, and
 		\item $\delta:Q\times\Gamma\to\subsets{Q\times(\Gamma\setminus\set{\lem,\rem})\times\set{\tl,\tr}}$ is the \emph{transition function}.
 	\end{itemize}
-	The initial configuration is the same as for 2NFAs.
+	The initial configuration is the same as for \TNFAs.
 	In one move the machine, beside changing its state and moving the tape head, changes the content of scanned cell according to the transition function.
 
 	Furthermore, the transition function is subject to restrictions which, essentially, allow to modify the content of a cell only during the first $k$ visits.
@@ -66,9 +66,9 @@ The language accepted by a machine $M$ is denoted by $\genlang(M)$.
 		\item if $i<k$ and $d=\tl$ then $y\in\Gamma_j$, with $j=\min\set{\ceil{\frac{i+1}{2}}\cdot 2,k}$.
 	\end{enumerate}
 
-	\noindent Acceptance is defined as for 2NFAs.
+	\noindent Acceptance is defined as for \TNFAs.
 
-	\noindent The deterministic version of $k$-LA is denoted $k$-DLA.
+	\noindent The deterministic version of \kLA is denoted \kDLA.
 \end{defn}
 
 

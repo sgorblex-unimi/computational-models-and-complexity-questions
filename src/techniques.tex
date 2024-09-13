@@ -31,16 +31,16 @@ Furthermore, since in the models we consider the input is accepted by crossing t
 
 
 \subsection{2-way deterministic finite automata}
-We now consider the specific case of two-way deterministic finite automata (2\DFAs).
-If a 2DFA accepts an input word $w$, the computation on $w$ will never enter the same state twice while passing the same boundary in the same direction, otherwise the machine, being deterministic, would run in an infinite loop and thus not accept.
+We now consider the specific case of two-way deterministic finite automata (\TDFAs).
+If a \TDFA accepts an input word $w$, the computation on $w$ will never enter the same state twice while passing the same boundary in the same direction, otherwise the machine, being deterministic, would run in an infinite loop and thus not accept.
 In terms of crossing sequences:
 \begin{fact}\label{fact:crossing-2DFA-parity}
-	No crossing sequence of an accepting computation of a 2DFA may contain the same state in two positions of the same parity.
+	No crossing sequence of an accepting computation of a \TDFA may contain the same state in two positions of the same parity.
 \end{fact}
 
-We are now ready to define \emph{valid crossing sequences} for 2\DFAs:
+We are now ready to define \emph{valid crossing sequences} for \TDFAs:
 \begin{defn}
-	Given a 2DFA $A$, a crossing sequence over the states of $A$ is called \emph{valid} if and only if:
+	Given a \TDFA $A$, a crossing sequence over the states of $A$ is called \emph{valid} if and only if:
 	\begin{itemize}
 		\item Its length is odd and bounded by $2n$, where $n$ is the number of states of $A$.
 		\item No state is repeated in two positions of the same parity.
@@ -49,7 +49,7 @@ We are now ready to define \emph{valid crossing sequences} for 2\DFAs:
 
 Notice that, following \Cref{fact:crossing-parity,fact:crossing-length,fact:crossing-2DFA-parity}, the following holds:
 \begin{fact}
-	All crossing sequences of accepting computations of a 2DFA are valid.
+	All crossing sequences of accepting computations of a \TDFA are valid.
 \end{fact}
 
 Obviously, since the length of valid crossing sequences is bounded, their number is finite.
@@ -74,7 +74,7 @@ Therefore, including all possible lengths, the total number of valid crossing se
 \end{align*}
 
 \begin{fact}\label{fact:crossing-2DFA-num}
-	The number of valid crossing sequences of a 2DFA is exponential in the number of states.
+	The number of valid crossing sequences of a \TDFA is exponential in the number of states.
 \end{fact}
 
 
@@ -91,7 +91,7 @@ We say that $[q_1,\dots,q_k]$ \emph{left-matches} $[p_1,\dots,p_l]$ when the ini
 
 For a visual representation of the formal definition see \Cref{fig:2DFA-crossmatch}.
 \begin{defn}
-	Given a 2DFA $A=(Q,\Sigma,\delta,q_I,F)$ we define left- and right-matching pairs of crossing sequences with respect to a symbol $\sigma\in\Sigma$ as follows:
+	Given a \TDFA $A=(Q,\Sigma,\delta,q_I,F)$ we define left- and right-matching pairs of crossing sequences with respect to a symbol $\sigma\in\Sigma$ as follows:
 	\begin{rules}
 		\item \label{itm:crossmatch2DFA-1} The empty sequence $[~]$ right-matches and left-matches itself with respect to~$\sigma$.
 		\item \label{itm:crossmatch2DFA-2} If $[q_3,\dots,q_k]$ right-matches $[p_1,\dots,p_l]$ with respect to~$\sigma$ and $\delta(q_1,\sigma)=(q_2,\tl)$, then $[q_1,\dots,q_k]$ right-matches $[p_1,\dots,p_l]$ with respect to~$\sigma$.
@@ -133,20 +133,20 @@ Note that two crossing sequences need not be valid in order to match (\eg the em
 	\label{fig:2DFA-crossmatch}
 \end{figure}
 
-\subsubsection{From 2\DFAs to 1\NFAs}
-We now prove that a 2DFA can be simulated by a 1NFA whose states are the valid crossing sequences of the 2DFA.
-By \Cref{fact:crossing-2DFA-num} this also proves that an exponential number of states in the size of the 2DFA is sufficient for such a simulation.
+\subsubsection{From \TDFAs to \ONFAs}
+We now prove that a \TDFA can be simulated by a \ONFA whose states are the valid crossing sequences of the \TDFA.
+By \Cref{fact:crossing-2DFA-num} this also proves that an exponential number of states in the size of the \TDFA is sufficient for such a simulation.
 
 Intuitively, the simulating machine puts together pieces of the computation of $A$ by guessing successive crossing sequences.
 The full trajectory can be interpreted as a computation of the original machine, where acceptance is only possible if the right end-marker is passed while entering a final state.
 
-Let $A:=(Q,\Sigma,\delta,q_I,F)$ be a 2DFA.
-Define the NFA $A':=(Q',\Sigma,\delta',I,F')$ where%
+Let $A:=(Q,\Sigma,\delta,q_I,F)$ be a \TDFA.
+Define the \NFA $A':=(Q',\Sigma,\delta',I,F')$ where%
 \footnote{ % TODO: move in models chapter
-	Originally, the construction was introduced for 2\DFAs without end-markers \cite{RabSco59}.
-	In that case, $[q_I]$ is the crossing sequence of the left tape boundary, and it constitutes the initial state of the NFA.
-	Similarly, the right tape boundary is passed while the machine enters a final state; therefore, states storing crossing sequences $[q_f]$, for all $q_f\in F$, are set as final in the NFA (for details see, \eg[,] \cite{HopUll79}).
-	Simulating 2\DFAs with end-markers is generally a stronger result, as they are in some cases exponentially smaller than equivalent 2\DFAs without end-markers.
+	Originally, the construction was introduced for \TDFAs without end-markers \cite{RabSco59}.
+	In that case, $[q_I]$ is the crossing sequence of the left tape boundary, and it constitutes the initial state of the \NFA.
+	Similarly, the right tape boundary is passed while the machine enters a final state; therefore, states storing crossing sequences $[q_f]$, for all $q_f\in F$, are set as final in the \NFA (for details see, \eg[,] \cite{HopUll79}).
+	Simulating \TDFAs with end-markers is generally a stronger result, as they are in some cases exponentially smaller than equivalent \TDFAs without end-markers.
 }
 \begin{itemize}
 	\item $Q'$ is the set of valid crossing sequences of $A$.
@@ -210,10 +210,10 @@ In order to prove that $A'$ accepts the same language as $A$, we prove two separ
 Since the inclusion between $\genlang(A)$ and $\genlang(A')$ holds both ways, we can conclude that the two machines accept the same language.
 In general:
 \begin{thrm}\label{thm:2DFAto1NFA}
-	Every $n$-state 2DFA can be simulated by a 1NFA with an exponential number of states in $n$.
+	Every $n$-state \TDFA can be simulated by a \ONFA with an exponential number of states in $n$.
 \end{thrm}
 \begin{proof}
-	Let $A$ be an $n$-state 2DFA and $A'$ the 1NFA built with the construction presented above.
+	Let $A$ be an $n$-state \TDFA and $A'$ the \ONFA built with the construction presented above.
 	By the conjunction of \Cref{lem:2DFAto1NFA-1} and \Cref{lem:2DFAto1NFA-2}, it holds that $\genlang(A)=\genlang(A')$, \ie $A'$ correctly simulates $A$.
 
 	Furthermore, the number of states in $A'$ is the number of valid crossing sequences of $A$, which by \Cref{fact:crossing-2DFA-num} is exponential in $n$.
@@ -223,14 +223,14 @@ In general:
 
 
 % TODO
-\subsection{Sweeping 2\DFAs}
+\subsection{Sweeping \TDFAs}
 \dots
 
 
 \section{Transition tables}\label{sec:transtab2DFA}
 
 \begin{defn}
-	Given a 2DFA $A=(Q,\Sigma,\delta,q_I,F)$ a transition table of $A$ is a partial function $\tau:Q\to Q$.
+	Given a \TDFA $A=(Q,\Sigma,\delta,q_I,F)$ a transition table of $A$ is a partial function $\tau:Q\to Q$.
 	A transition table is assigned to each word. In particular:
 	\begin{rules}
 		\item for each $r\in Q$, $\tau_\emptyword(r):=s$, where $\delta(r,\lem)=(s,\tr)$,
@@ -250,8 +250,8 @@ In general:
 
 % TODO: make A' recognise lem w rem ? In that case, change q'_I to a new initial state and F' to the obvious
 
-Let $A:=(Q,\Sigma,\delta,q_I,F)$ be a 2DFA.
-Define the DFA $A':=(Q',\Sigma,\delta',q'_I,F')$ where
+Let $A:=(Q,\Sigma,\delta,q_I,F)$ be a \TDFA.
+Define the \DFA $A':=(Q',\Sigma,\delta',q'_I,F')$ where
 \begin{itemize}
 	\item $Q':=\transtabset\times Q$, where $\transtabset$ is the set of transition tables of $A$,
 	\item $\delta'((\tau,r),\sigma):=(\pi,s)$, with $\pi:=t_\sigma(\tau)$ and $s:=\pi(r)$,
@@ -303,6 +303,6 @@ We can now prove that the two machines are equivalent:
 
 Thanks to \Cref{thm:transtab2DFA} we can now show that
 \begin{thrm}
-	Every $n$-state 2DFA can be simulated by a 1DFA with an exponential number of states in $n$.
+	Every $n$-state \TDFA can be simulated by a \ODFA with an exponential number of states in $n$.
 \end{thrm}
 Which doubles as a proof of \Cref{thm:2DFAto1NFA}.
