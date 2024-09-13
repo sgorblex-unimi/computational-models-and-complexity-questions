@@ -59,6 +59,25 @@
 \addbibresource{bibliography.bib}
 
 
+% ADVANCED SPACING COMMANDS
+
+\newlength{\negph@wd}
+\DeclareRobustCommand{\negphantom}[1]{%
+	\ifmmode
+		\mathpalette\negph@math{#1}%
+	\else
+		\negph@do{#1}%
+	\fi
+}
+\newcommand{\negph@math}[2]{\negph@do{$\m@th#1#2$}}
+\newcommand{\negph@do}[1]{%
+	\settowidth{\negph@wd}{#1}%
+	\hspace*{-\negph@wd}%
+}
+
+\DeclareRobustCommand{\crossphantom}[2]{#1\negphantom{#1}\phantom{#2}} % write #1 but take the space of #2
+
+
 % ALIASES
 
 % MODELS
@@ -112,7 +131,10 @@
 \newcommand{\rem}{\lhd}
 \newcommand{\len}[1]{\lvert #1 \rvert}
 \newcommand{\transtabset}{\mathcal T}
+\newcommand{\crosseqset}{\mathcal C}
 \newcommand{\emptyword}{\epsilon}
+\newcommand{\last}{\ell} % function that calculates last symbol on cell
+\newcommand{\trapp}{t} % function that creates transition table of wa given t.t. of w and symbol a ("append")
 
 % MATHS
 \newcommand{\floor}[1]{\lfloor #1 \rfloor}

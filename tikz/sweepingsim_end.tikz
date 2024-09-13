@@ -1,0 +1,94 @@
+\begin{tikzpicture}[tapeseg/.append style={minimum width=2.5em},mirrorbrace/.style={decorate,decoration={brace,mirror}}]
+	\node[cell,thick] (wn) {$\raisebox{2.7mm}{$\scriptstyle \sigma_n$}\hspace{-1.5mm}w_n$};
+	\draw[shorten >=6pt,shorten <=7pt] ([yshift=-2.1mm]wn.north east) -- ([shift={(1mm,0.3mm)}]wn.south west);
+	\node[tapeseg,thick] [minimum width=0, right=-0.5mm of wn] (rem) {\Large$\rem$};
+
+	% tape
+	\draw[thick,dashed] (wn.north west) -- ++(-6mm,0) (wn.south west) -- ++(-6mm,0);
+	\draw[dashed,shorten <=.1cm,thin] (wn.south west) -- ++(0cm,-34mm);
+	\draw[dashed,shorten <=.1cm,thin] (wn.south east) -- ++(0cm,-34mm);
+
+	% alignment helpers
+	\node[tapeseg,node distance=1pt] (leftalign) at ([xshift=-2.2mm]wn) {};
+	\node[tapeseg,node distance=1pt] (leftleftalign) at ([xshift=-6.6mm]wn) {};
+	\node[tapeseg,node distance=1pt] (rightalign) at ([xshift=2.2mm]wn) {};
+	\node[tapeseg,node distance=1pt] (rightrightalign) at ([xshift=7mm]wn) {};
+
+	% active computation (phase 1)
+	\node (q1) [below=0.5mm of leftalign] {};
+	\draw[transition] ([shift={(-5mm,0.5mm)}]q1.south) -- (q1.south);
+	\node (p1) [below=-0.5mm of rightrightalign] {$q_1$};
+	\draw[transition] (q1.south) -- (p1.south);
+	\node (p2) [below=3.5mm of rightalign] {};
+	\draw[transition] (p1.south) .. controls +(.2,-.08) .. (p2.south);
+	\node (q2) [below=4.0mm of leftleftalign] {};
+	\draw[transition] (p2.south) -- (q2.south);
+	\node (qk) [below=9.2mm of leftalign] {};
+	\draw[transition] ([shift={(-5mm,0.5mm)}]qk.south) -- (qk.south);
+	\node (pl) [below=8mm of rightrightalign] {\hspace{1mm}$q_{k'}$};
+	\draw[transition] (qk.south) -- (pl.south);
+	\node (dots) [below=3.5mm of wn] {$\vdots$};
+
+	% crossing sequence labels
+	\draw[mirrorbrace] ([shift={(-7.4mm,9.7mm)}]qk.west) -- node(cim)[left=2pt] {$c_{n-1}$} ([shift={(-7.4mm,-2.5mm)}]qk.west);
+	\draw[brace] ([shift={(-.4mm,9.5mm)}]pl.east) -- node(ci)[right=2pt] {$c_n$} ([shift={(-.4mm,-2.7mm)}]pl.east);
+
+	% separator phases 1-2
+	\draw[dotted,thin] ([shift={(-6mm,-16.5mm)}]wn.west) -- ([shift={(6mm,-16.5mm)}]wn.east);
+
+	% reversal (phase 2)
+	\node (pi) [below=13.5mm of rightalign] {$p_n$};
+	\draw[transition] (pl.south) .. controls +(.2,-.2) and +(.5,0) .. (pi.south);
+	\node (pim) [below=14mm of leftleftalign] {\hspace{-3mm}$p_{n-1}$};
+	\draw[transition] (pi.south) -- (pim.south);
+
+	% separator phases 2-3
+	\draw[dotted,thin] ([shift={(-6mm,-22.7mm)}]wn.west) -- ([shift={(6mm,-22.7mm)}]wn.east);
+
+	% final computation (phase 3)
+	\node (rim) [below=20.0mm of leftalign] {\hspace{3.5mm}$r_{n-1}$};
+	\draw[transition,smalldashed] (pim.south) .. controls +(-.5,-.1) and +(-.7, 0) .. (rim.south);
+	\node (ri) [below=20.7mm of rightrightalign] {$r_n$};
+	\draw[transition] (rim.south) -- (ri.south);
+	\node (fin1) [below=24.5mm of rightalign] {};
+	\draw[transition] (ri.south) .. controls +(.2,-.08) .. (fin1.south);
+	\node (fin2) [below=25mm of leftleftalign] {};
+	\draw[transition] (fin1.south) -- (fin2.south);
+	\node (finl) [below=30.5mm of rightrightalign] {};
+	\node (fink) [below=29.7mm of leftalign] {};
+	\draw[transition] (fink.south) -- (finl.south);
+	\node (final) at ([shift={(6mm,1mm)}]finl) {$f$};
+	\draw[transition] (finl.south) -- (final.south);
+	\node (dots) [below=24.2mm of wn] {$\vdots$};
+
+
+	% transition table labels
+	\node (taun) [above=2mm of wn] {\hspace{-1mm}$\scriptstyle \tau_n$};
+	\node (taunm) at ([shift={(-5mm,4.5mm)}]wn.north west) {$\scriptstyle \tau_{n-1}$};
+	\newcommand{\tinytrem}{t_{\hspace{-0.2mm}\rem}\hspace{-0.3mm}(\hspace{-0.2mm}\tau_n\hspace{-0.2mm})}
+	\node (taun) [above=2mm of rem] {$\scriptstyle \tinytrem$};
+
+	% manual brace for label \tau_{n-1}
+	\draw ([yshift=2.4mm]wn.north west) .. controls +(0mm,.2mm) and +(.5mm,0mm) .. ++(-1mm,.5mm);
+	\draw ([shift={(-1mm,2.9mm)}]wn.north west) -- ++(-3mm,0);
+	\draw ([shift={(-4mm,2.9mm)}]wn.north west) .. controls +(-.6mm,0mm) and +(0mm,0mm) .. ++(-.9mm,.6mm);
+	\draw ([shift={(-4.9mm,3.5mm)}]wn.north west) .. controls +(-.3mm,-.6mm) and +(0mm,0mm) .. ++(-.9mm,-.6mm);
+	\draw ([shift={(-5.8mm,2.9mm)}]wn.north west) -- ++(-0.2mm,0);
+	\draw[smalldashed] ([shift={(-6.0mm,2.9mm)}]wn.north west) -- ++(-4mm,0);
+
+	% manual brace for label \tau_n
+	\draw ([yshift=1.4mm]wn.north east) .. controls +(0mm,.2mm) and +(.5mm,0mm) .. ++(-1mm,.5mm);
+	\draw ([shift={(-1mm,1.9mm)}]wn.north east) -- ++(-3mm,0);
+	\draw ([shift={(-4mm,1.9mm)}]wn.north east) .. controls +(-.6mm,0mm) and +(0mm,0mm) .. ++(-.9mm,.6mm);
+	\draw ([shift={(-4.9mm,2.5mm)}]wn.north east) .. controls +(-.3mm,-.6mm) and +(0mm,0mm) .. ++(-.9mm,-.6mm);
+	\draw ([shift={(-5.8mm,1.9mm)}]wn.north east) -- ++(-9mm,0);
+	\draw[smalldashed] ([shift={(-14.8mm,1.9mm)}]wn.north east) -- ++(-4mm,0);
+
+	% manual brace for label t_\rem(\tau_n)
+	\draw ([shift={(-1mm,1.05mm)}]rem.north east) .. controls +(0mm,.2mm) and +(.5mm,0mm) .. ++(-1mm,.5mm);
+	\draw ([shift={(-2mm,1.55mm)}]rem.north east) -- ++(-0.5mm,0);
+	\draw ([shift={(-2.5mm,1.55mm)}]rem.north east) .. controls +(-.6mm,0mm) and +(0mm,0mm) .. ++(-.9mm,.6mm);
+	\draw ([shift={(-3.4mm,2.15mm)}]rem.north east) .. controls +(-.3mm,-.6mm) and +(0mm,0mm) .. ++(-.9mm,-.6mm);
+	\draw ([shift={(-4.3mm,1.55mm)}]rem.north east) -- ++(-16.25mm,0);
+	\draw[smalldashed] ([shift={(-20.55mm,1.55mm)}]rem.north east) -- ++(-4mm,0);
+\end{tikzpicture}
