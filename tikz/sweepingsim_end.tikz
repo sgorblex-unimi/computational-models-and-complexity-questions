@@ -65,7 +65,7 @@
 	% transition table labels
 	\node (taun) [above=2mm of wn] {\hspace{-1mm}$\scriptstyle \tau_n$};
 	\node (taunm) at ([shift={(-5mm,4.5mm)}]wn.north west) {$\scriptstyle \tau_{n-1}$};
-	\newcommand{\tinytrem}{t_{\hspace{-0.2mm}\rem}\hspace{-0.3mm}(\hspace{-0.2mm}\tau_n\hspace{-0.2mm})}
+	\newcommand{\tinytrem}{\trapp_{\hspace{-0.2mm}\rem}\hspace{-0.3mm}(\hspace{-0.2mm}\tau_n\hspace{-0.2mm})}
 	\node (taun) [above=2mm of rem] {$\scriptstyle \tinytrem$};
 
 	% manual brace for label \tau_{n-1}
@@ -84,7 +84,7 @@
 	\draw ([shift={(-5.8mm,1.9mm)}]wn.north east) -- ++(-9mm,0);
 	\draw[smalldashed] ([shift={(-14.8mm,1.9mm)}]wn.north east) -- ++(-4mm,0);
 
-	% manual brace for label t_\rem(\tau_n)
+	% manual brace for label \trapp_\rem(\tau_n)
 	\draw ([shift={(-1mm,1.05mm)}]rem.north east) .. controls +(0mm,.2mm) and +(.5mm,0mm) .. ++(-1mm,.5mm);
 	\draw ([shift={(-2mm,1.55mm)}]rem.north east) -- ++(-0.5mm,0);
 	\draw ([shift={(-2.5mm,1.55mm)}]rem.north east) .. controls +(-.6mm,0mm) and +(0mm,0mm) .. ++(-.9mm,.6mm);

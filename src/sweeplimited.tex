@@ -225,7 +225,7 @@ Define the \NFA $A':=(Q',\Sigma,\delta',I,F')$, where
 	\item $F':=\{(c,p,\tau,r) \mid c=[q_1,\dots,q_{k'}]$, \\
 	      \renewcommand{\phant}{\phantom{F':=\{(c,p,\tau,r) \mid ~}}
 	      $\phant \delta(q_{k'},\rem)=(p,\rem,\tl)$, \\
-	      $\phant \crossphantom{t_\rem(\tau)(r)\in F}{\delta(q_{k'},\rem)=(p,\rem,\tr)\text,}\}$.
+	      $\phant \crossphantom{\trapp_\rem(\tau)(r)\in F}{\delta(q_{k'},\rem)=(p,\rem,\tr)\text,}\}$.
 \end{itemize}
 
 \begin{lemm}\label{lem:swkLAtoNFA-1}
@@ -287,7 +287,7 @@ Define the \NFA $A':=(Q',\Sigma,\delta',I,F')$, where
 		\item The last phase of the computation starts with a state $s$ such that $\delta(p_0,\lem)=(s,\lem,\tr)$ and proceeds with a read-only computation on the entire tape, which ends in passing the right end-marker in a final state.
 		      As showed in the proof of \Cref{thm:transtab2DFA}\footnote{%
 			      Here, $p_0$ has the role that the initial state had in the \TDFA.}
-		      the existence of such computation implies the existence of a sequence of pairs $(\tau_i,r_i)$ such that $\tau_0=\tau_\lem$, $r_0=s$, and for all $i$, $\tau_i=t_{\sigma_i}(\tau_{i-1})$ and $r_i=\tau_i(r_{i-1})$, with $t_\rem(\tau_n)(r_n)\in F$.
+		      the existence of such computation implies the existence of a sequence of pairs $(\tau_i,r_i)$ such that $\tau_0=\tau_\lem$, $r_0=s$, and for all $i$, $\tau_i=\trapp_{\sigma_i}(\tau_{i-1})$ and $r_i=\tau_i(r_{i-1})$, with $\trapp_\rem(\tau_n)(r_n)\in F$.
 	\end{enumerate}
 	Each of the three phases determines what states of $A'$ make an accepting computation path. In particular, for $i\in\set{0,\dots,n}$, $\delta(q'_I,w_1\cdots w_i)=(c_i,p_i,\tau_i,r_i)$, as:
 	\begin{itemize}
@@ -296,10 +296,10 @@ Define the \NFA $A':=(Q',\Sigma,\delta',I,F')$, where
 		      \begin{itemize}
 			      \item $c_{i-1}$ right-matches $c_i$ w.r.t. $w_i$,
 			      \item called $\sigma_i=\last(c_{i-1},c_i,w_i)$, $\delta(p_i,\sigma_i)=(p_{i-1},\sigma_i,\tl)$,
-			      \item $\tau_i=t_{\sigma_i}(\tau_{i-1})$ and $r_i=\tau_i(r_{i-1})$.
+			      \item $\tau_i=\trapp_{\sigma_i}(\tau_{i-1})$ and $r_i=\tau_i(r_{i-1})$.
 		      \end{itemize}
 		      Thus $\delta'((c_{i-1},p_{i-1},\tau_{i-1},r_{i-1}),w_i)=(c_i,p_i,\tau_i,r_i)$;
-		\item $(c_n,p_n,\tau_n,r_n)$ is final, as $c_n=[q_1,\dots,q_{k'}]$, $\delta(q_{k'},\rem)=(p_n,\rem,\tl)$, and $t_\rem(\tau_n)(r_n)\in F$. \qedhere
+		\item $(c_n,p_n,\tau_n,r_n)$ is final, as $c_n=[q_1,\dots,q_{k'}]$, $\delta(q_{k'},\rem)=(p_n,\rem,\tl)$, and $\trapp_\rem(\tau_n)(r_n)\in F$. \qedhere
 	\end{itemize}
 \end{proof}
 
@@ -318,8 +318,8 @@ Define the \NFA $A':=(Q',\Sigma,\delta',I,F')$, where
 		\item The components $p_i$ of the sequence imply the existence of a computation path in $A$ where, called $\sigma_i=\last(c_{i-1},c_i,w_i)$, $\delta(p_i,\sigma_i)=(p_{i-1},\sigma_i,\tl)$, for all $i\in\set{0,\dots,n}$.
 		      Furthermore, being $p_n$ part of a final state, it holds that $\delta(q_{k'},\rem)=(p_n,\rem,\tl)$, where $c_n=[q_1,\dots,q_{k'}]$.
 		\item Being $p_0$ part of an initial state, it must be $\delta(p_0,\lem)=(r_0,\lem,\tr)$.
-		      We also know that there exist a computation path where $\tau_0=\tau_\lem$ and, for each $i\in\set{1,\dots,n}$, $\tau_i=t_{\sigma_i}(\tau_{i-1})$ and $r_i=\tau_i(r_{i-1})$.
-		      Furthermore, being $\tau_n$ and $r_n$ part of a final state, we have $t_\rem(\tau_n)(r_n)\in F$.
+		      We also know that there exist a computation path where $\tau_0=\tau_\lem$ and, for each $i\in\set{1,\dots,n}$, $\tau_i=\trapp_{\sigma_i}(\tau_{i-1})$ and $r_i=\tau_i(r_{i-1})$.
+		      Furthermore, being $\tau_n$ and $r_n$ part of a final state, we have $\trapp_\rem(\tau_n)(r_n)\in F$.
 		      By the same proof of \Cref{thm:transtab2DFA} there exist a computation of $A$ that starts in state $r_0$, performs a two-way computation over the entire frozen tape, and ends by passing the right end-marker in a final state.
 	\end{enumerate}
 	By putting together these three results, we obtain a computation that performs $k'$ sweeps (represented by the crossing sequences) ending in state $q_{k'}$, enters state $p_n$ and performs a sweep to the left (represented by the second component) ending in $p_0$, enters $r_0$ and performs a number of sweeps (represented by the transition tables) before accepting by passing the right end-marker in a final state.
