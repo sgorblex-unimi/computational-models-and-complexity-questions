@@ -7,9 +7,10 @@ Given a natural number $k$, a sweeping $k$-limited automaton is a sweeping machi
 In this chapter we show that, for every $k$, deterministic sweeping \kLAs characterize regular languages, by proving that they are as powerful as \NFAs. We also study this equivalence from a descriptional complexity point of view.
 
 In order to prove the equivalence, we describe a way to construct, given a sweeping \kDLA, an equivalent \NFA.
+To do so, we recall and revise some of the techniques presented in \Cref{ch:techniques} in order to produce a simulation.
 This simulation requires the sweeping \kDLA to be converted in a specific normal form, as described in \Cref{sec:equiv-swep-dla}.
-\Cref{sec:crossseqswdla} extends the concept of crossing sequence, required by the simulation, to our model.
-Finally, \Cref{sec:swkdla-to-NFA} describes the simulation and proves its correctness.
+\Cref{sec:crossseqswdla} extends and adapts the concept of crossing sequence to our model.
+Finally, \Cref{sec:swkdla-to-NFA} describes the simulation and proves its correctness and descriptional cost.
 
 
 
@@ -129,10 +130,19 @@ In such a machine, we refer to the first $k'$ sweeps as the active computation.
 
 
 \section{Crossing sequences}\label{sec:crossseqswdla}
+In \Cref{sec:crossseq2DFA} we introduced the concept of crossing sequence for a \TDFA as the sequence of states that the machine enters as its head crosses a given boundary between tape cells.
+We then defined the concept of matching crossing sequences, corresponding to crossing sequences at opposite boundaries of a given cell.
+In this section we extend these concepts to sweeping \kDLAs, taking account of the writing capabilities of the model.
+In particular, we first redefine matchings, then introduce a function that calculates cell rewritings given matching crossing sequences.
+Finally, we define \emph{active} crossing sequences, which will replace \emph{valid} crossing sequences in \TDFAs in their role in the simulation.
 
 
 \subsection{Matching crossing sequences}
-% It can technically hold for any LBA
+The definition of matching crossing sequences for sweeping \kDLAs\footnote{%
+	Technically, this definition is valid for any restriction of a Turing machine. The simulation used for \TDFAs can be extended to work on any machine that accepts by crossing the right boundary of the tape; however, there might not be a way to limit the number of "valid" crossing sequences, thus producing an infinite-state automaton.}
+is similar to the one for \TDFAs; however, the symbol with respect to which the matching is defined changes with each application of a rule.
+
+While the definition doesn't require the machine to be sweeping, we highlight that in a sweeping machine only matchings with respect to end-markers see applications of \Cref{itm:crossmatchswepDLA-2,itm:crossmatchswepDLA-4}, while cells in the middle of the tape generate matchings composed by the base (\Cref{itm:crossmatchswepDLA-1}) followed by alternating applications of \Cref{itm:crossmatchswepDLA-3,itm:crossmatchswepDLA-5}.
 \begin{defn}
 	Given a \kDLA $A:=(Q,\Sigma,\Gamma,\delta,q_I,F)$, we define left- and right-matching pairs of crossing sequences with respect to a symbol $\sigma\in\Gamma$ as follows:
 	\begin{rules}
@@ -145,9 +155,12 @@ In such a machine, we refer to the first $k'$ sweeps as the active computation.
 		\item \label{itm:crossmatchswepDLA-5} Similarly to \Cref{itm:crossmatchswepDLA-3}, if $[q_2,\dots,q_h]$ right-matches $[p_2,\dots,p_l]$ with respect to~$\sigma'$ and $\delta(p_1,\sigma)=(q_1,\sigma',\tl)$, then $[q_1,\dots,q_h]$ left-matches $[p_1,\dots,p_l]$ with respect to~$\sigma$.
 	\end{rules}
 \end{defn}
-% TODO: specify that in the case of sweeping automata (of any kind), rules ii and iv only apply to end-markers
 
-% As for previous, it can technically hold for any LBA
+Beside the fact that two crossing sequences match, we want to keep track of what symbol is contained in the cell that their boundaries enclose.
+Consider a cell containing a known symbol.
+By knowing the sequence of states the machine enters while scanning the cell, we can calculate every subsequent symbol written in the cell.
+Such sequence can be deduced by the two matching crossing sequences.
+In particular, given two crossing sequences $c_1,c_2$ at the boundaries of a cell initially containing $\sigma$, we define the function $\last(c_1,c_2,\sigma)$, which calculates the symbol left on the tape cell after the computation represented by the crossing sequences.
 \begin{defn}
 	Given a \kDLA, we define the partial function $\last:\crosseqset\times\crosseqset\times\Gamma\to\Gamma$ as follows:
 
@@ -185,10 +198,13 @@ In such a machine, we refer to the first $k'$ sweeps as the active computation.
 		      \end{equation*}
 	\end{itemize}
 \end{defn}
-Given two crossing sequences $c_1,c_2$ at the boundaries of a cell initially containing $\sigma$, the function $\last(c_1,c_2,\sigma)$ calculates the symbol left on the tape cell after the computation represented by the crossing sequences.
+The function "intercepts" the first application of a Rule different from \Cref{itm:crossmatchswepDLA-1}, which coincides with the last transition on the cell, and returns its written symbol, the following applications of the Rules being transparent to the value returned.
 
 
 \subsection{Active crossing sequences}
+As in \TDFAs, we want to limit the number of crossing sequence we use in our simulation.
+In the case of sweeping \kDLAs, we only want the crossing sequences to represent the active part of the computation, meaning the sweeps with rewriting capability (plus one in case $k$ is even, to make sure the represented computation ends to the right).
+Because the machine can write on the tape, unlike in \TDFAs there is no constraint on how many times a state can appear in a sequence. Furthermore, because the machine is sweeping the length of the sequences is always the same.
 \begin{defn}
 	Given a sweeping \kLA $A$, a crossing sequence over the states of $A$ is called \emph{active} if and only if its length is exactly $k':=2\floor{\frac{k}{2}}+1$.
 \end{defn}
@@ -228,53 +244,51 @@ Define the \NFA $A':=(Q',\Sigma,\delta',I,F')$, where
 	      $\phant \crossphantom{\trapp_\rem(\tau)(r)\in F}{\delta(q_{k'},\rem)=(p,\rem,\tr)\text,}\}$.
 \end{itemize}
 
+We now prove that the original machine and the constructed one are equivalent.
+Refer to \Cref{fig:swepkDLAtoNFA} for an illustration of the construction and the proof.
+\begin{figure}
+	\centering
+	\begin{subfigure}[b]{0.32\textwidth}
+		\centering
+		\input{tikz/sweepingsim_start.tikz}
+		\caption{The initial state.
+			$c_0$ right-matches $[q_I]$ \wrt $\lem$.
+			$p_0$ and $r_0$ are such that $\delta(p_0,\lem)=(r_0,\lem,\tr)$.
+			$\tau_0$ is such that $\tau_0=\tau_\lem$.\newline}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[b]{0.32\textwidth}
+		\centering
+		\input{tikz/sweepingsim_middle.tikz}
+		\caption{An intermediate state.
+			$c_i$ is right-matched by $c_{i-1}$ \wrt $w_i$.
+			$p_i$ is such that $\delta(p_i,\sigma_i)=(p_{i-1},\sigma_i,\tl)$.
+			$\tau_i$ is such that $\tau_i=\trapp_{\sigma_i}(\tau_{i-1})$.
+			$r_i$ is such that $\tau_i(r_{i-1})=r_i$.}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[b]{0.33\textwidth}
+		\centering
+		\input{tikz/sweepingsim_end.tikz}
+		\caption{The final state of the simulation.
+		$c_n=[q_1,\dots,q_{k'}]$ and $p_n$ are such that $\delta(q_{k'},\rem)=(p_n,\rem,\tl)$.
+		$r_n$ and $\tau_n$ are such that $\trapp_\rem(\tau_n)(r_n)=f$ and $f\in F$.\newline}
+	\end{subfigure}
+
+	\caption{Representation of the simulation of a sweeping \kDLA by an \NFA.
+		In each subfigure, the three phases of the original computation are divided by dotted horizontal lines.
+		Transitions are indicated by solid arrows, while general computations paths by dashed arrows.
+		The crossing sequences are the sequences of states along the boundaries of the cell (dashed vertical lines) and labeled by vertical braces.
+		Transition tables are represented by the tape segments containing the respective strings and labeled by horizontal braces.
+		Each symbol $w_i$ of the input is rewritten $k$ times, leaving $\sigma_i=\last(c_{i-1},c_i,w_i)$ on the tape.
+		The rest of the notation is as used in the proof.}
+	\label{fig:swepkDLAtoNFA}
+\end{figure}
+
 \begin{lemm}\label{lem:swkLAtoNFA-1}
 	$\genlang(A)\subseteq\genlang(A')$.
 \end{lemm}
 \begin{proof}
-
-	% TODO: add/improve captions
-	% TODO: use label
-	\begin{figure}
-		\centering
-		\begin{subfigure}[b]{0.32\textwidth}
-			\centering
-			\input{tikz/sweepingsim_start.tikz}
-			\caption{The initial state.
-				$c_0$ right-matches $[q_I]$ \wrt $\lem$.
-				$p_0$ and $r_0$ are such that $\delta(p_0,\lem)=(r_0,\lem,\tr)$.
-				$\tau_0$ is such that $\tau_0=\tau_\lem$.\newline}
-		\end{subfigure}
-		\hfill
-		\begin{subfigure}[b]{0.32\textwidth}
-			\centering
-			\input{tikz/sweepingsim_middle.tikz}
-			\caption{An intermediate state.
-				$c_i$ is right-matched by $c_{i-1}$ \wrt $w_i$.
-				$p_i$ is such that $\delta(p_i,\sigma_i)=(p_{i-1},\sigma_i,\tl)$.
-				$\tau_i$ is such that $\tau_i=\trapp_{\sigma_i}(\tau_{i-1})$.
-				$r_i$ is such that $\tau_i(r_{i-1})=r_i$.}
-		\end{subfigure}
-		\hfill
-		% Third subfigure
-		\begin{subfigure}[b]{0.33\textwidth}
-			\centering
-			\input{tikz/sweepingsim_end.tikz}
-			\caption{The final state of the simulation.
-			$c_n=[q_1,\dots,q_{k'}]$ and $p_n$ are such that $\delta(q_{k'},\rem)=(p_n,\rem,\tl)$.
-			$r_n$ and $\tau_n$ are such that $\trapp_\rem(\tau_n)(r_n)=f$ and $f\in F$.\newline}
-		\end{subfigure}
-
-		\caption{Representation of the simulation of a sweeping \kDLA by an \NFA.
-			In each subfigure, the three phases of the original computation are divided by dotted horizontal lines.
-			Transitions are indicated by solid arrows, while general computations paths by dashed arrows.
-			The crossing sequences are the sequences of states along the boundaries of the cell (dashed vertical lines) and labeled by vertical braces.
-			Transition tables are represented by the tape segments containing the respective strings and labeled by horizontal braces.
-			Each symbol $w_i$ of the input is rewritten $k$ times, leaving $\sigma_i=\last(c_{i-1},c_i,w_i)$ on the tape.
-			The rest of the notation is as used in the proof.}
-		\label{fig:three_subfigures}
-	\end{figure}
-
 	Let $w=w_1\cdots w_n\in\genlang(A)$.
 	\begin{enumerate}
 		\item Consider the crossing sequences $c_0,\dots,c_n$ generated by the first $k'$ sweeps of the accepting computation of $A$ on input $w$.
