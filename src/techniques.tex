@@ -233,7 +233,7 @@ In general:
 	Given a \TDFA $A=(Q,\Sigma,\delta,q_I,F)$ a transition table of $A$ is a partial function $\tau:Q\to Q$.
 	A transition table is assigned to each word. In particular:
 	\begin{rules}
-		\item for each $r\in Q$, $\tau_\emptyword(r):=s$, where $\delta(r,\lem)=(s,\tr)$,
+		\item for each $r\in Q$, $\tau_\lem(r):=s$, where $\delta(r,\lem)=(s,\tr)$,
 		\item for each $r\in Q,w\in\Sigma\star,\sigma\in\Sigma$, $\tau_{w\sigma}(r):=s$, if either $\delta(r,a)=(s,\tr)$, or there exist an integer $k\ge1$ and states $q_1,\dots,q_k,r_1,\dots,r_k$ such that
 		\begin{itemize}
 			\item $\delta(r,a)=(q_1,\tl)$,
@@ -255,7 +255,7 @@ Define the \DFA $A':=(Q',\Sigma,\delta',q'_I,F')$ where
 \begin{itemize}
 	\item $Q':=\transtabset\times Q$, where $\transtabset$ is the set of transition tables of $A$,
 	\item $\delta'((\tau,r),\sigma):=(\pi,s)$, with $\pi:=t_\sigma(\tau)$ and $s:=\pi(r)$,
-	\item $q'_I:=(\tau_\emptyword,s)$, where $\delta(q_I,\lem)=(s,\tr)$, and
+	\item $q'_I:=(\tau_\lem,s)$, where $\delta(q_I,\lem)=(s,\tr)$, and
 	\item $F':=\set{(\tau,p)\mid t_\rem(\tau)(p)\in F}$.
 \end{itemize}
 
@@ -270,7 +270,7 @@ A simple induction gives
 \begin{proof}
 	By induction on $w$:
 	\begin{description}
-		\item[Base] $\delta'(q'_I,\emptyword)=q'_I=(\tau_\emptyword,s)$, where $\delta(q_I,\lem)=(s,\tr)$. The statement is trivially proven.
+		\item[Base] $\delta'(q'_I,\emptyword)=q'_I=(\tau_\lem,s)$, where $\delta(q_I,\lem)=(s,\tr)$. The statement is trivially proven.
 		      % TODO: PICTURE(s)
 		\item[Step] Given $x\in\Sigma\star$ and $r\in Q$, assume $\delta'(q'_I,x)=(\tau_x,r)$ if and only if there exists a computation of $A$ on input $x$ that passes the last symbol of $x$ for the first time in state $r$, and let the tape contain $w=x\sigma$, with $\sigma\in\Sigma$.
 		      \begin{description}
