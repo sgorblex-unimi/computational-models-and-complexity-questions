@@ -239,54 +239,57 @@ Here we give a description of each nontrivial result that hasn't been explained 
 
 \paragraph{\ONFA{}\tto\ODLA}\label{cost:1NFAto1DLAu}
 \begin{itemize}
-	\item $\le O(n^2)$: since \hyperref[cost:1NFAto2DFAu]{\ONFA{}\tto\TDFA} is $\le O(n^2)$ and \TDFA{}\tto\ODLA is $\Ctriv$
+	\item $\le O(n^2)$: by using construction for \hyperref[cost:1NFAto2DFAu]{\ONFA{}\tto\TDFA}, which is $\le O(n^2)$, combined with $\Ctriv$ \TDFA{}\tto\ODLA,
+	\item relaxed form of the Sakoda and Sipser conjecture with extended \TDFA.
 \end{itemize}
 \paragraph{\TNFA{}\tto\ODLA}
 \begin{itemize}
-	\item $\le e^{O(\ln^2n)}$: since \hyperref[cost:2NFAto2DFAu]{\TNFA{}\tto\TDFA} is $\le e^{O(\ln^2n)}$ and \TDFA{}\tto\ODLA is $\Ctriv$
-	\item relaxed form of the Sakoda and Sipser conjecture with extended 2DFA
-\end{itemize}
-\paragraph{\ODLA{}\tto\TNFA}\label{cost:1DLAto2NFAu}
-\begin{itemize}
-	\item $\le\exp$: since \hyperref[cost:1DLAto1DFAu]{\ODLA{}\tto\ODFA} is $\le\exp$ and \ODFA{}\tto\TNFA is $\Ctriv$
-	\item $\ge\exp$: witness language $\{a^{2^n}\}^*$ (recognized with 1-DLA presented in \cite{PigPri19} and with \TNFA lower bound proven in \cite{MerPig00}) (honorable mention: $\ge\CsubGe$ by \cite{KutPig+18})
+	\item $\le e^{O(\ln^2n)}$: by using construction for \hyperref[cost:2NFAto2DFAu]{\TNFA{}\tto\TDFA}, which is $\le e^{O(\ln^2n)}$, combined with $\Ctriv$ \TDFA{}\tto\ODLA,
+	\item relaxed form of the Sakoda and Sipser conjecture with extended \TDFA.
 \end{itemize}
 \paragraph{\ODLA{}\tto\ODFA}\label{cost:1DLAto1DFAu}
 \begin{itemize}
-	\item $\le\exp$: transition table construction \cite{PigPis14}
-	\item $\ge\exp$: otherwise \hyperref[cost:1DLAto2NFAu]{\ODLA{}\tto\TNFA} would be $<\exp$ since \ODFA{}\tto\TNFA is $\Ctriv$
+	\item $\le\exp$: by using the transition table construction for the \hyperref[cost:1DLAto1DFA]{general case} \cite{PigPis14},
+	\item $\ge\exp$: otherwise \hyperref[cost:1DLAto2NFAu]{\ODLA{}\tto\TNFA} would be less than $\exp$ since \ODFA{}\tto\TNFA is $\Ctriv$ (see lower bound below).
+\end{itemize}
+\paragraph{\ODLA{}\tto\TNFA}\label{cost:1DLAto2NFAu}
+\begin{itemize}
+	\item $\le\exp$: by using construction for \hyperref[cost:1DLAto1DFAu]{\ODLA{}\tto\ODFA}, which is $\le\exp$, combined with $\Ctriv$ \ODFA{}\tto\TNFA,
+	\item $\ge\exp$: since the witness language $\set{a^{2^n}}\star$ is recognized by the linear size \ODLA presented by \triplecite{PigPri19}, but cannot be recognised by a \TNFA with less than $\Cexp$ states, as proven by \triplecite{MerPig00},
+	\item (previously proven $\ge\CsubGe$ by \triplecite{KutPig+18}).
 \end{itemize}
 \paragraph{\ODLA{}\tto\ONFA}\label{cost:1LAto1NFAu}
 \begin{itemize}
-	\item $\le\exp$: since \hyperref[cost:1DLAto1DFAu]{\ODLA{}\tto\ODFA} is $\le\exp$ and \ODFA{}\tto\ONFA is $\Ctriv$
-	\item $\ge\exp$: otherwise \hyperref[cost:1DLAto2NFAu]{\ODLA{}\tto\TNFA} would be $<\exp$ since \ONFA{}\tto\TNFA is $\Ctriv$
+	\item $\le\exp$: by using construction for \hyperref[cost:1DLAto1DFAu]{\ODLA{}\tto\ODFA}, which is $\le\exp$, combined with $\Ctriv$ \ODFA{}\tto\ONFA,
+	\item $\ge\exp$: otherwise \hyperref[cost:1DLAto2NFAu]{\ODLA{}\tto\TNFA} would be less than $\exp$ since \ONFA{}\tto\TNFA is $\Ctriv$.
 \end{itemize}
 \paragraph{\ODLA{}\tto\TDFA}\label{cost:1DLAto2DFAu}
 \begin{itemize}
-	\item $\le\exp$: since \hyperref[cost:1DLAto1DFAu]{\ODLA{}\tto\ODFA} is $\le\exp$ and \ODFA{}\tto\TDFA is $\Ctriv$
-	\item $\ge\exp$: otherwise \hyperref[cost:1DLAto2NFAu]{\ODLA{}\tto\TNFA} would be $<\exp$ since \TDFA{}\tto\TNFA is $\Ctriv$
+	\item $\le\exp$: by using construction for \hyperref[cost:1DLAto1DFAu]{\ODLA{}\tto\ODFA}, which is $\le\exp$, combined with $\Ctriv$ \ODFA{}\tto\TDFA,
+	\item $\ge\exp$: otherwise \hyperref[cost:1DLAto2NFAu]{\ODLA{}\tto\TNFA} would be less than $\exp$ since \TDFA{}\tto\TNFA is $\Ctriv$.
 \end{itemize}
 \paragraph{\OLA{}\tto\ODFA}
 \begin{itemize}
-	\item $\le\Cdexp$: transition table construction for the general case \cite{PigPis14}
-	\item $\ge\exp$: otherwise \hyperref[cost:1DLAto1DFAu]{\ODLA{}\tto\ODFA} would be $<\exp$ since \ODLA{}\tto\OLA is $\Ctriv$
+	\item $\le\Cdexp$: by using the transition table construction for the \hyperref[cost:1LAto1DFA]{general case} \cite{PigPis14},
+	\item $\ge\exp$: otherwise \hyperref[cost:1DLAto1DFAu]{\ODLA{}\tto\ODFA} would be less than $\exp$ since \ODLA{}\tto\OLA is $\Ctriv$.
 \end{itemize}
 \paragraph{\OLA{}\tto\ONFA}\label{cost:1DLAto1NFAu}
 \begin{itemize}
-	\item $\le\exp$: transition table construction for the general case \cite{PigPis14}
-	\item $\ge\exp$: otherwise \hyperref[cost:1DLAto1NFAu]{\OLA{}\tto\ONFA} would be $<\exp$ since \ODLA{}\tto\OLA is $\Ctriv$
+	\item $\le\Cexp$: by using the transition table construction for the \hyperref[cost:1LAto1NFA]{general case} \cite{PigPis14},
+	\item $\ge\exp$: otherwise \hyperref[cost:1DLAto1NFAu]{\ODLA{}\tto\ONFA} would be less than $\exp$ since \ODLA{}\tto\OLA is $\Ctriv$.
 \end{itemize}
 \paragraph{\OLA{}\tto\TDFA}
 \begin{itemize}
-	\item $\le\exp$: since \hyperref[cost:1LAto1NFAu]{\ODLA{}\tto\ONFA} is $\le\exp$ and \hyperref[cost:1NFAto2DFAu]{\ONFA{}\tto\TDFA} is $\le O(n^2)$
-	\item $\ge\exp$: otherwise \hyperref[cost:1DLAto2DFAu]{\ODLA{}\tto\TDFA} would be $<\exp$ since \ODLA{}\tto\OLA is $\Ctriv$
+	\item $\le\exp$: by using construction for \hyperref[cost:1LAto1NFAu]{\OLA{}\tto\ONFA}, which is $\le\exp$, combined with $O(n^2)$ \hyperref[cost:1NFAto2DFAu]{\ONFA{}\tto\TDFA},
+	\item $\ge\exp$: otherwise \hyperref[cost:1DLAto2DFAu]{\ODLA{}\tto\TDFA} would be less than $\exp$ since \ODLA{}\tto\OLA is $\Ctriv$.
 \end{itemize}
 \paragraph{\OLA{}\tto\TNFA}
 \begin{itemize}
-	\item $\le\exp$: since \hyperref[cost:1LAto1NFAu]{\ODLA{}\tto\ONFA} is $\le\exp$ and \ONFA{}\tto\TNFA is $\Ctriv$
-	\item $\ge\exp$: otherwise \hyperref[cost:1DLAto2DFAu]{\ODLA{}\tto\TDFA} would be $<\exp$ since \ODLA{}\tto\OLA is $\Ctriv$
+	\item $\le\exp$: by using construction for \hyperref[cost:1LAto1NFAu]{\OLA{}\tto\ONFA}, which is $\le\exp$, combined with $\Ctriv$ \ONFA{}\tto\TNFA,
+	\item $\ge\exp$: otherwise \hyperref[cost:1DLAto2NFAu]{\ODLA{}\tto\TNFA} would be less than $\exp$ since \ODLA{}\tto\OLA is $\Ctriv$.
 \end{itemize}
 \paragraph{\OLA{}\tto\ODLA}
 \begin{itemize}
-	\item $\le\exp$: since \hyperref[cost:1LAto1NFAu]{\ODLA{}\tto\ONFA} is $\le\exp$ and \hyperref[cost:1NFAto1DLAu]{\ONFA{}\tto\ODLA} is $\le O(n^2)$
+	\item $\le\exp$: by using construction for \hyperref[cost:1LAto1NFAu]{\OLA{}\tto\ONFA}, which is $\le\exp$, combined with $O(n^2)$ \hyperref[cost:1NFAto1DLAu]{\ONFA{}\tto\ODLA},
+	\item variation of the Sakoda and Sipser problem with both extended \TNFA and \TDFA.
 \end{itemize}
