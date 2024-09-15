@@ -15,11 +15,11 @@ The simulations marked $\Ctriv$ are ones where the simulated machine is virtuall
 	\renewcommand{\hstdef}{.35}
 	\begin{tabular}{|l|l|l|p{2.9em}|l|}
 		\hline
-		~     & \ODFA   & \ONFA   & \TDFA                          & \TNFA  \\ \hline
-		\ODFA & \cY     & \Ctriv  & \Ctriv                         & \Ctriv \\ \hline
-		\ONFA & $\Cexp$ & \cY     & \cR $\le\Cexp\hst$ $\ge\Cpoly$ & \Ctriv \\ \hline
-		\TDFA & $\Cexp$ & $\Cexp$ & \cY                            & \Ctriv \\ \hline
-		\TNFA & $\Cexp$ & $\Cexp$ & \cR $\le\Cexp\hst$ $\ge\Cpoly$ & \cY    \\ \hline
+		~     & \ODFA   & \ONFA     & \TDFA                          & \TNFA     \\ \hline
+		\ODFA & \cY     & $\Cctriv$ & $\Cctriv$                      & $\Cctriv$ \\ \hline
+		\ONFA & $\Cexp$ & \cY       & \cR $\le\Cexp\hst$ $\ge\Cpoly$ & $\Cctriv$ \\ \hline
+		\TDFA & $\Cexp$ & $\Cexp$   & \cY                            & $\Cctriv$ \\ \hline
+		\TNFA & $\Cexp$ & $\Cexp$   & \cR $\le\Cexp\hst$ $\ge\Cpoly$ & \cY       \\ \hline
 	\end{tabular}
 	\caption{Descriptional complexity of the simulations between basic regular language recognisers, general case.}
 	\label{tab:sims-core-general}
@@ -36,23 +36,23 @@ Here we give a description of each nontrivial result:
 \end{itemize}
 \paragraph{\ONFA{}\tto\TDFA}
 \begin{itemize}
-	\item $\le\Cexp$: since \hyperref[cost:1NFAto1DFA]{\ONFA{}\tto\ODFA} is $\le\Cexp$ and \ODFA{}\tto\TDFA is $O(n)$
+	\item $\le\Cexp$: since \hyperref[cost:1NFAto1DFA]{\ONFA{}\tto\ODFA} is $\le\Cexp$ and \ODFA{}\tto\TDFA is $\Ctriv$
 	\item Sakoda and Sipser conjecture that it's $=\Cexp$ \cite{SakSip78}
 \end{itemize}
 \paragraph{\TDFA{}\tto\ONFA}\label{cost:2DFAto1NFA}
 \begin{itemize}
-	\item $\le\Cexp$: since \hyperref[cost:1NFAto1DFA]{\ONFA{}\tto\ODFA} is $\le\Cexp$ and \ODFA{}\tto\ONFA is $O(n)$
+	\item $\le\Cexp$: since \hyperref[cost:1NFAto1DFA]{\ONFA{}\tto\ODFA} is $\le\Cexp$ and \ODFA{}\tto\ONFA is $\Ctriv$
 	\item $\ge\Cexp$: proven in \cite{Bir93} (cited in \cite{PigPis14})
 \end{itemize}
 \paragraph{\TDFA{}\tto\ODFA}\label{cost:2DFAto1DFA}
 \begin{itemize}
 	\item $\le\Cexp$: proven in \cite{She59} (transition tables) and in parallel in \cite{RabSco59} (crossing sequences)
-	\item $\ge\Cexp$: otherwise \hyperref[cost:2DFAto1NFA]{\TDFA{}\tto\ONFA} would be $<\Cexp$ since \ODFA{}\tto\ONFA is $O(n)$
+	\item $\ge\Cexp$: otherwise \hyperref[cost:2DFAto1NFA]{\TDFA{}\tto\ONFA} would be $<\Cexp$ since \ODFA{}\tto\ONFA is $\Ctriv$
 \end{itemize}
 \paragraph{\TNFA{}\tto\ODFA}\label{cost:2NFAto1DFA}
 \begin{itemize}
 	\item $\le\Cexp$: generally attributed to the same articles of \hyperref[cost:2DFAto1DFA]{\TDFA{}\tto\ODFA}
-	\item $\ge\Cexp$: otherwise \hyperref[cost:1NFAto1DFA]{\ONFA{}\tto\ODFA} would be $<\Cexp$ since \ONFA{}\tto\TNFA is $O(n)$
+	\item $\ge\Cexp$: otherwise \hyperref[cost:1NFAto1DFA]{\ONFA{}\tto\ODFA} would be $<\Cexp$ since \ONFA{}\tto\TNFA is $\Ctriv$
 \end{itemize}
 \paragraph{\TNFA{}\tto\ONFA}
 \begin{itemize}
@@ -61,7 +61,7 @@ Here we give a description of each nontrivial result:
 \end{itemize}
 \paragraph{\TNFA{}\tto\TDFA}
 \begin{itemize}
-	\item $\le\Cexp$: since \hyperref[cost:2NFAto1DFA]{\TNFA{}\tto\ODFA} is $\le\Cexp$ and \ODFA{}\tto\TDFA is $O(n)$
+	\item $\le\Cexp$: since \hyperref[cost:2NFAto1DFA]{\TNFA{}\tto\ODFA} is $\le\Cexp$ and \ODFA{}\tto\TDFA is $\Ctriv$
 	\item Sakoda and Sipser conjecture that it's $=\Cexp$ \cite{SakSip78}
 \end{itemize}
 
@@ -71,13 +71,13 @@ Here we give a description of each nontrivial result:
 	\renewcommand{\hstdef}{.55}
 	\begin{tabular}{|l|l|l|p{3.1em}|l|l|p{3.1em}|}
 		\hline
-		~     & \ODFA              & \ONFA   & \TDFA                                            & \TNFA   & \OLA   & \ODLA                                            \\ \hline
-		\ODFA & \cY                & \Ctriv  & \Ctriv                                           & \Ctriv  & \Ctriv & \Ctriv                                           \\ \hline
-		\ONFA & $\Cexp$            & \cY     & \cR $\le\Cexp\hst$ $\ge\Cpoly$                   & \Ctriv  & \Ctriv & \cB $\le\Cexp\hst$ $\ge\Cpoly$                   \\ \hline
-		\TDFA & $\Cexp$            & $\Cexp$ & \cY                                              & \Ctriv  & \Ctriv & \Ctriv                                           \\ \hline
-		\TNFA & $\Cexp$            & $\Cexp$ & \cR $\le\Cexp\hst$ $\ge\Cpoly$                   & \cY     & \Ctriv & \cB $\le\Cexp\hst$ $\ge\Cpoly$                   \\ \hline
-		\OLA  & \rbt[.2]{$\Cdexp$} & $\Cexp$ & \cG \rbt[.2]{$\le\Cdexp\hst[.1]$} $\ge\Cexp\hst$ & $\Cexp$ & \cY    & \cG \rbt[.2]{$\le\Cdexp\hst[.1]$} $\ge\Cexp\hst$ \\ \hline
-		\ODLA & $\Cexp$            & $\Cexp$ & $\Cexp$                                          & $\Cexp$ & \Ctriv & \cY                                              \\ \hline
+		~     & \ODFA              & \ONFA     & \TDFA                                            & \TNFA     & \OLA      & \ODLA                                            \\ \hline
+		\ODFA & \cY                & $\Cctriv$ & $\Cctriv$                                        & $\Cctriv$ & $\Cctriv$ & $\Cctriv$                                        \\ \hline
+		\ONFA & $\Cexp$            & \cY       & \cR $\le\Cexp\hst$ $\ge\Cpoly$                   & $\Cctriv$ & $\Cctriv$ & \cB $\le\Cexp\hst$ $\ge\Cpoly$                   \\ \hline
+		\TDFA & $\Cexp$            & $\Cexp$   & \cY                                              & $\Cctriv$ & $\Cctriv$ & $\Cctriv$                                        \\ \hline
+		\TNFA & $\Cexp$            & $\Cexp$   & \cR $\le\Cexp\hst$ $\ge\Cpoly$                   & \cY       & $\Cctriv$ & \cB $\le\Cexp\hst$ $\ge\Cpoly$                   \\ \hline
+		\OLA  & \rbt[.2]{$\Cdexp$} & $\Cexp$   & \cG \rbt[.2]{$\le\Cdexp\hst[.1]$} $\ge\Cexp\hst$ & $\Cexp$   & \cY       & \cG \rbt[.2]{$\le\Cdexp\hst[.1]$} $\ge\Cexp\hst$ \\ \hline
+		\ODLA & $\Cexp$            & $\Cexp$   & $\Cexp$                                          & $\Cexp$   & $\Cctriv$ & \cY                                              \\ \hline
 	\end{tabular}
 	\caption{Descriptional complexity of the simulations between basic regular language recognisers and $1$-limited automata, general case.}
 	\label{tab:sims-1la-general}
@@ -91,12 +91,12 @@ Here we give a description of each nontrivial result that hasn't been explained 
 
 \paragraph{\ONFA{}\tto\ODLA}
 \begin{itemize}
-	\item $\le\exp$: since \hyperref[cost:1NFAto1DFA]{\ONFA{}\tto\ODFA} is $\le\exp$ and \ODFA{}\tto\ODLA is $O(n)$
+	\item $\le\exp$: since \hyperref[cost:1NFAto1DFA]{\ONFA{}\tto\ODFA} is $\le\exp$ and \ODFA{}\tto\ODLA is $\Ctriv$
 	\item relaxed form of the Sakoda and Sipser conjecture with extended \TDFA
 \end{itemize}
 \paragraph{\TNFA{}\tto\ODLA}
 \begin{itemize}
-	\item $\le\exp$: since \hyperref[cost:2NFAto1DFA]{\TNFA{}\tto\ODFA} is $\le\exp$ and \ODFA{}\tto\ODLA is $O(n)$
+	\item $\le\exp$: since \hyperref[cost:2NFAto1DFA]{\TNFA{}\tto\ODFA} is $\le\exp$ and \ODFA{}\tto\ODLA is $\Ctriv$
 	\item relaxed form of the Sakoda and Sipser conjecture with extended \TDFA
 \end{itemize}
 \paragraph{\OLA{}\tto\ODFA}\label{cost:1LAto1DFA}
@@ -111,12 +111,12 @@ Here we give a description of each nontrivial result that hasn't been explained 
 \end{itemize}
 \paragraph{\OLA{}\tto\TDFA}
 \begin{itemize}
-	\item $\le\Cdexp$: since \hyperref[cost:1LAto1DFA]{\OLA{}\tto\ODFA} is $\le\Cdexp$ and \ODFA{}\tto\TDFA is $O(n)$
+	\item $\le\Cdexp$: since \hyperref[cost:1LAto1DFA]{\OLA{}\tto\ODFA} is $\le\Cdexp$ and \ODFA{}\tto\TDFA is $\Ctriv$
 	\item $\ge\exp$: otherwise \hyperref[cost:1LAto1DFA]{\OLA{}\tto\ODFA} would be $<\Cdexp$ since \hyperref[cost:2DFAto1DFA]{\TDFA{}\tto\ODFA} is $\exp$
 \end{itemize}
 \paragraph{\OLA{}\tto\TNFA}
 \begin{itemize}
-	\item $\le\exp$: since \hyperref[cost:1LAto1NFA]{\OLA{}\tto\ONFA} is $\le\exp$ and \ONFA{}\tto\TNFA is $O(n)$
+	\item $\le\exp$: since \hyperref[cost:1LAto1NFA]{\OLA{}\tto\ONFA} is $\le\exp$ and \ONFA{}\tto\TNFA is $\Ctriv$
 	\item $\ge\exp$: otherwise \hyperref[cost:1LAto1DFA]{\OLA{}\tto\ODFA} would be $<\Cdexp$ since \TNFA{}\tto\ODFA is $\exp$
 \end{itemize}
 \paragraph{\ODLA{}\tto\ODFA}\label{cost:1DLAto1DFA}
@@ -126,23 +126,23 @@ Here we give a description of each nontrivial result that hasn't been explained 
 \end{itemize}
 \paragraph{\OLA{}\tto\ODLA}
 \begin{itemize}
-	\item $\le\Cdexp$: since \hyperref[cost:1LAto1DFA]{\OLA{}\tto\ODFA} is $\le\Cdexp$ and \ODFA{}\tto\ODLA is $O(n)$
+	\item $\le\Cdexp$: since \hyperref[cost:1LAto1DFA]{\OLA{}\tto\ODFA} is $\le\Cdexp$ and \ODFA{}\tto\ODLA is $\Ctriv$
 	\item $\ge\exp$: otherwise \hyperref[cost:1LAto1DFA]{\OLA{}\tto\ODFA} would be $<\Cdexp$ since \ODLA{}\tto\ODFA is $\exp$
 \end{itemize}
 \paragraph{\ODLA{}\tto\TNFA}\label{cost:1DLAto2NFA}
 \begin{itemize}
-	\item $\le\exp$: since \hyperref[cost:1DLAto1DFA]{\ODLA{}\tto\ODFA} is $\le\exp$ and \ODFA{}\tto\TNFA is $O(n)$
+	\item $\le\exp$: since \hyperref[cost:1DLAto1DFA]{\ODLA{}\tto\ODFA} is $\le\exp$ and \ODFA{}\tto\TNFA is $\Ctriv$
 	\item $\ge\exp$: unary witness language $\set{a^{2^n}}\star$ (recognized with \ODLA presented in \cite{PigPri19} and with \TNFA lower bound proven in \cite{MerPig00})
 \end{itemize}
 \paragraph{\ODLA{}\tto\ONFA}
 \begin{itemize}
-	\item $\le\exp$: since \hyperref[cost:1DLAto1DFA]{\ODLA{}\tto\ODFA} is $\le\exp$ and \ODFA{}\tto\ONFA is $O(n)$
-	\item $\ge\exp$: otherwise \hyperref[cost:1DLAto2NFA]{\ODLA{}\tto\TNFA} would be $<\exp$ since \ONFA{}\tto\TNFA is $O(n)$
+	\item $\le\exp$: since \hyperref[cost:1DLAto1DFA]{\ODLA{}\tto\ODFA} is $\le\exp$ and \ODFA{}\tto\ONFA is $\Ctriv$
+	\item $\ge\exp$: otherwise \hyperref[cost:1DLAto2NFA]{\ODLA{}\tto\TNFA} would be $<\exp$ since \ONFA{}\tto\TNFA is $\Ctriv$
 \end{itemize}
 \paragraph{\ODLA{}\tto\TDFA}
 \begin{itemize}
-	\item $\le\exp$: since \hyperref[cost:1DLAto1DFA]{\ODLA{}\tto\ODFA} is $\le\exp$ and \ODFA{}\tto\TDFA is $O(n)$
-	\item $\ge\exp$: otherwise \hyperref[cost:1DLAto2NFA]{\ODLA{}\tto\TNFA} would be $<\exp$ since \TDFA{}\tto\TNFA is $O(n)$
+	\item $\le\exp$: since \hyperref[cost:1DLAto1DFA]{\ODLA{}\tto\ODFA} is $\le\exp$ and \ODFA{}\tto\TDFA is $\Ctriv$
+	\item $\ge\exp$: otherwise \hyperref[cost:1DLAto2NFA]{\ODLA{}\tto\TNFA} would be $<\exp$ since \TDFA{}\tto\TNFA is $\Ctriv$
 \end{itemize}
 
 
@@ -154,11 +154,11 @@ Here we give a description of each nontrivial result that hasn't been explained 
 	\renewcommand{\arraystretch}{1.2}
 	\begin{tabular}{|l|l|l|p{4.3em}|l|}
 		\hline
-		~     & \ODFA           & \ONFA           & \TDFA                                            & \TNFA  \\ \hline
-		\ODFA & \cY             & \Ctriv          & \Ctriv                                           & \Ctriv \\ \hline
-		\ONFA & \rbt{$\CsubEq$} & \cY             & \cR $\Theta(n^2)$                                & \Ctriv \\ \hline
-		\TDFA & \rbt{$\CsubEq$} & \rbt{$\CsubEq$} & \cY                                              & \Ctriv \\ \hline
-		\TNFA & \rbt{$\CsubEq$} & \rbt{$\CsubEq$} & \cR \rbt[.4]{$\le\Csubln$} \rbt[.3]{$\ge\Cpoly$} & \cY    \\ \hline
+		~     & \ODFA           & \ONFA           & \TDFA                                            & \TNFA     \\ \hline
+		\ODFA & \cY             & $\Cctriv$       & $\Cctriv$                                        & $\Cctriv$ \\ \hline
+		\ONFA & \rbt{$\CsubEq$} & \cY             & \cR $\Theta(n^2)$                                & $\Cctriv$ \\ \hline
+		\TDFA & \rbt{$\CsubEq$} & \rbt{$\CsubEq$} & \cY                                              & $\Cctriv$ \\ \hline
+		\TNFA & \rbt{$\CsubEq$} & \rbt{$\CsubEq$} & \cR \rbt[.4]{$\le\Csubln$} \rbt[.3]{$\ge\Cpoly$} & \cY       \\ \hline
 	\end{tabular}
 	\caption{Descriptional complexity of the simulations between basic regular language recognisers, unary case.}
 	\label{tab:sims-core-unary}
@@ -179,7 +179,7 @@ Here we give a description of each nontrivial result:
 \end{itemize}
 \paragraph{\TDFA{}\tto\ONFA}\label{cost:2DFAto1NFAu}
 \begin{itemize}
-	\item $\le\CsubLe$: since \hyperref[cost:2DFAto1DFAu]{\TDFA{}\tto\ODFA} is $\le\CsubLe$ and \ODFA{}\tto\ONFA is $O(n)$ (\cite{Chr86})
+	\item $\le\CsubLe$: since \hyperref[cost:2DFAto1DFAu]{\TDFA{}\tto\ODFA} is $\le\CsubLe$ and \ODFA{}\tto\ONFA is $\Ctriv$ (\cite{Chr86})
 	\item $\ge\CsubGe$: \cite{Chr86} (shown as an improvement of the lower bound of \hyperref[cost:2DFAto1DFAu]{\TDFA{}\tto\ODFA})
 \end{itemize}
 \paragraph{\ONFA{}\tto\TDFA}\label{cost:1NFAto2DFAu}
@@ -190,17 +190,17 @@ Here we give a description of each nontrivial result:
 \paragraph{\TNFA{}\tto\ODFA}\label{cost:2NFAto1DFAu}
 \begin{itemize}
 	\item $\le\CsubLe$: \cite{MerPig01}
-	\item $\ge\CsubGe$: otherwise \hyperref[cost:2DFAto1DFAu]{\TDFA{}\tto\ODFA} would be $<\CsubLe$ since \TDFA{}\tto\TNFA is $O(n)$
+	\item $\ge\CsubGe$: otherwise \hyperref[cost:2DFAto1DFAu]{\TDFA{}\tto\ODFA} would be $<\CsubLe$ since \TDFA{}\tto\TNFA is $\Ctriv$
 \end{itemize}
 \paragraph{\TNFA{}\tto\ONFA}
 \begin{itemize}
-	\item $\le\CsubLe$: since \hyperref[cost:2NFAto1DFAu]{\TNFA{}\tto\ODFA} is $\le\exp$ and \ODFA{}\tto\ONFA is $O(n)$
-	\item $\ge\CsubGe$: otherwise \hyperref[cost:2DFAto1NFAu]{\TDFA{}\tto\ONFA} would be $<\CsubLe$ since \TDFA{}\tto\TNFA is $O(n)$
+	\item $\le\CsubLe$: since \hyperref[cost:2NFAto1DFAu]{\TNFA{}\tto\ODFA} is $\le\exp$ and \ODFA{}\tto\ONFA is $\Ctriv$
+	\item $\ge\CsubGe$: otherwise \hyperref[cost:2DFAto1NFAu]{\TDFA{}\tto\ONFA} would be $<\CsubLe$ since \TDFA{}\tto\TNFA is $\Ctriv$
 \end{itemize}
 \paragraph{\TNFA{}\tto\TDFA}\label{cost:2NFAto2DFAu}
 \begin{itemize}
 	\item $\le e^{O(\ln^2n)}$: \cite{GefMer+03} (mentioned in \cite{Pig15})
-	\item (already proven $\le\CsubLe$ since \hyperref[cost:2NFAto1DFAu]{\TNFA{}\tto\ODFA} is $\le\CsubLe$ and \ODFA{}\tto\TDFA is $O(n)$)
+	\item (already proven $\le\CsubLe$ since \hyperref[cost:2NFAto1DFAu]{\TNFA{}\tto\ODFA} is $\le\CsubLe$ and \ODFA{}\tto\TDFA is $\Ctriv$)
 	\item Sakoda and Sipser conjecture (the case \hyperref[cost:1NFAto2DFAu]{\ONFA{}\tto\TDFA} is solved for the unary case)
 \end{itemize}
 
@@ -211,13 +211,13 @@ Here we give a description of each nontrivial result:
 	\renewcommand{\hstdef}{.55}
 	\begin{tabular}{|l|l|l|p{4.3em}|l|l|p{3.1em}|}
 		\hline
-		~     & \ODFA           & \ONFA           & \TDFA                                            & \TNFA   & \OLA   & \ODLA                          \\ \hline
-		\ODFA & \cY             & \Ctriv          & \Ctriv                                           & \Ctriv  & \Ctriv & \Ctriv                         \\ \hline
-		\ONFA & \rbt{$\CsubEq$} & \cY             & \cR $\Theta(n^2)$                                & \Ctriv  & \Ctriv & \cB $\le\Cexp\hst$ $\ge\Cpoly$ \\ \hline
-		\TDFA & \rbt{$\CsubEq$} & \rbt{$\CsubEq$} & \cY                                              & \Ctriv  & \Ctriv & \Ctriv                         \\ \hline
-		\TNFA & \rbt{$\CsubEq$} & \rbt{$\CsubEq$} & \cR \rbt[.4]{$\le\Csubln$} \rbt[.3]{$\ge\Cpoly$} & \cY     & \Ctriv & \cB $\le\Cexp\hst$ $\ge\Cpoly$ \\ \hline
-		\OLA  & $\Cdexp$        & $\Cexp$         & \cG $\le\Cdexp\hst[1.25]$ $\ge\Cexp$             & $\Cexp$ & \cY    & \cG $\le\Cdexp$ $\ge\Cexp$     \\ \hline
-		\ODLA & $\Cexp$         & $\Cexp$         & $\Cexp$                                          & $\Cexp$ & \Ctriv & \cY                            \\ \hline
+		~     & \ODFA           & \ONFA           & \TDFA                                            & \TNFA     & \OLA      & \ODLA                          \\ \hline
+		\ODFA & \cY             & $\Cctriv$       & $\Cctriv$                                        & $\Cctriv$ & $\Cctriv$ & $\Cctriv$                      \\ \hline
+		\ONFA & \rbt{$\CsubEq$} & \cY             & \cR $\Theta(n^2)$                                & $\Cctriv$ & $\Cctriv$ & \cB $\le\Cexp\hst$ $\ge\Cpoly$ \\ \hline
+		\TDFA & \rbt{$\CsubEq$} & \rbt{$\CsubEq$} & \cY                                              & $\Cctriv$ & $\Cctriv$ & $\Cctriv$                      \\ \hline
+		\TNFA & \rbt{$\CsubEq$} & \rbt{$\CsubEq$} & \cR \rbt[.4]{$\le\Csubln$} \rbt[.3]{$\ge\Cpoly$} & \cY       & $\Cctriv$ & \cB $\le\Cexp\hst$ $\ge\Cpoly$ \\ \hline
+		\OLA  & $\Cdexp$        & $\Cexp$         & \cG $\le\Cdexp\hst[1.25]$ $\ge\Cexp$             & $\Cexp$   & \cY       & \cG $\le\Cdexp$ $\ge\Cexp$     \\ \hline
+		\ODLA & $\Cexp$         & $\Cexp$         & $\Cexp$                                          & $\Cexp$   & $\Cctriv$ & \cY                            \\ \hline
 	\end{tabular}
 	\caption{Descriptional complexity of the simulations between basic regular language recognisers and $1$-limited automata, unary case.}
 	\label{tab:sims-1la-unary}
@@ -228,52 +228,52 @@ Here we give a description of each nontrivial result that hasn't been explained 
 
 \paragraph{\ONFA{}\tto\ODLA}\label{cost:1NFAto1DLAu}
 \begin{itemize}
-	\item $\le O(n^2)$: since \hyperref[cost:1NFAto2DFAu]{\ONFA{}\tto\TDFA} is $\le O(n^2)$ and \TDFA{}\tto\ODLA is $O(n)$
+	\item $\le O(n^2)$: since \hyperref[cost:1NFAto2DFAu]{\ONFA{}\tto\TDFA} is $\le O(n^2)$ and \TDFA{}\tto\ODLA is $\Ctriv$
 \end{itemize}
 \paragraph{\TNFA{}\tto\ODLA}
 \begin{itemize}
-	\item $\le e^{O(\ln^2n)}$: since \hyperref[cost:2NFAto2DFAu]{\TNFA{}\tto\TDFA} is $\le e^{O(\ln^2n)}$ and \TDFA{}\tto\ODLA is $O(n)$
+	\item $\le e^{O(\ln^2n)}$: since \hyperref[cost:2NFAto2DFAu]{\TNFA{}\tto\TDFA} is $\le e^{O(\ln^2n)}$ and \TDFA{}\tto\ODLA is $\Ctriv$
 	\item relaxed form of the Sakoda and Sipser conjecture with extended 2DFA
 \end{itemize}
 \paragraph{\ODLA{}\tto\TNFA}\label{cost:1DLAto2NFAu}
 \begin{itemize}
-	\item $\le\exp$: since \hyperref[cost:1DLAto1DFAu]{\ODLA{}\tto\ODFA} is $\le\exp$ and \ODFA{}\tto\TNFA is $O(n)$
+	\item $\le\exp$: since \hyperref[cost:1DLAto1DFAu]{\ODLA{}\tto\ODFA} is $\le\exp$ and \ODFA{}\tto\TNFA is $\Ctriv$
 	\item $\ge\exp$: witness language $\{a^{2^n}\}^*$ (recognized with 1-DLA presented in \cite{PigPri19} and with \TNFA lower bound proven in \cite{MerPig00}) (honorable mention: $\ge\CsubGe$ by \cite{KutPig+18})
 \end{itemize}
 \paragraph{\ODLA{}\tto\ODFA}\label{cost:1DLAto1DFAu}
 \begin{itemize}
 	\item $\le\exp$: transition table construction \cite{PigPis14}
-	\item $\ge\exp$: otherwise \hyperref[cost:1DLAto2NFAu]{\ODLA{}\tto\TNFA} would be $<\exp$ since \ODFA{}\tto\TNFA is $O(n)$
+	\item $\ge\exp$: otherwise \hyperref[cost:1DLAto2NFAu]{\ODLA{}\tto\TNFA} would be $<\exp$ since \ODFA{}\tto\TNFA is $\Ctriv$
 \end{itemize}
 \paragraph{\ODLA{}\tto\ONFA}\label{cost:1LAto1NFAu}
 \begin{itemize}
-	\item $\le\exp$: since \hyperref[cost:1DLAto1DFAu]{\ODLA{}\tto\ODFA} is $\le\exp$ and \ODFA{}\tto\ONFA is $O(n)$
-	\item $\ge\exp$: otherwise \hyperref[cost:1DLAto2NFAu]{\ODLA{}\tto\TNFA} would be $<\exp$ since \ONFA{}\tto\TNFA is $O(n)$
+	\item $\le\exp$: since \hyperref[cost:1DLAto1DFAu]{\ODLA{}\tto\ODFA} is $\le\exp$ and \ODFA{}\tto\ONFA is $\Ctriv$
+	\item $\ge\exp$: otherwise \hyperref[cost:1DLAto2NFAu]{\ODLA{}\tto\TNFA} would be $<\exp$ since \ONFA{}\tto\TNFA is $\Ctriv$
 \end{itemize}
 \paragraph{\ODLA{}\tto\TDFA}\label{cost:1DLAto2DFAu}
 \begin{itemize}
-	\item $\le\exp$: since \hyperref[cost:1DLAto1DFAu]{\ODLA{}\tto\ODFA} is $\le\exp$ and \ODFA{}\tto\TDFA is $O(n)$
-	\item $\ge\exp$: otherwise \hyperref[cost:1DLAto2NFAu]{\ODLA{}\tto\TNFA} would be $<\exp$ since \TDFA{}\tto\TNFA is $O(n)$
+	\item $\le\exp$: since \hyperref[cost:1DLAto1DFAu]{\ODLA{}\tto\ODFA} is $\le\exp$ and \ODFA{}\tto\TDFA is $\Ctriv$
+	\item $\ge\exp$: otherwise \hyperref[cost:1DLAto2NFAu]{\ODLA{}\tto\TNFA} would be $<\exp$ since \TDFA{}\tto\TNFA is $\Ctriv$
 \end{itemize}
 \paragraph{\OLA{}\tto\ODFA}
 \begin{itemize}
 	\item $\le\Cdexp$: transition table construction for the general case \cite{PigPis14}
-	\item $\ge\exp$: otherwise \hyperref[cost:1DLAto1DFAu]{\ODLA{}\tto\ODFA} would be $<\exp$ since \ODLA{}\tto\OLA is $O(n)$
+	\item $\ge\exp$: otherwise \hyperref[cost:1DLAto1DFAu]{\ODLA{}\tto\ODFA} would be $<\exp$ since \ODLA{}\tto\OLA is $\Ctriv$
 \end{itemize}
 \paragraph{\OLA{}\tto\ONFA}\label{cost:1DLAto1NFAu}
 \begin{itemize}
 	\item $\le\exp$: transition table construction for the general case \cite{PigPis14}
-	\item $\ge\exp$: otherwise \hyperref[cost:1DLAto1NFAu]{\OLA{}\tto\ONFA} would be $<\exp$ since \ODLA{}\tto\OLA is $O(n)$
+	\item $\ge\exp$: otherwise \hyperref[cost:1DLAto1NFAu]{\OLA{}\tto\ONFA} would be $<\exp$ since \ODLA{}\tto\OLA is $\Ctriv$
 \end{itemize}
 \paragraph{\OLA{}\tto\TDFA}
 \begin{itemize}
 	\item $\le\exp$: since \hyperref[cost:1LAto1NFAu]{\ODLA{}\tto\ONFA} is $\le\exp$ and \hyperref[cost:1NFAto2DFAu]{\ONFA{}\tto\TDFA} is $\le O(n^2)$
-	\item $\ge\exp$: otherwise \hyperref[cost:1DLAto2DFAu]{\ODLA{}\tto\TDFA} would be $<\exp$ since \ODLA{}\tto\OLA is $O(n)$
+	\item $\ge\exp$: otherwise \hyperref[cost:1DLAto2DFAu]{\ODLA{}\tto\TDFA} would be $<\exp$ since \ODLA{}\tto\OLA is $\Ctriv$
 \end{itemize}
 \paragraph{\OLA{}\tto\TNFA}
 \begin{itemize}
-	\item $\le\exp$: since \hyperref[cost:1LAto1NFAu]{\ODLA{}\tto\ONFA} is $\le\exp$ and \ONFA{}\tto\TNFA is $O(n)$
-	\item $\ge\exp$: otherwise \hyperref[cost:1DLAto2DFAu]{\ODLA{}\tto\TDFA} would be $<\exp$ since \ODLA{}\tto\OLA is $O(n)$
+	\item $\le\exp$: since \hyperref[cost:1LAto1NFAu]{\ODLA{}\tto\ONFA} is $\le\exp$ and \ONFA{}\tto\TNFA is $\Ctriv$
+	\item $\ge\exp$: otherwise \hyperref[cost:1DLAto2DFAu]{\ODLA{}\tto\TDFA} would be $<\exp$ since \ODLA{}\tto\OLA is $\Ctriv$
 \end{itemize}
 \paragraph{\OLA{}\tto\ODLA}
 \begin{itemize}
