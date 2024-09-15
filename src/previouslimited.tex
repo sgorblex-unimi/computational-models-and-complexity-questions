@@ -31,38 +31,37 @@ Here we give a description of each nontrivial result:
 
 \paragraph{\ONFA{}\tto\ODFA}\label{cost:1NFAto1DFA}
 \begin{itemize}
-	\item $\le\Cexp$: subset construction \cite{RabSco59},
-	\item $\ge\Cexp$: witness languages: Meyer and Fischer's automaton (distinguishability) \cite{MeyFis71}, Moore's automaton \cite{Moo71}.
+	\item $\le\Cexp$: by using the subset construction presented by \triplecite{RabSco59},
+	\item $\ge\Cexp$: distinguishability arguments on the witness languages recognised by Meyer and Fischer's automaton \cite{MeyFis71} and Moore's automaton \cite{Moo71}.
 \end{itemize}
 \paragraph{\ONFA{}\tto\TDFA}
 \begin{itemize}
-	\item $\le\Cexp$: since \hyperref[cost:1NFAto1DFA]{\ONFA{}\tto\ODFA} is $\le\Cexp$ and \ODFA{}\tto\TDFA is $\Ctriv$
-	\item Sakoda and Sipser conjecture that it's $=\Cexp$ \cite{SakSip78}
-\end{itemize}
-\paragraph{\TDFA{}\tto\ONFA}\label{cost:2DFAto1NFA}
-\begin{itemize}
-	\item $\le\Cexp$: since \hyperref[cost:1NFAto1DFA]{\ONFA{}\tto\ODFA} is $\le\Cexp$ and \ODFA{}\tto\ONFA is $\Ctriv$
-	\item $\ge\Cexp$: proven in \cite{Bir93} (cited in \cite{PigPis14})
+	\item $\le\Cexp$: by using construction for \hyperref[cost:1NFAto1DFA]{\ONFA{}\tto\ODFA}, which is $\le\Cexp$, combined with $\Ctriv$ \ODFA{}\tto\TDFA,
+	\item believed to be $=\Cexp$ (Sakoda and Sipser conjecture \cite{SakSip78}).
 \end{itemize}
 \paragraph{\TDFA{}\tto\ODFA}\label{cost:2DFAto1DFA}
 \begin{itemize}
-	\item $\le\Cexp$: proven in \cite{She59} (transition tables) and in parallel in \cite{RabSco59} (crossing sequences)
-	\item $\ge\Cexp$: otherwise \hyperref[cost:2DFAto1NFA]{\TDFA{}\tto\ONFA} would be $<\Cexp$ since \ODFA{}\tto\ONFA is $\Ctriv$
+	\item $\le\Cexp$: by using the transition table construction presented by \triplecite{She59} or the crossing sequence construction presented in parallel by \doublecite{RabSco59},
+	\item $\ge\Cexp$: otherwise \hyperref[cost:2DFAto1NFA]{\TDFA{}\tto\ONFA} would be less than $\Cexp$ since \ODFA{}\tto\ONFA is $\Ctriv$ (see lower bound below).
+\end{itemize}
+\paragraph{\TDFA{}\tto\ONFA}\label{cost:2DFAto1NFA}
+\begin{itemize}
+	\item $\le\Cexp$: by using construction for \hyperref[cost:2DFAto1DFA]{\TDFA{}\tto\ODFA}, which is $\le\Cexp$, combined with $\Ctriv$ \ODFA{}\tto\ONFA,
+	\item $\ge\Cexp$: proven by \triplecite{Bir93}.
 \end{itemize}
 \paragraph{\TNFA{}\tto\ODFA}\label{cost:2NFAto1DFA}
 \begin{itemize}
-	\item $\le\Cexp$: generally attributed to the same articles of \hyperref[cost:2DFAto1DFA]{\TDFA{}\tto\ODFA}
-	\item $\ge\Cexp$: otherwise \hyperref[cost:1NFAto1DFA]{\ONFA{}\tto\ODFA} would be $<\Cexp$ since \ONFA{}\tto\TNFA is $\Ctriv$
+	\item $\le\Cexp$: generally attributed to the same articles of \hyperref[cost:2DFAto1DFA]{\TDFA{}\tto\ODFA},
+	\item $\ge\Cexp$: otherwise \hyperref[cost:1NFAto1DFA]{\ONFA{}\tto\ODFA} would be less than $\Cexp$ since \ONFA{}\tto\TNFA is $\Ctriv$.
 \end{itemize}
 \paragraph{\TNFA{}\tto\ONFA}
 \begin{itemize}
-	\item $\le\Cexp$: proven in \cite{Kap05} (precisely $\binom{2n}{n+1}$)
-	\item $\ge\Cexp$: proven in \cite{Kap05} (precisely $\binom{2n}{n+1}$)
+	\item $=\Cexp$: both upper and lower bounds were proven by \triplecite{Kap05}. Precisely, the optimal cost is $\binom{2n}{n+1}$.
 \end{itemize}
 \paragraph{\TNFA{}\tto\TDFA}
 \begin{itemize}
-	\item $\le\Cexp$: since \hyperref[cost:2NFAto1DFA]{\TNFA{}\tto\ODFA} is $\le\Cexp$ and \ODFA{}\tto\TDFA is $\Ctriv$
-	\item Sakoda and Sipser conjecture that it's $=\Cexp$ \cite{SakSip78}
+	\item $\le\Cexp$: by using construction for \hyperref[cost:2NFAto1DFA]{\TNFA{}\tto\ODFA}, which is $\le\Cexp$, combined with $\Ctriv$ \ODFA{}\tto\TDFA is $\Ctriv$,
+	\item believed to be $=\Cexp$ (Sakoda and Sipser conjecture \cite{SakSip78}).
 \end{itemize}
 
 
