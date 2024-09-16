@@ -301,8 +301,14 @@ We can now prove that the two machines are equivalent:
 	\end{description}
 \end{proof}
 
-Thanks to \Cref{thm:transtab2DFA} we can now show that
+We are now ready to show that, in general:
 \begin{thrm}
 	Every $n$-state \TDFA can be simulated by a \ODFA with an exponential number of states in $n$.
 \end{thrm}
-Which doubles as a proof of \Cref{thm:2DFAto1NFA}.
+\begin{proof}
+	Let $A$ be an $n$-state \TDFA and $A'$ the \ODFA built with the construction presented above.
+	By \Cref{thm:transtab2DFA}, $A'$ correctly simulates $A$.
+
+	Furthermore, the number of states in $A'$ is bounded by $n$ times the number of transition tables of $A$, which is the number of partial functions from $Q$ to $Q$, \ie $(n+1)^n$.
+	Overall we obtain an exponential bound of $n(n+1)^n$ states.
+\end{proof}
