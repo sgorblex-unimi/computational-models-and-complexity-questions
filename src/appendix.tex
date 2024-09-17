@@ -1,0 +1,123 @@
+\chapter{Useful constructions}
+% TODO: introduction
+
+For the following, given a transition function $\delta$, a set of states $S$, and a symbol $\sigma$, we define
+\begin{equation*}
+	\delta(S,\sigma):=\bigcup_{q\in S} \delta(q,\sigma) \text.
+\end{equation*}
+We also use the transitive closure of $\delta$ in order to use strings as second argument.
+
+
+
+\section{Modifications of \NFAs}
+
+
+\subsection{\NFAs with multiple starting states}
+% TODO: context. Mention that eps-transitions can not be eliminated cheaply in general (citation), so using eps-transitions is not a so immediate solution
+\begin{thrm}\label{thm:mult-start-states}
+	Every $n$-state NFA with multiple starting states can be simulated by an $(n+1)$-state NFA with a single starting state.
+\end{thrm}
+\begin{proof}
+	Let $A:=(Q,\Sigma,\delta,I,F)$ a multiple starting state NFA, where $I\subseteq Q$ is the set of starting states.
+	Define the NFA $A':=(Q',\Sigma,\delta',q_I,F')$, where
+	\begin{itemize}
+		\item $Q':=Q\cup\set{q_I}$,
+		\item $q_I\notin Q$ is the new, only starting state
+		\item $\delta'$ is defined as follows:
+		      \begin{itemize}
+			      \item $\delta'(q_I,\sigma):=\delta(I,\sigma)$
+			      \item for all $q\ne q_I$, $\delta'(q,\sigma)=\delta(q,\sigma)$, and
+		      \end{itemize}
+		\item $F':=F\cup\set{q_I\mid I\cap F\ne\emptyset}$
+	\end{itemize}
+	The logic behind the construction is that the new state simulates the behavior of all the original starting states at the same time, by making use of nondeterminism and creating "short circuits" for the transitions from the original starting states.
+
+	Obviously, if $n:=\card Q$, then $\card{Q'}=\card Q+1=n+1$. Therefore, it is only left to prove that $\genlang(A)=\genlang(A')$.
+	We start from the definition of $\genlang(A')$ and we temporarily ignore the possible presence of the empty word:
+	\begin{align*}
+		\genlang(A')\setminus\set{\emptyword} & = \set{w\in\Sigma\plus\mid \delta'(q_I,w)\cap F'\ne\emptyset}
+	\end{align*}
+	Because $F'$ can only differ from $F$ by the possible presence of $q_I$, and $q_I\notin\delta'(q_I,w)$ for any $w\in\Sigma\plus$, we have that $\delta'(q_I,w)\cap F'=\delta'(q_I,w)\cap F$:
+	\begin{align*}
+		 & = \set{w\in\Sigma\plus\mid \delta'(q_I,w)\cap F\ne\emptyset}                                                                    \\
+		 & = \set{w\in\Sigma\plus\mid w=\sigma x, x\in\Sigma\star,\sigma\in\Sigma,\delta'(q_I,\sigma x)\cap F\ne\emptyset}                 \\
+		 & = \set{w\in\Sigma\plus\mid w=\sigma x, x\in\Sigma\star,\sigma\in\Sigma,\delta'(\delta'(q_I,\sigma),x)\cap F\ne\emptyset} \text.
+	\end{align*}
+	By definition of $\delta(q_I,\cdot)$, the last set is equal to
+	\begin{align*}
+		 & = \set{w\in\Sigma\plus\mid w=\sigma x, x\in\Sigma\star,\sigma\in\Sigma,\delta'(\delta(I,\sigma),x)\cap F\ne\emptyset} \text.
+	\end{align*}
+	Because $q_I\notin\delta(I,\sigma)$, in the last expression $\delta'$ can be replaced with $\delta$, as per its definition:
+	\begin{align*}
+		 & = \set{w\in\Sigma\plus\mid w=\sigma x, x\in\Sigma\star,\sigma\in\Sigma,\delta(\delta(I,\sigma),x)\cap F\ne\emptyset} \\
+		 & = \set{w\in\Sigma\plus\mid w=\sigma x, x\in\Sigma\star,\sigma\in\Sigma,\delta(I,\sigma x)\cap F\ne\emptyset}         \\
+		 & = \set{w\in\Sigma\plus\mid \delta(I,w)\cap F\ne\emptyset}                                                            \\
+		 & = \genlang(A)\setminus\set{\emptyword} \text.
+	\end{align*}
+
+	As for the possible presence of the empty word in $\genlang(A)$ and $\genlang(A')$:
+	\begin{align*}
+		\emptyword\in\genlang(A') & \iff q_0\in F'                                     \\
+		                          & \iff q_0\in F\cup\set{q_0\mid I\cap F\ne\emptyset} \\
+		                          & \iff I\cap F\ne\emptyset                           \\
+		                          & \iff \emptyword\in\genlang(A) \text. \qedhere
+	\end{align*}
+\end{proof}
+
+
+\subsection{Languages with a symbol prefix or suffix}
+% TODO: context. The following is equivalent to making all those transitions eps-transitions and delete those (but as will be said above there is no universal way for the removal of eps-transitions)
+\begin{thrm}
+	For each $n$-state NFA accepting a language in the form $\gamma L$, with $L\in\Sigma\star$ for some alphabet $\Sigma$ and $\gamma\notin\Sigma$ is a symbol, there exists an $n$-state NFA accepting the language $L$.
+\end{thrm}
+\begin{proof}
+	Let $A:=(Q,\Sigma\cup\set{\gamma},\delta,q_I,F)$ an NFA such that $\genlang(A)=\gamma L$, $\gamma\notin\Sigma$.
+
+	All the \emph{useful}\footnote{Meaning they are part of an accepting computation.} transitions defined from $q_I$ are labeled $\gamma$, otherwise there would exist an accepted word not starting with $\gamma$.
+	Conversely, all useful transitions from states other than $q_I$ are not labeled $\gamma$, otherwise there would exist an accepted word containing the symbol $\gamma$ in a position other than the first.
+	For the same reason, $q_I$ is not reachable by any useful transition (note that $q_I\notin F$, otherwise $\emptyword$, which is not in the required form, would be accepted).
+	The following construction "skips" and removes $q_I$, making initial all the states reached from it by $\gamma$-transitions.
+
+	Define the NFA $A':=(Q',\Sigma,\delta',I,F)$, where
+	\begin{itemize}
+		\item $Q':=Q\setminus\set{q_I}$,
+		\item for each $q\in Q'$ and $\sigma\in\Sigma$, $\delta'(q,\sigma)=\delta(q,\sigma)$, and
+		\item $I:=\delta(q_I,\gamma)$.
+	\end{itemize}
+
+	By the definitions of $\delta$ and $\delta'$, it holds that for any $w\in\Sigma\star$, $\delta'(I,w)=\delta(q_I,\gamma w)$.
+	Therefore $w\in\genlang(A')\iff \gamma w\in\genlang(A)$.
+
+	The NFA $A'$ has $n-1$ states but contains multiple starting states. By applying \Cref{thm:mult-start-states} an equivalent $n$-state NFA with a single starting state can be constructed.
+\end{proof}
+
+
+\begin{thrm}
+	For each $n$-state NFA accepting a language in the form $L\gamma$, with $L\in\Sigma\star$ for some alphabet $\Sigma$ and $\gamma\notin\Sigma$ is a symbol, there exists an $n$-state NFA accepting the language $L$.
+\end{thrm}
+\begin{proof}
+	Let $A:=(Q,\Sigma\cup\set{\gamma},\delta,q_I,F)$ an NFA such that $\genlang(A)=L\gamma$, $\gamma\notin\Sigma$.
+
+	The NFA resulting from this construction accepts in those states that would reach an original accepting state upon reading $\gamma$.
+
+	Define the NFA $A':=(Q,\Sigma,\delta',q_I,F')$, where
+	\begin{itemize}
+		\item for each $q\in Q$ and $\sigma\in\Sigma$, $\delta'(q,\sigma)=\delta(q,\sigma)$, and
+		\item $F':=\set{q\in Q\mid \delta(q,\gamma)\cap F\ne\emptyset}$.
+	\end{itemize}
+
+	For any $w\in\Sigma\star$, it holds that
+	\begin{align*}
+		w\in\genlang(A') & \iff \delta'(q_I,w)\cap F'\ne\emptyset                                                 \\
+		                 & \iff \delta(q_I,w)\cap \set{q\in Q\mid \delta(q,\gamma)\cap F\ne\emptyset}\ne\emptyset \\
+		                 & \iff \exists q\in\delta(q_I,w)\mid \delta(q,\gamma)\cap F\ne\emptyset                  \\
+		                 & \iff \delta(q_I,w\gamma)\cap F\ne\emptyset                                             \\
+		                 & \iff w\gamma\in\genlang(A) \text. \qedhere
+	\end{align*}
+\end{proof}
+
+
+\begin{corol}
+	For each $n$-state NFA accepting a language in the form $\gamma_1 L\gamma_2$, with $L\in\Sigma\star$ for some alphabet $\Sigma$ and $\gamma_1,\gamma_2\notin\Sigma$ are symbols, there exists an $n$-state NFA accepting the language $L$.
+\end{corol}
+% TODO: context: explain what does this mean in terms of building simulations for two-way automata with end-markers
