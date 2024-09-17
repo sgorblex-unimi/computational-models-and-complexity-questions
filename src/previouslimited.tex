@@ -1,0 +1,295 @@
+\chapter{Previous results}
+In this chapter we summarize previous results about the cost of simulations (conversions) between various regular language acceptors: finite state automata and $1$-limited automata.
+We represent such costs in tables, first in \Cref{sec:prevsims-general} for the general case (\Cref{tab:sims-core-general,tab:sims-1la-general}), and second in \Cref{sec:prevsims-unary} for the unary case (\Cref{tab:sims-core-unary,tab:sims-1la-unary}).
+
+Each cell contains upper and lower bounds for the cost of the simulation of a machine of the kind given by the row by a machine of the kind given by the column.
+When the bounds match, one cost is displayed (two exponential bounds will be considered to match even if the match is not exact).
+The simulations marked $\Ctriv$ are ones where the simulated machine is virtually a subcase of the simulating one, therefore close to no size growth ($O(n)$) is required.
+
+
+
+\section{The general case}\label{sec:prevsims-general}
+
+\begin{table}
+	\centering
+	\renewcommand{\hstdef}{.35}
+	\begin{tabular}{|l|l|l|p{2.9em}|l|}
+		\hline
+		~     & \ODFA   & \ONFA     & \TDFA                          & \TNFA     \\ \hline
+		\ODFA & \cY     & $\Cctriv$ & $\Cctriv$                      & $\Cctriv$ \\ \hline
+		\ONFA & $\Cexp$ & \cY       & \cR $\le\Cexp\hst$ $\ge\Cpoly$ & $\Cctriv$ \\ \hline
+		\TDFA & $\Cexp$ & $\Cexp$   & \cY                            & $\Cctriv$ \\ \hline
+		\TNFA & $\Cexp$ & $\Cexp$   & \cR $\le\Cexp\hst$ $\ge\Cpoly$ & \cY       \\ \hline
+	\end{tabular}
+	\caption{Descriptional complexity of the simulations between basic regular language recognisers, general case.}
+	\label{tab:sims-core-general}
+\end{table}
+
+\Cref{tab:sims-core-general} contains the costs of simulations between basic regular language acceptors.
+The cells highlighted in red represent the unsolved Sakoda and Sipser problem \cite{SakSip78} about the cost of removal of nondeterminism from finite state automata.
+Here we give a description of each nontrivial result:
+
+\paragraph{\ONFA{}\tto\ODFA}\label{cost:1NFAto1DFA}
+\begin{itemize}
+	\item $\le\Cexp$: by using the subset construction presented by \triplecite{RabSco59},
+	\item $\ge\Cexp$: distinguishability arguments on the witness languages recognised by Meyer and Fischer's automaton \cite{MeyFis71} and Moore's automaton \cite{Moo71}.
+\end{itemize}
+\paragraph{\ONFA{}\tto\TDFA}
+\begin{itemize}
+	\item $\le\Cexp$: by using construction for \hyperref[cost:1NFAto1DFA]{\ONFA{}\tto\ODFA}, which is $\le\Cexp$, combined with $\Ctriv$ \ODFA{}\tto\TDFA,
+	\item believed to be $=\Cexp$ (Sakoda and Sipser conjecture \cite{SakSip78}).
+\end{itemize}
+\paragraph{\TDFA{}\tto\ODFA}\label{cost:2DFAto1DFA}
+\begin{itemize}
+	\item $\le\Cexp$: by using the transition table construction presented by \triplecite{She59} or the crossing sequence construction presented in parallel by \doublecite{RabSco59},
+	\item $\ge\Cexp$: otherwise \hyperref[cost:2DFAto1NFA]{\TDFA{}\tto\ONFA} would be less than $\Cexp$ since \ODFA{}\tto\ONFA is $\Ctriv$ (see lower bound below).
+\end{itemize}
+\paragraph{\TDFA{}\tto\ONFA}\label{cost:2DFAto1NFA}
+\begin{itemize}
+	\item $\le\Cexp$: by using construction for \hyperref[cost:2DFAto1DFA]{\TDFA{}\tto\ODFA}, which is $\le\Cexp$, combined with $\Ctriv$ \ODFA{}\tto\ONFA,
+	\item $\ge\Cexp$: proven by \triplecite{Bir93}.
+\end{itemize}
+\paragraph{\TNFA{}\tto\ODFA}\label{cost:2NFAto1DFA}
+\begin{itemize}
+	\item $\le\Cexp$: generally attributed to the same articles of \hyperref[cost:2DFAto1DFA]{\TDFA{}\tto\ODFA},
+	\item $\ge\Cexp$: otherwise \hyperref[cost:1NFAto1DFA]{\ONFA{}\tto\ODFA} would be less than $\Cexp$ since \ONFA{}\tto\TNFA is $\Ctriv$.
+\end{itemize}
+\paragraph{\TNFA{}\tto\ONFA}
+\begin{itemize}
+	\item $=\Cexp$: both upper and lower bounds were proven by \triplecite{Kap05}. Precisely, the optimal cost is $\binom{2n}{n+1}$.
+\end{itemize}
+\paragraph{\TNFA{}\tto\TDFA}
+\begin{itemize}
+	\item $\le\Cexp$: by using construction for \hyperref[cost:2NFAto1DFA]{\TNFA{}\tto\ODFA}, which is $\le\Cexp$, combined with $\Ctriv$ \ODFA{}\tto\TDFA is $\Ctriv$,
+	\item believed to be $=\Cexp$ (Sakoda and Sipser conjecture \cite{SakSip78}).
+\end{itemize}
+
+
+\begin{table}
+	\centering
+	\renewcommand{\hstdef}{.55}
+	\begin{tabular}{|l|l|l|p{3.1em}|l|l|p{3.1em}|}
+		\hline
+		~     & \ODFA              & \ONFA     & \TDFA                                            & \TNFA     & \OLA      & \ODLA                                            \\ \hline
+		\ODFA & \cY                & $\Cctriv$ & $\Cctriv$                                        & $\Cctriv$ & $\Cctriv$ & $\Cctriv$                                        \\ \hline
+		\ONFA & $\Cexp$            & \cY       & \cR $\le\Cexp\hst$ $\ge\Cpoly$                   & $\Cctriv$ & $\Cctriv$ & \cB $\le\Cexp\hst$ $\ge\Cpoly$                   \\ \hline
+		\TDFA & $\Cexp$            & $\Cexp$   & \cY                                              & $\Cctriv$ & $\Cctriv$ & $\Cctriv$                                        \\ \hline
+		\TNFA & $\Cexp$            & $\Cexp$   & \cR $\le\Cexp\hst$ $\ge\Cpoly$                   & \cY       & $\Cctriv$ & \cB $\le\Cexp\hst$ $\ge\Cpoly$                   \\ \hline
+		\OLA  & \rbt[.2]{$\Cdexp$} & $\Cexp$   & \cG \rbt[.2]{$\le\Cdexp\hst[.1]$} $\ge\Cexp\hst$ & $\Cexp$   & \cY       & \cG \rbt[.2]{$\le\Cdexp\hst[.1]$} $\ge\Cexp\hst$ \\ \hline
+		\ODLA & $\Cexp$            & $\Cexp$   & $\Cexp$                                          & $\Cexp$   & $\Cctriv$ & \cY                                              \\ \hline
+	\end{tabular}
+	\caption{Descriptional complexity of the simulations between basic regular language recognisers and $1$-limited automata, general case.}
+	\label{tab:sims-1la-general}
+\end{table}
+
+\Cref{tab:sims-1la-general} contains the costs of simulations between basic regular language acceptors and $1$-limited automata.
+In addition to the cells highlighted in red for the Sakoda and Sipser conjecture, we have blue and green cells.
+The cells highlighted in blue consist in a relaxed version of the problem, with an extension of \TNFA, namely \ODLA, as the simulating machine.
+The cells highlighted in green consist in a harder version of the problem, with an extension of \NFA, namely \OLA, as the simulated machine.
+Here we give a description of each nontrivial result that hasn't been explained previously:
+
+\paragraph{\ONFA{}\tto\ODLA}
+\begin{itemize}
+	\item $\le\exp$: by using construction for \hyperref[cost:1NFAto1DFA]{\ONFA{}\tto\ODFA}, which is $\le\exp$, combined with $\Ctriv$ \ODFA{}\tto\ODLA,
+	\item relaxed form of the Sakoda and Sipser conjecture with extended \TDFA.
+\end{itemize}
+\paragraph{\TNFA{}\tto\ODLA}
+\begin{itemize}
+	\item $\le\exp$: by using construction for \hyperref[cost:2NFAto1DFA]{\TNFA{}\tto\ODFA}, which is $\le\exp$, combined with $\Ctriv$ \ODFA{}\tto\ODLA,
+	\item relaxed form of the Sakoda and Sipser conjecture with extended \TDFA.
+\end{itemize}
+\paragraph{\OLA{}\tto\ODFA}\label{cost:1LAto1DFA}
+\begin{itemize}
+	\item $\le\Cdexp$: by using the transition table construction presented by \triplecite{PigPis14},
+	\item $\ge\Cdexp$: distinguishability arguments on witness languages: the block language $L_n$ defined by \triplecite{PigPis14} and the "reset" witness languages by \triplecite{PigPri+22}.
+\end{itemize}
+\paragraph{\OLA{}\tto\ONFA}\label{cost:1LAto1NFA}
+\begin{itemize}
+	\item $\le\Cexp$: by using the transition table construction presented by \triplecite{PigPis14},
+	\item $\ge\exp$: otherwise \hyperref[cost:1LAto1DFA]{\OLA{}\tto\ODFA} would be less than $\Cdexp$ since \hyperref[cost:1NFAto1DFA]{\ONFA{}\tto\ODFA} is $\exp$.
+\end{itemize}
+\paragraph{\OLA{}\tto\TDFA}
+\begin{itemize}
+	\item $\le\Cdexp$: by using construction for \hyperref[cost:1LAto1DFA]{\OLA{}\tto\ODFA}, which is $\le\Cdexp$, combined with $\Ctriv$ \ODFA{}\tto\TDFA,
+	\item $\ge\exp$: otherwise \hyperref[cost:1LAto1DFA]{\OLA{}\tto\ODFA} would be less than $\Cdexp$ since \hyperref[cost:2DFAto1DFA]{\TDFA{}\tto\ODFA} is $\exp$.
+\end{itemize}
+\paragraph{\OLA{}\tto\TNFA}
+\begin{itemize}
+	\item $\le\exp$: by using construction for \hyperref[cost:1LAto1NFA]{\OLA{}\tto\ONFA}, which is $\le\exp$, combined with $\Ctriv$ \ONFA{}\tto\TNFA,
+	\item $\ge\exp$: otherwise \hyperref[cost:1LAto1DFA]{\OLA{}\tto\ODFA} would be less than $\Cdexp$ since \TNFA{}\tto\ODFA is $\exp$.
+\end{itemize}
+\paragraph{\ODLA{}\tto\ODFA}\label{cost:1DLAto1DFA}
+\begin{itemize}
+	\item $\le\exp$: by using the transition table construction presented by \triplecite{PigPis14},
+	\item $\ge\exp$: otherwise with \hyperref[cost:1DLAto1DFA]{\ODLA{}\tto\ODFA} we would obtain a \ODFA for $L_n$ with $<\Cdexp$ states (impossible by distinguishability), as a \ODLA (\TDFA) of size $\exp$ accepts $L_n$ \cite{PigPis14}.
+\end{itemize}
+\paragraph{\OLA{}\tto\ODLA}
+\begin{itemize}
+	\item $\le\Cdexp$: by using construction for \hyperref[cost:1LAto1DFA]{\OLA{}\tto\ODFA}, which is $\le\Cdexp$, combined with $\Ctriv$ \ODFA{}\tto\ODLA,
+	\item $\ge\exp$: otherwise \hyperref[cost:1LAto1DFA]{\OLA{}\tto\ODFA} would be less than $\Cdexp$ since \ODLA{}\tto\ODFA is $\exp$.
+\end{itemize}
+\paragraph{\ODLA{}\tto\TNFA}\label{cost:1DLAto2NFA}
+\begin{itemize}
+	\item $\le\exp$: by using construction for \hyperref[cost:1DLAto1DFA]{\ODLA{}\tto\ODFA}, which is $\le\exp$, combined with $\Ctriv$ \ODFA{}\tto\TNFA,
+	\item $\ge\exp$: since the unary witness language $\set{a^{2^n}}\star$ is recognized by the linear size \ODLA presented by \triplecite{PigPri19}, but cannot be recognised by a \TNFA with less than $\Cexp$ states, proven by \triplecite{MerPig00}).
+\end{itemize}
+\paragraph{\ODLA{}\tto\ONFA}
+\begin{itemize}
+	\item $\le\exp$: by using construction for \hyperref[cost:1DLAto1DFA]{\ODLA{}\tto\ODFA}, which is $\le\exp$, combined with $\Ctriv$ \ODFA{}\tto\ONFA,
+	\item $\ge\exp$: otherwise \hyperref[cost:1DLAto2NFA]{\ODLA{}\tto\TNFA} would be less than $\exp$ since \ONFA{}\tto\TNFA is $\Ctriv$.
+\end{itemize}
+\paragraph{\ODLA{}\tto\TDFA}
+\begin{itemize}
+	\item $\le\exp$: by using construction for \hyperref[cost:1DLAto1DFA]{\ODLA{}\tto\ODFA}, which is $\le\exp$, combined with $\Ctriv$ \ODFA{}\tto\TDFA,
+	\item $\ge\exp$: otherwise \hyperref[cost:1DLAto2NFA]{\ODLA{}\tto\TNFA} would be less than $\exp$ since \TDFA{}\tto\TNFA is $\Ctriv$.
+\end{itemize}
+
+
+
+\section{The unary case}\label{sec:prevsims-unary}
+
+\begin{table}
+	\centering
+	\renewcommand{\arraystretch}{1.2}
+	\begin{tabular}{|l|l|l|p{4.3em}|l|}
+		\hline
+		~     & \ODFA           & \ONFA           & \TDFA                                            & \TNFA     \\ \hline
+		\ODFA & \cY             & $\Cctriv$       & $\Cctriv$                                        & $\Cctriv$ \\ \hline
+		\ONFA & \rbt{$\CsubEq$} & \cY             & \cR $\Theta(n^2)$                                & $\Cctriv$ \\ \hline
+		\TDFA & \rbt{$\CsubEq$} & \rbt{$\CsubEq$} & \cY                                              & $\Cctriv$ \\ \hline
+		\TNFA & \rbt{$\CsubEq$} & \rbt{$\CsubEq$} & \cR \rbt[.4]{$\le\Csubln$} \rbt[.3]{$\ge\Cpoly$} & \cY       \\ \hline
+	\end{tabular}
+	\caption{Descriptional complexity of the simulations between basic regular language recognisers, unary case.}
+	\label{tab:sims-core-unary}
+\end{table}
+
+\Cref{tab:sims-core-unary} contains the costs of simulations between basic regular language acceptors for unary languages.
+Many of these costs, mostly found by pioneer of unary descriptional complexity Marek Chrobak, are given by the Landau function:
+\begin{equation}
+	F(n) := \max\set{\lcm(x_1,\dots,x_k)\mid x_1+\dots+x_k=n} \text,
+\end{equation}
+where $n\in\N$.
+The problem of approximating this function is known as Landau's problem.
+For the sake of our usage of the function, the following approximation, which was found by Landau himself in the early twentieth century \cite{Lan03,Lan09}, is sufficient:
+\begin{equation}
+	F(n) = \CsubEq \text.
+\end{equation}
+
+We refer to functions such as the one above, which can be expressed in the form $e^{o(n)}$, as "subexponential", which serve as a midway between the polynomial and exponential complexities.
+Here we give a description of each nontrivial result in \Cref{tab:sims-core-unary}:
+
+\paragraph{\ONFA{}\tto\ODFA}
+\begin{itemize}
+	\item $\le\CsubLe$: proven by \triplecite{Chr86},
+	\item $\ge\CsubGe$: proven by \triplecite{Chr86}.
+\end{itemize}
+\paragraph{\TDFA{}\tto\ODFA}\label{cost:2DFAto1DFAu}
+\begin{itemize}
+	\item $\le\CsubLe$: proven by \triplecite{Chr86},
+	\item $\ge\CsubGe$: proven by \triplecite{Chr86}.
+\end{itemize}
+\paragraph{\TDFA{}\tto\ONFA}\label{cost:2DFAto1NFAu}
+\begin{itemize}
+	\item $\le\CsubLe$: by using construction for \hyperref[cost:2DFAto1DFAu]{\TDFA{}\tto\ODFA}, which is $\le\CsubLe$, combined with $\Ctriv$ \ODFA{}\tto\ONFA,,
+	\item $\ge\CsubGe$: proven by \triplecite{Chr86} (shown as an improvement of the lower bound of \hyperref[cost:2DFAto1DFAu]{\TDFA{}\tto\ODFA}).
+\end{itemize}
+\paragraph{\ONFA{}\tto\TDFA}\label{cost:1NFAto2DFAu}
+\begin{itemize}
+	\item $\le O(n^2)$: proven by \triplecite{Chr86},
+	\item $\ge \Omega(n^2)$: proven by \triplecite{Chr86}.
+\end{itemize}
+\paragraph{\TNFA{}\tto\ODFA}\label{cost:2NFAto1DFAu}
+\begin{itemize}
+	\item $\le\CsubLe$: using construction presented by \triplecite{MerPig01},
+	\item $\ge\CsubGe$: otherwise \hyperref[cost:2DFAto1DFAu]{\TDFA{}\tto\ODFA} would be less than $\CsubLe$ since \TDFA{}\tto\TNFA is $\Ctriv$.
+\end{itemize}
+\paragraph{\TNFA{}\tto\ONFA}
+\begin{itemize}
+	\item $\le\CsubLe$: by using construction for \hyperref[cost:2NFAto1DFAu]{\TNFA{}\tto\ODFA}, which is $\le\exp$, combined with $\Ctriv$ \ODFA{}\tto\ONFA,
+	\item $\ge\CsubGe$: otherwise \hyperref[cost:2DFAto1NFAu]{\TDFA{}\tto\ONFA} would be less than $\CsubLe$ since \TDFA{}\tto\TNFA is $\Ctriv$
+\end{itemize}
+\paragraph{\TNFA{}\tto\TDFA}\label{cost:2NFAto2DFAu}
+\begin{itemize}
+	\item $\le e^{O(\ln^2n)}$: proven by \triplecite{GefMer+03} (and mentioned by \triplecite{Pig15}),
+	\item (already proven $\le\CsubLe$ by using construction for \hyperref[cost:2NFAto1DFAu]{\TNFA{}\tto\ODFA}, which is $\le\CsubLe$, combined with $\Ctriv$ \ODFA{}\tto\TDFA),
+	\item the only unsolved Sakoda and Sipser problem for the unary case (\hyperref[cost:1NFAto2DFAu]{\ONFA{}\tto\TDFA} is solved).
+\end{itemize}
+
+
+\begin{table}
+	\centering
+	\renewcommand{\arraystretch}{1.2}
+	\renewcommand{\hstdef}{.55}
+	\begin{tabular}{|l|l|l|p{4.3em}|l|l|p{3.1em}|}
+		\hline
+		~     & \ODFA           & \ONFA           & \TDFA                                            & \TNFA     & \OLA      & \ODLA                          \\ \hline
+		\ODFA & \cY             & $\Cctriv$       & $\Cctriv$                                        & $\Cctriv$ & $\Cctriv$ & $\Cctriv$                      \\ \hline
+		\ONFA & \rbt{$\CsubEq$} & \cY             & \cR $\Theta(n^2)$                                & $\Cctriv$ & $\Cctriv$ & \cB $\le\Cexp\hst$ $\ge\Cpoly$ \\ \hline
+		\TDFA & \rbt{$\CsubEq$} & \rbt{$\CsubEq$} & \cY                                              & $\Cctriv$ & $\Cctriv$ & $\Cctriv$                      \\ \hline
+		\TNFA & \rbt{$\CsubEq$} & \rbt{$\CsubEq$} & \cR \rbt[.4]{$\le\Csubln$} \rbt[.3]{$\ge\Cpoly$} & \cY       & $\Cctriv$ & \cB $\le\Cexp\hst$ $\ge\Cpoly$ \\ \hline
+		\OLA  & $\Cdexp$        & $\Cexp$         & \cG $\le\Cdexp\hst[1.25]$ $\ge\Cexp$             & $\Cexp$   & \cY       & \cG $\le\Cdexp$ $\ge\Cexp$     \\ \hline
+		\ODLA & $\Cexp$         & $\Cexp$         & $\Cexp$                                          & $\Cexp$   & $\Cctriv$ & \cY                            \\ \hline
+	\end{tabular}
+	\caption{Descriptional complexity of the simulations between basic regular language recognisers and $1$-limited automata, unary case.}
+	\label{tab:sims-1la-unary}
+\end{table}
+
+\Cref{tab:sims-1la-unary} contains the costs of simulations between basic regular language acceptors and $1$-limited automata, for unary languages.
+Here we give a description of each nontrivial result that hasn't been explained previously:
+
+\paragraph{\ONFA{}\tto\ODLA}\label{cost:1NFAto1DLAu}
+\begin{itemize}
+	\item $\le O(n^2)$: by using construction for \hyperref[cost:1NFAto2DFAu]{\ONFA{}\tto\TDFA}, which is $\le O(n^2)$, combined with $\Ctriv$ \TDFA{}\tto\ODLA,
+	\item relaxed form of the Sakoda and Sipser conjecture with extended \TDFA.
+\end{itemize}
+\paragraph{\TNFA{}\tto\ODLA}
+\begin{itemize}
+	\item $\le e^{O(\ln^2n)}$: by using construction for \hyperref[cost:2NFAto2DFAu]{\TNFA{}\tto\TDFA}, which is $\le e^{O(\ln^2n)}$, combined with $\Ctriv$ \TDFA{}\tto\ODLA,
+	\item relaxed form of the Sakoda and Sipser conjecture with extended \TDFA.
+\end{itemize}
+\paragraph{\ODLA{}\tto\ODFA}\label{cost:1DLAto1DFAu}
+\begin{itemize}
+	\item $\le\exp$: by using the transition table construction for the \hyperref[cost:1DLAto1DFA]{general case} \cite{PigPis14},
+	\item $\ge\exp$: otherwise \hyperref[cost:1DLAto2NFAu]{\ODLA{}\tto\TNFA} would be less than $\exp$ since \ODFA{}\tto\TNFA is $\Ctriv$ (see lower bound below).
+\end{itemize}
+\paragraph{\ODLA{}\tto\TNFA}\label{cost:1DLAto2NFAu}
+\begin{itemize}
+	\item $\le\exp$: by using construction for \hyperref[cost:1DLAto1DFAu]{\ODLA{}\tto\ODFA}, which is $\le\exp$, combined with $\Ctriv$ \ODFA{}\tto\TNFA,
+	\item $\ge\exp$: since the witness language $\set{a^{2^n}}\star$ is recognized by the linear size \ODLA presented by \triplecite{PigPri19}, but cannot be recognised by a \TNFA with less than $\Cexp$ states, as proven by \triplecite{MerPig00},
+	\item (previously proven $\ge\CsubGe$ by \triplecite{KutPig+18}).
+\end{itemize}
+\paragraph{\ODLA{}\tto\ONFA}\label{cost:1LAto1NFAu}
+\begin{itemize}
+	\item $\le\exp$: by using construction for \hyperref[cost:1DLAto1DFAu]{\ODLA{}\tto\ODFA}, which is $\le\exp$, combined with $\Ctriv$ \ODFA{}\tto\ONFA,
+	\item $\ge\exp$: otherwise \hyperref[cost:1DLAto2NFAu]{\ODLA{}\tto\TNFA} would be less than $\exp$ since \ONFA{}\tto\TNFA is $\Ctriv$.
+\end{itemize}
+\paragraph{\ODLA{}\tto\TDFA}\label{cost:1DLAto2DFAu}
+\begin{itemize}
+	\item $\le\exp$: by using construction for \hyperref[cost:1DLAto1DFAu]{\ODLA{}\tto\ODFA}, which is $\le\exp$, combined with $\Ctriv$ \ODFA{}\tto\TDFA,
+	\item $\ge\exp$: otherwise \hyperref[cost:1DLAto2NFAu]{\ODLA{}\tto\TNFA} would be less than $\exp$ since \TDFA{}\tto\TNFA is $\Ctriv$.
+\end{itemize}
+\paragraph{\OLA{}\tto\ODFA}
+\begin{itemize}
+	\item $\le\Cdexp$: by using the transition table construction for the \hyperref[cost:1LAto1DFA]{general case} \cite{PigPis14},
+	\item $\ge\exp$: otherwise \hyperref[cost:1DLAto1DFAu]{\ODLA{}\tto\ODFA} would be less than $\exp$ since \ODLA{}\tto\OLA is $\Ctriv$.
+\end{itemize}
+\paragraph{\OLA{}\tto\ONFA}\label{cost:1DLAto1NFAu}
+\begin{itemize}
+	\item $\le\Cexp$: by using the transition table construction for the \hyperref[cost:1LAto1NFA]{general case} \cite{PigPis14},
+	\item $\ge\exp$: otherwise \hyperref[cost:1DLAto1NFAu]{\ODLA{}\tto\ONFA} would be less than $\exp$ since \ODLA{}\tto\OLA is $\Ctriv$.
+\end{itemize}
+\paragraph{\OLA{}\tto\TDFA}
+\begin{itemize}
+	\item $\le\exp$: by using construction for \hyperref[cost:1LAto1NFAu]{\OLA{}\tto\ONFA}, which is $\le\exp$, combined with $O(n^2)$ \hyperref[cost:1NFAto2DFAu]{\ONFA{}\tto\TDFA},
+	\item $\ge\exp$: otherwise \hyperref[cost:1DLAto2DFAu]{\ODLA{}\tto\TDFA} would be less than $\exp$ since \ODLA{}\tto\OLA is $\Ctriv$.
+\end{itemize}
+\paragraph{\OLA{}\tto\TNFA}
+\begin{itemize}
+	\item $\le\exp$: by using construction for \hyperref[cost:1LAto1NFAu]{\OLA{}\tto\ONFA}, which is $\le\exp$, combined with $\Ctriv$ \ONFA{}\tto\TNFA,
+	\item $\ge\exp$: otherwise \hyperref[cost:1DLAto2NFAu]{\ODLA{}\tto\TNFA} would be less than $\exp$ since \ODLA{}\tto\OLA is $\Ctriv$.
+\end{itemize}
+\paragraph{\OLA{}\tto\ODLA}
+\begin{itemize}
+	\item $\le\exp$: by using construction for \hyperref[cost:1LAto1NFAu]{\OLA{}\tto\ONFA}, which is $\le\exp$, combined with $O(n^2)$ \hyperref[cost:1NFAto1DLAu]{\ONFA{}\tto\ODLA},
+	\item variation of the Sakoda and Sipser problem with both extended \TNFA and \TDFA.
+\end{itemize}
