@@ -365,45 +365,43 @@ We therefore prove a lower bound on the number of states of an \ONFA simulating 
 
 Consider the following language, parameterised by a positive integer $n$:
 \begin{equation}\label{eq:lowersweep}
-	L_n := \set{w F_1\cdots F_n \mid w\in\set{a,b}\star, F_1,\dots,F_n\in\set{1,\dots,n}, w_{F_1\cdots F_n}\rev=a} \text.
+	D_n := (a+b)\star a (a+b)^{n^n}
 \end{equation}
-The language extends the classic witness language family where the $m$-th symbol from the right is $a$, making the calculation of $m$ part of the computation.
-In particular, for each word $m$ is defined as the least common multiple of factors $F_1,\dots,F_n$ written as an additional suffix appended to the word.
+The language extends the classic witness language family where the $m$-th symbol from the right is $a$, having $m:=n^n$.
 
 
-\subsection{A \kDLA accepting \texorpdfstring{$L_n$}{Ln}}
-Chosen a value for $n$, we describe a \DLA{2n} that behaves as follows. Given a word $wF_1\cdots F_n$ (as described in (\ref{eq:lowersweep})):
+\subsection{A \kDLA accepting \texorpdfstring{$D_n$}{Ln}}
+Chosen a value for $n$, we describe a \DLA{2n} that behaves as follows. Given a word $w$:
 \begin{enumerate}
-	\item on the first left-to-right traversal, the automaton saves the factor $F_1$ in the finite state memory and deletes it from the tape by replacing it with a special symbol $X$, while leaving everything else unaltered;\footnote{%
-		      Technically, because of how $k$-limited automata are defined, all transitions in the first $k$ visits are rewriting. For simplicity, we may say that a cell remain unaltered, while its symbol is actually overwritten with a symbol in $\Gamma_1$ which keeps the original information of the one in $\Sigma$.}
-	\item on the following sweep to the left, it deletes all the symbols in $w\rev$ that are in a position that is not a multiple of $F_1$, by substituting them with another special symbol $Y$;
-	\item the automaton then proceeds as in the first two steps for all others factors, making sure to only count symbols different from $Y$ when deleting (notice that the cells containing what was originally $w\rev$ can be located even after overwriting since their symbols are overwritten with $Y$ and not $X$);
-	\item eventually the automaton will perform a traversal to the right which will not find any more factors. In the following sweep, the automaton checks that the first symbol different from $X$ and $Y$, which is in the position of $w\rev$ that is multiple of all the factors, is $a$;
-	\item with a final sweep to the right, the automaton checks that there are exactly $n$ occurrences of $X$, that is, the number of what were originally factors is $n$.
+	\newcommand{\nth}[1]{^{(#1)}}
+	\item on the first left-to-right traversal, the machine is kept in the starting state while simply leaving the symbols intact.\footnote{%
+		      Technically, because of how $k$-limited automata are defined, all transitions in the first $k$ visits are rewriting. For simplicity, we may say that a cell remain unaltered, while its symbol is actually overwritten with a different symbol which keeps the original information of the input one.}
+	\item on the following right-to-left sweep, the automaton deletes all the symbols in $w\rev$ that are in a position that is not a multiple of $n$, by substituting them with a special symbol $X$;
+	\item the automaton proceeds as in the first two steps for a total of $n$ times, making sure to only count symbols different from $X$ when deleting.
+	      Because each symbol $\sigma\nth i\in\Gamma_i$ is actually always rewritten with a symbol $\sigma\nth{i+1}\in\Gamma_{i+1}$ (see \Cref{def:kla}), the automaton can keep track of how many deleting sweeps it has performed, making it able to stop after $n$ without the need for a counter in the finite state memory;
+	\item after $n$ deleting sweeps ($2n$ sweeps in total), the automaton checks that the first non-deleted symbol is $a$.
+	      If so, it finishes the next sweep to the right and accepts.
 \end{enumerate}
-The number of necessary rewrite-capable visits is $2n$, since each pair of sweeps takes care of one factor (the final traversals do not need to write).
-The automaton needs a few counters: one for each possible factor and one for counting the occurrences of $X$ in the final step.
-However, no two counters are used at the same time, therefore the number of states is additive:
-\begin{equation*}
-	1+\dots+n+n = \frac{n(n+1)}{2}+n = O(n^2) \text.
-\end{equation*}
-Considering that the direction of movement can be deduced by the symbols under the tape head (specifically by the parity of $i$ of the set $\Gamma_i$ to which they belong), a constant number of states is sufficient for the starting and accepting phases.
-The size of the working alphabet is linear in $n$, since only $2$ extra symbols per write are required along the ones leaving $a$ and $b$ intact (the number is linear and not constant since the number of rewritings depends on $n$).
+The number of necessary rewrite-capable visits is $2n$, since each pair of sweeps takes care of one of the $n$ factors equal to $n$ (the final traversals do not need to write).
+The automaton only needs a counter modulo $n$, which takes $n$ states to implement.
+Considering that the direction of movement and the current sweep can be deduced from the scanned symbols (specifically from the parity and the index of $i$, respectively, if the current symbol belongs to $\Gamma_i$), only an accepting state is needed for the rest of the computation.
+The total number of states is thus $n+1$.
+The size of the working alphabet is also linear in $n$, since only one extra symbol per write is required along the ones leaving $a$ and $b$ intact (the number is linear and not constant since the number of rewritings depends on $n$).
 Therefore, overall the size of the machine is quadratic in $n$.
 
-\subsection[Size of finite state automata accepting \texorpdfstring{$L_n$}{Ln}]{Lower bounds on the size of finite state automata accepting $L_n$}
-A \ODFA of size double exponential in $n$ can accept $L_n$ by saving in the finite state memory a window of the last $n^n$ symbols, and then
+\subsection[Size of finite state automata accepting \texorpdfstring{$D_n$}{Ln}]{Lower bounds on the size of finite state automata accepting $D_n$}
+A \ODFA of size double exponential in $n$ can accept $D_n$ by saving in the finite state memory a window of the last $n^n$ symbols, and then accept if and only if, after scanning the input word, the first symbol of such window is $a$.
 
-In order to prove that each \ODFA needs a double exponential number of states in $n$ in order to accept $L_n$, we use a standard distinguishability argument.
+In order to prove that each \ODFA needs a double exponential number of states in $n$ in order to accept $D_n$, we use a standard distinguishability argument.
 Two strings $x,y$ are call distinguishable with respect to a language $L$ if there exists a string $z$ over the same alphabet such that exactly one between $xz$ and $yz$ belongs to $L$.
 The cardinality of each set of two-by-two distinguishable strings is a lower bound for the number of states of every \ODFA accepting $L$.
 
 Given the set of strings $S:=\set{a,b}^{n^n}$, consider two strings $x,y\in S$ such that $x\ne y$.
 In particular, let $i$ be the first index such that $x_i\ne y_i$.
-Then, the string $z:=b^{i-1} n^n$ (where $n^n$ is the string made by $n$ repetitions of the symbol $n$) distinguishes $x$ and $y$.
-For example, if $x_i=a$ and $y_i=b$, the $n^n$-th symbol of $(xz)\rev$ is $a$, meaning $xz\in L_n$, while the $n^n$-th symbol of $(yz)\rev$ is $b$, meaning $yz\notin L_n$.
+Then, the string $z:=b^{i-1}$ distinguishes $x$ and $y$.
+For example, if $x_i=a$ and $y_i=b$, the $n^n$-th symbol of $(xz)\rev$ is $a$, meaning $xz\in D_n$, while the $n^n$-th symbol of $(yz)\rev$ is $b$, meaning $yz\notin D_n$.
 
-Because $\card S=2^{n^n}=2^{2^{n\log n}}$, every \ODFA accepting $L_n$ needs a number of states two times exponential in $n$.
+Because $\card S=2^{n^n}=2^{2^{n\log n}}$, every \ODFA accepting $D_n$ needs a number of states two times exponential in $n$.
 
 \begin{thrm}
 	For each positive integer $n$ there exist an integer $k$ and an $n$-state sweeping \kDLA $A$ such that every \ODFA recognising $\genlang(A)$ requires a double exponential number of states in $n$.
@@ -417,5 +415,5 @@ Since the cost of the simulation of a \ONFA by a \ODFA is exponential, this impl
 
 Which matches the upper bound given in \Cref{thm:swkLAtoNFA}.
 
-The lower bound above can be considered "weak", since it requires a different value of $k$ for a \kDLA accepting $L_n$ for each value of $n$.
-A stronger bound would consist in finding a language $L'_n$ and a constant value of $k$ for which there exists a \kDLA accepting $L'_n$ while a \ODFA requires a double exponential number of states in $n$, for each value of $n$.
+The lower bound above can be considered "weak", since it requires a different value of $k$ for a \kDLA accepting $D_n$ for each value of $n$.
+A stronger result would consist in finding a language $L'_n$ and a constant value of $k$ for which there exists a \kDLA accepting $L'_n$ while a \ODFA requires a double exponential number of states in $n$, for each value of $n$.
