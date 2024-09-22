@@ -361,7 +361,7 @@ In general:
 
 \section{A lower bound}
 In this section we show a language that can be accepted by an $n$-state sweeping \kDLA, but for which any \ONFA simulating it must have a number of states that is exponential in $n$.
-We therefore prove a lower bound on the number of states of an \ONFA simulating a sweeping \kDLA, hence showing that \kDLAs can be exponentially more succinct.
+We therefore prove a lower bound on the number of states of an \ONFA simulating a sweeping \kDLA, hence showing that sweeping \kDLAs can be exponentially more succinct.
 
 Consider the following language, parameterised by a positive integer $n$:
 \begin{equation}\label{eq:lowersweep}
@@ -370,23 +370,23 @@ Consider the following language, parameterised by a positive integer $n$:
 The language extends the classic witness language family where the $m$-th symbol from the right is $a$, having $m:=n^n$.
 
 
-\subsection{A \kDLA accepting \texorpdfstring{$D_n$}{Ln}}
+\subsection{A sweeping \kDLA accepting \texorpdfstring{$D_n$}{Ln}}
 Chosen a value for $n$, we describe a \DLA{2n} that behaves as follows. Given a word $w$:
 \begin{enumerate}
-	\newcommand{\nth}[1]{^{(#1)}}
-	\item on the first left-to-right traversal, the machine is kept in the starting state while simply leaving the symbols intact.\footnote{%
+	\item on the first left-to-right traversal, the machine is kept in the starting state while simply leaving the symbols intact;\footnote{%
 		      Technically, because of how $k$-limited automata are defined, all transitions in the first $k$ visits are rewriting. For simplicity, we may say that a cell remain unaltered, while its symbol is actually overwritten with a different symbol which keeps the original information of the input one.}
 	\item on the following right-to-left sweep, the automaton deletes all the symbols in $w\rev$ that are in a position that is not a multiple of $n$, by substituting them with a special symbol $X$;
 	\item the automaton proceeds as in the first two steps for a total of $n$ times, making sure to only count symbols different from $X$ when deleting.
 	      Because each symbol $\sigma\nth i\in\Gamma_i$ is actually always rewritten with a symbol $\sigma\nth{i+1}\in\Gamma_{i+1}$ (see \Cref{def:kla}), the automaton can keep track of how many deleting sweeps it has performed, making it able to stop after $n$ without the need for a counter in the finite state memory;
-	\item after $n$ deleting sweeps ($2n$ sweeps in total), the automaton checks that the first non-deleted symbol is $a$.
+	\item after $n$ deleting sweeps ($2n$ sweeps in total), the automaton checks that the first non-deleted symbol from the right is $a$.
 	      If so, it finishes the next sweep to the right and accepts.
 \end{enumerate}
 The number of necessary rewrite-capable visits is $2n$, since each pair of sweeps takes care of one of the $n$ factors equal to $n$ (the final traversals do not need to write).
 The automaton only needs a counter modulo $n$, which takes $n$ states to implement.
-Considering that the direction of movement and the current sweep can be deduced from the scanned symbols (specifically from the parity and the index of $i$, respectively, if the current symbol belongs to $\Gamma_i$), only an accepting state is needed for the rest of the computation.
-The total number of states is thus $n+1$.
-The size of the working alphabet is also linear in $n$, since only one extra symbol per write is required along the ones leaving $a$ and $b$ intact (the number is linear and not constant since the number of rewritings depends on $n$).
+Considering that the direction of movement and the current sweep can be deduced from the scanned symbols (specifically from the parity and the index of $i$, respectively, if the current symbol belongs to $\Gamma_i$), only two additional states, used for accepting, are needed for the rest of the computation.
+The total number of states is thus $n+2$.
+The size of the working alphabet is also linear in $n$: only one extra symbol per write is required along the ones leaving $a$ and $b$ intact.
+Specifically, aside the $2$ symbols of the input alphabet, $2n\cdot3$ symbols are required (notice that the number is linear and not constant because the number of rewritings depends on $n$).
 Therefore, overall the size of the machine is quadratic in $n$.
 
 \subsection[Size of finite state automata accepting \texorpdfstring{$D_n$}{Ln}]{Lower bounds on the size of finite state automata accepting $D_n$}
@@ -415,5 +415,5 @@ Since the cost of the simulation of a \ONFA by a \ODFA is exponential, this impl
 
 Which matches the upper bound given in \Cref{thm:swkLAtoNFA}.
 
-The lower bound above can be considered "weak", since it requires a different value of $k$ for a \kDLA accepting $D_n$ for each value of $n$.
-A stronger result would consist in finding a language $L'_n$ and a constant value of $k$ for which there exists a \kDLA accepting $L'_n$ while a \ODFA requires a double exponential number of states in $n$, for each value of $n$.
+The lower bound above can be considered "weak", since it requires a different value of $k$ for a sweeping \kDLA accepting $D_n$ for each value of $n$.
+A stronger result would consist in finding a language $L'_n$ and a constant value of $k$ for which there exists a sweeping \kDLA accepting $L'_n$ while a \ODFA requires a double exponential number of states in $n$, for each value of $n$.
