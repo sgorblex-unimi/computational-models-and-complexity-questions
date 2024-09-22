@@ -381,6 +381,29 @@ Chosen a value for $n$, we describe a \DLA{2n} that behaves as follows. Given a 
 	\item after $n$ deleting sweeps ($2n$ sweeps in total), the automaton checks that the first non-deleted symbol from the right is $a$.
 	      If so, it finishes the next sweep to the right and accepts.
 \end{enumerate}
+
+\begin{figure}
+	\centering
+	\begin{subfigure}[b]{0.52\textwidth}
+		\centering
+		\input{tikz/sweepingDnstates.tikz}
+		\caption{State transition graph.
+			States $q_0$ and $q_1$ make the counter modulo $2$, while states $q_2$ and $q_f$ are entered when an $a$ in the correct position is detected, in order to accept.}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[b]{0.46\textwidth}
+		\centering
+		\input{tikz/sweepingDntape.tikz}
+		\caption{Representation of the computation over the input word $ababba$.
+			The $X$ symbols are placed under in correspondence of a transition that "deletes" the cell above.
+			The circle represents the identification of the $a$ symbol in the correct position.}
+	\end{subfigure}
+
+	\caption{The sweeping $4$-limited automaton for $D_2$, with $2+2=4$ states and a working alphabet of $2+(2\cdot2)3=14$ symbols.}
+	\label{fig:sweepingDn}
+\end{figure}
+\Cref{fig:sweepingDn} shows the transition graph and an example of computation of the automaton for $n=2$.
+
 The number of necessary rewrite-capable visits is $2n$, since each pair of sweeps takes care of one of the $n$ factors equal to $n$ (the final traversals do not need to write).
 The automaton only needs a counter modulo $n$, which takes $n$ states to implement.
 Considering that the direction of movement and the current sweep can be deduced from the scanned symbols (specifically from the parity and the index of $i$, respectively, if the current symbol belongs to $\Gamma_i$), only two additional states, used for accepting, are needed for the rest of the computation.

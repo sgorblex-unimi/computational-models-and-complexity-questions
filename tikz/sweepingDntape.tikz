@@ -1,0 +1,83 @@
+\begin{tikzpicture}[path/.style={shorten <=-2.5mm, shorten >=-2.5mm}]
+	% tape
+	\node[cell] (c1) {$a$};
+	\node[cell]	(c2) [right=of c1] {$b$};
+	\node[cell]	(c3) [right=of c2] {$a$};
+	\node[cell]	(c4) [right=of c3] {$b$};
+	\node[cell]	(c5) [right=of c4] {$b$};
+	\node[cell]	(c6) [right=of c5] {$a$};
+	\node[tapeseg,thick] [minimum width=0, left=-0.5mm of c1] (lem) {\Large$\lem$};
+	\node[tapeseg,thick] [minimum width=0, right=-0.5mm of c6] (rem) {\Large$\rem$};
+
+	% guides
+	\draw[dashed,shorten <=.1cm,thin] (c1.south west) -- ++(0cm,-38mm);
+	\draw[dashed,shorten <=.1cm,thin] (c2.south west) -- ++(0cm,-38mm);
+	\draw[dashed,shorten <=.1cm,thin] (c3.south west) -- ++(0cm,-38mm);
+	\draw[dashed,shorten <=.1cm,thin] (c4.south west) -- ++(0cm,-38mm);
+	\draw[dashed,shorten <=.1cm,thin] (c5.south west) -- ++(0cm,-38mm);
+	\draw[dashed,shorten <=.1cm,thin] (c6.south west) -- ++(0cm,-38mm);
+	\draw[dashed,shorten <=.1cm,thin] (c6.south east) -- ++(0cm,-38mm);
+
+	% path
+	\node[tapeseg] (u-lem-1) [below=0mm of lem] {};
+	\node[tapeseg] (u-c6-1) [below=0mm of c6] {};
+	\draw (u-lem-1.center) -- (u-c6-1.center);
+
+	\node[tapeseg] (u-c1-1) [below=0mm of c1] {};
+	\node[tapeseg] (u-c1-2) [below=0mm of u-c1-1] {};
+	\node[tapeseg] (u-c6-2) [below=0mm of u-c6-1] {\Large x};
+	\draw (u-c6-1.center) .. controls +(0.75,0) and +(0.75,0) .. (u-c6-2.center);
+	\draw (u-c1-2.center) -- (u-c6-2.center);
+
+	\node[tapeseg] (u-c1-3) [below=0mm of u-c1-2] {};
+	\node[tapeseg] (u-c6-3) [below=0mm of u-c6-2] {};
+	\draw (u-c1-2.center) .. controls +(-0.75,0) and +(-0.75,0) .. (u-c1-3.center);
+	\draw (u-c1-3.center) -- (u-c6-3.center);
+
+	\node[tapeseg] (u-c1-4) [below=0mm of u-c1-3] {\Large x};
+	\node[tapeseg] (u-c6-4) [below=0mm of u-c6-3] {};
+	\draw (u-c6-3.center) .. controls +(0.75,0) and +(0.75,0) .. (u-c6-4.center);
+	\draw (u-c1-4.center) -- (u-c6-4.center);
+
+	\node[tapeseg] (u-c1-5) [below=0mm of u-c1-4] {};
+	\node[tapeseg] (u-c6-5) [below=0mm of u-c6-4] {};
+	\draw (u-c1-4.center) .. controls +(-0.75,0) and +(-0.75,0) .. (u-c1-5.center);
+	\draw (u-c1-5.center) -- (u-c6-5.center);
+
+	\node[tapeseg] (u-c1-6) [below=0mm of u-c1-5] {};
+	\node[tapeseg] (u-c6-6) [below=0mm of u-c6-5] {};
+	\draw (u-c6-5.center) .. controls +(0.75,0) and +(0.75,0) .. (u-c6-6.center);
+	\draw (u-c1-6.center) -- (u-c6-6.center);
+
+	\node[tapeseg] (u-c1-7) [below=0mm of u-c1-6] {};
+	\node[tapeseg] (u-rem-1) [below=0mm of rem] {};
+	\node[tapeseg] (u-rem-2) [below=0mm of u-rem-1] {};
+	\node[tapeseg] (u-rem-3) [below=0mm of u-rem-2] {};
+	\node[tapeseg] (u-rem-4) [below=0mm of u-rem-3] {};
+	\node[tapeseg] (u-rem-5) [below=0mm of u-rem-4] {};
+	\node[tapeseg] (u-rem-6) [below=0mm of u-rem-5] {};
+	\node[tapeseg] (u-rem-7) [below=0mm of u-rem-6] {};
+	\draw (u-c1-6.center) .. controls +(-0.75,0) and +(-0.75,0) .. (u-c1-7.center);
+	\draw[-latex] (u-c1-7.center) -- (u-rem-7.center);
+
+	% remaining x's and circle
+	\node[tapeseg] (u-c2-1) [below=0mm of c2] {};
+	\node[tapeseg] (u-c2-2) [below=0mm of u-c2-1] {\Large x};
+
+	\node[tapeseg] (u-c4-1) [below=0mm of c4] {};
+	\node[tapeseg] (u-c4-2) [below=0mm of u-c4-1] {\Large x};
+
+	\node[tapeseg] (u-c5-1) [below=0mm of c5] {};
+	\node[tapeseg] (u-c5-2) [below=0mm of u-c5-1] {};
+	\node[tapeseg] (u-c5-3) [below=0mm of u-c5-2] {};
+	\node[tapeseg] (u-c5-4) [below=0mm of u-c5-3] {\Large x};
+
+	\node[tapeseg] (u-c3-1) [below=0mm of c3] {};
+	\node[tapeseg] (u-c3-2) [below=0mm of u-c3-1] {};
+	\node[tapeseg] (u-c3-3) [below=0mm of u-c3-2] {};
+	\node[tapeseg] (u-c3-4) [below=0mm of u-c3-3] {};
+	\node[tapeseg] (u-c3-5) [below=0mm of u-c3-4] {};
+	\node[tapeseg] (u-c3-6) [below=0mm of u-c3-5] {$\bigcirc$};
+
+	\node[below=4mm of u-c1-7] {};
+\end{tikzpicture}
