@@ -1,7 +1,15 @@
 \chapter{Computational models}
-The language accepted by a machine $M$ is denoted by $\genlang(M)$.
+% TODO: context, explanation. Possibly figures
 
-% A machine working over a single letter alphabet is called unary, as its generated language.
+
+
+\section{Introduction}
+\dots
+
+
+
+\section{General notation}
+The language accepted by a machine $M$ is denoted by $\genlang(M)$.
 
 \begin{defn}
 	A machine with set of states $S$, working alphabet $\Gamma$ and transition function $\delta:S\times\Gamma\to\subsets{T}$ is said to be deterministic whenever $\card{\delta(s,\gamma)}\le1$, for each $s\in S,\gamma\in\Gamma$.
@@ -9,6 +17,11 @@ The language accepted by a machine $M$ is denoted by $\genlang(M)$.
 	In this case, $\delta$ can be interpreted as a partial function, with the notation $\delta(s,\gamma)=t$ used as a shorthand for $\delta(s,\gamma)=\set{t}$.
 \end{defn}
 
+A machine working over a single letter alphabet is called unary, as its generated language.
+
+
+
+\section{One-way computational models}
 \begin{defn}[one-way finite automata]
 	A \emph{(one-way) nondeterministic finite automaton} (\ONFA or simply \NFA) is a quintuple $(Q,\Sigma,\delta,q_I,F)$ where:
 	\begin{itemize}
@@ -27,6 +40,8 @@ The language accepted by a machine $M$ is denoted by $\genlang(M)$.
 
 
 
+\section{Two-way computational models}
+
 \begin{defn}[two-way finite automata]
 	A \emph{two-way nondeterministic finite automaton} (\TNFA) is a quintuple $(Q,\Sigma,\delta,q_I,F)$ where:
 	\begin{itemize}
@@ -43,9 +58,6 @@ The language accepted by a machine $M$ is denoted by $\genlang(M)$.
 
 	The deterministic version of \TNFA is denoted \TDFA.
 \end{defn}
-
-
-
 
 
 \begin{defn}[limited automata]\label{def:kla}
@@ -70,7 +82,6 @@ The language accepted by a machine $M$ is denoted by $\genlang(M)$.
 
 	\noindent The deterministic version of \kLA is denoted \kDLA.
 \end{defn}
-
 
 
 \begin{defn}\label{def:sweeping}
