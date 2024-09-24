@@ -1,4 +1,5 @@
 \chapter{From \emph{two-way} to \emph{one-way} automata}
+% TODO: use \trapp instead of t_
 
 
 
@@ -264,7 +265,7 @@ However, the set of valid crossing sequences must be defined the same way, since
 \section{Transition tables}\label{sec:transtab2DFA}
 Consider a two-way machine.
 Because every accepting computation starts with the head on the left end-marker and ends when it passes the right end-marker to the right, every cell is visited at least once, and the entire computation can be divided in the paths between the first visits to each cell.
-In the case of a \TDFA, each these computation paths can be described, given the input prefix ending in the current cell, by a function that maps every possible current state to the state the machine will eventually enter when scanning for the first time the adjacent cell to the right.
+In the case of a \TDFA, each of these computation paths can be described, given the input prefix ending in the current cell, by a function that maps every possible current state to the state the machine will eventually enter when scanning for the first time the adjacent cell to the right.
 As we shall see, despite the possible input prefixes being of arbitrary length and infinite number, the number of such functions is finite.
 This lets us encapsulate all computations of the \TDFA in a finite set of states, which we use to build an equivalent \DFA.
 
@@ -285,6 +286,16 @@ This lets us encapsulate all computations of the \TDFA in a finite set of states
 	Notice that if $\tau_w$ is known, knowledge of $w$ is not needed to calculate $\tau_{w\sigma}$.
 	This implies that $\transtabset$ is finite, and lets us define, for each $\sigma\in\Sigma$, the function $t_\sigma:\transtabset\to\transtabset$ that maps a transition table $\tau_w$ to $\tau_{w\sigma}$.
 \end{defn}
+
+\begin{figure}
+	\centering
+	\input{tikz/transtable.tikz}
+	\caption{Representation of $\tau_z(p)=q$, or, equivalently, $t_Y(\tau_{z'})(p)=q$.
+		The relative path starts in state $p$ with the head scanning the last symbol $Y$ of $z$, performs a computation on the left part of the tape ending with $Y$, and eventually passes it to the right in state $q$.}
+	\label{fig:transtab}
+\end{figure}
+
+\Cref{fig:transtab} depicts a possible computation described by a transition table and the role of the operator $t_\sigma$.
 
 
 \subsection{From \TDFAs to \ODFAs}
