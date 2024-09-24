@@ -18,9 +18,30 @@ In \Cref{sec:transtab2DFA} we introduce the concept of transition table for \TDF
 
 
 \section{Crossing sequences}\label{sec:crossseq2DFA}
-% TODO: add example (with pic)?
 Given a two-way machine and one of its possible computations over a certain input, consider a tape cell and one of the two \emph{boundaries} at its sides.
 A crossing sequence $[q_1,q_2,\dots]$ is the sequence of states that the machine enters as the head crosses such boundary, \ie it enters or leaves the cell on the chosen side.
+In \Cref{sfig:example-crosseq-2}, the crossing sequences of an example \TDFA are shown as the sequences of states around each cell boundary.
+
+\begin{figure}
+	\centering
+	\begin{subfigure}[b]{0.49\textwidth}
+		\centering
+		\input{tikz/egcrosseqstates.tikz}
+		\caption{State transition graph.
+			While in state $q_I$ the head is brought to the end of the tape. States $q_1$ and $q_2$ make a counter to $2$, while in state $q_2$ the machine checks that the second symbol from the right is $a$, in which case state $q_f$ is entered and the machine accepts after passing the right end-marker.\newline}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[b]{0.49\textwidth}
+		\centering
+		\input{tikz/egcrosseqtape.tikz}
+		\caption{Computation of the machine on input $abab$.
+			The sequence of states around each boundary (dotted vertical lines) constitutes the crossing sequence for that boundary: $[q_I]$ for the boundary between $\lem$ and $a$ and the two following ones, $[q_I,q_2,q_f]$ for the boundary between the second $a$ and the second $b$, and $[q_I,q_1,q_f]$ for the one between the second $b$ and $\rem$.}
+		\label{sfig:example-crosseq-2}
+	\end{subfigure}
+
+	\caption{An example \TDFA recognizing the language $(a+b)\star a(a+b)$ and its (accepting) computation on input $abab$.}
+	\label{fig:example-crosseq}
+\end{figure}
 
 In general, because of loops and nondeterminism, a crossing sequence may be of infinite length.
 However, we shall see that we may restrict our interest to some finite set of finite sequences, depending on the model under consideration.
@@ -149,6 +170,7 @@ By \Cref{fact:crossing-2DFA-num} this also proves that an exponential number of 
 
 Intuitively, the simulating machine puts together pieces of the computation of $A$ by guessing successive crossing sequences.
 The full trajectory can be interpreted as a computation of the original machine, where acceptance is only possible if the right end-marker is passed while entering a final state.
+For example, in the case of the \TDFA in \Cref{fig:example-crosseq}, the crossing sequences $[q_I]$, $[q_I]$, $[q_I]$, $[q_I,q_2,q_f]$, and $[q_I,q_1,q_f]$ are guessed in order.
 
 Let $A:=(Q,\Sigma,\delta,q_I,F)$ be a \TDFA.
 Define the \NFA $A':=(Q',\Sigma,\delta',I,F')$ where%
@@ -168,6 +190,7 @@ For the same reason, final states correspond to crossing sequences that are comp
 	\item $I:=\set{d\mid \text{$d$ is right-matched by $[q_I]$ with respect to $\lem$}}$.
 	\item $F':=\set{d\mid \exists q_f\in F: \text{$d$ right-matches $[q_f]$ with respect to $\rem$}}$.
 \end{itemize}
+In the previous example, the starting state is $[q_I]$ as it matches $[q_I]$ with respect to $\lem$, and the machine accepts since the last entered state $[q_I,q_1,q_f]$ matches the crossing sequence $[q_f]$ at the right boundary of the tape with respect to $\rem$.
 
 In order to prove that $A'$ accepts the same language as $A$, we prove two separate lemmas:
 \begin{lemm}\label{lem:2DFAto1NFA-1}
