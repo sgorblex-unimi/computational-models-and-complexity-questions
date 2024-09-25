@@ -168,56 +168,58 @@ Here we give a description of each nontrivial result that hasn't been explained 
 
 \paragraph{\ONFA{}\tto\OMODLA}
 \begin{itemize}
-	\item $\le\exp$: since \hyperref[cost:1NFAto1DFA]{\ONFA{}\tto\ODFA} is $\le\exp$ and \ODFA{}\tto\OMODLA is $\Ctriv$
-	\item relaxed form of the Sakoda and Sipser conjecture with extended \TDFA
+	\item $\le\exp$: by using construction for \hyperref[cost:1NFAto1DFA]{\ONFA{}\tto\ODFA}, which is $\le\exp$, combined with $\Ctriv$ \ODFA{}\tto\OMODLA,
+	\item relaxed form of the Sakoda and Sipser conjecture with extended \TDFA.
 \end{itemize}
 \paragraph{\TNFA{}\tto\OMODLA}
 \begin{itemize}
-	\item $\le\exp$: since \hyperref[cost:2NFAto1DFA]{\TNFA{}\tto\ODFA} is $\le\exp$ and \ODFA{}\tto\OMODLA is $\Ctriv$
-	\item relaxed form of the Sakoda and Sipser conjecture with extended \TDFA
+	\item $\le\exp$: by using construction for \hyperref[cost:2NFAto1DFA]{\TNFA{}\tto\ODFA}, which is $\le\exp$, combined with $\Ctriv$ \ODFA{}\tto\OMODLA,
+	\item relaxed form of the Sakoda and Sipser conjecture with extended \TDFA.
 \end{itemize}
 \paragraph{\OMOLA{}\tto\ODFA}\label{cost:OM1LAto1DFA}
 \begin{itemize}
-	\item $\le\Cdexp$: transition table construction for general \OLA \cite{PigPis14}
-	\item $\ge\Cdexp$: block witness language $K_n$ \cite{PigPri23a}
+	\item $\le\Cdexp$: by using the transition table construction for general \OLA presented by \triplecite{PigPis14},
+	\item $\ge\Cdexp$: distinguishability arguments on witness language $K_n$ defined by \triplecite{PigPri23a}.
 \end{itemize}
 \paragraph{\OMOLA{}\tto\ONFA}\label{cost:OM1LAto1NFA}
 \begin{itemize}
-	\item $\le\exp$: transition table construction \cite{PigPis14}
-	\item $\ge\exp$: otherwise \hyperref[cost:OM1LAto1DFA]{\OMOLA{}\tto\ODFA} would be $<\Cdexp$ since \hyperref[cost:1NFAto1DFA]{\ONFA{}\tto\ODFA} is $\exp$
+	\item $\le\Cexp$: by using the transition table construction for general \OLA presented by \triplecite{PigPis14},
+	\item $\ge\exp$: otherwise \hyperref[cost:OM1LAto1DFA]{\OMOLA{}\tto\ODFA} would be less than $\Cdexp$ since \hyperref[cost:1NFAto1DFA]{\ONFA{}\tto\ODFA} is $\exp$.
 \end{itemize}
 \paragraph{\OMOLA{}\tto\TDFA}
 \begin{itemize}
-	\item $\le\Cdexp$: since \hyperref[cost:OM1LAto1DFA]{\OMOLA{}\tto\ODFA} is $\le\Cdexp$ and \ODFA{}\tto\TDFA is $\Ctriv$
-	\item $\ge\exp$: otherwise \hyperref[cost:OM1LAto1DFA]{\OMOLA{}\tto\ODFA} would be $<\Cdexp$ since \hyperref[cost:2DFAto1DFA]{\TDFA{}\tto\ODFA} is $\exp$
+	\item $\le\Cdexp$: by using construction for \hyperref[cost:OM1LAto1DFA]{\OMOLA{}\tto\ODFA}, which is $\le\Cdexp$, combined with $\Ctriv$ \ODFA{}\tto\TDFA,
+	\item $\ge\exp$: otherwise \hyperref[cost:OM1LAto1DFA]{\OMOLA{}\tto\ODFA} would be less than $\Cdexp$ since \hyperref[cost:2DFAto1DFA]{\TDFA{}\tto\ODFA} is $\exp$.
 \end{itemize}
 \paragraph{\OMOLA{}\tto\TNFA}
 \begin{itemize}
-	\item $\le\exp$: since \hyperref[cost:OM1LAto1NFA]{\OMOLA{}\tto\ONFA} is $\le\exp$ and \ONFA{}\tto\TNFA is $\Ctriv$
-	\item $\ge\exp$: otherwise \hyperref[cost:OM1LAto1DFA]{\OMOLA{}\tto\ODFA} would be $<\Cdexp$ since \hyperref[cost:2NFAto1DFA]{\TNFA{}\tto\ODFA} is $\exp$
+	\item $\le\exp$: by using construction for \hyperref[cost:OM1LAto1NFA]{\OMOLA{}\tto\ONFA}, which is $\le\exp$, combined with $\Ctriv$ \ONFA{}\tto\TNFA,
+	\item $\ge\exp$: otherwise \hyperref[cost:OM1LAto1DFA]{\OMOLA{}\tto\ODFA} would be less than $\Cdexp$ since \hyperref[cost:2NFAto1DFA]{\TNFA{}\tto\ODFA} is $\exp$.
 \end{itemize}
 \paragraph{\OMODLA{}\tto\ODFA}\label{cost:OM1DLAto1DFA}
 \begin{itemize}
-	\item $\le\exp$: transition table construction for general \OLA \cite{PigPis14}
-	\item $\ge\exp$: otherwise with \hyperref[cost:OM1DLAto1DFA]{\OMODLA{}\tto\ODFA} we would get a \ODFA for $K_n$ with $<\Cdexp$ as a \OMODLA (\TDFA) of size $\exp$ accepts $K_n$
+	\item $\le\Cexp$: by using the transition table construction for general \OLA presented by \triplecite{PigPis14},
+	\item $\ge\exp$: since the witness language $K_n$ is recognized by a linear size \OMODLA, but cannot be recognised by a \TNFA with less than $\Cexp$ states, as proven by \triplecite{PigPri23a}.
 \end{itemize}
 \paragraph{\OMOLA{}\tto\OMODLA}
 \begin{itemize}
-	\item $\le\Cdexp$: since \hyperref[cost:OM1LAto1DFA]{\OMOLA{}\tto\ODFA} is $\le\Cdexp$ and \ODFA{}\tto\OMODLA is $\Ctriv$
-	\item $\ge\exp$: otherwise \hyperref[cost:OM1LAto1DFA]{\OMOLA{}\tto\ODFA} would be $<\Cdexp$ since \hyperref[cost:OM1DLAto1DFA]{\OMODLA{}\tto\ODFA} is $\exp$
+	\item $\le\Cdexp$: by using construction for \hyperref[cost:OM1LAto1DFA]{\OMOLA{}\tto\ODFA}, which is $\le\Cdexp$, combined with $\Ctriv$ \ODFA{}\tto\OMODLA,
+	\item $\ge\exp$: otherwise \hyperref[cost:OM1LAto1DFA]{\OMOLA{}\tto\ODFA} would be less than $\Cdexp$ since \hyperref[cost:OM1DLAto1DFA]{\OMODLA{}\tto\ODFA} is $\exp$.
 \end{itemize}
+% TODO: once the proof has been written, manage its reference here
 \paragraph{\OMODLA{}\tto\ONFA}
 \begin{itemize}
-	\item $\le\exp$: since \hyperref[cost:OM1DLAto1DFA]{\OMODLA{}\tto\ODFA} is $\le\exp$ and \ODFA{}\tto\ONFA is $\Ctriv$ \textbf{(previously mistakenly considered poly)}
-	\item $\ge\exp$: witness language $D_n:=\set{ww\mid w\in\set{a,b}^n}$ (\OMODLA + fooling set) \textbf{(proven by us)}
+	\item $\le\exp$: by using construction for \hyperref[cost:OM1DLAto1DFA]{\OMODLA{}\tto\ODFA}, which is $\le\exp$, combined with $\Ctriv$ \ODFA{}\tto\ONFA,
+	\item \textbf{previously mistakenly considered poly},
+	\item $\ge\exp$: since the witness language $D_n:=\set{ww\mid w\in\set{a,b}^n}$ is recognized by a linear size \OMODLA, but cannot be recognised by a \ONFA with less than $\Cexp$ states \textbf{(proven by us by fooling set)}.
 \end{itemize}
 \paragraph{\OMODLA{}\tto\TDFA}\label{cost:OM1DLAto2DFA}
 \begin{itemize}
-	\item $\le O(n^3)$: simulation via computation trees given in \cite{PigPri23a}
+	\item $\le O(n^3)$: by using the simulation via computation trees given by \triplecite{PigPri23a}.
 \end{itemize}
 \paragraph{\OMODLA{}\tto\TNFA}
 \begin{itemize}
-	\item $\le O(n^3)$: since \hyperref[cost:OM1DLAto2DFA]{\OMODLA{}\tto\TDFA} is $\le O(n^3)$ and \TDFA{}\tto\TNFA is $\Ctriv$
+	\item $\le O(n^3)$: by using construction for \hyperref[cost:OM1DLAto2DFA]{\OMODLA{}\tto\TDFA}, which is $\le O(n^3)$, combined with $\Ctriv$ \TDFA{}\tto\TNFA.
 \end{itemize}
 
 
