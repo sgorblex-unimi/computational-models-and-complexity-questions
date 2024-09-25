@@ -259,7 +259,8 @@ In general:
 \subsection{Sweeping \TDFAs}
 In the case of a sweeping \TDFA, because an accepting computation can be divided in an odd number of traversals of the tape, all the relative crossing sequences are of the same length.
 However, the set of valid crossing sequences must be defined the same way, since different accepting computations may have different numbers of sweeps.
-% TODO: specify that in the case of sweeping automata (of any kind), rules ii and iv only apply to end-markers
+
+Furthermore, in a sweeping machine, applications of \Cref{itm:crossmatch2DFA-2,itm:crossmatch2DFA-4} only appear in matchings with respect to the end-markers, while matchings relative to boundaries in the middle of the tape are composed by the base (\Cref{itm:crossmatch2DFA-1}) followed by alternating applications of \Cref{itm:crossmatch2DFA-3,itm:crossmatch2DFA-5}.
 
 
 
