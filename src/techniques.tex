@@ -275,7 +275,7 @@ This lets us encapsulate all computations of the \TDFA in a finite set of states
 	Given a \TDFA $A=(Q,\Sigma,\delta,q_I,F)$ a transition table of $A$ is a partial function $\tau:Q\to Q$.
 	A transition table is assigned to each word. In particular:
 	\begin{rules}
-		\item for each $r\in Q$, $\tau_\lem(r):=s$, where $\delta(r,\lem)=(s,\tr)$,
+		\item for each $r\in Q$, $\tau_\emptyword(r):=\tau_\lem(r):=s$, where $\delta(r,\lem)=(s,\tr)$,
 		\item for each $r\in Q,x\in\Sigma\star,\sigma\in\Sigma$, $\tau_{x\sigma}(r):=s$, if either $\delta(r,a)=(s,\tr)$, or there exist an integer $k\ge1$ and states $q_1,\dots,q_k,r_1,\dots,r_k$ such that
 		\begin{itemize}
 			\item $\delta(r,a)=(q_1,\tl)$,
