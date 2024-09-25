@@ -127,7 +127,7 @@ Here we give a description of each nontrivial result that hasn't been explained 
 \paragraph{\OLA{}\tto\ODLA}
 \begin{itemize}
 	\item $\le\Cdexp$: by using construction for \hyperref[cost:1LAto1DFA]{\OLA{}\tto\ODFA}, which is $\le\Cdexp$, combined with $\Ctriv$ \ODFA{}\tto\ODLA,
-	\item $\ge\Cexp$: otherwise \hyperref[cost:1LAto1DFA]{\OLA{}\tto\ODFA} would be less than $\Cdexp$ since \ODLA{}\tto\ODFA is $\Cexp$,
+	\item $\ge\hspacingfix{-1pt}\Cexp$: otherwise \hyperref[cost:1LAto1DFA]{\OLA{}\tto\ODFA} would be less than $\Cdexp$ since \ODLA{}\tto\ODFA is $\Cexp$,
 	\item variation of the Sakoda and Sipser problem with both extended \TNFA and \TDFA.
 \end{itemize}
 \paragraph{\ODLA{}\tto\TNFA}\label{cost:1DLAto2NFA}
@@ -186,18 +186,18 @@ Here we give a description of each nontrivial result that hasn't been explained 
 \paragraph{\OMOLA{}\tto\ONFA}\label{cost:OM1LAto1NFA}
 \begin{itemize}
 	\item $\le\Cexp$: by using the transition table construction for general \OLA presented by \triplecite{PigPis14},
-	\item $\ge\Cexp$: otherwise \hyperref[cost:OM1LAto1DFA]{\OMOLA{}\tto\ODFA} would be less than $\Cdexp$ since \hyperref[cost:1NFAto1DFA]{\ONFA{}\tto\ODFA} is $\Cexp$.
+	\item $\ge\Cexp$: otherwise \hyperref[cost:OM1LAto1DFA]{\OMOLA{}\tto\ODFA} would be less than $\Cdexp$ since\linebreak\hyperref[cost:1NFAto1DFA]{\ONFA{}\tto\ODFA} is $\Cexp$.
 \end{itemize}
 \paragraph{\OMOLA{}\tto\TDFA}
 \begin{itemize}
 	\item $\le\Cdexp$: by using construction for \hyperref[cost:OM1LAto1DFA]{\OMOLA{}\tto\ODFA}, which is $\le\Cdexp$, combined with $\Ctriv$ \ODFA{}\tto\TDFA,
-	\item $\ge\Cexp$: otherwise \hyperref[cost:OM1LAto1DFA]{\OMOLA{}\tto\ODFA} would be less than $\Cdexp$ since \hyperref[cost:2DFAto1DFA]{\TDFA{}\tto\ODFA} is $\Cexp$,
+	\item $\ge\Cexp$: otherwise \hyperref[cost:OM1LAto1DFA]{\OMOLA{}\tto\ODFA} would be less than $\Cdexp$ since\linebreak\hyperref[cost:2DFAto1DFA]{\TDFA{}\tto\ODFA} is $\Cexp$,
 	\item harder form of the Sakoda and Sipser conjecture with extended \TNFA.
 \end{itemize}
 \paragraph{\OMOLA{}\tto\TNFA}
 \begin{itemize}
 	\item $\le\Cexp$: by using construction for \hyperref[cost:OM1LAto1NFA]{\OMOLA{}\tto\ONFA}, which is $\le\Cexp$, combined with $\Ctriv$ \ONFA{}\tto\TNFA,
-	\item $\ge\Cexp$: otherwise \hyperref[cost:OM1LAto1DFA]{\OMOLA{}\tto\ODFA} would be less than $\Cdexp$ since \hyperref[cost:2NFAto1DFA]{\TNFA{}\tto\ODFA} is $\Cexp$.
+	\item $\ge\Cexp$: otherwise \hyperref[cost:OM1LAto1DFA]{\OMOLA{}\tto\ODFA} would be less than $\Cdexp$ since\linebreak\hyperref[cost:2NFAto1DFA]{\TNFA{}\tto\ODFA} is $\Cexp$.
 \end{itemize}
 \paragraph{\OMODLA{}\tto\ODFA}\label{cost:OM1DLAto1DFA}
 \begin{itemize}
@@ -272,7 +272,8 @@ Here we give a description of each nontrivial result in \Cref{tab:sims-core-unar
 \end{itemize}
 \paragraph{\TDFA{}\tto\ONFA}\label{cost:2DFAto1NFAu}
 \begin{itemize}
-	\item $\le\CsubLe$: by using construction for \hyperref[cost:2DFAto1DFAu]{\TDFA{}\tto\ODFA}, which is $\le\CsubLe$, combined with $\Ctriv$ \ODFA{}\tto\ONFA,
+	% \item $\le\CsubLe$: by using construction for \hyperref[cost:2DFAto1DFAu]{\TDFA{}\tto\ODFA}, which is $\le\CsubLe$, combined with $\Ctriv$ \ODFA{}\tto\ONFA,
+	\item $\le\CsubLe$: by using construction for \hyperref[cost:2DFAto1DFAu]{\TDFA{}\tto\ODFA}, which is at most $\CsubLe$, combined with $\Ctriv$ \ODFA{}\tto\ONFA,
 	\item $\ge\CsubGe$: proven by \triplecite{Chr86} (shown as an improvement of the lower bound of \hyperref[cost:2DFAto1DFAu]{\TDFA{}\tto\ODFA}).
 \end{itemize}
 \paragraph{\ONFA{}\tto\TDFA}\label{cost:1NFAto2DFAu}

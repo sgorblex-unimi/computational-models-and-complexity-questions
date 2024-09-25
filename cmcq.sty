@@ -82,6 +82,10 @@
 
 \DeclareRobustCommand{\crossphantom}[2]{#1\negphantom{#1}\phantom{#2}} % write #1 but take the space of #2
 
+% spacing fixes
+\newcommand{\hspacingfix}{\hspace} % aliasing for easy lookup if needed
+% also see \linebreak
+
 
 % ALIASES
 
@@ -168,3 +172,6 @@
 \newcommand{\nth}[1]{^{(#1)}}
 \newcommand{\triplecite}[1]{\citeauthor{#1} in \citeyear{#1} \cite{#1}}
 \newcommand{\doublecite}[1]{\citeauthor{#1} \cite{#1}}
+
+% HYPHENATION
+\hyphenation{Pi-ghiz-zi-ni}
