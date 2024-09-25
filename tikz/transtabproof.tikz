@@ -42,8 +42,10 @@
 	\draw ([shift={(-1mm,1.5mm)}]sigma.north east) -- ++(-5mm,0);
 	\draw ([shift={(-6mm,1.5mm)}]sigma.north east) .. controls +(-.6mm,0mm) and +(0mm,0mm) .. ++(-.9mm,.6mm);
 	\draw ([shift={(-6.9mm,2.1mm)}]sigma.north east) .. controls +(-.3mm,-.6mm) and +(0mm,0mm) .. ++(-.9mm,-.6mm);
-	\draw ([shift={(-7.8mm,1.5mm)}]sigma.north east) -- ++(-17.5mm,0);
-	\draw[dashed] ([shift={(-25.3mm,1.5mm)}]sigma.north east) -- ++(-1cm,0);
+	\draw ([shift={(-7.8mm,1.5mm)}]sigma.north east) -- ++(-7.46mm,0);
+	\draw[dashed] ([shift={(-15.26mm,1.5mm)}]sigma.north east) -- ++(-1cm,0);
+	\draw ([shift={(-25.26mm,1.5mm)}]sigma.north east) -- ++(-9mm,0);
+	\draw ([shift={(-3cm,1mm)}]sigma.north west) .. controls +(0mm,.2mm) and +(-.5mm,0mm) .. ++(1mm,.5mm);
 	\node (w) at ([shift={(-4.3mm,7mm)}]sigma) {$w$};
 
 	% needed to render correctly an arrow
