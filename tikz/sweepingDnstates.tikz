@@ -1,0 +1,47 @@
+\begin{tikzpicture}[shorten >=1pt,auto,initial text=]
+	\node[state,initial] (q0) {$q_0$};
+	\node[state,node distance=22mm] (q2) [right=of q0] {$q_2$};
+	\node[state] (q1) [above left=of q2] {$q_1$};
+	\node[state,accepting] (qf) at ([shift={(-11mm,-23mm)}]q2) {$q_f$};
+
+	\scriptsize
+	\path[->]
+	(q0)	edge [bend right,swap,align=center,pos=.3] node[shift={(-1mm,3mm)}] {%
+			$\rem/\rem,\tl$ \\
+			$a\nth1/a\nth2,\tl$ \\
+			$b\nth1/b\nth2,\tl$ \\
+			$a\nth3/a\nth4,\tl$ \\
+			$b\nth3/b\nth4,\tl$} (q1)
+	edge [loop below] node[align=center] {%
+			$\lem/\lem,\tr$ \\
+			$a/a\nth1,\tr$ \\
+			$b/b\nth1,\tr$ \\
+			$a\nth2/a\nth3,\tr$ \\
+			$b\nth2/b\nth3,\tr$ \\
+			$X\nth2/X\nth3,\tr$ \\
+			$X\nth3/X\nth4,\tl$ \\
+			$X\nth4/X\nth4,\tr$ \\
+			$a\nth4/a\nth4,\tr$ \\
+			$b\nth4/b\nth4,\tr$} (q0)
+			(q1)	edge [bend right,swap,align=center] node[shift={(3mm,-0.5mm)}] {%
+			$a\nth1,b\nth1/X\nth2,\tl$ \\
+			$a\nth3,b\nth3/X\nth4,\tl$ \\
+			$\lem/\lem,\tr$} (q0)
+	edge [loop right,align=center,above] node[shift={(3mm,2mm)}] {%
+			$X\nth3/X\nth4,\tl$ \\
+			$X\nth4/X\nth4,\tl$} (q1)
+			edge [pos=.6] node {%
+			$a\nth4/a\nth4,\tl$} (q2)
+			(q2)	edge [loop right,align=center,below] node[shift={(1mm,-2mm)}] {%
+			$a\nth4/a\nth4,\tl$\\
+			$X\nth4/X\nth4,\tl$\\
+			$b\nth4/b\nth4,\tl$} (q2)
+	(q2)	edge [align=center,pos=.7] node {%
+			$\lem/\lem,\tr$} (qf)
+			(qf)	edge [loop right,align=center,below] node[shift={(2mm,-2mm)}] {%
+			$X\nth4/X\nth4,\tr$ \\
+			$a\nth4/a\nth4,\tr$ \\
+			$b\nth4/b\nth4,\tr$ \\
+			$\rem/\rem,\tr$} (qf);
+\end{tikzpicture}
+\vspace{-5mm}

@@ -1,4 +1,4 @@
-\chapter{From \emph{two-way} to \emph{one-way} automata}
+\chapter{From \emph{two-way} to \emph{one-way} automata}\label{ch:techniques}
 % TODO: use \trapp instead of t_
 
 
@@ -248,7 +248,7 @@ In general:
 \end{thrm}
 \begin{proof}
 	Let $A$ be an $n$-state \TDFA and $A'$ the \ONFA built with the construction presented above.
-	By the conjunction of \Cref{lem:2DFAto1NFA-1} and \Cref{lem:2DFAto1NFA-2}, it holds that $\genlang(A)=\genlang(A')$, \ie $A'$ correctly simulates $A$.
+	By the conjunction of \Cref{lem:2DFAto1NFA-1,lem:2DFAto1NFA-2}, it holds that $\genlang(A)=\genlang(A')$, \ie $A'$ correctly simulates $A$.
 
 	Furthermore, the number of states in $A'$ is the number of valid crossing sequences of $A$, which by \Cref{fact:crossing-2DFA-num} is exponential in $n$.
 \end{proof}
@@ -259,6 +259,7 @@ In general:
 \subsection{Sweeping \TDFAs}
 In the case of a sweeping \TDFA, because an accepting computation can be divided in an odd number of traversals of the tape, all the relative crossing sequences are of the same length.
 However, the set of valid crossing sequences must be defined the same way, since different accepting computations may have different numbers of sweeps.
+% TODO: specify that in the case of sweeping automata (of any kind), rules ii and iv only apply to end-markers
 
 
 
