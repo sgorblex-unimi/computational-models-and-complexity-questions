@@ -1,0 +1,54 @@
+\begin{tikzpicture}[tapeseg/.append style={minimum width=2.5em}]
+
+	% tape
+	\node[cell] (c1) {$a$};
+	\node[cell]	(c2) [right=of c1] {$b$};
+	\node[cell]	(c3) [right=of c2] {$a$};
+	\node[cell]	(c4) [right=of c3] {$b$};
+	\node[tapeseg,thick] [minimum width=0, left=-0.5mm of c1] (lem) {\Large$\lem$};
+	\node[tapeseg,thick] [minimum width=0, right=-0.5mm of c4] (rem) {\Large$\rem$};
+
+	% guides
+	\draw[dashed,shorten <=.1cm,thin] (c1.south west) -- ++(0cm,-19mm);
+	\draw[dashed,shorten <=.1cm,thin] (c2.south west) -- ++(0cm,-19mm);
+	\draw[dashed,shorten <=.1cm,thin] (c3.south west) -- ++(0cm,-19mm);
+	\draw[dashed,shorten <=.1cm,thin] (c4.south west) -- ++(0cm,-19mm);
+	\draw[dashed,shorten <=.1cm,thin] (c4.south east) -- ++(0cm,-19mm);
+
+
+	\footnotesize
+
+	\node (q0lem) at ([shift={(-1.7mm,-5.5mm)}]lem) {$q_I$};
+	\fill (q0lem.south) circle (.85pt);
+
+	\node (q0c1) at ([shift={(-2.6mm,-5.5mm)}]c1) {$q_I$};
+	\draw[transition] (q0lem.south) -- (q0c1.south);
+
+	\node (q0c2) at ([shift={(-2.6mm,-5.5mm)}]c2) {$q_I$};
+	\draw[transition] (q0c1.south) -- (q0c2.south);
+
+	\node (q0c3) at ([shift={(-2.6mm,-5.5mm)}]c3) {$q_I$};
+	\draw[transition] (q0c2.south) -- (q0c3.south);
+
+	\node (q0c4) at ([shift={(-2.6mm,-5.5mm)}]c4) {$q_I$};
+	\draw[transition] (q0c3.south) -- (q0c4.south);
+
+	\node (q0rem) at ([shift={(-0.2mm,-5.5mm)}]rem) {$q_I$};
+	\draw[transition] (q0c4.south) -- (q0rem.south);
+
+	\node (q1c4) at ([shift={(2.7mm,-11mm)}]c4) {$q_1$};
+	\draw[transition] (q0rem.south) .. controls +(0.2,0) and +(0.75,0) .. (q1c4.south);
+
+	\node (q2c3) at ([shift={(2.7mm,-11mm)}]c3) {$q_2$};
+	\draw[transition] (q1c4.south) -- (q2c3.south);
+
+	\node (q3c4) at ([shift={(-2.7mm,-16.5mm)}]c4) {$q_f$};
+	\draw[transition] (q2c3.south) .. controls +(-0.2,0) and +(-0.75,0) .. (q3c4.south);
+
+	\node (q3rem) at ([shift={(-0.2mm,-16.5mm)}]rem) {$q_f$};
+	\draw[transition] (q3c4.south) -- (q3rem.south);
+
+	\node (final) at ([shift={(6mm,-16.5mm)}]rem) {$q_f$};
+	\draw[transition] (q3rem.south) -- (final.south);
+\end{tikzpicture}
+\vspace{3mm}

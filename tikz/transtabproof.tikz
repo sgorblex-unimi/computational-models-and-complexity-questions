@@ -1,0 +1,51 @@
+\begin{tikzpicture}[mirrorbrace/.style={decorate,decoration={brace,mirror}}]
+	% cells
+	\node[cell] (sigma) {$\sigma$};
+	\node[tapeseg,node distance=10pt] (x) [left=of sigma]{$x$};
+	\node[tapeseg,minimum width=0] (lem) [left=29.5mm of sigma] {\Large$\lem$};
+
+	% tape
+	\draw (sigma.north west) -- ++(-1cm,0) (sigma.south west) -- ++ (-1cm,0)
+	(sigma.north east) -- ++(5mm,0) (sigma.south east) -- ++ (5mm,0)
+	([xshift=-2cm]sigma.north west) -- ++(-1cm,0) ([xshift=-2cm]sigma.south west) -- ++ (-1cm,0)
+	([xshift=-3cm]sigma.north west) -- ([xshift=-3cm]sigma.south west);
+	\draw[dashed] ([xshift=-1cm]sigma.north west) -- ++(-1cm,0) ([xshift=-1cm]sigma.south west) -- ++ (-1cm,0)
+	([xshift=5mm]sigma.north east) -- ++(1cm,0) ([xshift=5mm]sigma.south east) -- ++ (1cm,0);
+	\draw[dashed,shorten <=.1cm] (sigma.south west) -- ++(0cm,-1.5cm)
+	(sigma.south east) -- ++(0cm,-1.5cm);
+
+	% states
+	\node (r) [below=6mm of sigma] {$r$};
+	\node[tapeseg,node distance=1pt] (palign) [right=of sigma] {};
+	\node[tapeseg] (palign2) [below=.2 of palign] {};
+	\node (p) [below=4.5mm of palign2] {$p$};
+	\node (qi) [below=0 of lem] {$q_I$};
+
+	% computation path 1
+	\draw	(qi.east) -- ++(+2.5cm,-.12cm)
+	-- ++(-1.9cm,-.09cm) -- ++(+2.1cm,-.10cm)
+	-- ++(-2.9cm,-.12cm) -- (r.south);
+	\draw[mirrorbrace] ([shift={(3mm,0mm)}]p.south) -- ++(0,6.7mm) node[midway,right=1mm] {$(2)$};
+	\draw[mirrorbrace] ([shift={(3mm,6.7mm)}]p.south) -- ++(0,8.2mm) node[midway,right=1mm] {$(1)$};
+
+	% separator
+	\draw[dotted] (r.south) -- ++(-37mm,0) (r.south) -- ++(+9mm,0);
+
+	% computation path 2
+	\draw[->]	(r.south) -- ++(-2cm,-.12cm)
+	-- ++(+.9cm,-.09cm) -- ++(-1.8cm,-.10cm)
+	-- ++(2.9cm,-.12cm) -- ++(-1.55cm,-.10cm)
+	-- (p.south);
+
+	% manual brace for w
+	\draw ([yshift=1mm]sigma.north east) .. controls +(0mm,.2mm) and +(.5mm,0mm) .. ++(-1mm,.5mm);
+	\draw ([shift={(-1mm,1.5mm)}]sigma.north east) -- ++(-5mm,0);
+	\draw ([shift={(-6mm,1.5mm)}]sigma.north east) .. controls +(-.6mm,0mm) and +(0mm,0mm) .. ++(-.9mm,.6mm);
+	\draw ([shift={(-6.9mm,2.1mm)}]sigma.north east) .. controls +(-.3mm,-.6mm) and +(0mm,0mm) .. ++(-.9mm,-.6mm);
+	\draw ([shift={(-7.8mm,1.5mm)}]sigma.north east) -- ++(-17.5mm,0);
+	\draw[dashed] ([shift={(-25.3mm,1.5mm)}]sigma.north east) -- ++(-1cm,0);
+	\node (w) at ([shift={(-4.3mm,7mm)}]sigma) {$w$};
+
+	% needed to render correctly an arrow
+	\node (spacing) [below=-1.8mm of p] {};
+\end{tikzpicture}

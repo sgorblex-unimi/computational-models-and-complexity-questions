@@ -1,17 +1,48 @@
 \chapter{From \emph{two-way} to \emph{one-way} automata}
+% TODO: use \trapp instead of t_
 
 
 
-% TODO
-% TODO: specify that the first part is heavily based on HopUll
 \section{Introduction}
-\dots
+When comparing different computational models, natural questions arise about their relative accepting power and, if equal, succinctness.
+In order to prove that two models are equivalent, it is typically shown that one can simulate the other and vice versa.
+When it comes to two-way models for regular languages, one of the simulation directions is often trivial, when one-way automata are a particular case of the model in question.
+In order to simulate a two-way model with a one-way automaton, a few standard techniques are commonly applied, with appropriate modifications, to the model under consideration.
+Two of these techniques are presented in this chapter: \emph{crossing sequences} and \emph{transition tables}.
+
+Crossing sequences were first introduced by \citeauthor{RabSco59}, in their famous \citeyear{RabSco59} paper about equivalent computational models \cite{RabSco59}.
+In \Cref{sec:crossseq2DFA}, we describe the concept of crossing sequence in two-way machines, then we consider the case of two-way deterministic finite automata (\TDFA) and create a construction that lets \ONFAs simulate them by guessing consecutive crossing sequences.
+We follow the explanation used by \citeauthor{HopUll79} in \cite{HopUll79}, while adjusting the notation and keeping an eye on descriptional complexity aspects.
+
+Parallel to \citeauthor{RabSco59}, in the same year \citeauthor{She59} proved the same result with a different technique, which does not require nondeterminism: transition tables.
+In \Cref{sec:transtab2DFA} we introduce the concept of transition table for \TDFAs, and show how \DFAs can simulate them by computing, thanks to transition tables, the state entered on the first visit of each cell.
 
 
 \section{Crossing sequences}\label{sec:crossseq2DFA}
-% TODO: add example (with pic)?
 Given a two-way machine and one of its possible computations over a certain input, consider a tape cell and one of the two \emph{boundaries} at its sides.
 A crossing sequence $[q_1,q_2,\dots]$ is the sequence of states that the machine enters as the head crosses such boundary, \ie it enters or leaves the cell on the chosen side.
+In \Cref{sfig:example-crosseq-2}, the crossing sequences of an example \TDFA are shown as the sequences of states around each cell boundary.
+
+\begin{figure}
+	\centering
+	\begin{subfigure}[b]{0.49\textwidth}
+		\centering
+		\input{tikz/egcrosseqstates.tikz}
+		\caption{State transition graph.
+			While in state $q_I$ the head is brought to the end of the tape. States $q_1$ and $q_2$ make a counter to $2$, while in state $q_2$ the machine checks that the second symbol from the right is $a$, in which case state $q_f$ is entered and the machine accepts after passing the right end-marker.\newline}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[b]{0.49\textwidth}
+		\centering
+		\input{tikz/egcrosseqtape.tikz}
+		\caption{Computation of the machine on input $abab$.
+			The sequence of states around each boundary (dotted vertical lines) constitutes the crossing sequence for that boundary: $[q_I]$ for the boundary between $\lem$ and $a$ and the two following ones, $[q_I,q_2,q_f]$ for the boundary between the second $a$ and the second $b$, and $[q_I,q_1,q_f]$ for the one between the second $b$ and $\rem$.}
+		\label{sfig:example-crosseq-2}
+	\end{subfigure}
+
+	\caption{An example \TDFA recognizing the language $(a+b)\star a(a+b)$ and its (accepting) computation on input $abab$.}
+	\label{fig:example-crosseq}
+\end{figure}
 
 In general, because of loops and nondeterminism, a crossing sequence may be of infinite length.
 However, we shall see that we may restrict our interest to some finite set of finite sequences, depending on the model under consideration.
@@ -78,7 +109,7 @@ Therefore, including all possible lengths, the total number of valid crossing se
 \end{fact}
 
 
-\subsubsection{Matching crossing sequences}
+\subsection{Matching crossing sequences}
 In an accepting computation, the two crossing sequences at the boundaries of each cell are \emph{compatible}, meaning their states are the result of valid transitions given the cell's content.
 In general, given a tape cell and two crossing sequences $[q_1,\dots,q_k]$ and $[p_1,\dots,p_l]$ for its left and right boundary respectively, we can check for \emph{local} compatibility starting in state $q_1$ and proceeding as follows.
 \begin{itemize}
@@ -133,12 +164,14 @@ Note that two crossing sequences need not be valid in order to match (\eg the em
 	\label{fig:2DFA-crossmatch}
 \end{figure}
 
-\subsubsection{From \TDFAs to \ONFAs}
+
+\subsection{From \TDFAs to \ONFAs}
 We now prove that a \TDFA can be simulated by a \ONFA whose states are the valid crossing sequences of the \TDFA.
 By \Cref{fact:crossing-2DFA-num} this also proves that an exponential number of states in the size of the \TDFA is sufficient for such a simulation.
 
 Intuitively, the simulating machine puts together pieces of the computation of $A$ by guessing successive crossing sequences.
 The full trajectory can be interpreted as a computation of the original machine, where acceptance is only possible if the right end-marker is passed while entering a final state.
+For example, in the case of the \TDFA in \Cref{fig:example-crosseq}, the crossing sequences $[q_I]$, $[q_I]$, $[q_I]$, $[q_I,q_2,q_f]$, and $[q_I,q_1,q_f]$ are guessed in order.
 
 Let $A:=(Q,\Sigma,\delta,q_I,F)$ be a \TDFA.
 Define the \NFA $A':=(Q',\Sigma,\delta',I,F')$ where%
@@ -158,6 +191,7 @@ For the same reason, final states correspond to crossing sequences that are comp
 	\item $I:=\set{d\mid \text{$d$ is right-matched by $[q_I]$ with respect to $\lem$}}$.
 	\item $F':=\set{d\mid \exists q_f\in F: \text{$d$ right-matches $[q_f]$ with respect to $\rem$}}$.
 \end{itemize}
+In the previous example, the starting state is $[q_I]$ as it matches $[q_I]$ with respect to $\lem$, and the machine accepts since the last entered state $[q_I,q_1,q_f]$ matches the crossing sequence $[q_f]$ at the right boundary of the tape with respect to $\rem$.
 
 In order to prove that $A'$ accepts the same language as $A$, we prove two separate lemmas:
 \begin{lemm}\label{lem:2DFAto1NFA-1}
@@ -222,33 +256,52 @@ In general:
 % TODO: notes on the possibility to change the number of starting states to one without affecting the simulation cost (proof here or in appendix)
 
 
-% TODO
 \subsection{Sweeping \TDFAs}
-\dots
+In the case of a sweeping \TDFA, because an accepting computation can be divided in an odd number of traversals of the tape, all the relative crossing sequences are of the same length.
+However, the set of valid crossing sequences must be defined the same way, since different accepting computations may have different numbers of sweeps.
+
 
 
 \section{Transition tables}\label{sec:transtab2DFA}
+Consider a two-way machine.
+Because every accepting computation starts with the head on the left end-marker and ends when it passes the right end-marker to the right, every cell is visited at least once, and the entire computation can be divided in the paths between the first visits to each cell.
+In the case of a \TDFA, each of these computation paths can be described, given the input prefix ending in the current cell, by a function that maps every possible current state to the state the machine will eventually enter when scanning for the first time the adjacent cell to the right.
+As we shall see, despite the possible input prefixes being of arbitrary length and infinite number, the number of such functions is finite.
+This lets us encapsulate all computations of the \TDFA in a finite set of states, which we use to build an equivalent \DFA.
 
 \begin{defn}
 	Given a \TDFA $A=(Q,\Sigma,\delta,q_I,F)$ a transition table of $A$ is a partial function $\tau:Q\to Q$.
 	A transition table is assigned to each word. In particular:
 	\begin{rules}
 		\item for each $r\in Q$, $\tau_\lem(r):=s$, where $\delta(r,\lem)=(s,\tr)$,
-		\item for each $r\in Q,w\in\Sigma\star,\sigma\in\Sigma$, $\tau_{w\sigma}(r):=s$, if either $\delta(r,a)=(s,\tr)$, or there exist an integer $k\ge1$ and states $q_1,\dots,q_k,r_1,\dots,r_k$ such that
+		\item for each $r\in Q,x\in\Sigma\star,\sigma\in\Sigma$, $\tau_{x\sigma}(r):=s$, if either $\delta(r,a)=(s,\tr)$, or there exist an integer $k\ge1$ and states $q_1,\dots,q_k,r_1,\dots,r_k$ such that
 		\begin{itemize}
 			\item $\delta(r,a)=(q_1,\tl)$,
-			\item $\tau_w(q_i)=r_i$ for all $i\in\set{1,\dots,k}$,
+			\item $\tau_x(q_i)=r_i$ for all $i\in\set{1,\dots,k}$,
 			\item $\delta(r_i,\sigma)=(q_{i+1},\tl)$ for all $i\in\set{1,\dots,k-1}$, and
 			\item $\delta(q_k,\sigma)=(s,\tr)$.
 		\end{itemize}
 	\end{rules}
 	We denote with $\transtabset$ the set of the transition tables of $A$.
-	Notice that if $\tau_w$ is known, knowledge of $w$ is not needed to calculate $\tau_{w\sigma}$.
-	For this reason we define, for each $\sigma\in\Sigma$, the function $t_\sigma:\transtabset\to\transtabset$ that maps a transition table $\tau_w$ to $\tau_{w\sigma}$.
+	Notice that if $\tau_x$ is known, knowledge of $x$ is not needed to calculate $\tau_{x\sigma}$.
+	This implies that $\transtabset$ is finite, and lets us define, for each $\sigma\in\Sigma$, the function $t_\sigma:\transtabset\to\transtabset$ that maps a transition table $\tau_x$ to $\tau_{x\sigma}$.
 \end{defn}
 
+\begin{figure}
+	\centering
+	\input{tikz/transtable.tikz}
+	\caption{Representation of $\tau_w(p)=q$, or, equivalently, $t_\sigma(\tau_x)(p)=q$.
+		The relative path starts in state $p$ with the head scanning the last symbol $\sigma$ of $w$, performs a computation on the left part of the tape ending with $\sigma$, and eventually passes it to the right in state $q$.}
+	\label{fig:transtab}
+\end{figure}
 
-% TODO: make A' recognise lem w rem ? In that case, change q'_I to a new initial state and F' to the obvious
+\Cref{fig:transtab} depicts a possible computation described by a transition table and the role of the operator $t_\sigma$.
+
+
+\subsection{From \TDFAs to \ODFAs}
+We now prove that a \TDFA can be simulated by a \ODFA whose states are transition tables of the \TDFA.
+
+Intuitively, the simulating machine keeps track of the state of the \TDFA that is entered on each first visit to a cell, while simultaneously memorising and updating a transition table which lets the machine simulate computations on the already visited part of the tape (\ie on the part of the tape to the left of the current cell and the current cell itself).
 
 Let $A:=(Q,\Sigma,\delta,q_I,F)$ be a \TDFA.
 Define the \DFA $A':=(Q',\Sigma,\delta',q'_I,F')$ where
@@ -259,32 +312,43 @@ Define the \DFA $A':=(Q',\Sigma,\delta',q'_I,F')$ where
 	\item $F':=\set{(\tau,p)\mid t_\rem(\tau)(p)\in F}$.
 \end{itemize}
 
-A simple induction gives
+A simple induction gives the following auxiliary result:
 \begin{lemm}
 	For all~$w \in \Sigma^*$, the state reached by~$A'$ after reading~$w$ is $\delta(q'_I,w) = (\tau,p)$, for some $p\in Q$, if and only if~$\tau = \tau_w$.
 \end{lemm}
+% TODO: actual proof?
 
+The following lemma proves a one-to-one equivalence of computations of $A'$ and certain partial computations of $A$ on the same input. We shall see that this correspondence extends to accepting computations, thus proving the equivalence of the two machines.
 \begin{lemm}\label{lem:transtab2DFA}
-	For each $w\in\Sigma\star$ and $p\in Q$, $\delta'(q'_I,w)=(\tau_w,p)$ if and only if there exists a computation of $A$ on input $w$ that passes the last symbol of $w$ to the right for the first time in state $p$.
+	For each $w\in\Sigma\star$ and $p\in Q$, $\delta'(q'_I,w)=(\tau_w,p)$ if and only if the computation of $A$ on input $w$ passes the last symbol of $w$ to the right for the first time in state $p$.
 \end{lemm}
+
+
+\begin{figure}
+	\centering
+	\input{tikz/transtabproof.tikz}
+	\caption{The computation of $A$ involved in the induction step of the proof of \Cref{lem:transtab2DFA}.
+		The computation path labeled $(1)$ corresponds to $\delta'(q'_I,x)=r$ by induction hypothesis, while the path labeled $(2)$ corresponds to $\tau_w(r)=p$, which is given in $\Rightarrow)$ and derived in $\Leftarrow)$.}
+	\label{fig:transtabproof}
+\end{figure}
+
 \begin{proof}
 	By induction on $w$:
 	\begin{description}
 		\item[Base] $\delta'(q'_I,\emptyword)=q'_I=(\tau_\lem,s)$, where $\delta(q_I,\lem)=(s,\tr)$. The statement is trivially proven.
-		      % TODO: PICTURE(s)
-		\item[Step] Given $x\in\Sigma\star$ and $r\in Q$, assume $\delta'(q'_I,x)=(\tau_x,r)$ if and only if there exists a computation of $A$ on input $x$ that passes the last symbol of $x$ for the first time in state $r$, and let the tape contain $w=x\sigma$, with $\sigma\in\Sigma$.
+		\item[Step] Given $x\in\Sigma\star$ and $r\in Q$, assume $\delta'(q'_I,x)=(\tau_x,r)$ if and only if there exists a computation of $A$ on input $x$ that passes the last symbol of $x$ for the first time in state $r$, and let the tape contain $w=x\sigma$, with $\sigma\in\Sigma$. The computation path is represented in \Cref{fig:transtabproof} $(1)$.
 		      \begin{description}
 			      \item[$\Rightarrow$)] Assume $\delta'(q'_I,w)=(\tau_w,p)$.
 			            We have $\delta'(q'_I,w)=\delta'(\delta'(q'_I,x),\sigma)$, with $\delta'(q'_I,x)=(\tau_x,r)$ for some $r\in Q$.
 			            By induction hypothesis, there exists a computation of $A$ on input $x\sigma$ that reads $\sigma$ for the first time in state $r$.
 			            By definition of $\delta'$, we have that $p=\tau_w(r)$.
-			            By definition of transition table, there is a computation path that starts in state $r$ scanning $\sigma$ and first passes it to the right in state $p$ (after possibly scanning the left part of the tape that ends in $\sigma$).
+			            By definition of transition table, there is a computation path that starts in state $r$ scanning $\sigma$ and first passes it to the right in state $p$ (after possibly scanning the left part of the tape that ends in $\sigma$, see \Cref{fig:transtabproof} $(2)$).
 			            By combining the two computations we obtain the desideratum.
 			      \item[$\Leftarrow$)] Assume that there exists a computation of $A$ on input $w=x\sigma$ that passes $\sigma$ for the first time in state $r$.
-			            Such computation can be split into two parts, the former ending when $\sigma$ is first read in a state $r$.
+			            Such computation can be split into two parts ($(1)$ and $(2)$ in \Cref{fig:transtabproof}), the former ending when $\sigma$ is first read in a state $r$.
 			            By applying the induction hypothesis on the first part of the computation, we obtain $\delta'(q'_I,x)=(\tau_x,r)$.
 			            The second part of the computation describes a path that starts in state $r$ on $\sigma$ and first ends to its right in state $p$, therefore $\tau_w(r)=p$.
-			            By definition of $\delta'$ we have $\delta'((\tau_x,r),\sigma)=(\tau_w,\tau_w(r))=(\tau_w,p)$.
+			            By definition of $\delta'$ we have $\delta'((\tau_x,r),\sigma)=(\tau_w,\tau_w(r))=(\tau_w,p)$. \qedhere
 		      \end{description}
 	\end{description}
 \end{proof}
@@ -297,12 +361,18 @@ We can now prove that the two machines are equivalent:
 	By \Cref{lem:transtab2DFA}, $\delta'(q'I_,w)=(\tau_w,p)$ if and only if there exists a computation of $A$ on input $w$ that reaches $\rem$ for the first time in state $p$.
 	\begin{description}
 		\item[$\genlang(A')\subseteq\genlang(A)$:] If $\delta'(q'I_,w)=(\tau_w,p)$ and $(\tau_w,p)$ is final, by definition $t_\rem(\tau_w)(p)\in F$, therefore $A$ on input $w$ ends its computation by passing $\rem$ in a final state.
-		\item[$\genlang(A')\subseteq\genlang(A)$:] If $A$ accepts $w$ the accepting computation can be split as in the previous proof, giving $\delta'(q'I_,w)=(\tau_w,p)$ and $t_\rem(\tau_w)(p)\in F$, thus proving that $A'$ accepts.
+		\item[$\genlang(A')\subseteq\genlang(A)$:] If $A$ accepts $w$ the accepting computation can be split as in the previous proof, giving $\delta'(q'I_,w)=(\tau_w,p)$ and $t_\rem(\tau_w)(p)\in F$, thus proving that $A'$ accepts. \qedhere
 	\end{description}
 \end{proof}
 
-Thanks to \Cref{thm:transtab2DFA} we can now show that
+In general:
 \begin{thrm}
 	Every $n$-state \TDFA can be simulated by a \ODFA with an exponential number of states in $n$.
 \end{thrm}
-Which doubles as a proof of \Cref{thm:2DFAto1NFA}.
+\begin{proof}
+	Let $A$ be an $n$-state \TDFA and $A'$ the \ODFA built with the construction presented above.
+	By \Cref{thm:transtab2DFA}, $A'$ correctly simulates $A$.
+
+	Furthermore, the number of states in $A'$ is bounded by $n$ times the number of transition tables of $A$, which is the number of partial functions from $Q$ to $Q$, \ie $(n+1)^n$.
+	Overall we obtain an exponential bound of $n(n+1)^n$ states.
+\end{proof}
