@@ -60,7 +60,7 @@ Here we give a description of each nontrivial result:
 \end{itemize}
 \paragraph{\TNFA{}\tto\TDFA}
 \begin{itemize}
-	\item $\le\Cexp$: by using construction for \hyperref[cost:2NFAto1DFA]{\TNFA{}\tto\ODFA}, which is $\le\Cexp$, combined with $\Ctriv$ \ODFA{}\tto\TDFA is $\Ctriv$,
+	\item $\le\Cexp$: by using construction for \hyperref[cost:2NFAto1DFA]{\TNFA{}\tto\ODFA}, which is $\le\Cexp$, combined with $\Ctriv$ \ODFA{}\tto\TDFA,
 	\item believed to be $=\Cexp$ (Sakoda and Sipser conjecture \cite{SakSip78}).
 \end{itemize}
 
@@ -111,7 +111,8 @@ Here we give a description of each nontrivial result that hasn't been explained 
 \paragraph{\OLA{}\tto\TDFA}
 \begin{itemize}
 	\item $\le\Cdexp$: by using construction for \hyperref[cost:1LAto1DFA]{\OLA{}\tto\ODFA}, which is $\le\Cdexp$, combined with $\Ctriv$ \ODFA{}\tto\TDFA,
-	\item $\ge\exp$: otherwise \hyperref[cost:1LAto1DFA]{\OLA{}\tto\ODFA} would be less than $\Cdexp$ since \hyperref[cost:2DFAto1DFA]{\TDFA{}\tto\ODFA} is $\exp$.
+	\item $\ge\exp$: otherwise \hyperref[cost:1LAto1DFA]{\OLA{}\tto\ODFA} would be less than $\Cdexp$ since \hyperref[cost:2DFAto1DFA]{\TDFA{}\tto\ODFA} is $\exp$,
+	\item harder form of the Sakoda and Sipser conjecture with extended \TNFA.
 \end{itemize}
 \paragraph{\OLA{}\tto\TNFA}
 \begin{itemize}
@@ -126,12 +127,13 @@ Here we give a description of each nontrivial result that hasn't been explained 
 \paragraph{\OLA{}\tto\ODLA}
 \begin{itemize}
 	\item $\le\Cdexp$: by using construction for \hyperref[cost:1LAto1DFA]{\OLA{}\tto\ODFA}, which is $\le\Cdexp$, combined with $\Ctriv$ \ODFA{}\tto\ODLA,
-	\item $\ge\exp$: otherwise \hyperref[cost:1LAto1DFA]{\OLA{}\tto\ODFA} would be less than $\Cdexp$ since \ODLA{}\tto\ODFA is $\exp$.
+	\item $\ge\exp$: otherwise \hyperref[cost:1LAto1DFA]{\OLA{}\tto\ODFA} would be less than $\Cdexp$ since \ODLA{}\tto\ODFA is $\exp$,
+	\item variation of the Sakoda and Sipser problem with both extended \TNFA and \TDFA.
 \end{itemize}
 \paragraph{\ODLA{}\tto\TNFA}\label{cost:1DLAto2NFA}
 \begin{itemize}
 	\item $\le\exp$: by using construction for \hyperref[cost:1DLAto1DFA]{\ODLA{}\tto\ODFA}, which is $\le\exp$, combined with $\Ctriv$ \ODFA{}\tto\TNFA,
-	\item $\ge\exp$: since the unary witness language $\set{a^{2^n}}\star$ is recognized by the linear size \ODLA presented by \triplecite{PigPri19}, but cannot be recognised by a \TNFA with less than $\Cexp$ states, proven by \triplecite{MerPig00}).
+	\item $\ge\exp$: since the unary witness language $\set{a^{2^n}}\star$ is recognized by the linear size \ODLA presented by \triplecite{PigPri19}, but cannot be recognised by a \TNFA with less than $\Cexp$ states, as proven by \triplecite{MerPig00}.
 \end{itemize}
 \paragraph{\ODLA{}\tto\ONFA}
 \begin{itemize}
@@ -189,7 +191,8 @@ Here we give a description of each nontrivial result that hasn't been explained 
 \paragraph{\OMOLA{}\tto\TDFA}
 \begin{itemize}
 	\item $\le\Cdexp$: by using construction for \hyperref[cost:OM1LAto1DFA]{\OMOLA{}\tto\ODFA}, which is $\le\Cdexp$, combined with $\Ctriv$ \ODFA{}\tto\TDFA,
-	\item $\ge\exp$: otherwise \hyperref[cost:OM1LAto1DFA]{\OMOLA{}\tto\ODFA} would be less than $\Cdexp$ since \hyperref[cost:2DFAto1DFA]{\TDFA{}\tto\ODFA} is $\exp$.
+	\item $\ge\exp$: otherwise \hyperref[cost:OM1LAto1DFA]{\OMOLA{}\tto\ODFA} would be less than $\Cdexp$ since \hyperref[cost:2DFAto1DFA]{\TDFA{}\tto\ODFA} is $\exp$,
+	\item harder form of the Sakoda and Sipser conjecture with extended \TNFA.
 \end{itemize}
 \paragraph{\OMOLA{}\tto\TNFA}
 \begin{itemize}
@@ -198,13 +201,14 @@ Here we give a description of each nontrivial result that hasn't been explained 
 \end{itemize}
 \paragraph{\OMODLA{}\tto\ODFA}\label{cost:OM1DLAto1DFA}
 \begin{itemize}
-	\item $\le\Cexp$: by using the transition table construction for general \OLA presented by \triplecite{PigPis14},
+	\item $\le\Cexp$: by using the transition table construction for general \ODLA presented by \triplecite{PigPis14},
 	\item $\ge\exp$: since the witness language $K_n$ is recognized by a linear size \OMODLA, but cannot be recognised by a \TNFA with less than $\Cexp$ states, as proven by \triplecite{PigPri23a}.
 \end{itemize}
 \paragraph{\OMOLA{}\tto\OMODLA}
 \begin{itemize}
 	\item $\le\Cdexp$: by using construction for \hyperref[cost:OM1LAto1DFA]{\OMOLA{}\tto\ODFA}, which is $\le\Cdexp$, combined with $\Ctriv$ \ODFA{}\tto\OMODLA,
-	\item $\ge\exp$: otherwise \hyperref[cost:OM1LAto1DFA]{\OMOLA{}\tto\ODFA} would be less than $\Cdexp$ since \hyperref[cost:OM1DLAto1DFA]{\OMODLA{}\tto\ODFA} is $\exp$.
+	\item $\ge\exp$: otherwise \hyperref[cost:OM1LAto1DFA]{\OMOLA{}\tto\ODFA} would be less than $\Cdexp$ since \hyperref[cost:OM1DLAto1DFA]{\OMODLA{}\tto\ODFA} is $\exp$,
+	\item variation of the Sakoda and Sipser problem with both extended \TNFA and \TDFA.
 \end{itemize}
 % TODO: once the proof has been written, manage its reference here
 \paragraph{\OMODLA{}\tto\ONFA}
@@ -268,13 +272,14 @@ Here we give a description of each nontrivial result in \Cref{tab:sims-core-unar
 \end{itemize}
 \paragraph{\TDFA{}\tto\ONFA}\label{cost:2DFAto1NFAu}
 \begin{itemize}
-	\item $\le\CsubLe$: by using construction for \hyperref[cost:2DFAto1DFAu]{\TDFA{}\tto\ODFA}, which is $\le\CsubLe$, combined with $\Ctriv$ \ODFA{}\tto\ONFA,,
+	\item $\le\CsubLe$: by using construction for \hyperref[cost:2DFAto1DFAu]{\TDFA{}\tto\ODFA}, which is $\le\CsubLe$, combined with $\Ctriv$ \ODFA{}\tto\ONFA,
 	\item $\ge\CsubGe$: proven by \triplecite{Chr86} (shown as an improvement of the lower bound of \hyperref[cost:2DFAto1DFAu]{\TDFA{}\tto\ODFA}).
 \end{itemize}
 \paragraph{\ONFA{}\tto\TDFA}\label{cost:1NFAto2DFAu}
 \begin{itemize}
 	\item $\le O(n^2)$: proven by \triplecite{Chr86},
-	\item $\ge \Omega(n^2)$: proven by \triplecite{Chr86}.
+	\item $\ge \Omega(n^2)$: proven by \triplecite{Chr86},
+	\item solved Sakoda and Sipser problem for the unary case.
 \end{itemize}
 \paragraph{\TNFA{}\tto\ODFA}\label{cost:2NFAto1DFAu}
 \begin{itemize}
@@ -284,7 +289,7 @@ Here we give a description of each nontrivial result in \Cref{tab:sims-core-unar
 \paragraph{\TNFA{}\tto\ONFA}
 \begin{itemize}
 	\item $\le\CsubLe$: by using construction for \hyperref[cost:2NFAto1DFAu]{\TNFA{}\tto\ODFA}, which is $\le\exp$, combined with $\Ctriv$ \ODFA{}\tto\ONFA,
-	\item $\ge\CsubGe$: otherwise \hyperref[cost:2DFAto1NFAu]{\TDFA{}\tto\ONFA} would be less than $\CsubLe$ since \TDFA{}\tto\TNFA is $\Ctriv$
+	\item $\ge\CsubGe$: otherwise \hyperref[cost:2DFAto1NFAu]{\TDFA{}\tto\ONFA} would be less than $\CsubLe$ since \TDFA{}\tto\TNFA is $\Ctriv$.
 \end{itemize}
 \paragraph{\TNFA{}\tto\TDFA}\label{cost:2NFAto2DFAu}
 \begin{itemize}
@@ -297,16 +302,16 @@ Here we give a description of each nontrivial result in \Cref{tab:sims-core-unar
 \begin{table}
 	\centering
 	\renewcommand{\arraystretch}{1.2}
-	\renewcommand{\hstdef}{.55}
-	\begin{tabular}{|l|l|l|p{4.3em}|l|l|p{3.1em}|}
+	\renewcommand{\hstdef}{1.75}
+	\begin{tabular}{|l|p{4.2em}|l|p{4.3em}|l|l|p{4.3em}|}
 		\hline
-		~     & \ODFA           & \ONFA           & \TDFA                                            & \TNFA     & \OLA      & \ODLA                          \\ \hline
-		\ODFA & \cY             & $\Cctriv$       & $\Cctriv$                                        & $\Cctriv$ & $\Cctriv$ & $\Cctriv$                      \\ \hline
-		\ONFA & \rbt{$\CsubEq$} & \cY             & \cR $\Theta(n^2)$                                & $\Cctriv$ & $\Cctriv$ & \cB $\le\Cexp\hst$ $\ge\Cpoly$ \\ \hline
-		\TDFA & \rbt{$\CsubEq$} & \rbt{$\CsubEq$} & \cY                                              & $\Cctriv$ & $\Cctriv$ & $\Cctriv$                      \\ \hline
-		\TNFA & \rbt{$\CsubEq$} & \rbt{$\CsubEq$} & \cR \rbt[.4]{$\le\Csubln$} \rbt[.3]{$\ge\Cpoly$} & \cY       & $\Cctriv$ & \cB $\le\Cexp\hst$ $\ge\Cpoly$ \\ \hline
-		\OLA  & $\Cdexp$        & $\Cexp$         & \cG $\le\Cdexp\hst[1.25]$ $\ge\Cexp$             & $\Cexp$   & \cY       & \cG $\le\Cdexp$ $\ge\Cexp$     \\ \hline
-		\ODLA & $\Cexp$         & $\Cexp$         & $\Cexp$                                          & $\Cexp$   & $\Cctriv$ & \cY                            \\ \hline
+		~     & \ODFA                            & \ONFA           & \TDFA                                            & \TNFA     & \OLA      & \ODLA                                            \\ \hline
+		\ODFA & \cY                              & $\Cctriv$       & $\Cctriv$                                        & $\Cctriv$ & $\Cctriv$ & $\Cctriv$                                        \\ \hline
+		\ONFA & \rbt{$\CsubEq$}                  & \cY             & \cR $\Theta(n^2)$                                & $\Cctriv$ & $\Cctriv$ & \cB $O(n^2)$                                     \\ \hline
+		\TDFA & \rbt{$\CsubEq$}                  & \rbt{$\CsubEq$} & \cY                                              & $\Cctriv$ & $\Cctriv$ & $\Cctriv$                                        \\ \hline
+		\TNFA & \rbt{$\CsubEq$}                  & \rbt{$\CsubEq$} & \cR \rbt[.3]{$\le\Csubln$} \rbt[.2]{$\ge\Cpoly$} & \cY       & $\Cctriv$ & \cB \rbt[.3]{$\le\Csubln$} \rbt[.2]{$\ge\Cpoly$} \\ \hline
+		\OLA  & $\le\Cdexp\hst[1.15]$ $\ge\Cexp$ & $\Cexp$         & \cG $\Cexp$                                      & $\Cexp$   & \cY       & \cG $\le\Cexp\hst$ $\ge\Cpoly$                   \\ \hline
+		\ODLA & $\Cexp$                          & $\Cexp$         & $\Cexp$                                          & $\Cexp$   & $\Cctriv$ & \cY                                              \\ \hline
 	\end{tabular}
 	\caption{Descriptional complexity of the simulations between basic regular language recognisers and $1$-limited automata, unary case.}
 	\label{tab:sims-1la-unary}
@@ -359,7 +364,8 @@ Here we give a description of each nontrivial result that hasn't been explained 
 \paragraph{\OLA{}\tto\TDFA}
 \begin{itemize}
 	\item $\le\exp$: by using construction for \hyperref[cost:1LAto1NFAu]{\OLA{}\tto\ONFA}, which is $\le\exp$, combined with $O(n^2)$ \hyperref[cost:1NFAto2DFAu]{\ONFA{}\tto\TDFA},
-	\item $\ge\exp$: otherwise \hyperref[cost:1DLAto2DFAu]{\ODLA{}\tto\TDFA} would be less than $\exp$ since \ODLA{}\tto\OLA is $\Ctriv$.
+	\item $\ge\exp$: otherwise \hyperref[cost:1DLAto2DFAu]{\ODLA{}\tto\TDFA} would be less than $\exp$ since \ODLA{}\tto\OLA is $\Ctriv$,
+	\item solved harder form of the Sakoda and Sipser conjecture with extended \TNFA.
 \end{itemize}
 \paragraph{\OLA{}\tto\TNFA}
 \begin{itemize}
@@ -387,7 +393,7 @@ Here we give a description of each nontrivial result that hasn't been explained 
 				\TDFA   & \rbt{$\CsubEq$}                    & \rbt{$\CsubEq$}                   & \cY                                              & $\Cctriv$                       & $\Cctriv$ & $\Cctriv$                                        \\ \hline
 				\TNFA   & \rbt{$\CsubEq$}                    & \rbt{$\CsubEq$}                   & \cR \rbt[.4]{$\le\Csubln$} \rbt[.3]{$\ge\Cpoly$} & \cY                             & $\Cctriv$ & \cB \rbt[.4]{$\le\Csubln$} \rbt[.3]{$\ge\Cpoly$} \\ \hline
 				\OMOLA  & $\le\Cdexp\hst[2.35]$ $\ge\CsubGe$ & $\le\Cexp\hst[2.85]$ $\ge\CsubGe$ & \cG $\le\Cexp\hst$ $\ge\Cpoly$                   & $\le\Cexp\hst[.35]$ $\ge\Cpoly$ & \cY       & \cG $\le\Cexp\hst$ $\ge\Cpoly$                   \\ \hline
-				\OMODLA & $\le\Cexp\hst[2.85]$ $\ge\CsubGe$  & $\le\Cexp\hst[2.85]$ $\ge\CsubGe$ & \cG $O(n^3)$                                     & $O(n^3)$                        & $\Cctriv$ & \cY                                              \\ \hline
+				\OMODLA & $\le\Cexp\hst[2.85]$ $\ge\CsubGe$  & $\le\Cexp\hst[2.85]$ $\ge\CsubGe$ & $O(n^3)$                                         & $O(n^3)$                        & $\Cctriv$ & \cY                                              \\ \hline
 			\end{tabular}
 		\end{minipage}%
 	}
