@@ -1,4 +1,4 @@
-\begin{tikzpicture}[tapeseg/.append style={minimum width=2.5em},mirrorbrace/.style={decorate,decoration={brace,mirror}}]
+\begin{tikzpicture}[tapeseg/.append style={minimum width=2.5em}]
 	\node[cell,thick] (wn) {$\raisebox{2.7mm}{$\scriptstyle \sigma_n$}\hspace{-1.5mm}w_n$};
 	\draw[shorten >=6pt,shorten <=7pt] ([yshift=-2.1mm]wn.north east) -- ([shift={(1mm,0.3mm)}]wn.south west);
 	\node[tapeseg,thick] [minimum width=0, right=-0.5mm of wn] (rem) {\Large$\rem$};

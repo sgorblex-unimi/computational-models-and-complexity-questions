@@ -1,4 +1,4 @@
-\begin{tikzpicture}[tapeseg/.append style={minimum width=2.5em},mirrorbrace/.style={decorate,decoration={brace,mirror}}]
+\begin{tikzpicture}[tapeseg/.append style={minimum width=2.5em}]
 	% \node[cell,thick] (wi) {$w_i$};
 	\node[cell,thick] (wi) {$\raisebox{2.7mm}{$\scriptstyle \sigma_i$}\hspace{-1.5mm}w_i$};
 	\draw[shorten >=6pt,shorten <=7pt] ([yshift=-2.1mm]wi.north east) -- ([shift={(1mm,0.3mm)}]wi.south west);

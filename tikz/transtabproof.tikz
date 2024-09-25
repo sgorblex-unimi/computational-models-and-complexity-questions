@@ -1,4 +1,4 @@
-\begin{tikzpicture}[mirrorbrace/.style={decorate,decoration={brace,mirror}}]
+\begin{tikzpicture}
 	% cells
 	\node[cell] (sigma) {$\sigma$};
 	\node[tapeseg,node distance=10pt] (x) [left=of sigma]{$x$};
