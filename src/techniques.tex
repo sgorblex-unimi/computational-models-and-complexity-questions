@@ -322,24 +322,33 @@ The following lemma proves a one-to-one equivalence of computations of $A'$ and 
 \begin{lemm}\label{lem:transtab2DFA}
 	For each $w\in\Sigma\star$ and $p\in Q$, $\delta'(q'_I,w)=(\tau_w,p)$ if and only if the computation of $A$ on input $w$ passes the last symbol of $w$ to the right for the first time in state $p$.
 \end{lemm}
+
+
+\begin{figure}
+	\centering
+	\input{tikz/transtabproof.tikz}
+	\caption{The computation of $A$ involved in the induction step of the proof of \Cref{lem:transtab2DFA}.
+		The computation path labeled $(1)$ corresponds to $\delta'(q'_I,x)=r$ by induction hypothesis, while the path labeled $(2)$ corresponds to $\tau_w(r)=p$, which is given in $\Rightarrow)$ and derived in $\Leftarrow)$.}
+	\label{fig:transtabproof}
+\end{figure}
+
 \begin{proof}
 	By induction on $w$:
 	\begin{description}
 		\item[Base] $\delta'(q'_I,\emptyword)=q'_I=(\tau_\lem,s)$, where $\delta(q_I,\lem)=(s,\tr)$. The statement is trivially proven.
-		      % TODO: PICTURE(s)
-		\item[Step] Given $x\in\Sigma\star$ and $r\in Q$, assume $\delta'(q'_I,x)=(\tau_x,r)$ if and only if there exists a computation of $A$ on input $x$ that passes the last symbol of $x$ for the first time in state $r$, and let the tape contain $w=x\sigma$, with $\sigma\in\Sigma$.
+		\item[Step] Given $x\in\Sigma\star$ and $r\in Q$, assume $\delta'(q'_I,x)=(\tau_x,r)$ if and only if there exists a computation of $A$ on input $x$ that passes the last symbol of $x$ for the first time in state $r$, and let the tape contain $w=x\sigma$, with $\sigma\in\Sigma$. The computation path is represented in \Cref{fig:transtabproof} $(1)$.
 		      \begin{description}
 			      \item[$\Rightarrow$)] Assume $\delta'(q'_I,w)=(\tau_w,p)$.
 			            We have $\delta'(q'_I,w)=\delta'(\delta'(q'_I,x),\sigma)$, with $\delta'(q'_I,x)=(\tau_x,r)$ for some $r\in Q$.
 			            By induction hypothesis, there exists a computation of $A$ on input $x\sigma$ that reads $\sigma$ for the first time in state $r$.
 			            By definition of $\delta'$, we have that $p=\tau_w(r)$.
-			            By definition of transition table, there is a computation path that starts in state $r$ scanning $\sigma$ and first passes it to the right in state $p$ (after possibly scanning the left part of the tape that ends in $\sigma$).
+			            By definition of transition table, there is a computation path that starts in state $r$ scanning $\sigma$ and first passes it to the right in state $p$ (after possibly scanning the left part of the tape that ends in $\sigma$, see \Cref{fig:transtabproof} $(2)$).
 			            By combining the two computations we obtain the desideratum.
 			      \item[$\Leftarrow$)] Assume that there exists a computation of $A$ on input $w=x\sigma$ that passes $\sigma$ for the first time in state $r$.
-			            Such computation can be split into two parts, the former ending when $\sigma$ is first read in a state $r$.
+			            Such computation can be split into two parts ($(1)$ and $(2)$ in \Cref{fig:transtabproof}), the former ending when $\sigma$ is first read in a state $r$.
 			            By applying the induction hypothesis on the first part of the computation, we obtain $\delta'(q'_I,x)=(\tau_x,r)$.
 			            The second part of the computation describes a path that starts in state $r$ on $\sigma$ and first ends to its right in state $p$, therefore $\tau_w(r)=p$.
-			            By definition of $\delta'$ we have $\delta'((\tau_x,r),\sigma)=(\tau_w,\tau_w(r))=(\tau_w,p)$.
+			            By definition of $\delta'$ we have $\delta'((\tau_x,r),\sigma)=(\tau_w,\tau_w(r))=(\tau_w,p)$. \qedhere
 		      \end{description}
 	\end{description}
 \end{proof}
