@@ -1,35 +1,34 @@
 \begin{tikzpicture}
-	\node[cell] (Y) {$Y$};
-	\draw (Y.north west) -- ++(-2cm,0) (Y.south west) -- ++ (-2cm,0);
-	\draw[dashed] ([xshift=-2cm]Y.north west) -- ++(-1cm,0) ([xshift=-2cm]Y.south west) -- ++ (-1cm,0);
-	\node[tapeseg,node distance=10pt] (z) [left=of Y]{$z'$};
-	\node[tapeseg,node distance=8pt] (w) [right=of Y]{$w$};
-	\draw (Y.north east) -- ++(1cm,0) (Y.south east) -- ++ (1cm,0);
-	\draw[dashed] ([xshift=1cm]Y.north east) -- ++(1cm,0) ([xshift=1cm]Y.south east) -- ++ (1cm,0);
-	\node (p) [below=.35 cm of Y] {$p$};
-	\node[tapeseg,node distance=1pt] (qalign) [right=of Y] {};
+	\node[cell] (sigma) {$\sigma$};
+	\draw (sigma.north west) -- ++(-2cm,0) (sigma.south west) -- ++ (-2cm,0);
+	\draw[dashed] ([xshift=-2cm]sigma.north west) -- ++(-1cm,0) ([xshift=-2cm]sigma.south west) -- ++ (-1cm,0);
+	\node[tapeseg,node distance=10pt] (x) [left=of sigma]{$x$};
+	\draw (sigma.north east) -- ++(5mm,0) (sigma.south east) -- ++ (5mm,0);
+	\draw[dashed] ([xshift=5mm]sigma.north east) -- ++(1cm,0) ([xshift=5mm]sigma.south east) -- ++ (1cm,0);
+	\node (p) [below=.35 cm of sigma] {$p$};
+	\node[tapeseg,node distance=1pt] (qalign) [right=of sigma] {};
 	\node[tapeseg] (qalign2) [below=.2 of qalign] {};
 	\node (q) [below=.35 of qalign2] {$q$};
-	\draw[-latex,shorten >=1pt] (p) -- (Y);
+	\draw[-latex,shorten >=1pt] (p) -- (sigma);
 	\draw[->]	(p.south) -- ++(-2cm,-.12cm)
 	-- ++(+.9cm,-.09cm) -- ++(-1.8cm,-.10cm)
 	-- ++(2.9cm,-.12cm) -- ++(-1.55cm,-.10cm)
 	-- (q.south);
 	\draw[-latex] (q) -- (qalign2);
 	\draw[dashed,shorten <=.1cm]
-	(Y.south west) -- ++(0cm,-1.5cm);
+	(sigma.south west) -- ++(0cm,-1.5cm);
 	\draw[dashed,shorten <=.1cm]
-	(Y.south east) -- ++(0cm,-1.5cm);
+	(sigma.south east) -- ++(0cm,-1.5cm);
 
-	% manual brace for z
-	\draw ([yshift=1mm]Y.north east) .. controls +(0mm,.2mm) and +(.5mm,0mm) .. ++(-1mm,.5mm);
-	\draw ([shift={(-1mm,1.5mm)}]Y.north east) -- ++(-5mm,0);
-	\draw ([shift={(-6mm,1.5mm)}]Y.north east) .. controls +(-.6mm,0mm) and +(0mm,0mm) .. ++(-.9mm,.6mm);
-	\draw ([shift={(-6.9mm,2.1mm)}]Y.north east) .. controls +(-.3mm,-.6mm) and +(0mm,0mm) .. ++(-.9mm,-.6mm);
-	\draw ([shift={(-7.8mm,1.5mm)}]Y.north east) -- ++(-17.5mm,0);
-	\draw[dashed] ([shift={(-25.3mm,1.5mm)}]Y.north east) -- ++(-1cm,0);
-	\node (z) at ([shift={(-4.3mm,7mm)}]Y) {$z$};
+	% manual brace for w
+	\draw ([yshift=1mm]sigma.north east) .. controls +(0mm,.2mm) and +(.5mm,0mm) .. ++(-1mm,.5mm);
+	\draw ([shift={(-1mm,1.5mm)}]sigma.north east) -- ++(-5mm,0);
+	\draw ([shift={(-6mm,1.5mm)}]sigma.north east) .. controls +(-.6mm,0mm) and +(0mm,0mm) .. ++(-.9mm,.6mm);
+	\draw ([shift={(-6.9mm,2.1mm)}]sigma.north east) .. controls +(-.3mm,-.6mm) and +(0mm,0mm) .. ++(-.9mm,-.6mm);
+	\draw ([shift={(-7.8mm,1.5mm)}]sigma.north east) -- ++(-17.5mm,0);
+	\draw[dashed] ([shift={(-25.3mm,1.5mm)}]sigma.north east) -- ++(-1cm,0);
+	\node (w) at ([shift={(-4.3mm,7mm)}]sigma) {$w$};
 
-
+	% needed to render correctly an arrow
 	\node (spacing) [below=-1.8mm of q] {};
 \end{tikzpicture}

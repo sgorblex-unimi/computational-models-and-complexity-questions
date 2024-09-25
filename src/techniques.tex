@@ -274,24 +274,24 @@ This lets us encapsulate all computations of the \TDFA in a finite set of states
 	A transition table is assigned to each word. In particular:
 	\begin{rules}
 		\item for each $r\in Q$, $\tau_\lem(r):=s$, where $\delta(r,\lem)=(s,\tr)$,
-		\item for each $r\in Q,w\in\Sigma\star,\sigma\in\Sigma$, $\tau_{w\sigma}(r):=s$, if either $\delta(r,a)=(s,\tr)$, or there exist an integer $k\ge1$ and states $q_1,\dots,q_k,r_1,\dots,r_k$ such that
+		\item for each $r\in Q,x\in\Sigma\star,\sigma\in\Sigma$, $\tau_{x\sigma}(r):=s$, if either $\delta(r,a)=(s,\tr)$, or there exist an integer $k\ge1$ and states $q_1,\dots,q_k,r_1,\dots,r_k$ such that
 		\begin{itemize}
 			\item $\delta(r,a)=(q_1,\tl)$,
-			\item $\tau_w(q_i)=r_i$ for all $i\in\set{1,\dots,k}$,
+			\item $\tau_x(q_i)=r_i$ for all $i\in\set{1,\dots,k}$,
 			\item $\delta(r_i,\sigma)=(q_{i+1},\tl)$ for all $i\in\set{1,\dots,k-1}$, and
 			\item $\delta(q_k,\sigma)=(s,\tr)$.
 		\end{itemize}
 	\end{rules}
 	We denote with $\transtabset$ the set of the transition tables of $A$.
-	Notice that if $\tau_w$ is known, knowledge of $w$ is not needed to calculate $\tau_{w\sigma}$.
-	This implies that $\transtabset$ is finite, and lets us define, for each $\sigma\in\Sigma$, the function $t_\sigma:\transtabset\to\transtabset$ that maps a transition table $\tau_w$ to $\tau_{w\sigma}$.
+	Notice that if $\tau_x$ is known, knowledge of $x$ is not needed to calculate $\tau_{x\sigma}$.
+	This implies that $\transtabset$ is finite, and lets us define, for each $\sigma\in\Sigma$, the function $t_\sigma:\transtabset\to\transtabset$ that maps a transition table $\tau_x$ to $\tau_{x\sigma}$.
 \end{defn}
 
 \begin{figure}
 	\centering
 	\input{tikz/transtable.tikz}
-	\caption{Representation of $\tau_z(p)=q$, or, equivalently, $t_Y(\tau_{z'})(p)=q$.
-		The relative path starts in state $p$ with the head scanning the last symbol $Y$ of $z$, performs a computation on the left part of the tape ending with $Y$, and eventually passes it to the right in state $q$.}
+	\caption{Representation of $\tau_w(p)=q$, or, equivalently, $t_\sigma(\tau_x)(p)=q$.
+		The relative path starts in state $p$ with the head scanning the last symbol $\sigma$ of $w$, performs a computation on the left part of the tape ending with $\sigma$, and eventually passes it to the right in state $q$.}
 	\label{fig:transtab}
 \end{figure}
 
