@@ -1,0 +1,11 @@
+\renewcommand{\hstdef}{.55}
+\begin{tabular}{|l|l|l|p{3.1em}|l|l|p{3.1em}|}
+	\hline
+	~     & \ODFA              & \ONFA     & \TDFA                                            & \TNFA     & \OLA      & \ODLA                                            \\ \hline
+	\ODFA & \cY                & $\Cctriv$ & $\Cctriv$                                        & $\Cctriv$ & $\Cctriv$ & $\Cctriv$                                        \\ \hline
+	\ONFA & $\Cexp$            & \cY       & \cR $\le\Cexp\hst$ $\ge\Cpoly$                   & $\Cctriv$ & $\Cctriv$ & \cB $\le\Cexp\hst$ $\ge\Cpoly$                   \\ \hline
+	\TDFA & $\Cexp$            & $\Cexp$   & \cY                                              & $\Cctriv$ & $\Cctriv$ & $\Cctriv$                                        \\ \hline
+	\TNFA & $\Cexp$            & $\Cexp$   & \cR $\le\Cexp\hst$ $\ge\Cpoly$                   & \cY       & $\Cctriv$ & \cB $\le\Cexp\hst$ $\ge\Cpoly$                   \\ \hline
+	\OLA  & \rbt[.2]{$\Cdexp$} & $\Cexp$   & \cG \rbt[.2]{$\le\Cdexp\hst[.1]$} $\ge\Cexp\hst$ & $\Cexp$   & \cY       & \cG \rbt[.2]{$\le\Cdexp\hst[.1]$} $\ge\Cexp\hst$ \\ \hline
+	\ODLA & $\Cexp$            & $\Cexp$   & $\Cexp$                                          & $\Cexp$   & $\Cctriv$ & \cY                                              \\ \hline
+\end{tabular}

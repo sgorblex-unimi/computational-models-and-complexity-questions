@@ -1,0 +1,12 @@
+\renewcommand{\arraystretch}{1.2}
+\renewcommand{\hstdef}{1.75}
+\begin{tabular}{|l|p{4.2em}|l|p{4.3em}|l|l|p{4.3em}|}
+	\hline
+	~     & \ODFA                            & \ONFA           & \TDFA                                            & \TNFA     & \OLA      & \ODLA                                            \\ \hline
+	\ODFA & \cY                              & $\Cctriv$       & $\Cctriv$                                        & $\Cctriv$ & $\Cctriv$ & $\Cctriv$                                        \\ \hline
+	\ONFA & \rbt{$\CsubEq$}                  & \cY             & \cR $\Theta(n^2)$                                & $\Cctriv$ & $\Cctriv$ & \cB $O(n^2)$                                     \\ \hline
+	\TDFA & \rbt{$\CsubEq$}                  & \rbt{$\CsubEq$} & \cY                                              & $\Cctriv$ & $\Cctriv$ & $\Cctriv$                                        \\ \hline
+	\TNFA & \rbt{$\CsubEq$}                  & \rbt{$\CsubEq$} & \cR \rbt[.3]{$\le\Csubln$} \rbt[.2]{$\ge\Cpoly$} & \cY       & $\Cctriv$ & \cB \rbt[.3]{$\le\Csubln$} \rbt[.2]{$\ge\Cpoly$} \\ \hline
+	\OLA  & $\le\Cdexp\hst[1.15]$ $\ge\Cexp$ & $\Cexp$         & \cG $\Cexp$                                      & $\Cexp$   & \cY       & \cG $\le\Cexp\hst$ $\ge\Cpoly$                   \\ \hline
+	\ODLA & $\Cexp$                          & $\Cexp$         & $\Cexp$                                          & $\Cexp$   & $\Cctriv$ & \cY                                              \\ \hline
+\end{tabular}

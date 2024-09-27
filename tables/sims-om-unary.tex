@@ -1,0 +1,17 @@
+\makebox[\textwidth]{%
+	\begin{minipage}{\dimexpr\textwidth+\oddsidemargin+\evensidemargin\relax}
+		\centering
+		\renewcommand{\arraystretch}{1.2}
+		\renewcommand{\hstdef}{1.75}
+		\begin{tabular}{|l|p{5.4em}|p{5.4em}|p{4.3em}|p{2.9em}|l|p{4.3em}|}
+			\hline
+			~       & \ODFA                              & \ONFA                             & \TDFA                                            & \TNFA                           & \OMOLA    & \OMODLA                                          \\ \hline
+			\ODFA   & \cY                                & $\Cctriv$                         & $\Cctriv$                                        & $\Cctriv$                       & $\Cctriv$ & $\Cctriv$                                        \\ \hline
+			\ONFA   & \rbt{$\CsubEq$}                    & \cY                               & \cR $\Theta(n^2)$                                & $\Cctriv$                       & $\Cctriv$ & \cB $O(n^2)$                                     \\ \hline
+			\TDFA   & \rbt{$\CsubEq$}                    & \rbt{$\CsubEq$}                   & \cY                                              & $\Cctriv$                       & $\Cctriv$ & $\Cctriv$                                        \\ \hline
+			\TNFA   & \rbt{$\CsubEq$}                    & \rbt{$\CsubEq$}                   & \cR \rbt[.4]{$\le\Csubln$} \rbt[.3]{$\ge\Cpoly$} & \cY                             & $\Cctriv$ & \cB \rbt[.4]{$\le\Csubln$} \rbt[.3]{$\ge\Cpoly$} \\ \hline
+			\OMOLA  & $\le\Cdexp\hst[2.35]$ $\ge\CsubGe$ & $\le\Cexp\hst[2.85]$ $\ge\CsubGe$ & \cG $\le\Cexp\hst$ $\ge\Cpoly$                   & $\le\Cexp\hst[.35]$ $\ge\Cpoly$ & \cY       & \cG $\le\Cexp\hst$ $\ge\Cpoly$                   \\ \hline
+			\OMODLA & $\le\Cexp\hst[2.85]$ $\ge\CsubGe$  & $\le\Cexp\hst[2.85]$ $\ge\CsubGe$ & $O(n^3)$                                         & $O(n^3)$                        & $\Cctriv$ & \cY                                              \\ \hline
+		\end{tabular}
+	\end{minipage}%
+}
