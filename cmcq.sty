@@ -1,3 +1,9 @@
+\newif\if@ironic
+\DeclareOption{ironic}{\@ironictrue}
+\ProcessOptions\relax
+
+\newcommand{\ironic}[2]{\if@ironic#1\else#2\fi}
+
 % MATHS
 \usepackage{amsmath,amssymb,amsthm}
 \usepackage[capitalise]{cleveref}
@@ -52,6 +58,7 @@
 \usepackage{caption}
 \captionsetup{tableposition=bottom,figureposition=bottom,font=small,labelfont={sf,bf}}%,format=hang}
 \usepackage{subcaption}
+\usepackage{makecell}
 
 \usepackage{tikz}
 \usetikzlibrary{external}
@@ -92,6 +99,9 @@
 % ALIASES
 
 % MODELS
+\newcommand{\TM}{\textsc{tm}\xspace}
+\newcommand{\LBA}{\textsc{lba}\xspace}
+\newcommand{\PDA}{\textsc{pda}\xspace}
 \newcommand{\NFA}{\textsc{nfa}\xspace}
 \newcommand{\ONFA}{\textsc{1nfa}\xspace}
 \newcommand{\TNFA}{\textsc{2nfa}\xspace}

@@ -1,0 +1,83 @@
+\chapter{Context and motivation}
+
+
+
+\section{Formal language and automata theory}
+Formal language theory is a fundamental field of theoretical computer science which studies languages, \ie sets of strings, and finite ways to represent them.
+
+\paragraph{Language descriptions} These finite representations span different paradigms: for example, we might state a property that holds on the strings belonging to the language, or construct a generative or a recognizing model.
+Generative models, typically grammars, define a list of rules that can be used to generate the strings in the desired language.
+Recognizing computational models consist in abstract machines that can determine, in a certain number of steps, if a given string belongs to the chosen language.
+
+\paragraph{The Chomsky hierarchy} Different models for the description of languages characterize possibly different language classes, originating what is commonly known as the Chomsky hierarchy \cite{Cho56}.
+\ironic{Although his attempt to create a model generating the English language failed miserably, \citeauthor{Cho56} accidentally founded an entire field of computer science, which is somehow still researched to this day by people like the undersigned.}{}
+The hierarchy, originally described for grammars, spans four language classes, each one strictly containing the following ones (see \Cref{tab:chomsky} for a summary):
+\begin{itemize}
+	\item \emph{recursively enumerable}, characterized by Turing machines (\TM),
+	\item \emph{context-sensitive}, characterized by linear bounded automata (\LBA),
+	\item \emph{context-free}, characterized by pushdown automata (\PDA),
+	\item \emph{regular}, characterized by finite state automata (\DFA).
+\end{itemize}
+
+\begin{table}
+	\centering
+	\renewcommand{\arraystretch}{1.2}
+	\begin{tabular}{lll}
+		\toprule
+		\textsc{Language class} & \textsc{Recognizer}          & \textsc{Production rules}          \\
+		\midrule
+		Recursively enumerable  & Turing machine               & $\gamma\to\alpha$                  \\
+		Context-sensitive       & \makecell[lt]{Linear bounded                                      \\automata} & $\alpha A\beta\to\alpha\gamma\beta$   \\
+		Context-free            & Pushdown automata            & $A\to\alpha$                       \\
+		Regular                 & Finite state automata        & \makecell[lt]{$A\to a$, $A\to aB$, \\$A\to\emptyword$} \\
+		\bottomrule
+	\end{tabular}
+	\caption{The Chomsky hierarchy. Each class is listed along its canonical recognizer and the type of rules in generating grammars. In the production rules, $\emptyword$ is the empty string, $a$ is a terminal symbol, $A$ and $B$ are non-terminal symbols, and $\alpha$, $\beta$ and $\gamma$ are generic strings, with $\gamma\ne\emptyword$.}
+	\label{tab:chomsky}
+\end{table}
+
+\paragraph{Nondeterminism} A very important concept in formal language theory is the one of nondeterminism.
+At a given time of its computation, a nondeterministic machine has possibly multiple choices on the next step, which implies the possibility of several computation paths given the same input.
+We say that a nondeterministic machine accepts a string if there exists a computation path over that string which brings the machine to accept.
+
+One of the very first problems of the field was to determine if the nondeterministic and deterministic versions of the same computational model accept the same language class.
+While this was found to be the case for the canonical recognizers of recursively enumerable, context-sensitive and regular languages, \citeauthor{Fis63} and \citeauthor{Sch63} proved that deterministic pushdown automata accept a smaller class than their nondeterministic counterpart \cite{Fis63,Sch63}.
+In particular, concerning the regular language class, \citeauthor{RabSco59} found in \citeyear{RabSco59} a construction, today known as the subset construction, that lets a deterministic finite automaton (\NFA) simulate a deterministic one (\DFA) \cite{RabSco59}.
+
+\paragraph{Two-way models} In the same article, \citeauthor{RabSco59} defined two-way nondeterministic and deterministic finite automata (\TNFA and \TDFA).
+These models act in a similar way to the classic, one-way finite automata (also indicated with \ONFA and \ODFA), where the input is read one symbol at a time and the machine changes state depending on the scanned symbol and the current state; however, while one-way machines read the input symbols subsequently from left to right, two-way models can move left or right freely, as described by the transition rules.
+\citeauthor{RabSco59} proved that these new models also characterize regular languages, by simulating them with a \ONFA with a construction based on crossing sequences (more in \Cref{sec:crossseq2DFA}).
+The same result was found in parallel by \citeauthor{She59}, who used a different construction based on transition tables (see \Cref{sec:transtab2DFA}) \cite{She59}.
+
+
+
+\section{Descriptional complexity}
+
+\paragraph{Model size bounds} With many equivalent computational models accepting the same language classes, questions naturally arose about comparisons between them.
+In \citeyear{MeyFis71}, \citeauthor{MeyFis71} proposed to compare different descriptions for a language class by their size, that is, by how succinctly they can describe the chosen language \cite{MeyFis71}.
+Concretely, this typically means comparing the size of the components of the various models, such as the number of states of the size of the working alphabet.
+
+From the construction given by \cite{RabSco59}, it followed that each \NFA can be simulated by a \DFA by paying an exponential cost in the number of states.
+In their article, \citeauthor{MeyFis71} proved that there exist languages for which this difference in size cannot be avoided, therefore giving the a tight bound on the cost of removing nondeterminism from one-way finite automata.
+
+\paragraph{The Sakoda and Sipser conjecture} Given the exponential distance between the sizes of the nondeterministic and deterministic one-way models, the natural next step is to compare their two-way counterparts.
+The afore-mentioned constructions by crossing sequences (\cite{RabSco59}) and transition tables (\cite{She59}) gave an exponential upper bound on the simulation of \TNFA or \TDFA by \ONFA or \ODFA.
+An exponential lower bound on the simulation of \TNFA by \ODFA is a direct consequence of the one on the simulation of \ONFA by \ODFA.
+Later, thanks to \citeauthor{Bir93} (\citeyear{Bir93}) and \citeauthor{Kap05} (\citeyear{Kap05}), matching exponential lower bounds were found for the simulations of \TDFA by \ONFA and \ODFA and of \TNFA by \ONFA \cite{Bir93,Kap05}.
+These descriptional complexity results for regular language acceptors, summarized in \Cref{tab:sims-core-general-context}, leave only two open problems: the simulations by \TDFA of \TNFA and \ONFA.
+
+\begin{table}
+	\centering
+	\input{tables/sims-core-general.tex}
+	\caption{Costs of the simulations between regular language recognisers.}
+	\label{tab:sims-core-general-context}
+\end{table}
+
+These simulation costs were first discussed by \cite{SakSip78} in \citeyear{SakSip78}, as the problem of using deterministic two-way movement to simulate nondeterministic computations.
+In their article, they describe a parallelism between this problem and the famous \textsc{P} versus \textsc{NP} problem for time complexity classes, and conjecture that the costs of those simulations are exponential.
+
+% TODO: implications on L vs NL
+Later [\dots]
+
+% TODO: see thesis abroad project about ways the saksip conj has been fought
+Because of the importance of its repercussions, the Sakoda and Sipser problem has been tackled in many ways over the past decades, [\dots]
