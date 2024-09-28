@@ -17,7 +17,17 @@ The language accepted by a machine $M$ is denoted by $\genlang(M)$.
 	In this case, $\delta$ can be interpreted as a partial function, with the notation $\delta(s,\gamma)=t$ used as a shorthand for $\delta(s,\gamma)=\set{t}$.
 \end{defn}
 
+With an abuse of notation, we use $\delta$ to indicate both a transition function and its reflexive, transitive closure, possibly using strings for the second argument.
+
+Given a word $w=w_1 w_2\cdots w_n$, the reversal of $w$ is $w\rev:=w_n w_{n-1}\cdots w_1$.
+Given a language $L$, the reversal of $L$ is $L\rev:=\set{w\rev \mid w\in L}$.
+
 A machine working over a single letter alphabet is called unary, as its generated language.
+
+Given a transition function $\delta$, a set of states $S$, and a symbol $\sigma$, we define
+\begin{equation*}
+	\delta(S,\sigma):=\bigcup_{q\in S} \delta(q,\sigma) \text.
+\end{equation*}
 
 
 
