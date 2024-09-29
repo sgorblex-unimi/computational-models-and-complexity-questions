@@ -115,3 +115,33 @@
 	For each $n$-state \NFA accepting a language in the form $\gamma_1 L\gamma_2$, with $L\in\Sigma\star$ for some alphabet $\Sigma$ and $\gamma_1,\gamma_2\notin\Sigma$ are symbols, there exists an $n$-state \NFA accepting the language $L$.
 \end{coro}
 % TODO: context: explain what does this mean in terms of building simulations for two-way automata with end-markers
+
+
+
+\section{\NFA for the reversal}
+The next construction, originally introduced by \citeauthor{RabSco59} (\cite{RabSco59}), lets us build, from a \NFA accepting a language, a \NFA for its reversal, with no growth in size.
+\begin{thrm}
+	For every $n$-state \NFA $A$, there exists an $n$-state \NFA accepting $\genlang(A)\rev$.
+\end{thrm}
+\begin{proof}
+	Let $A:=(Q,\Sigma,\delta,q_I,F)$ a \NFA.
+	Define the \NFA $A':=(Q,\Sigma,\delta',I,F')$, where
+	\begin{itemize}
+		\item for all $q\in Q,\sigma\in\Sigma$, $\delta'(q,\sigma):=\delta^{-1}(q)=\set{p \mid \delta(p,\sigma)=q}$,
+		\item $I:=F$, and
+		\item $F':=\set{q_I}$.
+	\end{itemize}
+	The automaton is built so that its accepting computations correspond to accepting computations of $A$, reproduced from last to first.
+	We prove by induction on a word $w\in\Sigma\star$ that for every $q\in Q$, $\delta(q_I,w)\ni p$ if and only if $\delta'(p,w\rev)\ni q_I$:
+	\begin{description}
+		\item[Base] if $w=\emptyword$, $\delta(q_I,w)=\set{q_I}$ and $\delta'(q_I,w\rev)=\set{q_I}$.
+		\item[Step] if $w=x\sigma$, by induction hypothesis $\delta(q_I,x)\ni p$ if and only if $\delta(p,x\rev)\ni q_I$.
+		      \begin{description}
+			      \item[$\Rightarrow$)] For each $q\in Q$ such that $\delta(q_I,x\sigma)\ni q$, there exists a state $p\in Q$ such that $\delta(q_I,x)\ni p$ and $\delta(p,\sigma)\ni q$.
+			            By definition $\delta'(q,\sigma)\ni p$, and by induction hypothesis $\delta'(p,x\rev)\ni q_I$. Hence, $\delta'(q,\sigma x\rev)\ni q_I$.
+			      \item[$\Leftarrow$)] For each $q\in Q$ such that $\delta'(q,\sigma x\rev)\ni q_I$, there exists a state $p\in Q$ such that $\delta'(q,\sigma)\ni p$ and $\delta'(p,x\rev)\ni q_I$.
+			            This implies that $\delta(p,\sigma)\ni q$ and by induction hypothesis $\delta(q_I,x)\ni p$. Hence, $\delta(q_I,x\sigma)\ni q$.
+		      \end{description}
+	\end{description}
+	$A$ accepts $w$ if and only if there exists a state $q_f\in F$ such that $\delta(q_I,w)\ni q_f$, which holds if and only if $\delta'(q_f,w\rev)\ni q_I$, that is, since $q_f\in I\iff q_f\in F$, if $A'$ accepts $w\rev$.
+\end{proof}
