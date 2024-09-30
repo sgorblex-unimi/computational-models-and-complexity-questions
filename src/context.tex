@@ -58,7 +58,8 @@ In \citeyear{MeyFis71}, \citeauthor{MeyFis71} proposed to compare different desc
 Concretely, this typically means comparing the size of the components of the various models, such as the number of states of the size of the working alphabet.
 
 From the construction given by \cite{RabSco59}, it followed that each \NFA can be simulated by a \DFA by paying an exponential cost in the number of states.
-In their article, \citeauthor{MeyFis71} proved that there exist languages for which this difference in size cannot be avoided, therefore giving the a tight bound on the cost of removing nondeterminism from one-way finite automata.
+In their article, \citeauthor{MeyFis71} proved that there exist languages for which this difference in size cannot be avoided, therefore giving a tight bound on the cost of removing nondeterminism from one-way finite automata.
+\citeauthor{Moo71} achieved the same result independently in the same year \cite{Moo71}.
 
 \paragraph{The Sakoda and Sipser conjecture} Given the exponential distance between the sizes of the nondeterministic and deterministic one-way models, the natural next step is to compare their two-way counterparts.
 The afore-mentioned constructions by crossing sequences (\cite{RabSco59}) and transition tables (\cite{She59}) gave an exponential upper bound on the simulation of \TNFA or \TDFA by \ONFA or \ODFA.
@@ -73,11 +74,40 @@ These descriptional complexity results for regular language acceptors, summarize
 	\label{tab:sims-core-general-context}
 \end{table}
 
-These simulation costs were first discussed by \cite{SakSip78} in \citeyear{SakSip78}, as the problem of using deterministic two-way movement to simulate nondeterministic computations.
-In their article, they describe a parallelism between this problem and the famous \textsc{P} versus \textsc{NP} problem for time complexity classes, and conjecture that the costs of those simulations are exponential.
+These simulation costs were first discussed by \citeauthor{SakSip78} in \citeyear{SakSip78}, as the problem of using deterministic two-way movement to simulate nondeterministic computations \cite{SakSip78}.
+In their article, they describe a parallelism between this problem and the famous \cP versus \cNP problem for time complexity classes, and conjecture that the costs of those simulations are exponential.
 
-% TODO: implications on L vs NL
-Later [\dots]
+Later, new results around the unknown bound were found, which gave it more importance in the realm of computational complexity.
+Specifically, a relationship was found with the conjectured separation of the space complexity classes \cL and \cNL (deterministic and nondeterministic logarithmic space), the analogous for space complexity of the problem of \cP versus \cNP.
+\begin{enumerate}[(i)]
+	\item\label{itm:LvNL-1} In \citeyear{BerLin77}, \citeauthor{BerLin77} proved that if $\cL=\cNL$, every $n$-state \TNFA can be converted into a \TDFA of polynomial size in $n$ that agrees on all strings of length at most $n$.
+	      That is, if $\cL=\cNL$ then there exists a polynomial simulation of \TNFAs by \TDFAs on "short" inputs \cite{BerLin77}.
+	\item In \citeyear{GefPig11}, \citeauthor{GefPig11} proved that in the unary case the hypothesis on the input length is not needed.
+	      Note that this implies that if a superpolynomial simulation of \TNFAs by \TDFAs is found to be needed, even for the unary case, then $\cL\ne\cNL$.
+	\item In \citeyear{Kap14}, \citeauthor{Kap14} generalized \ref{itm:LvNL-1} for the class \cPolyL, the class of languages accepted by deterministic logspace bounded machines that can access a polynomial advice \cite{Kap14,KarLip82}. In this case, the converse also holds.
+	\item In \citeyear{KapPig12}, \citeauthor{KapPig12} proved that $\cNL\subseteq\cPolyL$ is equivalent to the existence of a size polynomial simulation of \TNFAs by \TDFAs for the unary case.
+\end{enumerate}
 
-% TODO: see thesis abroad project about ways the saksip conj has been fought
-Because of the importance of its repercussions, the Sakoda and Sipser problem has been tackled in many ways over the past decades, [\dots]
+Because of the importance of its repercussions, the Sakoda and Sipser problem has been tackled in many ways over the past decades, spanning four lines of development:
+\begin{itemize}
+	\item restrictions of the simulating machines (e.g. sweeping \cite{Sip80}, oblivious \cite{HroSch03}, and few reversals \cite{Kap13} automata),
+	\item restrictions of the language classes (especially the unary case \cite{GefMer+07}),
+	\item restrictions of the simulated machines (e.g. outer-nondeterministic automata \cite{GefGui+14,KapPig12}), and
+	\item expansions of simulating machines (e.g. limited automata \cite{PigPis14,PigPri19,GuiPri19,PigPri+22}, linear-time Turing machines \cite{Pru14,GuiPig+18,Hen65,GuiPig+23}).
+\end{itemize}
+While the question remains open in the general case, these recent findings encourage new investigations on this topic.
+
+An interesting review of old and recent results regarding two way automata and the Sakoda and Sipser problem, including a more in-depth analysis of some of the ones we mentioned here, was realized by \triplecite{Pig13}.
+
+
+\section{Limited automata}
+% TODO remember to cite WagWec86, Pig19, (PigPis15, Pig16, Yam19, KutPig+18)
+% TODO: check Pig19 and KutPig+18 for other sources
+
+
+\subsection{Sweeping k-limited automata}
+% mainly KutPig+18
+
+
+\subsection{Once-marking \texorpdfstring{$1$}{1}-limited automata}
+% mainly PigPri23a
