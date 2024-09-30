@@ -72,6 +72,18 @@
 \usepackage[isbn=false,citestyle=numeric-comp,sorting=none,sortcites=true]{biblatex}
 \addbibresource{bibliography.bib}
 
+\DeclareCiteCommand{\citefullauthor} % cite author with first and last name
+{\boolfalse{citetracker}%
+	\boolfalse{pagetracker}%
+	\DeclareNameAlias{labelname}{given-family}%
+	\usebibmacro{prenote}}
+{\ifciteindex
+	{\indexnames{labelname}}
+	{}%
+	\printnames{labelname}}
+{\multicitedelim}
+{\usebibmacro{postnote}}
+
 
 % ADVANCED SPACING COMMANDS
 
@@ -102,6 +114,7 @@
 \newcommand{\TM}{\textsc{tm}\xspace}
 \newcommand{\LBA}{\textsc{lba}\xspace}
 \newcommand{\PDA}{\textsc{pda}\xspace}
+\newcommand{\DPDA}{\textsc{dpda}\xspace}
 \newcommand{\NFA}{\textsc{nfa}\xspace}
 \newcommand{\ONFA}{\textsc{1nfa}\xspace}
 \newcommand{\TNFA}{\textsc{2nfa}\xspace}
@@ -117,6 +130,7 @@
 \newcommand{\OMOLA}{\textsc{om-$1$-la}\xspace}
 \newcommand{\OMODLA}{\textsc{om-$1$-dla}\xspace}
 
+\newcommand{\PDAs}{\PDA{}s\xspace}
 \newcommand{\DFAs}{\DFA{}s\xspace}
 \newcommand{\TDFAs}{\TDFA{}s\xspace}
 \newcommand{\NFAs}{\NFA{}s\xspace}

@@ -1,4 +1,6 @@
 \chapter{Context and motivation}
+% TODO: emph for model names the first time
+% TODO: check that sentences with citeauthor and citeyear also contain cite
 
 
 
@@ -41,8 +43,8 @@ At a given time of its computation, a nondeterministic machine has possibly mult
 We say that a nondeterministic machine accepts a string if there exists a computation path over that string which brings the machine to accept.
 
 One of the very first problems of the field was to determine if the nondeterministic and deterministic versions of the same computational model accept the same language class.
-While this was found to be the case for the canonical recognizers of recursively enumerable, context-sensitive and regular languages, \citeauthor{Fis63} and \citeauthor{Sch63} proved that deterministic pushdown automata accept a smaller class than their nondeterministic counterpart \cite{Fis63,Sch63}.
-In particular, concerning the regular language class, \citeauthor{RabSco59} found in \citeyear{RabSco59} a construction, today known as the subset construction, that lets a deterministic finite automaton (\NFA) simulate a deterministic one (\DFA) \cite{RabSco59}.
+While this was found to be the case for the canonical recognizers of recursively enumerable, context-sensitive and regular languages, \citeauthor{Fis63} and \citeauthor{Sch63} proved that deterministic pushdown automata accept a smaller class than their nondeterministic counterpart, called deterministic context-free languages \cite{Fis63,Sch63}.
+Concerning the regular language class, \citeauthor{RabSco59} found in \citeyear{RabSco59} a construction, today known as the subset construction, that lets a deterministic finite automaton (\NFA) simulate a deterministic one (\DFA) \cite{RabSco59}.
 
 \paragraph{Two-way models} In the same article, \citeauthor{RabSco59} defined two-way nondeterministic and deterministic finite automata (\TNFA and \TDFA).
 These models act in a similar way to the classic, one-way finite automata (also indicated with \ONFA and \ODFA), where the input is read one symbol at a time and the machine changes state depending on the scanned symbol and the current state; however, while one-way machines read the input symbols subsequently from left to right, two-way models can move left or right freely, as described by the transition rules.
@@ -61,15 +63,17 @@ From the construction given by \cite{RabSco59}, it followed that each \NFA can b
 In their article, \citeauthor{MeyFis71} proved that there exist languages for which this difference in size cannot be avoided, therefore giving a tight bound on the cost of removing nondeterminism from one-way finite automata.
 \citeauthor{Moo71} achieved the same result independently in the same year \cite{Moo71}.
 
+See \cite{KutMor+21} for a recent overview of descriptional complexity results and interesting topics.
+
 \paragraph{The Sakoda and Sipser conjecture} Given the exponential distance between the sizes of the nondeterministic and deterministic one-way models, the natural next step is to compare their two-way counterparts.
 The afore-mentioned constructions by crossing sequences (\cite{RabSco59}) and transition tables (\cite{She59}) gave an exponential upper bound on the simulation of \TNFA or \TDFA by \ONFA or \ODFA.
 An exponential lower bound on the simulation of \TNFA by \ODFA is a direct consequence of the one on the simulation of \ONFA by \ODFA.
 Later, thanks to \citeauthor{Bir93} (\citeyear{Bir93}) and \citeauthor{Kap05} (\citeyear{Kap05}), matching exponential lower bounds were found for the simulations of \TDFA by \ONFA and \ODFA and of \TNFA by \ONFA \cite{Bir93,Kap05}.
-These descriptional complexity results for regular language acceptors, summarized in \Cref{tab:sims-core-general-context}, leave only two open problems: the simulations by \TDFA of \TNFA and \ONFA.
+These descriptional complexity results for regular language acceptors, summarized in \Cref{tab:sims-core-general-context}, leave only two open problems (highlighted in red): the simulations by \TDFA of \TNFA and \ONFA.
 
 \begin{table}
 	\centering
-	\input{tables/sims-core-general.tex}
+	\input{tables/sims-core-general}
 	\caption{Costs of the simulations between regular language recognisers.}
 	\label{tab:sims-core-general-context}
 \end{table}
@@ -103,11 +107,59 @@ An interesting review of old and recent results regarding two way automata and t
 \section{Limited automata}
 % TODO remember to cite WagWec86, Pig19, (PigPis15, Pig16, Yam19, KutPig+18)
 % TODO: check Pig19 and KutPig+18 for other sources
+Limited automata were introduced by \citefullauthor{Hib67} in \citeyear{Hib67} with the aim of generalizing the notion of determinism in context-free languages.
+This devices are nondeterministic Turing machines with rewriting restrictions.
+In particular, given a non-negative integer $k$, a $k$-limited automaton (\kLA) is a machine with a single tape, delimited to the cells initially containing the input by special singles called end-markers ($\lem$,$\rem$), that can only write on each cell on its first $k$ visits.
+
+In his seminal paper, \citeauthor{Hib67} proved that for $k\ge2$, the class accepted by deterministic $k$-limited automata (\kDLA) is a strict subset of the class accepted by deterministic $(k+1)$-limited automata, hence generating an infinite, fine-grained hierarchy of context-free languages.
+Only in \citeyear{PigPis15} it was proven that \DLA2 accept exactly deterministic context-free languages \cite{PigPis15}.
+Furthermore, he proved that, for every $k\ge2$, nondeterministic $k$-limited automata characterize the class of context-free languages.
+The latter result was proven by constructing simulations of \LA2 by models equivalent to \PDAs and vice versa, along with reductions from $\kLA$ to $\LA{(k-1)}$.
+A simpler proof can be obtained as a consequence of the Chomsky-Shützenberger theorem (\cite{ChoSch63}) applied to a $\LA2$ accepting Dyck languages (see \cite{Pig19} for details).
+
+For $k=0$, the model coincides with two-way finite automata, therefore the accepting power is limited to regular languages.
+In \citeyear{WagWec86}, \citeauthor{WagWec86} proved that overwriting the content of a cell on its first visit does not change the accepting power of \TNFAs, namely $1$-limited automata characterize regular languages.
+
+\paragraph{$1$-limited automata and descriptional complexity}
+In \citeyear{PigPis14}, \citeauthor{PigPis14} resumed the study of limited automata with a new focus on descriptional complexity, as a new way to tackle the Sakoda and Sipser problem.
+The size of a limited automaton can be expressed as a polynomial in the cardinalities of the state set and of the working alphabet.
+By revisiting the proof given by \citeauthor{WagWec86}, \citeauthor{PigPis14} proved that an $n$-state \OLA can be simulated by an \NFA with a number of states exponential in $n$.
+Furthermore, they proved that if the \OLA is deterministic (\ODLA), the resulting \NFA is also deterministic (\DFA), while still exponential in size.
+Matching lower bounds were found thanks to a "block" language (a language defined by a proposition on same-sized factors of each word), proving that the simulations of a \OLA by a \NFA or a \DFA have an exponential and double exponential cost, respectively.
+Thanks to the study of the unary case, \citeauthor{PigPri19} proved some of the remaining lower bounds, resulting in the costs summarized in \Cref{tab:sims-1la-general-context} \cite{PigPri19}.
+The unary case was also studied by \citeauthor{KutWen15}, who proved state lower bounds for the simulation of unary \kLA by different variants of finite automata \cite{KutWen15}.
+
+\begin{table}
+	\centering
+	\input{tables/sims-1la-general}
+	\caption{Costs of the simulations between $1$-limited automata and other regular language recognisers.}
+	\label{tab:sims-1la-general-context}
+\end{table}
+
+In order to shed some light on the reasons why nondeterminism would bring the Sakoda and Sipser conjecture to be true, we study several variations.
+A relaxed version of the problem, in which the simulating machine could overwrite the contents of tape cells during the first visit, corresponds to the simulation of a \TNFA by a \ODLA (highlighted in blue in \Cref{tab:sims-1la-general-context}).
+If the simulated machine has such enhanced capabilities (\ie it is a \OLA), the result is a harder version of the problem (highlighted in green).
+
+Similar variations have been posed with the creation of more variations of limited automata accepting regular languages.
+\citeauthor{GuiPri19} proved that each \OLA can be converted into a polynomially-sized \OLA which works in linear time.
+In \citeyear{PigPri23a}, \citeauthor{PigPri23a} introduced \emph{once-marking}, \emph{always-marking}, and \emph{forgetting} $1$-limited automata, which we shall describe below \cite{PigPri23a,PigPri23}.
 
 
-\subsection{Sweeping k-limited automata}
-% mainly KutPig+18
+\paragraph{Other limited automata}
+In \citeyear{WecBra79}, \citeauthor{WecBra79} studied limited automata when the number of rewriting-capable visits is a function of the length of the input ($f(n)$-limited) \cite{WecBra79}.
+
+The context-free case has been studied from a descriptional complexity point of view by \citeauthor{PigPis15}, who proved that a \LA2 can be simulated by a \PDA of exponential size, while the opposite way has a polynomial cost and preservers determinism.
+This result was then improved by \cite{KutPig+18}, who found an exponential simulation of \kLA, for any $k\ge2$, by \PDA \cite{KutPig+18}.
+
+For the deterministic case, a simulation of \DLA2 by a \DPDA of double exponential size was found, and it is conjectured that such cost is optimal.
+
+In \citeyear{Pig16}, \citeauthor{Pig16} introduced \emph{strongly limited automata}, a restriction of \LA2 which closely imitates the moves that are used by limited automata to accept Dyck languages \cite{Pig16}.
+As proven in the article, strongly limited automata are equivalent, both in accepting power and descriptional complexity (up to a polynomial size difference), to \PDAs or context-free grammars.
 
 
 \subsection{Once-marking \texorpdfstring{$1$}{1}-limited automata}
-% mainly PigPri23a
+% mainly PigPri23a, also include forgetting and always-marking (PigPri23a, PigPri23)
+
+
+\subsection{Sweeping \texorpdfstring{$k$}{k}-limited automata}
+% mainly KutPig+18
