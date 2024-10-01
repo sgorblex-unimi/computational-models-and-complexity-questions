@@ -99,7 +99,7 @@ Because of the importance of its repercussions, the Sakoda and Sipser problem ha
 	\item restrictions of the simulated machines (e.g. outer-nondeterministic automata \cite{GefGui+14,KapPig12}), and
 	\item expansions of simulating machines (e.g. limited automata \cite{PigPis14,PigPri19,GuiPri19,PigPri+22}, linear-time Turing machines \cite{Pru14,GuiPig+18,Hen65,GuiPig+23}).
 \end{itemize}
-While the question remains open in the general case, these recent findings encourage new investigations on this topic.
+While the question remains open in the general case, these recent findings encourage new investigations on the topic.
 
 An interesting review of old and recent results regarding two way automata and the Sakoda and Sipser problem, including a more in-depth analysis of some of the ones we mentioned here, was realized by \triplecite{Pig13}.
 
@@ -158,8 +158,41 @@ As proven in the article, strongly limited automata are equivalent, both in acce
 
 
 \subsection{Once-marking \texorpdfstring{$1$}{1}-limited automata}
-% mainly PigPri23a, also include forgetting and always-marking (PigPri23a, PigPri23)
+In \citeyear{PigPri23a}, \citeauthor{PigPri23a} introduced several new variants of $1$-limited automata, with the aim of better understanding the double exponential gap between \OLA and \ODFA \cite{PigPri23a}.
+They suggest that the double exponential gap is due to a double role of the nondeterminism in \OLA: in the choice of the symbol written on the first visit of each cell, and in the choices during the next visits, which depend on the first one.
+In other words, different computation paths can replace the same input prefix on the tape with different strings.
+An interesting objective was to find some restrictions for which the double exponential gap is reduced to single exponential (as for \ODLA), while still allowing nondeterministic transitions.
+On the other hand, it was relevant to find very restricted forms of $1$-limited automata for which the double exponential gap with \ODFA remains necessary in the worst case.
+
+On the latter matter, the authors introduce \emph{once-marking} $1$-limited automata (\OMOLA), which have the restriction of only having the possibility to mark a single tape cell, leaving the rest unchanged.
+They show that the double exponential gap to \ODFA remains possible, even in further restricted cases, such as \emph{sweeping} \OMOLA that can only use nondeterminism in the first visit to tape cells.
+Fully deterministic \OMOLA (\OMODLA), on the other hand, can be simulated by \TDFA with only a polynomial size increase (by an interesting computation tree simulation described in the article).
+
+A different path of development was introduced with \emph{always-marking} $1$-limited automata (\AMOLA), which are forced to replace each input symbol $\sigma$ with one that depends only on $\sigma$.
+\citeauthor{PigPri23a} show that the gap from \AMOLA, even in the nondeterministic version, to \DFA reduces to a single exponential.
+The bounds to the other classic acceptors, notably \TNFA, remains exponential, even when considering a deterministic \AMOLA.
+
+In a different paper, the same authors introduce \emph{forgetting} $1$-limited automata (\FOLA), where during the first visit to a cell, the contained input symbol is replaced with a unique fixed symbol, effectively deleting the original information \cite{PigPri23,JanMra+93}.
+Thanks to the merging of constructions introduced for \AMOLA and techniques for unary languages (applied to the overwritten part of the tape), \citeauthor{PigPri23} showed exponential gaps between \AMOLA and one-way finite automata, in both nondeterministic and deterministic versions, in additions to other superpolynomial bounds.
+
+Not much has been said regarding the unary versions of these models.
+Unary models are particularly relevant when it comes to both descriptional complexity and broader automata theory aspects because, as proved by \citeauthor{GinRic62}, in the unary case the classes of regular and context-free languages coincide \cite{GinRic62}.
+
+One of the investigating threads of our work regarded unary the version of once-marking \OLAs.
+Unary forgetting \OLA do not seem to have interesting succinctness properties, as pointed out by \citeauthor{PigPri23} \cite{PigPri23}.
+Unary always-marking \OLA are not particularly interesting as they are essentially equivalent to forgetting \OLA.
 
 
 \subsection{Sweeping \texorpdfstring{$k$}{k}-limited automata}
-% mainly KutPig+18
+A two-way machine is said to be sweeping when its tape head can only change direction after scanning end-markers.
+Sweeping machines have been of interest in automata theory and descriptional complexity since they consist in a restriction that can sometimes imply lower accepting and/or descriptional power.
+
+Sweeping $k$-limited automata, where $k$ is a non-negative integer, have been taken into consideration first by \citeauthor{KutPig+18} \cite{KutPig+18}.
+Unlike generic $k$-limited automata, in sweeping \kLA whenever the head reaches an end-marker all the tape cells have been rewritten the same number of times.
+In the paper, they study the unary case, as in this context all types of $k$-limited automata accept regular languages (coinciding with context-free languages).
+In particular, they prove a subexponential lower bound in the number of states for the simulation of a sweeping \kDLA by a \ODFA, a polynomial lower bound for the simulation by \TNFA (hence also by \TDFA and \ONFA), and a polynomial upper bound for the simulation by a \TDFA.
+All of these are, however, exponential in $k$.
+
+The general (non unary) case, as well as the nondeterministic case, have not been studied extensively.
+In their paper, \citeauthor{KutPig+18} claimed (without proof) that sweeping \kLAs can be simulated by a \ONFA, \ie they characterize regular languages (unlike their non-sweeping counterpart).
+In our work, we proof this statement as well as give an analysis of related descriptional complexity aspects.
