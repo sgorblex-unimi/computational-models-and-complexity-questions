@@ -26,7 +26,7 @@ Regarding fully deterministic once-marking $1$-limited automata (\OMODLA), the a
 \begin{table}
 	\centering
 	\input{tables/sims-om-general}%
-	\caption{Costs of the simulations between once-marking $1$-limited automata and other regular language acceptors, general case.}
+	\caption{Costs of the simulations between once-marking $1$-limited automata and other regular language acceptors.}
 	\label{tab:sims-om-general-oncemarking}
 \end{table}
 
@@ -72,7 +72,61 @@ We point out that the simulation of \OMODLA by \ONFA has been mistakenly labeled
 
 
 \section{The unary case}\label{sec:oncemarking-unary}
+The current known bounds for the simulations between unary once-marking $1$-limited automata and classical regular language acceptors are summarized in \Cref{tab:sims-om-unary-oncemarking}.
+
+\begin{table}
+	\input{tables/sims-om-unary}%
+	\caption{Costs of the simulations between unary once-marking $1$-limited automata and other regular language acceptors.}
+	\label{tab:sims-om-unary-oncemarking}
+\end{table}
+
+The bounds derive from either unary $1$-limited automata results, general-case once-marking $1$-limited automata results, or results on classical unary language acceptors.
+Because in the latter some subexponential bounds appear, some of the non-tight bounds have a less than exponential distance (subexponential to exponential or polynomial to subexponential).
+An explanation of each bound is given in \Cref{app:results}.
+
+Working with subexponential bounds can be challenging, since, unlike with exponentials and polynomials, the operations between different functions (product, composition, etc.) can produce another subexponential function or an exponential one, depending on the specific functions.
+For example, by combining the subexponential construction to simulate a \ONFA with a \ODFA with the construction to simulate a \OLA with a \ONFA, one might expect to obtain a cost that is less than double exponential, but because of the specific functions this is not the case.
+The simulation of \OMOLA by \ODFA is particularly interesting as, as it was the case for general $1$-limited automata, many results can be obtained as consequences of an improved simulation or a witness language that implies a tighter lower bound.
+We investigated both these paths, and we conjecture that, in the unary case, a better upper bound can be found.
 
 
 
 \section{Improving known bounds}\label{sec:oncemarking-ideas}
+In order to research the possibility of improving the known bounds on the simulation of once-marking $1$-limited automata by finite state automata, we considered techniques from both the unary and the regular language world.
+As said above, we investigated the possible improvements of both the lower and the upper bounds.
+
+
+\subsection{Lower bound}
+
+\paragraph{Bounded regular languages} A first idea was the possibility of applying to the once-marking model techniques known for bounded regular languages.
+A language is called (strongly) bounded if it is a subset of $\sigma_1\star\sigma_2\star\cdots\sigma_k\star$, where $\sigma_1,\sigma_2,\dots,\sigma_k$ are (pairwise distinct) symbols \cite{GinSpa66}.\footnote{%
+	Results on the descriptional complexity of bounded languages can be found in \cite{Gin66,MalPig13,IbaRav16,HerKut+17}.}
+
+Consider a unary once-marking $1$-limited automaton that receives an input $w\in\sigma\star$.
+Once the automaton marks a cell, the string on the tape is divided in two parts $\sigma\cdots\sigma \tilde\sigma \sigma\cdots\sigma$, making it essentially equivalent to a string belonging to $\sigma_1\star\sigma_2\star$.
+Of course, after it performs the write operation, the automaton is virtually a \TNFA, therefore only regular languages of this kind can be accepted.
+Hence, bounded regular languages, specifically when $k=2$, are of interest for the analysis of unary \OMOLA.
+
+Unfortunately, the techniques we know to produce lower bounds for bounded regular languages typically define $k$ in function of the parameter under consideration, where we would need a constant $k=2$.
+An example is the "tool for constructing lower bound witnesses" proposed by \citeauthor{HerKut+17} \cite{HerKut+17}.
+
+\paragraph{Unary concatenation} An interesting solution to the problem of limiting $k$ to $2$ would be to obtain a witness language as a concatenation of two unary languages over different unary alphabets.
+Unfortunately, the results we could find in literature mainly study the concatenation of two unary languages over the same alphabet, as it was the case in \cite{YuZhu+94,PigSha02}.
+Besides, such results, if extended to different alphabets, would only imply a quadratic lower bound, which is worse than the currently known subexponential.
+
+\paragraph{Chrobak's witness language} A different approach could be to study a variation of the well known witness language used by \citeauthor{Chr86} to prove many of the lower bounds on basic unary regular language acceptors \cite{Chr86}.
+In particular, the concatenation of two similar (but different) witness languages might force a \ODFA to need a subexponential component for each part of the input word, while a once-marking automaton could simply nondeterministically guess and mark the first symbol of the second part and verify separately that the two substrings belong to their respective language.
+
+
+\subsection{Upper bound}
+
+\paragraph{Transition tables} The creation of an exponential simulation based on transition tables similar to the one of \TNFA by \ODFA seems out of the question, as different computation paths can replace the same input prefix on the tape with different strings, therefore forcing different transition tables, as it is the case for the simulation of \OLA by \ODFA.
+
+\paragraph{Limiting the marking position} A promising idea is the one of restricting the positions where the automaton can mark cells, specifically by limiting the distance from the end-markers where the writing transition is performed.
+The idea comes from the simulation of unary \TNFA by \ODFA presented by \triplecite{MerPig01}.
+Here, they limit the distance from end-markers where the \TNFA can perform a "U-turn" (that is, changing direction of movement).
+Specifically, they prove that there are constants $\ell$ and $m_0$, respectively subexponential and quadratic in the number of states of the \TNFA, such that a U-turn is possible in a position $i\ge m_0$, if and only if it is possible in position $i+\ell$.
+
+We believe that a similar argument can be made to limit the positions where, in a once-marking $1$-limited automaton, the write operation is performed, thus reducing the size of a simulating machine.
+We point out that if a subexponential simulation of \OMOLA by \ODFA was to be found, all the bounds on one-way finite automata would collapse to subexponential.
+Ideally, a polynomial simulation of \OMOLA by \TDFA would solve the "hard" variations of the Sakoda and Sipser problem in this realm (green in \Cref{tab:sims-om-unary-oncemarking}), and may also bring the one-way open costs to subexponential, depending on the specific function.
