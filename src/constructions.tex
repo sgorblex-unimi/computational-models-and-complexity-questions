@@ -11,7 +11,7 @@ In larger proofs throughout the thesis, we take these transformations for grante
 \subsection{\NFAs with multiple starting states}
 In some constructions, it is more intuitive to build a set of initial states for a \NFA rather than a single state.
 Here we prove that such simplification does not affect the asymptotic size of the resulting machine, since an equivalent one with a single starting state can be built by only introducing one extra state.
-Note that this is only possible on \NFAs, since the removal of multiple starting states from a \DFA can imply an exponential growth in the number of states (\cite{TODO}).
+Note that this is only possible on \NFAs, since the removal of multiple starting states from a \DFA can imply an exponential growth in the number of states \cite{HolSal+01}.
 \begin{thrm}\label{thm:mult-start-states}
 	Every $n$-state \NFA with multiple starting states can be simulated by an $(n+1)$-state \NFA with a single starting state.
 \end{thrm}
@@ -61,8 +61,9 @@ Note that this is only possible on \NFAs, since the removal of multiple starting
 		                          & \iff \emptyword\in\genlang(A) \text. \qedhere
 	\end{align*}
 \end{proof}
-As a concluding remark, we note that a similar construction could be done by adding $\emptyword$-transitions originating in the new initial state.
-However, removing $\emptyword$-transitions from a \NFA is generally costly (exponential in the worst case), so we prefer this more direct simulation \cite{TODO}.
+As a concluding remark, we note that a similar result could be achieved by adding $\emptyword$-transitions originating in the new initial state and applying a construction to remove $\emptyword$-transitions.
+Such construction is known as $\emptyword$-closure (epsilon-closure) and it is described, for example, in \cite[Theorem 2.2]{HopUll79}.
+Here, we prefer to give a more direct simulation.
 
 
 \subsection{Languages with a symbol prefix or suffix}
@@ -92,8 +93,6 @@ Here we present a construction that proves that on a \NFA such simplification ha
 	The \NFA $A'$ has $n-1$ states but contains multiple starting states. By applying \Cref{thm:mult-start-states} an equivalent $n$-state \NFA with a single starting state can be constructed.
 \end{proof}
 As in the previous construction, an equivalent method consists in switching useful transitions labeled $\gamma$ with $\emptyword$-transitions, and removing those.
-As said above, since removing $\emptyword$-transitions from a \NFA can determine an exponential growth in size, we prefer to avoid such strategy.
-
 
 For suffixes we present a simpler construction:
 \begin{thrm}
