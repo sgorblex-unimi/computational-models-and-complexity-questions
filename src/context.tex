@@ -71,7 +71,7 @@ These descriptional complexity results for regular language acceptors, summarize
 
 \begin{table}
 	\centering
-	\input{tables/sims-core-general}
+	\input{tables/sims-core-general}%
 	\caption{Costs of the simulations between regular language recognisers.}
 	\label{tab:sims-core-general-context}
 \end{table}
@@ -105,7 +105,7 @@ An interesting review of old and recent results regarding two way automata and t
 \section{Limited automata}
 Limited automata were introduced by \citefullauthor{Hib67} in \citeyear{Hib67} with the aim of generalizing the notion of determinism in context-free languages \cite{Hib67}.
 These devices are nondeterministic Turing machines with rewriting restrictions.
-In particular, given a non-negative integer $k$, a \emph{$k$-limited automaton} (\kLA) is a machine with a single tape, delimited to the cells initially containing the input by special singles called end-markers ($\lem$,$\rem$), that can only write on each cell on its first $k$ visits.
+In particular, given a non-negative integer $k$, a \emph{$k$-limited automaton} (\kLA) is a machine with a single tape, delimited to the cells initially containing the input by special symbols called end-markers ($\lem$,$\rem$), that can only write on each cell on its first $k$ visits.
 
 In his seminal paper, \citeauthor{Hib67} proved that, for $k\ge2$, the class accepted by deterministic $k$-limited automata (\kDLA) is a strict subset of the class accepted by deterministic $(k+1)$-limited automata, hence generating an infinite, fine-grained hierarchy of context-free languages.
 Only in \citeyear{PigPis15} it was proven that \DLA2 accept exactly deterministic context-free languages \cite{PigPis15}.
@@ -127,7 +127,7 @@ The unary case was also studied by \citeauthor{KutWen15}, who proved state lower
 
 \begin{table}
 	\centering
-	\input{tables/sims-1la-general}
+	\input{tables/sims-1la-general}%
 	\caption{Costs of the simulations between $1$-limited automata and other regular language recognisers.}
 	\label{tab:sims-1la-general-context}
 \end{table}
