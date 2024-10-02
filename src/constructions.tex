@@ -1,11 +1,7 @@
+% TODO: mention appendix in proofs throughout the chapters
 \chapter{Useful constructions}
-% TODO: introduction
-
-For the following, given a transition function $\delta$, a set of states $S$, and a symbol $\sigma$, we define
-\begin{equation*}
-	\delta(S,\sigma):=\bigcup_{q\in S} \delta(q,\sigma) \text.
-\end{equation*}
-We also use the transitive closure of $\delta$ in order to use strings as second argument.
+In this appendix, we present several constructions that manipulate computational models while keeping the size growth to a minimum.
+In larger proofs throughout the thesis, we take these transformations for granted, letting us focus on more pivotal aspects.
 
 
 
@@ -13,13 +9,15 @@ We also use the transitive closure of $\delta$ in order to use strings as second
 
 
 \subsection{\NFAs with multiple starting states}
-% TODO: context. Mention that eps-transitions can not be eliminated cheaply in general (citation), so using eps-transitions is not a so immediate solution
+In some constructions, it is more intuitive to build a set of initial states for a \NFA rather than a single state.
+Here we prove that such simplification does not affect the asymptotic size of the resulting machine, since an equivalent one with a single starting state can be built by only introducing one extra state.
+Note that this is only possible on \NFAs, since the removal of multiple starting states from a \DFA can imply an exponential growth in the number of states \cite{HolSal+01}.
 \begin{thrm}\label{thm:mult-start-states}
-	Every $n$-state NFA with multiple starting states can be simulated by an $(n+1)$-state NFA with a single starting state.
+	Every $n$-state \NFA with multiple starting states can be simulated by an $(n+1)$-state \NFA with a single starting state.
 \end{thrm}
 \begin{proof}
-	Let $A:=(Q,\Sigma,\delta,I,F)$ a multiple starting state NFA, where $I\subseteq Q$ is the set of starting states.
-	Define the NFA $A':=(Q',\Sigma,\delta',q_I,F')$, where
+	Let $A:=(Q,\Sigma,\delta,I,F)$ a multiple starting state \NFA, where $I\subseteq Q$ is the set of starting states.
+	Define the \NFA $A':=(Q',\Sigma,\delta',q_I,F')$, where
 	\begin{itemize}
 		\item $Q':=Q\cup\set{q_I}$,
 		\item $q_I\notin Q$ is the new, only starting state
@@ -63,22 +61,26 @@ We also use the transitive closure of $\delta$ in order to use strings as second
 		                          & \iff \emptyword\in\genlang(A) \text. \qedhere
 	\end{align*}
 \end{proof}
+As a concluding remark, we note that a similar result could be achieved by adding $\emptyword$-transitions originating in the new initial state and applying a construction to remove $\emptyword$-transitions.
+Such construction is known as $\emptyword$-closure (epsilon-closure) and it is described, for example, in \cite[Theorem 2.2]{HopUll79}.
+Here, we prefer to give a more direct simulation.
 
 
 \subsection{Languages with a symbol prefix or suffix}
-% TODO: context. The following is equivalent to making all those transitions eps-transitions and delete those (but as will be said above there is no universal way for the removal of eps-transitions)
+Another tweak that can simplify constructions is the one of accepting a language with an added prefix or suffix.
+Here we present a construction that proves that on a \NFA such simplification has no additional cost in the number of states in case the prefix or suffix is over a separate alphabet with respect to the original language.
 \begin{thrm}
-	For each $n$-state NFA accepting a language in the form $\gamma L$, with $L\in\Sigma\star$ for some alphabet $\Sigma$ and $\gamma\notin\Sigma$ is a symbol, there exists an $n$-state NFA accepting the language $L$.
+	For each $n$-state \NFA accepting a language in the form $\gamma L$, with $L\in\Sigma\star$ for some alphabet $\Sigma$ and $\gamma\notin\Sigma$ is a symbol, there exists an $n$-state \NFA accepting the language $L$.
 \end{thrm}
 \begin{proof}
-	Let $A:=(Q,\Sigma\cup\set{\gamma},\delta,q_I,F)$ an NFA such that $\genlang(A)=\gamma L$, $\gamma\notin\Sigma$.
+	Let $A:=(Q,\Sigma\cup\set{\gamma},\delta,q_I,F)$ an \NFA such that $\genlang(A)=\gamma L$, $\gamma\notin\Sigma$.
 
 	All the \emph{useful}\footnote{Meaning they are part of an accepting computation.} transitions defined from $q_I$ are labeled $\gamma$, otherwise there would exist an accepted word not starting with $\gamma$.
 	Conversely, all useful transitions from states other than $q_I$ are not labeled $\gamma$, otherwise there would exist an accepted word containing the symbol $\gamma$ in a position other than the first.
 	For the same reason, $q_I$ is not reachable by any useful transition (note that $q_I\notin F$, otherwise $\emptyword$, which is not in the required form, would be accepted).
 	The following construction "skips" and removes $q_I$, making initial all the states reached from it by $\gamma$-transitions.
 
-	Define the NFA $A':=(Q',\Sigma,\delta',I,F)$, where
+	Define the \NFA $A':=(Q',\Sigma,\delta',I,F)$, where
 	\begin{itemize}
 		\item $Q':=Q\setminus\set{q_I}$,
 		\item for each $q\in Q'$ and $\sigma\in\Sigma$, $\delta'(q,\sigma)=\delta(q,\sigma)$, and
@@ -88,19 +90,20 @@ We also use the transitive closure of $\delta$ in order to use strings as second
 	By the definitions of $\delta$ and $\delta'$, it holds that for any $w\in\Sigma\star$, $\delta'(I,w)=\delta(q_I,\gamma w)$.
 	Therefore $w\in\genlang(A')\iff \gamma w\in\genlang(A)$.
 
-	The NFA $A'$ has $n-1$ states but contains multiple starting states. By applying \Cref{thm:mult-start-states} an equivalent $n$-state NFA with a single starting state can be constructed.
+	The \NFA $A'$ has $n-1$ states but contains multiple starting states. By applying \Cref{thm:mult-start-states} an equivalent $n$-state \NFA with a single starting state can be constructed.
 \end{proof}
+As in the previous construction, an equivalent method consists in switching useful transitions labeled $\gamma$ with $\emptyword$-transitions, and removing those.
 
-
+For suffixes we present a simpler construction:
 \begin{thrm}
-	For each $n$-state NFA accepting a language in the form $L\gamma$, with $L\in\Sigma\star$ for some alphabet $\Sigma$ and $\gamma\notin\Sigma$ is a symbol, there exists an $n$-state NFA accepting the language $L$.
+	For each $n$-state \NFA accepting a language in the form $L\gamma$, with $L\in\Sigma\star$ for some alphabet $\Sigma$ and $\gamma\notin\Sigma$ is a symbol, there exists an $n$-state \NFA accepting the language $L$.
 \end{thrm}
 \begin{proof}
-	Let $A:=(Q,\Sigma\cup\set{\gamma},\delta,q_I,F)$ an NFA such that $\genlang(A)=L\gamma$, $\gamma\notin\Sigma$.
+	Let $A:=(Q,\Sigma\cup\set{\gamma},\delta,q_I,F)$ an \NFA such that $\genlang(A)=L\gamma$, $\gamma\notin\Sigma$.
 
-	The NFA resulting from this construction accepts in those states that would reach an original accepting state upon reading $\gamma$.
+	The \NFA resulting from this construction accepts in those states that would reach an original accepting state upon reading $\gamma$.
 
-	Define the NFA $A':=(Q,\Sigma,\delta',q_I,F')$, where
+	Define the \NFA $A':=(Q,\Sigma,\delta',q_I,F')$, where
 	\begin{itemize}
 		\item for each $q\in Q$ and $\sigma\in\Sigma$, $\delta'(q,\sigma)=\delta(q,\sigma)$, and
 		\item $F':=\set{q\in Q\mid \delta(q,\gamma)\cap F\ne\emptyset}$.
@@ -116,8 +119,40 @@ We also use the transitive closure of $\delta$ in order to use strings as second
 	\end{align*}
 \end{proof}
 
-
+An especially useful implication of the last two theorems is given in the following corollary:
 \begin{coro}
-	For each $n$-state NFA accepting a language in the form $\gamma_1 L\gamma_2$, with $L\in\Sigma\star$ for some alphabet $\Sigma$ and $\gamma_1,\gamma_2\notin\Sigma$ are symbols, there exists an $n$-state NFA accepting the language $L$.
+	For each $n$-state \NFA accepting a language in the form $\gamma_1 L\gamma_2$, with $L\in\Sigma\star$ for some alphabet $\Sigma$ and $\gamma_1,\gamma_2\notin\Sigma$ are symbols, there exists an $n$-state \NFA accepting the language $L$.
 \end{coro}
-% TODO: context: explain what does this mean in terms of building simulations for two-way automata with end-markers
+This result is particularly effective when working with two-way automata with end-markers.
+In fact, it is sometimes more effective to produce one-way simulations that can read end-markers, meaning that, instead of accepting the language $L$ recognized by the original two-way machine, they accept $\lem L\rem$.
+This theorem proves that the obtained \NFA can be converted in one that accepts $L$ with no additional cost in the number of states.
+
+
+
+\section{\NFA for the reversal}
+The next construction, originally introduced by \citeauthor{RabSco59} (\cite{RabSco59}), lets us build, from a \NFA accepting a language, a \NFA for its reversal, with no growth in size.
+\begin{thrm}
+	For every $n$-state \NFA $A$, there exists an $n$-state \NFA accepting $\genlang(A)\rev$.
+\end{thrm}
+\begin{proof}
+	Let $A:=(Q,\Sigma,\delta,q_I,F)$ a \NFA.
+	Define the \NFA $A':=(Q,\Sigma,\delta',I,F')$, where
+	\begin{itemize}
+		\item for all $q\in Q,\sigma\in\Sigma$, $\delta'(q,\sigma):=\delta^{-1}(q)=\set{p \mid \delta(p,\sigma)=q}$,
+		\item $I:=F$, and
+		\item $F':=\set{q_I}$.
+	\end{itemize}
+	The automaton is built so that its accepting computations correspond to accepting computations of $A$, reproduced from last to first.
+	We prove by induction on a word $w\in\Sigma\star$ that for every $q\in Q$, $\delta(q_I,w)\ni p$ if and only if $\delta'(p,w\rev)\ni q_I$:
+	\begin{description}
+		\item[Base] if $w=\emptyword$, $\delta(q_I,w)=\set{q_I}$ and $\delta'(q_I,w\rev)=\set{q_I}$.
+		\item[Step] if $w=x\sigma$, by induction hypothesis $\delta(q_I,x)\ni p$ if and only if $\delta(p,x\rev)\ni q_I$.
+		      \begin{description}
+			      \item[$\Rightarrow$)] For each $q\in Q$ such that $\delta(q_I,x\sigma)\ni q$, there exists a state $p\in Q$ such that $\delta(q_I,x)\ni p$ and $\delta(p,\sigma)\ni q$.
+			            By definition $\delta'(q,\sigma)\ni p$, and by induction hypothesis $\delta'(p,x\rev)\ni q_I$. Hence, $\delta'(q,\sigma x\rev)\ni q_I$.
+			      \item[$\Leftarrow$)] For each $q\in Q$ such that $\delta'(q,\sigma x\rev)\ni q_I$, there exists a state $p\in Q$ such that $\delta'(q,\sigma)\ni p$ and $\delta'(p,x\rev)\ni q_I$.
+			            This implies that $\delta(p,\sigma)\ni q$ and by induction hypothesis $\delta(q_I,x)\ni p$. Hence, $\delta(q_I,x\sigma)\ni q$.
+		      \end{description}
+	\end{description}
+	$A$ accepts $w$ if and only if there exists a state $q_f\in F$ such that $\delta(q_I,w)\ni q_f$, which holds if and only if $\delta'(q_f,w\rev)\ni q_I$, that is, since $q_f\in I\iff q_f\in F$, if $A'$ accepts $w\rev$.
+\end{proof}
