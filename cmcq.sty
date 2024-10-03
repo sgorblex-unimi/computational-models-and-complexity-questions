@@ -155,6 +155,11 @@
 \newcommand{\Csubln}{e^{O(\ln^2n)}}
 
 % TABLE COLORS
+\usepackage{soul}
+\undef\st
+\newcommand{\hlR}[1]{\sethlcolor{red!20}\hl{#1}}
+\newcommand{\hlG}[1]{\sethlcolor{green!80!black!20}\hl{#1}}
+\newcommand{\hlB}[1]{\sethlcolor{blue!15}\hl{#1}}
 \newcommand{\cR}{\cellcolor{red!20}}
 \newcommand{\cG}{\cellcolor{green!80!black!20}}
 \newcommand{\cB}{\cellcolor{blue!15}}
@@ -181,6 +186,7 @@
 \newcommand{\last}{\ell} % function that calculates last symbol on cell
 \newcommand{\trapp}{t} % function that creates transition table of wa given t.t. of w and symbol a ("append")
 \newcommand{\rev}{^{\mathrm R}}
+\newcommand{\double}{\mathrm{DOUBLE}_n}
 
 % MATHS
 \newcommand{\floor}[1]{\lfloor #1 \rfloor}
@@ -201,7 +207,7 @@
 \newcommand{\set}[1]{\{#1\}}
 \newcommand{\ie}[1][]{i.e.#1\ }
 \newcommand{\eg}[1][]{e.g.#1\ }
-\newcommand{\st}{\text{ s.t. }}
+\newcommand{\st}{\text{ s.t. }} % apparently conflicts with soul package
 \newcommand{\wrt}{w.r.t.\ }
 \renewcommand{\epsilon}{\varepsilon}
 \newcommand{\nth}[1]{^{(#1)}}

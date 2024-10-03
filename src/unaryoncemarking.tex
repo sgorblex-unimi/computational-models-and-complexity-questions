@@ -37,11 +37,10 @@ Regarding fully deterministic once-marking $1$-limited automata (\OMODLA), the a
 
 We summarize these and other related results in \Cref{tab:sims-om-general-oncemarking}.
 We point out that the simulation of \OMODLA by \ONFA has been mistakenly labeled as polynomial in \cite{PigPri23a}, while there is indeed an exponential lower bound:
-\begin{thrm}
+\begin{thrm}\label{thm:OM1DLAto1NFAlower}
 	For each integer $n$ there exists an $n$-state \OMODLA $A$ such that every \ONFA recognizing $\genlang(A)$ requires an exponential number of states in $n$.
 \end{thrm}
 \begin{proof}
-	\newcommand{\double}{\mathrm{DOUBLE}_n}
 	Consider the language $\double:=\set{ww\mid w\in\set{a,b}^n}$.
 	A \OMODLA can recognize $\double$ as follows:
 	\begin{enumerate}

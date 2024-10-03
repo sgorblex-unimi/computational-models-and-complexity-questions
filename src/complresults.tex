@@ -1,26 +1,30 @@
 \chapter{Complexity results for regular language acceptors}\label{app:results}
-In this chapter we summarize previous results about the cost of simulations (conversions) between various regular language acceptors: finite state automata and $1$-limited automata.
-We represent such costs in tables, first in \Cref{sec:prevsims-general} for the general case (\Cref{tab:sims-core-general,tab:sims-1la-general}), and second in \Cref{sec:prevsims-unary} for the unary case (\Cref{tab:sims-core-unary,tab:sims-1la-unary}).
+In this appendix we summarize previous results about the cost of simulations (conversions) between various regular language acceptors: finite state automata and (once-marking) $1$-limited automata.
+We represent such costs in tables, first in \Cref{sec:sims-general} for the general case (\Cref{tab:sims-1la-general,tab:sims-om-general}), and second in \Cref{sec:sims-unary} for the unary case (\Cref{tab:sims-1la-unary,tab:sims-om-unary}).
 
-Each cell contains upper and lower bounds for the cost of the simulation of a machine of the kind given by the row by a machine of the kind given by the column.
-When the bounds match, one cost is displayed (two exponential bounds will be considered to match even if the match is not exact).
-The simulations marked $\Ctriv$ are ones where the simulated machine is virtually a subcase of the simulating one, therefore close to no size growth ($O(n)$) is required.
+Each cell contains upper and lower bounds for the cost of the simulation of a machine of the kind given by the cell row by a machine of the kind given by the column.
+When the bounds match, one cost is displayed (two exponential bounds will be considered equal even if the match is not exact).
+The simulations marked $\Ctriv$ are ones where the simulated machine is essentially a subcase of the simulating one, therefore close to no size growth ($O(n)$) is required.
+
+Furthermore, we highlight a few special cases:
+\begin{itemize}
+	\item The cells highlighted in \hlR{red} represent the unsolved Sakoda and Sipser problem \cite{SakSip78} about the cost of removal of nondeterminism from finite state automata.
+	\item The cells highlighted in \hlB{blue} consist in a relaxed version of the problem, with an extension of \TNFA, namely \ODLA, as the simulating machine.
+	\item The cells highlighted in \hlG{green} consist in a harder version of the problem, with an extension of \NFA, namely \OLA, as the simulated machine.
+\end{itemize}
 
 
-
-\section{The general case}\label{sec:prevsims-general}
+\section{The general case}\label{sec:sims-general}
 
 \begin{table}
 	\centering
-	\input{tables/sims-core-general}%
-	\caption{Descriptional complexity of the simulations between basic regular language recognisers, general case.}
-	\label{tab:sims-core-general}
+	\input{tables/sims-1la-general}%
+	\caption{Descriptional complexity of the simulations between basic regular language recognisers and $1$-limited automata, general case.}
+	\label{tab:sims-1la-general}
 \end{table}
 
-\Cref{tab:sims-core-general} contains the costs of simulations between basic regular language acceptors.
-The cells highlighted in red represent the unsolved Sakoda and Sipser problem \cite{SakSip78} about the cost of removal of nondeterminism from finite state automata.
+\Cref{tab:sims-1la-general} contains the costs of simulations between basic regular language acceptors and $1$-limited automata.
 Here we give a description of each nontrivial result:
-
 \paragraph{\ONFA{}\tto\ODFA}\label{cost:1NFAto1DFA}
 \begin{itemize}
 	\item $\le\Cexp$: by using the subset construction presented by \triplecite{RabSco59},
@@ -55,21 +59,6 @@ Here we give a description of each nontrivial result:
 	\item $\le\Cexp$: by using construction for \hyperref[cost:2NFAto1DFA]{\TNFA{}\tto\ODFA}, which is $\le\Cexp$, combined with $\Ctriv$ \ODFA{}\tto\TDFA,
 	\item believed to be $=\Cexp$ (Sakoda and Sipser conjecture \cite{SakSip78}).
 \end{itemize}
-
-
-\begin{table}
-	\centering
-	\input{tables/sims-1la-general}%
-	\caption{Descriptional complexity of the simulations between basic regular language recognisers and $1$-limited automata, general case.}
-	\label{tab:sims-1la-general}
-\end{table}
-
-\Cref{tab:sims-1la-general} contains the costs of simulations between basic regular language acceptors and $1$-limited automata.
-In addition to the cells highlighted in red for the Sakoda and Sipser conjecture, we have blue and green cells.
-The cells highlighted in blue consist in a relaxed version of the problem, with an extension of \TNFA, namely \ODLA, as the simulating machine.
-The cells highlighted in green consist in a harder version of the problem, with an extension of \NFA, namely \OLA, as the simulated machine.
-Here we give a description of each nontrivial result that hasn't been explained previously:
-
 \paragraph{\ONFA{}\tto\ODLA}
 \begin{itemize}
 	\item $\le\Cexp$: by using construction for \hyperref[cost:1NFAto1DFA]{\ONFA{}\tto\ODFA}, which is $\le\Cexp$, combined with $\Ctriv$ \ODFA{}\tto\ODLA,
@@ -185,8 +174,8 @@ Here we give a description of each nontrivial result that hasn't been explained 
 \paragraph{\OMODLA{}\tto\ONFA}
 \begin{itemize}
 	\item $\le\Cexp$: by using construction for \hyperref[cost:OM1DLAto1DFA]{\OMODLA{}\tto\ODFA}, which is $\le\Cexp$, combined with $\Ctriv$ \ODFA{}\tto\ONFA,
-	\item \textbf{previously mistakenly considered poly},
-	\item $\ge\Cexp$: since the witness language $D_n:=\set{ww\mid w\in\set{a,b}^n}$ is recognized by a linear size \OMODLA, but cannot be recognised by a \ONFA with less than $\Cexp$ states \textbf{(proven by us by fooling set)}.
+	\item previously mistakenly considered poly,
+	\item $\ge\Cexp$: since the witness language $\double:=\set{ww\mid w\in\set{a,b}^n}$ is recognized by a linear size \OMODLA, but cannot be recognised by a \ONFA with less than $\Cexp$ states (proven in \Cref{thm:OM1DLAto1NFAlower}).
 \end{itemize}
 \paragraph{\OMODLA{}\tto\TDFA}\label{cost:OM1DLAto2DFA}
 \begin{itemize}
@@ -199,29 +188,29 @@ Here we give a description of each nontrivial result that hasn't been explained 
 
 
 
-\section{The unary case}\label{sec:prevsims-unary}
+\section{The unary case}\label{sec:sims-unary}
 
 \begin{table}
 	\centering
-	\input{tables/sims-core-unary}%
-	\caption{Descriptional complexity of the simulations between basic regular language recognisers, unary case.}
-	\label{tab:sims-core-unary}
+	\input{tables/sims-1la-unary}%
+	\caption{Descriptional complexity of the simulations between basic regular language recognisers and $1$-limited automata, unary case.}
+	\label{tab:sims-1la-unary}
 \end{table}
 
-\Cref{tab:sims-core-unary} contains the costs of simulations between basic regular language acceptors for unary languages.
-Many of these costs, mostly found by pioneer of unary descriptional complexity Marek Chrobak, are given by the Landau function:
+\Cref{tab:sims-1la-unary} contains the costs of simulations between basic regular language acceptors and $1$-limited automata, for unary languages.
+Many of these bounds, found by pioneer of unary descriptional complexity \citefullauthor{Chr86}, are given by the Landau function \cite{Chr86}:
 \begin{equation}
 	F(n) := \max\set{\lcm(x_1,\dots,x_k)\mid x_1+\dots+x_k=n} \text,
 \end{equation}
 where $n\in\N$.
 The problem of approximating this function is known as Landau's problem.
-For the sake of our usage of the function, the following approximation, which was found by Landau himself in the early twentieth century \cite{Lan03,Lan09}, is sufficient:
+For the sake of our usage of the function, the following approximation, which was found by Landau himself in the early twentieth century, is sufficient \cite{Lan03,Lan09}:
 \begin{equation}
 	F(n) = \CsubEq \text.
 \end{equation}
 
 We refer to functions such as the one above, which can be expressed in the form $e^{o(n)}$, as "subexponential", which serve as a midway between the polynomial and exponential complexities.
-Here we give a description of each nontrivial result in \Cref{tab:sims-core-unary}:
+Here we give a description of each nontrivial result in \Cref{tab:sims-1la-unary}:
 
 \paragraph{\ONFA{}\tto\ODFA}
 \begin{itemize}
@@ -261,18 +250,6 @@ Here we give a description of each nontrivial result in \Cref{tab:sims-core-unar
 	\item (already proven $\le\CsubLe$ by using construction for \hyperref[cost:2NFAto1DFAu]{\TNFA{}\tto\ODFA}, which is $\le\CsubLe$, combined with $\Ctriv$ \ODFA{}\tto\TDFA),
 	\item the only unsolved Sakoda and Sipser problem for the unary case (\hyperref[cost:1NFAto2DFAu]{\ONFA{}\tto\TDFA} is solved).
 \end{itemize}
-
-
-\begin{table}
-	\centering
-	\input{tables/sims-1la-unary}%
-	\caption{Descriptional complexity of the simulations between basic regular language recognisers and $1$-limited automata, unary case.}
-	\label{tab:sims-1la-unary}
-\end{table}
-
-\Cref{tab:sims-1la-unary} contains the costs of simulations between basic regular language acceptors and $1$-limited automata, for unary languages.
-Here we give a description of each nontrivial result that hasn't been explained previously:
-
 \paragraph{\ONFA{}\tto\ODLA}\label{cost:1NFAto1DLAu}
 \begin{itemize}
 	\item $\le O(n^2)$: by using construction for \hyperref[cost:1NFAto2DFAu]{\ONFA{}\tto\TDFA}, which is $\le O(n^2)$, combined with $\Ctriv$ \TDFA{}\tto\ODLA,
