@@ -6,7 +6,7 @@
 Given a natural number $k$, a sweeping $k$-limited automaton is a sweeping machine that can only write on its first $k$ sweeps (see \Cref{def:kla,def:sweeping} for a formal description).
 In this chapter we show that, for every $k$, deterministic sweeping \kLAs characterize regular languages, by proving that they are as powerful as finite state automata. We also study this equivalence from a descriptional complexity point of view.
 
-In order to prove the equivalence, we describe a way to construct, given a sweeping \kDLA, an equivalent \NFA.
+In order to prove the equivalence, we describe a way to construct, given a sweeping \kDLA, an equivalent \ONFA.
 To do so, we recall and revise some of the techniques presented in \Cref{ch:techniques} to obtain a simulation.
 This construction requires the sweeping \kDLA to be converted in a specific normal form, as described in \Cref{sec:equiv-swep-dla}.
 \Cref{sec:crossseqswdla} extends and adapts the concept of crossing sequence to our model.
@@ -211,11 +211,11 @@ Since the machine can write on the tape, unlike in \TDFAs there is no constraint
 
 
 
-\section{Simulation by \NFA}\label{sec:swkdla-to-NFA}
+\section{Simulation by \ONFA}\label{sec:swkdla-to-NFA}
 We are now ready to describe the simulation of sweeping \kDLAs by \ONFAs.
 The simulation combines three techniques: crossing sequences, transition tables (see \Cref{sec:transtab2DFA}), and a construction for the automaton recognising the reversal of a given language.
 
-We want to build the simulation so that there is a one-to-one correspondence between accepting computations of the sweeping \kDLA in normal form and the ones of the simulating \NFA.
+We want to build the simulation so that there is a one-to-one correspondence between accepting computations of the sweeping \kDLA in normal form and the ones of the simulating \ONFA.
 To do so we divide each of the former in three parts:
 \begin{itemize}
 	\item the first part is composed by the first $k'$ sweeps, with the head ending to the right and the tape in a frozen state. We simulate this part by using crossing sequences, which also give us a way to compute the last symbol written on each cell,
@@ -227,7 +227,7 @@ Let $A:=(Q,\Sigma,\Gamma,\delta,q_I,F)$ be a sweeping \kDLA.
 Let $\crosseqset$ be the set of its active crossing sequences and $\transtabset$ is the set of its transition tables.
 Without loss of generality (\Cref{thm:equiv-swep-dla}), $A$ performs at least $k'+2$ sweeps on each accepting computation other than on $\emptyword$.
 
-Define the \NFA $A':=(Q',\Sigma,\delta',I,F')$, where
+Define the \ONFA $A':=(Q',\Sigma,\delta',I,F')$, where
 \begin{itemize}
 	\item $Q'=\crosseqset\times Q\times\transtabset\times Q$,
 	\item $\delta'((c,p,\tau,r),\sigma):=\{(d,q,\pi,s) \mid \text{$d$ is right-matched by $c$ \wrt $\sigma$,}$\\
@@ -278,7 +278,7 @@ Refer to \Cref{fig:swepkDLAtoNFA} for an illustration of the construction.
 		\label{sfig:swepkDLAtoNFA-end}
 	\end{subfigure}
 
-	\caption{Representation of the simulation of a sweeping \kDLA by an \NFA.
+	\caption{Representation of the simulation of a sweeping \kDLA by a \ONFA.
 		In each subfigure, the three phases of the original computation are divided by dotted horizontal lines.
 		Transitions are indicated by solid arrows, while general computations paths by dashed arrows.
 		The crossing sequences are the sequences of states along the boundaries of the cell (dashed vertical lines) and labeled by vertical braces.
@@ -352,12 +352,12 @@ In general:
 	Let $A$ be an $n$-state sweeping \kDLA and $A'$ the \ONFA built using the construction presented above.
 	By the conjunction of \Cref{lem:swkLAtoNFA-1,lem:swkLAtoNFA-2}, it holds that $\genlang(A)=\genlang(A')$, \ie $A'$ correctly simulates $A$.
 
-	If $A$ is in normal form, the number of states of the resulting \NFA is given by $\card{Q'}=\card\crosseqset\cdot\card Q\cdot\card\transtabset\cdot\card Q$.
+	If $A$ is in normal form, the number of states of the resulting \ONFA is given by $\card{Q'}=\card\crosseqset\cdot\card Q\cdot\card\transtabset\cdot\card Q$.
 	Of course, $\card Q=n$, while the number of active crossing sequences of $A$ is $(\card Q)^{k'}=n^{k'}$ and the number of its transition tables is $(n+1)^n$.
 	Hence, the obtained automaton has $n^{k'+2}\cdot(n+1)^n$ states.
 
 	If $A'$ is not in normal form, by \Cref{thm:equiv-swep-dla} it can be converted in a \kDLA in normal form with at most $2n+4$ states.
-	The number of states of the resulting \NFA is therefore $(2n+4)^{k'+2}\cdot(2n+5)^{2n+4}$, which is exponential in~$n$ and in~$k$.
+	The number of states of the resulting \ONFA is therefore $(2n+4)^{k'+2}\cdot(2n+5)^{2n+4}$, which is exponential in~$n$ and in~$k$.
 \end{proof}
 
 

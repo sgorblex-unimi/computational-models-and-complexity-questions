@@ -15,7 +15,7 @@ In \Cref{sec:crossseq2DFA}, we describe the concept of crossing sequence in two-
 We follow the explanation used by \citeauthor{HopUll79} in \cite{HopUll79}, while adjusting the notation and keeping an eye on descriptional complexity aspects.
 
 Parallel to \citeauthor{RabSco59}, in the same year \citeauthor{She59} proved the same result with a different technique, which does not require nondeterminism: transition tables.
-In \Cref{sec:transtab2DFA} we introduce the concept of transition table for \TDFAs, and show how \DFAs can simulate them by computing, thanks to transition tables, the state entered on the first visit of each cell.
+In \Cref{sec:transtab2DFA} we introduce the concept of transition table for \TDFAs, and show how \ODFAs can simulate them by computing, thanks to transition tables, the state entered on the first visit of each cell.
 
 
 \section{Crossing sequences}\label{sec:crossseq2DFA}
@@ -174,18 +174,18 @@ The full trajectory can be interpreted as a computation of the original machine,
 For example, in the case of the \TDFA in \Cref{fig:example-crosseq}, the crossing sequences $[q_I]$, $[q_I]$, $[q_I]$, $[q_I,q_2,q_f]$, and $[q_I,q_1,q_f]$ are guessed in order.
 
 Let $A:=(Q,\Sigma,\delta,q_I,F)$ be a \TDFA.
-Define the \NFA $A':=(Q',\Sigma,\delta',I,F')$ where%
+Define the \ONFA $A':=(Q',\Sigma,\delta',I,F')$ where%
 \footnote{ % TODO: move in models chapter
 	Originally, the construction was introduced for \TDFAs without end-markers \cite{RabSco59}.
-	In that case, $[q_I]$ is the crossing sequence of the left tape boundary, and it constitutes the initial state of the \NFA.
-	Similarly, the right tape boundary is passed while the machine enters a final state; therefore, states storing crossing sequences $[q_f]$, for all $q_f\in F$, are set as final in the \NFA (for details see, \eg[,] \cite{HopUll79}).
+	In that case, $[q_I]$ is the crossing sequence of the left tape boundary, and it constitutes the initial state of the \ONFA.
+	Similarly, the right tape boundary is passed while the machine enters a final state; therefore, states storing crossing sequences $[q_f]$, for all $q_f\in F$, are set as final in the \ONFA (for details see, \eg[,] \cite{HopUll79}).
 	Simulating \TDFAs with end-markers is generally a stronger result, as they are in some cases exponentially smaller than equivalent \TDFAs without end-markers.
 }
 \begin{itemize}
 	\item $Q'$ is the set of valid crossing sequences of $A$.
 	\item $\delta'(c,\sigma):=\set{d \mid \text{$d$ is right-matched by $c$ with respect to~$\sigma$}}$.
 \end{itemize}
-Since \NFAs do not read end-markers, the starting state will be guessed among the crossing sequences that match $[q_I]$, which simulates entering the left end-marker from the left (as if $\lem$ was entered, rather than being the initial position).
+Since \ONFAs do not read end-markers, the starting state will be guessed among the crossing sequences that match $[q_I]$, which simulates entering the left end-marker from the left (as if $\lem$ was entered, rather than being the initial position).
 For the same reason, final states correspond to crossing sequences that are compatible to the one passing the right end-marker:
 \begin{itemize}
 	\item $I:=\set{d\mid \text{$d$ is right-matched by $[q_I]$ with respect to $\lem$}}$.
@@ -269,7 +269,7 @@ Consider a two-way machine.
 Because every accepting computation starts with the head on the left end-marker and ends when it passes the right end-marker to the right, every cell is visited at least once, and the entire computation can be divided in the paths between the first visits to each cell.
 In the case of a \TDFA, each of these computation paths can be described, given the input prefix ending in the current cell, by a function that maps every possible current state to the state the machine will eventually enter when scanning for the first time the adjacent cell to the right.
 As we shall see, despite the possible input prefixes being of arbitrary length and infinite number, the number of such functions is finite.
-This lets us encapsulate all computations of the \TDFA in a finite set of states, which we use to build an equivalent \DFA.
+This lets us encapsulate all computations of the \TDFA in a finite set of states, which we use to build an equivalent \ODFA.
 
 \begin{defn}\label{def:transtab2DFA}
 	Given a \TDFA $A=(Q,\Sigma,\delta,q_I,F)$ a transition table of $A$ is a partial function $\tau:Q\to Q$.
@@ -306,7 +306,7 @@ We now prove that a \TDFA can be simulated by a \ODFA whose states are transitio
 Intuitively, the simulating machine keeps track of the state of the \TDFA that is entered on each first visit to a cell, while simultaneously memorising and updating a transition table which lets the machine simulate computations on the already visited part of the tape (\ie on the part of the tape to the left of the current cell and the current cell itself).
 
 Let $A:=(Q,\Sigma,\delta,q_I,F)$ be a \TDFA.
-Define the \DFA $A':=(Q',\Sigma,\delta',q'_I,F')$ where
+Define the \ODFA $A':=(Q',\Sigma,\delta',q'_I,F')$ where
 \begin{itemize}
 	\item $Q':=\transtabset\times Q$, where $\transtabset$ is the set of transition tables of $A$,
 	\item $\delta'((\tau,r),\sigma):=(\pi,s)$, with $\pi:=t_\sigma(\tau)$ and $s:=\pi(r)$,
