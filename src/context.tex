@@ -5,36 +5,19 @@
 \section{Formal languages and automata theory}
 Formal language theory is a fundamental field of theoretical computer science that studies \emph{languages}, \ie sets of strings, and finite ways to represent them.
 
-\paragraph{Language descriptions} These finite representations span different paradigms: for example, we might state a property that holds on the strings belonging to the language, or construct a generative or a recognizing model.
+\paragraph{Language descriptions} The finite representations of languages span different paradigms: for example, we might state a property that holds on the strings belonging to the language, or construct a generative or a recognizing model.
 Generative models, typically \emph{grammars}, define a list of rules that can be used to generate the strings in the desired language.
 Recognizing \emph{computational models} consist in abstract machines that can determine, in a certain number of steps, if a given string belongs to the chosen language.
 
 \paragraph{The Chomsky hierarchy} Different models for the description of languages characterize possibly different language classes, originating what is commonly known as the \emph{Chomsky hierarchy} \cite{Cho56}.
 \ironic{Although his attempt to create a model generating the English language failed miserably, \citeauthor{Cho56} accidentally founded an entire field of computer science, which is somehow still researched to this day by people like the undersigned.}{}
-The hierarchy, originally described for grammars, spans four language classes, each strictly containing the following (see \Cref{tab:chomsky} for a summary):
+The hierarchy, originally described for grammars, spans four language classes, each strictly containing the following:
 \begin{itemize}
-	\item \emph{recursively enumerable}, characterized by Turing machines (\TM),
-	\item \emph{context-sensitive}, characterized by linear bounded automata (\LBA),
-	\item \emph{context-free}, characterized by pushdown automata (\PDA),
-	\item \emph{regular}, characterized by finite state automata (\DFA).
+	\item \emph{recursively enumerable}, characterized by Turing machines,
+	\item \emph{context-sensitive}, characterized by linear bounded automata,
+	\item \emph{context-free}, characterized by pushdown automata,
+	\item \emph{regular}, characterized by finite state automata.
 \end{itemize}
-
-\begin{table}
-	\centering
-	\renewcommand{\arraystretch}{1.2}
-	\begin{tabular}{lll}
-		\toprule
-		\textsc{Language class} & \textsc{Recognizer}                        & \textsc{Production rules}                               \\
-		\midrule
-		Recursively enumerable  & Turing machine                             & $\gamma\to\alpha$                                       \\
-		Context-sensitive       & \makecell[lt]{Linear bounded\nl automaton} & $\alpha A\beta\to\alpha\gamma\beta$                     \\
-		Context-free            & Pushdown automaton                         & $A\to\alpha$                                            \\
-		Regular                 & Finite state automaton                     & \makecell[lt]{$A\to a$, $A\to aB$,\nl $A\to\emptyword$} \\
-		\bottomrule
-	\end{tabular}
-	\caption{The Chomsky hierarchy. Each class is listed along its canonical recognizer and the type of rules in generating grammars. In the production rules, $\emptyword$ is the empty string, $a$ is a terminal symbol, $A$ and $B$ are non-terminal symbols, and $\alpha$, $\beta$ and $\gamma$ are generic strings, with $\gamma\ne\emptyword$.}
-	\label{tab:chomsky}
-\end{table}
 
 \paragraph{Nondeterminism} A very important concept in formal language theory is the one of \emph{nondeterminism}.
 At a given time of its computation, a nondeterministic machine has possibly multiple choices on the next step, which implies the possibility of several computation paths given the same input.
@@ -42,10 +25,10 @@ We say that a nondeterministic machine accepts a string if there exists a comput
 
 One of the very first problems in the field was to determine if the nondeterministic and deterministic variants of the same computational model accepted the same language class.
 While this was found to be the case for the canonical recognizers of recursively enumerable, context-sensitive and regular languages, \citeauthor{Fis63} and \citeauthor{Sch63} proved that deterministic pushdown automata accept a smaller class than their nondeterministic counterpart, called \emph{deterministic context-free languages} \cite{Fis63,Sch63}.
-Concerning the regular language class, \citeauthor{RabSco59} found in \citeyear{RabSco59} a construction, known as the \emph{subset} (or \emph{powerset}) \emph{construction}, to convert a nondeterministic finite automaton (\NFA) into a deterministic one (\DFA) \cite{RabSco59}.
+Concerning the regular language class, \citeauthor{RabSco59} found in \citeyear{RabSco59} a construction, known as the \emph{subset} (or \emph{powerset}) \emph{construction}, to convert a nondeterministic finite automaton into a deterministic one \cite{RabSco59}.
 
 \paragraph{Two-way models} In the same article, \citeauthor{RabSco59} defined \emph{two-way} nondeterministic and deterministic \emph{finite automata} (\TNFA and \TDFA, respectively).
-These models act in a similar way to the classic, one-way finite automata (also indicated with \ONFA and \ODFA), where the input is read one symbol at a time and the machine changes state depending on the scanned symbol and the current state. However, while one-way machines read the input symbols subsequently from left to right, two-way models can move left or right freely, as described by the transition rules.
+These models act in a similar way to the classic, one-way finite automata (\ONFA and \ODFA), where the input is read one symbol at a time and the machine changes state depending on the scanned symbol and the current state. However, while one-way machines read the input symbols subsequently from left to right, two-way models can move left or right freely, as described by the transition rules.
 \citeauthor{RabSco59} proved that these new models also characterize regular languages, by simulating them with a \ONFA with a construction based on \emph{crossing sequences} (more in \Cref{sec:crossseq2DFA}) \cite{RabSco59}.
 The same result was found in parallel by \citeauthor{She59}, who used a different construction based on \emph{transition tables} and that also works with a deterministic simulating machine (see \Cref{sec:transtab2DFA}) \cite{She59}.
 
@@ -57,7 +40,7 @@ The same result was found in parallel by \citeauthor{She59}, who used a differen
 In \citeyear{MeyFis71}, \citeauthor{MeyFis71} proposed to compare different descriptions for a language class by their size, that is, by how succinctly they can describe the chosen language \cite{MeyFis71}.
 Concretely, this typically means comparing the size of the components of the models, such as the number of states or the size of the working alphabet.
 
-From the construction given by \citeauthor{RabSco59}, it followed that each \NFA can be simulated by a \DFA by paying an exponential cost in the number of states.
+From the construction given by \citeauthor{RabSco59}, it followed that each nondeterministic finite automaton can be simulated by a deterministic one by paying an exponential cost in the number of states.
 In their article, \citeauthor{MeyFis71} proved that there exist families of languages for which this difference in size cannot be reduced, therefore giving a tight bound on the cost of removing nondeterminism from one-way finite automata \cite{MeyFis71}.
 \citeauthor{Moo71} achieved the same result independently in the same year \cite{Moo71}.
 
@@ -108,12 +91,12 @@ An interesting review of old and recent results regarding two way automata and t
 \section{Limited automata}
 Limited automata were introduced by \citefullauthor{Hib67} in \citeyear{Hib67} with the aim of generalizing the notion of determinism in context-free languages \cite{Hib67}.
 These devices are nondeterministic Turing machines with rewriting restrictions.
-In particular, given a non-negative integer $k$, a \emph{$k$-limited automaton} (\kLA) is a machine with a single tape, delimited to the cells initially containing the input by special symbols called end-markers ($\lem$,$\rem$), that can only write on each cell on its first $k$ visits.
+In particular, given a non-negative integer $k$, a \emph{$k$-limited automaton} (\kLA) is a machine with a single tape delimited to the cells initially containing the input by special symbols called end-markers ($\lem$,$\rem$), which can only write on each cell on its first $k$ visits.
 
 In his seminal paper, \citeauthor{Hib67} proved that, for $k\ge2$, the class accepted by deterministic $k$-limited automata (\kDLA) is a strict subset of the class accepted by deterministic $(k+1)$-limited automata, hence generating an infinite, fine-grained hierarchy of context-free languages.
 Only in \citeyear{PigPis15} it was proven that \DLA2 accept exactly deterministic context-free languages \cite{PigPis15}.
 Furthermore, he proved that, for every $k\ge2$, nondeterministic $k$-limited automata characterize the class of context-free languages.
-The latter result was proven by constructing simulations of \LA2 by models equivalent to \PDAs and vice versa, along with reductions from $\kLA$ to $\LA{(k-1)}$.\footnote{%
+The latter result was proven by constructing simulations of \LA2 by models equivalent to pushdown automata and vice versa, along with reductions from $\kLA$ to $\LA{(k-1)}$.\footnote{%
 	A simpler proof can be obtained as a consequence of the \emph{Chomsky-Shützenberger theorem} \cite{ChoSch63}, which states that every context-free language can be expressed as the homomorphic image of a \emph{Dyck language} (a language of balanced parentheses).
 	A $\LA2$ accepting a Dyck language can be combined with a transformer applying the homomorphism, in order to accept any given language (see \cite{Pig19} for details).}
 
@@ -123,10 +106,10 @@ In \citeyear{WagWec86}, \citeauthor{WagWec86} proved that the accepting power of
 \paragraph{$1$-limited automata and descriptional complexity}
 In \citeyear{PigPis14}, \citeauthor{PigPis14} resumed the study of limited automata with a new focus on descriptional complexity, as a new way to tackle the Sakoda and Sipser problem \cite{PigPis14}.
 The size of a limited automaton can be expressed as a polynomial in the cardinalities of the state set and of the working alphabet.
-By revisiting the proof given by \citeauthor{WagWec86}, \citeauthor{PigPis14} proved that an $n$-state \OLA can be simulated by an \NFA with a number of states exponential in $n$.
+By revisiting the proof given by \citeauthor{WagWec86}, \citeauthor{PigPis14} proved that an $n$-state \OLA can be simulated by a \ONFA with a number of states exponential in $n$.
 Furthermore, they proved that if the \OLA is deterministic (\ODLA), the resulting finite automaton is also deterministic, while still exponential in size.
-% Matching lower bounds were found thanks to a "block" language (a language defined by a proposition on same-sized factors of each word) witness that the simulations of a \OLA by a \NFA or a \DFA may need an exponential and double exponential size blow-up, respectively.
-Matching lower bounds were found thanks to a language family witnessing that, in the worst case, the simulations of a \OLA by a \NFA or a \DFA need an exponential and double exponential size blow-up, respectively.
+% Matching lower bounds were found thanks to a "block" language (a language defined by a proposition on same-sized factors of each word) witness that the simulations of a \OLA by a \ONFA or a \ODFA may need an exponential and double exponential size blow-up, respectively.
+Matching lower bounds were found thanks to a language family witnessing that, in the worst case, the simulations of a \OLA by a \ONFA or a \ODFA need an exponential and double exponential size blow-up, respectively.
 Thanks to the study of the unary case, \citeauthor{PigPri19} proved some of the remaining lower bounds, resulting in the costs summarized in \Cref{tab:sims-1la-general-context} \cite{PigPri19}.
 The unary case was also studied by \citeauthor{KutWen15}, who proved state lower bounds for the simulation of unary \kLA by different variants of finite automata \cite{KutWen15}.
 
@@ -148,13 +131,13 @@ In \citeyear{PigPri23a}, \citeauthor{PigPri23a} introduced \emph{once-marking}, 
 
 
 \paragraph{Other limited automata}
-The context-free case has been studied from a descriptional complexity point of view by \citeauthor{PigPis15}, who proved that a \LA2 can be simulated by a \PDA of exponential size, while the opposite way has a polynomial cost and preservers determinism \cite{PigPis15}.
-This result was then improved by \citeauthor{KutPig+18}, who found an exponential simulation of \kLA, for any $k\ge2$, by \PDA \cite{KutPig+18}.
+The context-free case has been studied from a descriptional complexity point of view by \citeauthor{PigPis15}, who proved that a \LA2 can be simulated by a pushdown automaton of exponential size, while the opposite way has a polynomial cost and preservers determinism \cite{PigPis15}.
+This result was then improved by \citeauthor{KutPig+18}, who found an exponential simulation of \kLAs, for any $k\ge2$, by pushdown automata \cite{KutPig+18}.
 
 For the deterministic case, a simulation of \DLA2 by a \DPDA of double exponential size was found, and it is conjectured that such cost is optimal \cite{PigPis15}.
 
 In \citeyear{Pig16}, \citeauthor{Pig16} introduced \emph{strongly limited automata}, a restriction of \LA2 which closely imitates the moves that are used by limited automata to accept Dyck languages \cite{Pig16}.
-As proven in the article, strongly limited automata are equivalent, both in accepting power and descriptional complexity (up to a polynomial size difference), to \PDAs or context-free grammars.
+As proven in the article, strongly limited automata are equivalent, both in accepting power and descriptional complexity (up to a polynomial size difference), to pushdown automata or context-free grammars.
 
 In \citeyear{WecBra79}, \citeauthor{WecBra79} studied limited automata when the number of rewriting-capable visits is a function of the length of the input (\emph{$f(n)$-limited}) \cite{WecBra79}.
 
@@ -173,7 +156,7 @@ They showed that the double exponential gap to \ODFA remains possible, even in f
 Fully deterministic \OMOLA (\OMODLA), on the other hand, can be simulated by \TDFAs with only a polynomial size increase (by an interesting computation tree simulation originally developed by \citeauthor{Sip80a} and later improved by \citeauthor{GefMer+07} \cite{Sip80a,GefMer+07}).
 
 A different path of development was introduced with \emph{always-marking} $1$-limited automata (\AMOLA), which are forced to replace each input symbol $\sigma$ with one that depends only on $\sigma$.
-\citeauthor{PigPri23a} showed that the gap from \AMOLA, even in the nondeterministic version, to \DFA reduces to a single exponential.
+\citeauthor{PigPri23a} showed that the gap from \AMOLA, even in the nondeterministic version, to \ODFA reduces to a single exponential.
 The bounds to the other classic acceptors, notably \TNFA, remains exponential, even when considering a deterministic \AMOLA.
 
 In a different paper, the same authors introduce \emph{forgetting} $1$-limited automata (\FOLA), where during the first visit to each cell, its input symbol is replaced with a unique fixed symbol, effectively erasing the original information \cite{PigPri23,JanMra+93}.
@@ -193,7 +176,7 @@ Sweeping machines have been of interest in automata theory and descriptional com
 
 Sweeping $k$-limited automata, where $k$ is a non-negative integer, were first taken into consideration by \citeauthor{KutPig+18} \cite{KutPig+18}.
 Unlike generic $k$-limited automata, in sweeping \kLA whenever the head reaches an end-marker all the tape cells have been rewritten the same number of times.
-In the paper, the unary case was investigated, as in this context all types of $k$-limited automata accept regular languages (coinciding with context-free languages).
+In the same paper, the unary case was investigated, as in this context all types of $k$-limited automata accept regular languages (coinciding with context-free languages).
 In particular, the authors proved a subexponential lower bound in the number of states for the simulation of a sweeping \kDLA by a \ODFA, a polynomial lower bound for the simulation by a \TNFA (hence also by a \TDFA or a \ONFA), and a polynomial upper bound for the simulation by a \TDFA.
 All of these are, however, exponential in $k$.
 
