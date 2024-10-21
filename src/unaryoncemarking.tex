@@ -52,17 +52,12 @@ We point out that the simulation of \OMODLA by \ONFA has been mistakenly labeled
 	The resulting automaton, which only uses a counter up to $n$ and saves a symbol in $\set{a,b}$, has a linear number of states in $n$.
 
 	We now prove that every \ONFA needs an exponential number of states to accept $\double$.
-	In order to do so, we use a standard technique known as \emph{fooling set} \cite{Bir92}.
-	Given a language $L$, a fooling set is a set of pairs of strings $\set{(x_i,y_i)}$ such that
-	\begin{itemize}
-		\item for all $i$, $x_iy_i\in L$, and
-		\item for all $i\ne j$, $x_iy_j\notin L$ and $x_jy_i\notin L$.
-	\end{itemize}
-	The cardinality of each fooling set is a lower bound for the number of states of every \ONFA accepting $L$.
+	In order to do so, we use the fooling set technique (see \Cref{sub:foolingsets}).
 
 	Consider the set $S:=\set{(w_i,w_i)\mid w_i\in\set{a,b}^n}$.
 	Obviously, $w_iw_i\in\double$ for all $i$.
 	Furthermore, if $i\ne j$, $w_iw_j$ and $w_jw_i$ do not belong to $\double$, as the two halves of each word are different.
+	Hence, $S$ is a fooling set for $\double$.
 	Since $\card S=2^n$, every \ONFA accepting $\double$ has at least $2^n$ states.
 
 	Finally, we point out that, by replacing the marked cell with a simple check that the input length is $2n$, the language $\double$ can be accepted by a simple \TDFA with a slightly greater number of states.

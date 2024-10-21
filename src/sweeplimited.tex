@@ -420,15 +420,14 @@ Therefore, overall the size of the machine is quadratic in $n$.
 A \ODFA of size double exponential in $n$ can accept $D_n$ by saving in the finite state memory a window of the last $n^n$ symbols, and then accept if and only if, after scanning the input word, the first symbol of such window is $a$.
 This would require $2^{n^n}$ states.
 
-In order to prove that each \ODFA needs a double exponential number of states in $n$ in order to accept $D_n$, we use a standard distinguishability argument.
-Two strings $x,y$ are call distinguishable with respect to a language $L$ if there exists a string $z$ over the same alphabet such that exactly one between $xz$ and $yz$ belongs to $L$.
-The cardinality of each set of two-by-two distinguishable strings is a lower bound for the number of states of every \ODFA accepting $L$.
+In order to prove that each \ODFA needs a double exponential number of states in $n$ in order to accept $D_n$, we use a distinguishability argument (see \Cref{sub:distinguishability}).
 
 Given the set of strings $S:=\set{a,b}^{n^n}$, consider two strings $x,y\in S$ such that $x\ne y$.
 In particular, let $i$ be the first index such that $x_i\ne y_i$.
 Then, the string $z:=b^{i-1}$ distinguishes $x$ and $y$.
 For example, if $x_i=a$ and $y_i=b$, the $n^n$-th symbol of $(xz)\rev$ is $a$, meaning $xz\in D_n$, while the $n^n$-th symbol of $(yz)\rev$ is $b$, meaning $yz\notin D_n$.
 
+Hence, $S$ is a set of pairwise distinguishable strings with respect to $D_n$.
 Because $\card S=2^{n^n}=2^{2^{n\log n}}$, every \ODFA accepting $D_n$ needs a number of states two times exponential in $n$.
 
 \begin{thrm}
