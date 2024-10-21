@@ -2,21 +2,22 @@
 % TODO: use \trapp instead of t_
 When comparing different computational models, natural questions arise about their relative accepting power and, if equal, succinctness.
 In order to prove that two models are equivalent, it is typically shown that one can simulate the other and vice versa.
-When it comes to two-way models for regular languages, one of the simulation directions is often trivial, when one-way automata are a particular case of the model in question.
+When it comes to the simulations between two-way and one-way models for regular languages, one of the simulation directions is often trivial, when the one-way simulated machine is a particular case of the two-way simulating machine in question.
 In order to simulate a two-way model with a one-way automaton, a few standard techniques are commonly applied, with appropriate modifications, to the model under consideration.
 Two of these techniques are presented in this chapter: \emph{crossing sequences} and \emph{transition tables}.
 
-Crossing sequences were first introduced by \citeauthor{RabSco59}, in their famous \citeyear{RabSco59} paper about equivalent computational models \cite{RabSco59}.
-In \Cref{sec:crossseq2DFA}, we describe the concept of crossing sequence in two-way machines, then we consider the case of two-way deterministic finite automata (\TDFA) and create a construction that lets \ONFAs simulate them by guessing consecutive crossing sequences.
-We follow the explanation used by \citeauthor{HopUll79} in \cite{HopUll79}, while adjusting the notation and keeping an eye on descriptional complexity aspects.
+Crossing sequences were first introduced by \citeauthor{RabSco59}, in their famous \citeyear{RabSco59} paper that introduced the concept of automaton, its variants, and their equivalence \cite{RabSco59}.
+In \Cref{sec:crossseq2DFA}, we describe the concept of crossing sequence in two-way machines, then we consider the case of two-way deterministic finite automata (\TDFA) and present a construction that lets \ONFAs simulate them by guessing consecutive crossing sequences.
+We follow the explanation used by \citeauthor{HopUll79} in \cite{HopUll79}, while adjusting the notation focusing on descriptional complexity aspects.
 
-Parallel to \citeauthor{RabSco59}, in the same year \citeauthor{She59} proved the same result with a different technique, which does not require nondeterminism: transition tables.
-In \Cref{sec:transtab2DFA} we introduce the concept of transition table for \TDFAs, and show how \ODFAs can simulate them by computing, thanks to transition tables, the state entered on the first visit of each cell.
+Parallel to \citeauthor{RabSco59}, in the same year \citeauthor{She59} proved the same result with a different technique, which does not require nondeterminism: transition tables \cite{She59}.
+% In \Cref{sec:transtab2DFA} we introduce the concept of transition table for \TDFAs, and show how \ODFAs can simulate them by computing, thanks to transition tables, the state entered on the first visit of each cell.
+In \Cref{sec:transtab2DFA} we introduce the concept of transition table for \TDFAs, and show how they can be used to simulate said machines with \ODFAs.
 
 
 \section{Crossing sequences}\label{sec:crossseq2DFA}
 Given a two-way machine and one of its possible computations over a certain input, consider a tape cell and one of the two \emph{boundaries} at its sides.
-A crossing sequence $[q_1,q_2,\dots]$ is the sequence of states that the machine enters as the head crosses such boundary, \ie it enters or leaves the cell on the chosen side.
+A crossing sequence $[q_1,q_2,\dots]$ is the sequence of states of the machine as the head crosses such boundary, \ie[,] it enters or leaves the cell on the chosen side.
 In \Cref{sfig:example-crosseq-2}, the crossing sequences of an example \TDFA are shown as the sequences of states around each cell boundary.
 
 \begin{figure}
@@ -25,7 +26,7 @@ In \Cref{sfig:example-crosseq-2}, the crossing sequences of an example \TDFA are
 		\centering
 		\input{tikz/egcrosseqstates.tikz}
 		\caption{State transition graph.
-			While in state $q_I$ the head is brought to the end of the tape. States $q_1$ and $q_2$ make a counter to $2$, while in state $q_2$ the machine checks that the second symbol from the right is $a$, in which case state $q_f$ is entered and the machine accepts after passing the right end-marker.\newline}
+			In state $q_I$ the head is brought to the end of the tape. States $q_1$ and $q_2$ make a counter to $2$, while in state $q_2$ the machine checks that the second symbol from the right is $a$, in which case state $q_f$ is entered and the machine accepts after passing the right end-marker.\newline}
 	\end{subfigure}
 	\hfill
 	\begin{subfigure}[b]{0.49\textwidth}
@@ -36,11 +37,12 @@ In \Cref{sfig:example-crosseq-2}, the crossing sequences of an example \TDFA are
 		\label{sfig:example-crosseq-2}
 	\end{subfigure}
 
-	\caption{An example \TDFA recognizing the language $(a+b)\star a(a+b)$ and its (accepting) computation on input $abab$.}
+	\caption{An example \TDFA recognizing the language $(a+b)\star a(a+b)$ and its (accepting) computation on input $abab$.
+		The tape head is brought to the end of the tape, then two moves are performed towards the left in order to find the second symbol from the right. The symbol is then checked to be $a$, in which case the machine accepts by reaching and passing the right end-marker.}
 	\label{fig:example-crosseq}
 \end{figure}
 
-In general, because of loops and nondeterminism, a crossing sequence may be of infinite length.
+In general, because of loops and nondeterminism, a crossing sequence may have an infinite length.
 However, we shall see that we may restrict our interest to some finite set of finite sequences, depending on the model under consideration.
 
 As two-way machines start their computations on the left end-marker, the first state of every nonempty crossing sequence is always entered with a move to the right, indicating the first visit to the new cell, while subsequent crossings are in alternate directions.
@@ -51,13 +53,13 @@ Therefore, the states at odd indices of every crossing sequence are entered afte
 
 Furthermore, since in the models we consider the input is accepted by crossing the right boundary of the tape\footnote{%
 	Other models can be easily be converted to adhere to this behavior: if a machine accepts when a transition is undefined in a final state, that transition can be defined to bring to a new final state, which moves the head to the right until it passes the right boundary of the tape.}% TODO: this consideration may be moved in the chapter where models are defined. TBD
-, the last crossing of each boundary is towards the right, \ie in an odd position:
+, the last crossing of each boundary is towards the right, \ie[,] in an odd position:
 \begin{fact}\label{fact:crossing-length}
 	Every crossing sequence of an accepting computation has odd length.
 \end{fact}
 
 
-\subsection{2-way deterministic finite automata}
+\subsection{two-way deterministic finite automata}
 We now consider the specific case of two-way deterministic finite automata (\TDFAs).
 If a \TDFA accepts an input word $w$, the computation on $w$ will never enter the same state twice while passing the same boundary in the same direction, otherwise the machine, being deterministic, would run in an infinite loop and thus not accept.
 In terms of crossing sequences:
@@ -113,22 +115,23 @@ In general, given a tape cell and two crossing sequences $[q_1,\dots,q_k]$ and $
 	\item If the head moves to the right in state $p_i$, assume the automaton going back to the cell in state $p_{i+1}$ and perform a move as in the previous case.
 \end{itemize}
 
-We then say that the sequence $[q_1,\dots,q_k]$ \emph{right-matches} the sequence $[p_1,\dots,p_l]$ with respect to a symbol $\sigma$ when they are locally compatible starting with a transition to the right on the cell containing $\sigma$ in state $q_1$ and ending to its right.
+We then say that the sequence $[q_1,\dots,q_k]$ \emph{right-matches} the sequence $[p_1,\dots,p_l]$ with respect to a symbol $\sigma$ when they are locally compatible starting with a transition to the right into the cell containing $\sigma$ in state $q_1$ and ending to its right.
 We say that $[q_1,\dots,q_k]$ \emph{left-matches} $[p_1,\dots,p_l]$ when the initial transition is to the left in state $p_1$, while still ending to the right of the cell.
 
-For a visual representation of the formal definition see \Cref{fig:2DFA-crossmatch}.
+We now give the formal definition (for a visual representation see \Cref{fig:2DFA-crossmatch}):
 \begin{defn}\label{def:crossmatch2DFA}
 	Given a \TDFA $A=(Q,\Sigma,\delta,q_I,F)$ we define left- and right-matching pairs of crossing sequences with respect to a symbol $\sigma\in\Sigma$ as follows:
 	\begin{rules}
 		\item \label{itm:crossmatch2DFA-1} The empty sequence $[~]$ right-matches and left-matches itself with respect to~$\sigma$.
 		\item \label{itm:crossmatch2DFA-2} If $[q_3,\dots,q_k]$ right-matches $[p_1,\dots,p_l]$ with respect to~$\sigma$ and $\delta(q_1,\sigma)=(q_2,\tl)$, then $[q_1,\dots,q_k]$ right-matches $[p_1,\dots,p_l]$ with respect to~$\sigma$.
-		The computation enters the cell from the left in state $q_1$, turns around right away leaving it to the left in $q_2$, and eventually comes back to it in $q_3$, to which we apply induction.
+		A computation could enter the cell from the left in state $q_1$, turn around right away leaving it to the left in $q_2$, and eventually come back to it in $q_3$, to which we apply induction.
 		\item \label{itm:crossmatch2DFA-3} If $[q_2,\dots,q_k]$ left-matches $[p_2,\dots,p_l]$ with respect to~$\sigma$ and $\delta(q_1,\sigma)=(p_1,\tr)$, then $[q_1,\dots,q_k]$ right-matches $[p_1,\dots,p_l]$ with respect to~$\sigma$.
-		The computation enters the cell from the right in state $p_1$, immediately leaves it to the left in $q_1$, and eventually comes back to it in $q_2$, to which we apply induction.
+		A computation could enter the cell from the right in state $p_1$, immediately leave it to the left in $q_1$, and eventually come back to it in $q_2$, to which we apply induction.
 		\item \label{itm:crossmatch2DFA-4} Similarly to \Cref{itm:crossmatch2DFA-2}, if $[q_1,\dots,q_k]$ left-matches $[p_3,\dots,p_l]$ with respect to~$\sigma$ and $\delta(p_1,\sigma)=(p_2,\tr)$, then $[q_1,\dots,q_k]$ left-matches $[p_1,\dots,p_l]$ with respect to~$\sigma$.
 		\item \label{itm:crossmatch2DFA-5} Similarly to \Cref{itm:crossmatch2DFA-3}, if $[q_2,\dots,q_k]$ right-matches $[p_2,\dots,p_l]$ with respect to~$\sigma$ and $\delta(p_1,\sigma)=(q_1,\tl)$, then $[q_1,\dots,q_k]$ left-matches $[p_1,\dots,p_l]$ with respect to~$\sigma$.
 	\end{rules}
 \end{defn}
+Given two crossing sequences and a symbol $\sigma$, it is possible to check whether the sequences are locally compatible with respect to $\sigma$, with no need to know the content of the rest of the tape, by verifying that the rules in the definition apply.
 Note that two crossing sequences need not be valid in order to match (\eg the empty sequence).
 
 \begin{figure}
@@ -254,7 +257,7 @@ In general:
 
 \subsection{Sweeping \TDFAs}\label{sub:swep2DFA}
 In the case of a sweeping \TDFA, because an accepting computation can be divided in an odd number of traversals of the tape, all the relative crossing sequences are of the same length.
-However, the set of valid crossing sequences must be defined the same way, since different accepting computations may have different numbers of sweeps.
+However, the set of valid crossing sequences must be defined in the same way, since different accepting computations may have different numbers of sweeps.
 
 Furthermore, in a sweeping machine, applications of \Cref{itm:crossmatch2DFA-2,itm:crossmatch2DFA-4} only appear in matchings with respect to the end-markers, while matchings relative to boundaries in the middle of the tape are composed by the base (\Cref{itm:crossmatch2DFA-1}) followed by alternating applications of \Cref{itm:crossmatch2DFA-3,itm:crossmatch2DFA-5}.
 
@@ -268,21 +271,23 @@ As we shall see, despite the possible input prefixes being of arbitrary length a
 This lets us encapsulate all computations of the \TDFA in a finite set of states, which we use to build an equivalent \ODFA.
 
 \begin{defn}\label{def:transtab2DFA}
-	Given a \TDFA $A=(Q,\Sigma,\delta,q_I,F)$ a transition table of $A$ is a partial function $\tau:Q\to Q$.
+	Given a \TDFA $A=(Q,\Sigma,\delta,q_I,F)$, a transition table of $A$ is a partial function $\tau:Q\to Q$.
 	A transition table is assigned to each word. In particular:
 	\begin{rules}
 		\item for each $r\in Q$, $\tau_\emptyword(r):=\tau_\lem(r):=s$, where $\delta(r,\lem)=(s,\tr)$,
-		\item for each $r\in Q,x\in\Sigma\star,\sigma\in\Sigma$, $\tau_{x\sigma}(r):=s$, if either $\delta(r,a)=(s,\tr)$, or there exist an integer $k\ge1$ and states $q_1,\dots,q_k,r_1,\dots,r_k$ such that
+		\item for each $r\in Q,x\in\Sigma\star,\sigma\in\Sigma$, $\tau_{x\sigma}(r):=s$, if either $\delta(r,\sigma)=(s,\tr)$, or there exist an integer $k\ge1$ and states $q_1,\dots,q_k,r_1,\dots,r_k$ such that
 		\begin{itemize}
-			\item $\delta(r,a)=(q_1,\tl)$,
+			\item $\delta(r,\sigma)=(q_1,\tl)$,
 			\item $\tau_x(q_i)=r_i$ for all $i\in\set{1,\dots,k}$,
 			\item $\delta(r_i,\sigma)=(q_{i+1},\tl)$ for all $i\in\set{1,\dots,k-1}$, and
 			\item $\delta(q_k,\sigma)=(s,\tr)$.
 		\end{itemize}
 	\end{rules}
 	We denote with $\transtabset$ the set of the transition tables of $A$.
-	Notice that if $\tau_x$ is known, knowledge of $x$ is not needed to calculate $\tau_{x\sigma}$.
-	This implies that $\transtabset$ is finite, and lets us define, for each $\sigma\in\Sigma$, the function $t_\sigma:\transtabset\to\transtabset$ that maps a transition table $\tau_x$ to $\tau_{x\sigma}$.
+	Because the number of such functions is finite, the set $\transtabset$ is finite.
+	Notice that if for two strings $x,y$ it holds that $\tau_x=\tau_y$, then $\tau_{x\sigma}=\tau_{y\sigma}$ for all symbols $\sigma$.
+	Thus, if $\tau_x$ is known, knowledge of $x$ is not needed to calculate $\tau_{x\sigma}$.
+	This lets us define, for each $\sigma\in\Sigma$, the function $t_\sigma:\transtabset\to\transtabset$ that maps a transition table $\tau_x$ to $\tau_{x\sigma}$.
 \end{defn}
 
 \begin{figure}
@@ -293,13 +298,13 @@ This lets us encapsulate all computations of the \TDFA in a finite set of states
 	\label{fig:transtab}
 \end{figure}
 
-\Cref{fig:transtab} depicts a possible computation described by a transition table and the role of the operator $t_\sigma$.
+\Cref{fig:transtab} depicts a possible computation described by a transition table and the role of the function $t_\sigma$.
 
 
 \subsection{From \TDFAs to \ODFAs}
 We now prove that a \TDFA can be simulated by a \ODFA whose states are transition tables of the \TDFA.
 
-Intuitively, the simulating machine keeps track of the state of the \TDFA that is entered on each first visit to a cell, while simultaneously memorising and updating a transition table which lets the machine simulate computations on the already visited part of the tape (\ie on the part of the tape to the left of the current cell and the current cell itself).
+Intuitively, the simulating machine keeps track of the state of the \TDFA that is entered on each first visit to a cell, while simultaneously memorizing and updating a transition table which lets the machine simulate computations on the already visited part of the tape (\ie on the part of the tape to the left of the current cell and the current cell itself).
 
 Let $A:=(Q,\Sigma,\delta,q_I,F)$ be a \TDFA.
 Define the \ODFA $A':=(Q',\Sigma,\delta',q'_I,F')$ where
@@ -310,11 +315,18 @@ Define the \ODFA $A':=(Q',\Sigma,\delta',q'_I,F')$ where
 	\item $F':=\set{(\tau,p)\mid t_\rem(\tau)(p)\in F}$.
 \end{itemize}
 
-A simple induction gives the following auxiliary result:
+We now prove the following auxiliary result, which we shall use to assume a correspondence between each input string and the respective transition table in the state reached after reading it:
 \begin{lemm}
-	For all~$w \in \Sigma^*$, the state reached by~$A'$ after reading~$w$ is $\delta(q'_I,w) = (\tau,p)$, for some $p\in Q$, if and only if~$\tau = \tau_w$.
+	For all~$w \in \Sigma^*$, the state reached by~$A'$ after reading~$w$ is $\delta'(q'_I,w) = (\tau_w,p)$, for some $p\in Q$.
 \end{lemm}
-% TODO: actual proof?
+\begin{proof}
+	By induction on $w$:
+	\begin{description}
+		\item[Base] if $w=\emptyword$, $\delta'(q'_I,w)=(\tau_\emptyword,s)$ (with $\delta(q_I,\lem)=(s,\tr)$).
+		\item[Step] if $w=x\sigma$, with $x\in\Sigma\star,\sigma\in\Sigma$, by induction hypothesis $\delta'(q'_I,x)=(\tau_x,r)$.
+		      By definition $\delta'(q'_I,w)=\delta'(\delta'(q'_I,x),\sigma)=\delta'((\tau_x,p),\sigma)=(\pi,s)$, where $\pi=\trapp_\sigma(\tau)=\tau_w$ and $s=\pi(r)$. \qedhere
+	\end{description}
+\end{proof}
 
 The following lemma proves a one-to-one equivalence of computations of $A'$ and certain partial computations of $A$ on the same input. We shall see that this correspondence extends to accepting computations, thus proving the equivalence of the two machines.
 \begin{lemm}\label{lem:transtab2DFA}
@@ -356,16 +368,16 @@ We can now prove that the two machines are equivalent:
 	$\genlang(A')=\genlang(A)$.
 \end{thrm}
 \begin{proof}
-	By \Cref{lem:transtab2DFA}, $\delta'(q'I_,w)=(\tau_w,p)$ if and only if there exists a computation of $A$ on input $w$ that reaches $\rem$ for the first time in state $p$.
+	By \Cref{lem:transtab2DFA}, $\delta'(q'_I,w)=(\tau_w,p)$ if and only if there exists a computation of $A$ on input $w$ that reaches $\rem$ for the first time in state $p$.
 	\begin{description}
-		\item[$\genlang(A')\subseteq\genlang(A)$:] If $\delta'(q'I_,w)=(\tau_w,p)$ and $(\tau_w,p)$ is final, by definition $t_\rem(\tau_w)(p)\in F$, therefore $A$ on input $w$ ends its computation by passing $\rem$ in a final state.
-		\item[$\genlang(A')\subseteq\genlang(A)$:] If $A$ accepts $w$ the accepting computation can be split as in the previous proof, giving $\delta'(q'I_,w)=(\tau_w,p)$ and $t_\rem(\tau_w)(p)\in F$, thus proving that $A'$ accepts. \qedhere
+		\item[$\genlang(A')\subseteq\genlang(A)$:] If $\delta'(q'_I,w)=(\tau_w,p)$ and $(\tau_w,p)$ is final, by definition $t_\rem(\tau_w)(p)\in F$, therefore $A$ on input $w$ ends its computation by passing $\rem$ in a final state.
+		\item[$\genlang(A)\subseteq\genlang(A')$:] If $A$ accepts $w$, the accepting computation can be split as in the previous proof, giving $\delta'(q'I_,w)=(\tau_w,p)$ and $t_\rem(\tau_w)(p)\in F$, thus proving that $A'$ accepts. \qedhere
 	\end{description}
 \end{proof}
 
 In general:
 \begin{thrm}
-	Every $n$-state \TDFA can be simulated by a \ODFA with an exponential number of states in $n$.
+	Every $n$-state \TDFA can be simulated by a \ODFA with $n(n+1)^n$ states.
 \end{thrm}
 \begin{proof}
 	Let $A$ be an $n$-state \TDFA and $A'$ the \ODFA built with the construction presented above.
