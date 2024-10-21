@@ -42,7 +42,7 @@ The initial state is defined analogously.
 
 The proof still holds, with the note that the one-to-one relation is between computations of the \ODFA and the set of possible computations of the \TNFA over the same input.
 
-Because transition tables are defined differently, the complexity of the simulating machine changes, but remains exponential, as there are $2^{\card Q}$ possible transition tables and $2^{\card Q}$ subsets of $Q$, giving a total of $2^{\card Q^2}$ states.
+Because transition tables are defined differently, the complexity of the simulating machine changes, but remains exponential, as there are $2^{\card Q^2}$ possible transition tables and $2^{\card Q}$ subsets of $Q$, giving a total of $2^{\card Q^3}$ states.
 
 Note that the existence of this simulation proves that the cost of simulating a \TNFA with a \ODFA is only single exponential.
 
@@ -70,4 +70,4 @@ Unlike in the simulation of \TNFA by \ODFA by transition tables, we do not group
 The correctness of the simulation derives from the nondeterministic versions of the proofs of correctness of the single components, following the steps used in the deterministic case.
 
 The cost of the simulation changes slightly, as changed the number of transition tables.
-If $n$ is the number of states of the original machine, the number of states of the resulting \ONFA is $n^{k'+2}2^n$, plus the cost of the normal form.
+If $n$ is the number of states of the original machine, the number of states of the resulting \ONFA is $n^{k'+2}\cdot2^{n^2}$, plus the cost of the normal form construction, for a total of $(2n+4)^{k'+2}\cdot2^{(2n+4)^2}$ states.
