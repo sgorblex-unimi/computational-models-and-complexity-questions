@@ -12,7 +12,7 @@ Finally, in \Cref{sec:sweplower} we present a weak lower bound for the obtained 
 
 
 
-\section{A normal form for sweeping \kDLAs}\label{sec:equiv-swep-dla}
+\section{A normal form for sweeping \texorpdfstring{\kDLAs}{k-DLAs}}\label{sec:equiv-swep-dla}
 A possibly problematic characteristic of sweeping \kDLAs is that they may accept during the \emph{active} part of computation, that is, while writing is still possible.
 Here we describe a way to convert a sweeping \kDLA in a normal form that isolates the active computation by forcing the number of sweeps to be more than $k$ every time the machine accepts.
 The way the number of minimum sweeps is chosen, besides uniforming the cases where $k$ is even or odd, also forces a read-only sweep to the left, which will be useful in the main simulation of this chapter (\Cref{sec:swkdla-to-NFA}).
@@ -209,7 +209,7 @@ Since the machine can write on the tape, unlike in \TDFAs there is no constraint
 
 
 
-\section{Simulation by \ONFA}\label{sec:swkdla-to-NFA}
+\section{Simulation by \texorpdfstring{\ONFAs}{1NFAs}}\label{sec:swkdla-to-NFA}
 We are now ready to describe the simulation of sweeping \kDLAs by \ONFAs.
 The simulation combines three techniques: crossing sequences, transition tables (see \Cref{sec:transtab2DFA}), and a construction for the automaton recognizing the reversal of a given language.
 
@@ -407,7 +407,7 @@ The language extends the classic language family where the $m$-th symbol from th
 In this case, we have $m:=n^n$.
 
 
-\subsection{A sweeping \kDLA accepting \texorpdfstring{$D_n$}{Ln}}
+\subsection{A sweeping \texorpdfstring{\kDLA}{k-DLA} accepting \texorpdfstring{$D_n$}{Ln}}
 Given a value for $n$, we describe a \DLA{2n} that behaves as follows. Given an input word $w$:
 \begin{enumerate}
 	\item On the first left-to-right traversal, the machine is kept in the starting state while simply leaving the symbols intact.\footnote{%

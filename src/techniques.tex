@@ -56,7 +56,7 @@ Furthermore, since in the models we consider the input is accepted by crossing t
 \end{fact}
 
 
-\subsection{two-way deterministic finite automata}
+\subsection{Two-way deterministic finite automata}
 We now consider the specific case of two-way deterministic finite automata (\TDFAs).
 If a \TDFA accepts an input word $w$, the computation on $w$ will never enter the same state twice while passing the same boundary in the same direction, otherwise the machine, being deterministic, would run in an infinite loop and thus not accept.
 In terms of crossing sequences:
@@ -161,7 +161,7 @@ Note that two crossing sequences need not be valid in order to match (\eg the em
 \end{figure}
 
 
-\subsection{From \TDFAs to \ONFAs}
+\subsection{From \texorpdfstring{\TDFAs}{2DFAs} to \texorpdfstring{\ONFAs}{1NFAs}}
 We now prove that a \TDFA can be simulated by a \ONFA whose states are the valid crossing sequences of the \TDFA.
 By \Cref{fact:crossing-2DFA-num} this also proves that an exponential number of states in the size of the \TDFA is sufficient for such a simulation.
 
@@ -249,7 +249,7 @@ In general:
 \end{proof}
 
 
-\subsection{Sweeping \TDFAs}\label{sub:swep2DFA}
+\subsection{Sweeping \texorpdfstring{\TDFAs}{2DFAs}}\label{sub:swep2DFA}
 In the case of a sweeping \TDFA, because an accepting computation can be divided in an odd number of traversals of the tape, all the relative crossing sequences are of the same length.
 However, the set of valid crossing sequences must be defined in the same way, since different accepting computations may have different numbers of sweeps.
 
@@ -295,7 +295,7 @@ This lets us encapsulate all computations of the \TDFA in a finite set of states
 \Cref{fig:transtab} depicts a possible computation described by a transition table and the role of the function $\trapp_\sigma$.
 
 
-\subsection{From \TDFAs to \ODFAs}
+\subsection{From \texorpdfstring{\TDFAs}{2DFAs} to \texorpdfstring{\ODFAs}{1DFAs}}
 We now prove that a \TDFA can be simulated by a \ODFA whose states are transition tables of the \TDFA.
 
 Intuitively, the simulating machine keeps track of the state of the \TDFA that is entered on each first visit to a cell, while simultaneously memorizing and updating a transition table which lets the machine simulate computations on the already visited part of the tape (\ie on the part of the tape to the left of the current cell and the current cell itself).
