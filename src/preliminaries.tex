@@ -103,7 +103,8 @@ As in the one-way case, the relevant quantity for the descriptional complexity o
 	In one move, the machine reads an input symbol, changes its state, and moves the tape head one position left or right, depending on whether $\delta$ returns $\tl$ or $\tr$, respectively.
 	The succession of configurations forms what is called a computation path.
 	Furthermore, the head cannot pass the end-markers, except for the right end-marker at the end of computation, to accept the input.
-	The machine accepts the input if there exists a computation path that starts in the initial configuration and ends in a final state $q_f\in F$ after moving right from $\rem$.
+	The machine accepts the input if there exists a computation path that starts in the initial configuration and ends in a final state $q_f\in F$ after moving right from $\rem$.\footnote{%
+	Other models can be easily be converted to adhere to this behavior: if a machine accepts when a transition is undefined in a final state, that transition can be defined to bring to a new final state instead, which moves the head to the right until it passes the right boundary of the tape.}
 
 	\noindent The deterministic version of \TNFA is denoted \TDFA.
 \end{defn}
