@@ -6,7 +6,9 @@ In order to prove the equivalence, we describe a way to construct, given a sweep
 To do so, we recall and revise some of the techniques presented in \Cref{ch:techniques} to obtain a simulation.
 This construction requires the sweeping \kDLA to be converted in a specific normal form, as described in \Cref{sec:equiv-swep-dla}.
 \Cref{sec:crossseqswdla} extends and adapts the concept of crossing sequence to our model.
-Finally, \Cref{sec:swkdla-to-NFA} describes the simulation and proves its correctness and descriptional cost.
+\Cref{sec:swkdla-to-NFA} describes the simulation and proves its correctness and descriptional cost.
+In \Cref{sec:alt-proofs} we discuss possible alternative proofs for the equivalence and descriptional complexity.
+Finally, in \Cref{sec:sweplower} we present a weak lower bound for the obtained result.
 
 
 
@@ -133,7 +135,7 @@ In particular, we first redefine matchings, then introduce a function that retur
 Finally, we define \emph{active} crossing sequences, which will replace \emph{valid} crossing sequences in \TDFAs in their role in the simulation.
 
 
-\subsection{Matching crossing sequences}
+\subsection{Matching crossing sequences}\label{sub:crossseqswdla-matching}
 The definition of matching crossing sequences for sweeping \kDLAs is similar to the one for \TDFAs;\footnote{%
 	Technically, this definition is valid for any restriction of a Turing machine. The simulation used for \TDFAs can be extended to work on any machine that accepts by crossing the right boundary of the tape; however, there might not be a way to limit the number of "valid" crossing sequences, thus producing an infinite-state automaton.}
 however, the symbol with respect to which the matching is defined changes with each application of a rule.
@@ -362,7 +364,38 @@ The construction provided by \citeauthor{PigPis14} \cite{PigPis14} for the simul
 
 
 
-\section{A lower bound}
+\section{Alternative proofs}\label{sec:alt-proofs}
+
+
+\subsection{Linear time acceptors}
+It is worth noting that the fact that sweeping \kDLAs can only accept regular languages can be considered a consequence of \citeauthor{Hen65}'s result about linear time computational models \cite{Hen65}.
+The theorem states that any machine that accepts in a number of steps that is linear with respect to the length of the input can only accept regular languages.
+While a sweeping \kLA can potentially run in infinite loops, all its accepting computations either end within $k$ sweeps (therefore in a number of steps limited by $kn$) or in the following sweeps, the number of which is limited (provided that the machine doesn't loop infinitely) by a function of the number of states, thus constant with respect to the length of the input.
+
+
+\subsection{A crossing sequence only simulation}
+A simulation of sweeping \kDLAs by \ONFAs exclusively based on crossing sequences can be defined as for \TDFAs (\Cref{sec:crossseq2DFA}).
+Sweeping \kDLAs can either accept during the writing capable phase or, after it, enter a read only phase where they behave exactly like \TDFAs.
+Therefore, valid crossing sequences in this case would be composed by either any sequence of states of length at most $k$, or by a sequence of any $k$ states followed by a second sequence that complies with the rules defined in \Cref{def:validcrossing2DFA} for valid crossing sequences for \TDFAs.
+
+Called $n$ the number of states of the machine, the number of sequences of the first type is
+\begin{equation*}
+	\alpha:=\sum_{l=1}^k n^l = \frac{n(n^k-1)}{n-1} \text.
+\end{equation*}
+Called $\beta$ the number of valid crossing sequences for $\TDFAs$ showed in \Cref{fact:crossing-2DFA-num}, the number of crossing sequences of the second type is $n^k \beta$.
+The total number of valid crossing sequences for sweeping \kDLAs is therefore
+\begin{equation*}
+	\alpha+n^k\beta = \frac{n(n^k-1)}{n-1}+n^k\sum_{l=1}^n \frac{n!}{(n-l)!}\frac{n!}{(n-l+1)!} \approx n^k + n^k n^{2n} = O(n^{2n+k}) \text.
+\end{equation*}
+
+The construction is identical to the \TDFA case, provided that the updated definition of matching (\Cref{sub:crossseqswdla-matching}) is used.
+The correctness of the simulation follows from the same proof of \Cref{thm:2DFAto1NFA}.
+
+Different definitions of crossing sequences for machine with writing capabilities were studied by \citeauthor{Hen65} \cite{Hen65}.
+
+
+
+\section{A lower bound}\label{sec:sweplower}
 In this section we show a language that can be accepted by an $n$-state sweeping \kDLA, but for which any \ONFA simulating it must have a number of states that is exponential in $n$.
 We therefore prove a lower bound on the number of states of a \ONFA simulating a sweeping \kDLA, hence showing that sweeping \kDLAs can be exponentially more succinct.
 
