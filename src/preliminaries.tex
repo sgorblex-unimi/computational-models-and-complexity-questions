@@ -1,35 +1,68 @@
 \chapter{Preliminaries}
-% TODO: introduction, context, explanation. Possibly figures
+In this chapter we introduce concepts and give formal definitions that will be useful throughout the thesis.
 
 
 
-\section{General notation}
-The language accepted by a machine $M$ is denoted by $\genlang(M)$.
+\section{Basics}
+We now define the core concepts of formal language theory.
+For further reading, see, \eg[,] \cite{HopUll79,Sha08}.
 
-\begin{defn}
-	A machine with set of states $S$, working alphabet $\Gamma$ and transition function $\delta:S\times\Gamma\to\subsets{T}$ is said to be deterministic whenever $\card{\delta(s,\gamma)}\le1$, for each $s\in S,\gamma\in\Gamma$.
+\paragraph{Alphabets} An \emph{alphabet} is a finite, non-empty, arbitrary set, whose elements are called \emph{symbols}.
+Alphabets are typically denoted with uppercase Greek letters such as $\Sigma$, $\Gamma$, or by explicitly listing the set, e.g., $\set{a,b}$.
+The symbols of an alphabet are often represented by lowercase letters or digits.
+An alphabet with exactly one element is called unary.
 
-	In this case, $\delta$ can be interpreted as a partial function, with the notation $\delta(s,\gamma)=t$ used as a shorthand for $\delta(s,\gamma)=\set{t}$.
-\end{defn}
-
-With an abuse of notation, we use $\delta$ to indicate both a transition function and its reflexive, transitive closure, possibly using strings for the second argument.
-
+\paragraph{Words} A \emph{word} (or \emph{string}) $w$ over an alphabet $\Sigma$ is a finite sequence of symbols of $\Sigma$: $w:=x_1 x_2 \cdots x_n$ with $x_1,x_2,\dots,x_n\in\Sigma$.
+Words are commonly denoted by lowercase Latin letters.
+The word containing no symbols is called the empty word and is denoted by $\emptyword$.
+The length of a word $w$ is the number of symbols it contains and is denoted by $\len w$.
+The set of words of length $n$ over $\Sigma$ is denoted by $\Sigma^n$, with $n\in\N$, and $\Sigma^0=\set{\emptyword}$ for any $\Sigma$.
+The set of all words over the alphabet $\Sigma$ is denoted by $\Sigma\star$, \ie[,] the union of all its powers, while $\Sigma^+$ denotes the set of non-empty words over $\Sigma$: $\Sigma^+ := \Sigma\star\setminus\set{\emptyword}$.
+Given two words $v=x_1\cdots x_n$ and $w=y_1\cdots y_m$, the concatenation of $v$ and $w$ is the word $vw:=x_1\cdots x_n y_1\cdots y_m$ composed of the symbols of $v$ followed by those of $w$.
+Note that $\len{vw}=\len v+\len w$.
 Given a word $w=w_1 w_2\cdots w_n$, the reversal of $w$ is $w\rev:=w_n w_{n-1}\cdots w_1$.
+
+\paragraph{Languages} A language $L$ over an alphabet $\Sigma$ is a set of words over $\Sigma$, \ie[,] $L\subseteq\Sigma\star$ (the powers of an alphabet are thus languages).
+The symbol $\emptyset$ denotes the empty language, not to be confused with the language $\set{\emptyword}$.
+We sometimes omit the curly braces when denoting a singleton language (writing $a$ instead of $\set{a}$).
+A language over a unary alphabet is called unary.
+The product of two languages $L_1$ and $L_2$ is the language where each word is the concatenation of a word from $L_1$ and a word from $L_2$: \begin{equation*} L_1\cdot L_2 := \set{xy\mid x\in L_1 \land y\in L_2} \end{equation*} Given a language $L$, $L^0$ denotes the language $\set{\emptyword}$, and $L^n$ denotes the product of $L$ with itself $n$ times.
+The Kleene closure of a language $L$ is the language $L\star$ consisting of the concatenation of an arbitrary number of words from $L$: \begin{equation*} L\star := L^0\cup L^1\cup\dots=\bigcup_{k=0}^\infty L^k \end{equation*} Additionally, $L^+$ denotes the language $\bigcup_{k=1}^\infty L^k$.
+Note that $L^+=L\star$ if and only if $\emptyword\in L$.
 Given a language $L$, the reversal of $L$ is $L\rev:=\set{w\rev \mid w\in L}$.
 
-A machine working over a single letter alphabet is called unary, as its generated language.
+\paragraph{Recognizers} A \emph{recognizer} or \emph{acceptor} of a language $L$ (sometimes referred to with the more general term \emph{machine}), is a mathematical model of computation, namely an algorithm or procedure, that determines whether a given word belongs to $L$ (acceptance) or not (rejection).
 
-Given a transition function $\delta$, a set of states $S$, and a symbol $\sigma$, we define
-\begin{equation*}
-	\delta(S,\sigma):=\bigcup_{q\in S} \delta(q,\sigma) \text.
-\end{equation*}
+The language accepted by a machine $M$ is denoted by $\genlang(M)$.
+
+Every type of recognizer has a concept of \emph{configuration}, which represents its internal state (we prefer to use the word \emph{state} for a specific part of the configurations of certain machines).
+At each step of its computation, a recognizer reads a symbol.
+A recognizer is said to be \emph{deterministic} whenever, at each step of its computation, the next configuration is uniquely determined by the current configuration and by the symbol read.
+
+
+
+\section{Descriptional complexity}
+First proposed by \citeauthor{MeyFis71}, descriptional complexity consists in comparing different descriptions accepting a language class by their size, that is, by how succinctly they can describe the chosen language \cite{MeyFis71}.
+
+The concept of size can be defined as the length of a string that encodes the given language description.
+Because one such string would depend on different aspects of the model in question, in practice we compare the size of the components of the models, such as the number of states or the size of the working alphabet.
 
 
 
 \section{Computational models}
 
 
-\subsection{One-way computational models}
+\subsection{One-way finite automata}
+\emph{One-way} computational models read the input word once, symbol by symbol, from the leftmost one to the rightmost one.
+
+Finite automata are the most representative one-way model, and one of the most important for the field.
+They accept the class of languages generated by regular grammars, namely regular languages.
+
+Every finite state automaton has an internal state, which changes as input symbols are read, in function of the read symbol and the previous state.
+Some states have the property of being final: if the automaton terminates reading the input while being in one of such states, it accepts.
+
+Because the number of possible transitions is limited by a polynomial in the number of states and the size of the input alphabet, the quantity that is studied as size for the descriptional complexity of finite state automata is the number of states.
+
 \begin{defn}[one-way finite automata]
 	A \emph{(one-way) nondeterministic finite automaton} (\ONFA) is a quintuple $(Q,\Sigma,\delta,q_I,F)$ where:
 	\begin{itemize}
@@ -43,11 +76,20 @@ Given a transition function $\delta$, a set of states $S$, and a symbol $\sigma$
 	At every step, the machine reads an input symbol and changes its state, with the transition function $\delta$ representing the possible next states based on the current state and the symbol read.
 	The \ONFA accepts an input string $w=w_1\cdots w_n$ if there is a sequence of states $q_0,q_1,\dots,q_n$ such that $q_0=q_I$, $q_n\in F$, and for each $i\in\set{0,1,\dots,n-1}$, $q_{i+1}\in\delta(q_i,w_i)$.
 
-	The deterministic version of \ONFA is denoted \ODFA.
+	\noindent The deterministic version of \ONFAs is denoted \ODFAs.
 \end{defn}
 
 
-\subsection{Two-way computational models}
+\subsection{Two-way finite automata}
+Unlike their one-way counterpart, \emph{two-way} computational models can traverse the input symbols in a two-way fashion, possibly visiting each symbol multiple times.
+
+Two-way finite automata are the two-way extension of one-way finite automata.
+They were introduced concurrently by \citeauthor{RabSco59} and \citeauthor{She59}, who also proved that they are equivalent to one-way finite automata, namely they accept exactly regular languages \cite{RabSco59,She59}.
+
+As for the one-way counterpart, a two-way finite automaton has an internal state, which can be final.
+The transition function, however, also determines at each step the direction of the next movement: left or right.
+
+As in the one-way case, the relevant quantity for the descriptional complexity of these models is the number of states.
 
 \begin{defn}[two-way finite automata]
 	A \emph{two-way nondeterministic finite automaton} (\TNFA) is a quintuple $(Q,\Sigma,\delta,q_I,F)$ where:
@@ -60,19 +102,37 @@ Given a transition function $\delta$, a set of states $S$, and a symbol $\sigma$
 	This is known as the initial configuration of the machine.
 	In one move, the machine reads an input symbol, changes its state, and moves the tape head one position left or right, depending on whether $\delta$ returns $\tl$ or $\tr$, respectively.
 	The succession of configurations forms what is called a computation path.
-	Furthermore, the head cannot pass the end-markers, except at the end of computation, to accept the input.
+	Furthermore, the head cannot pass the end-markers, except for the right end-marker at the end of computation, to accept the input.
 	The machine accepts the input if there exists a computation path that starts in the initial configuration and ends in a final state $q_f\in F$ after moving right from $\rem$.
 
-	The deterministic version of \TNFA is denoted \TDFA.
+	\noindent The deterministic version of \TNFA is denoted \TDFA.
 \end{defn}
 
+Two-way finite automata, as all two-way machines, have a sweeping variant:
+\begin{defn}\label{def:sweeping}
+	A two-way machine is said to be \emph{sweeping} if the direction of the head movement only changes on the end-markers.
+	The computation is therefore divided into traversals of the entire tape, also called \emph{sweeps}.
+\end{defn}
+
+
+\subsection{Limited automata}
+Limited automata are a type of two-way computational model which has, though very restricted, writing capabilities.
+They were introduced in \citeyear{Hib67} by \citeauthor{Hib67}, who wanted to investigate the nature of determinism in context-free languages \cite{Hib67}.
+
+Given a non-negative integer $k$, a \emph{$k$-limited automaton} is a two-way machine that operates on a tape, initially containing the input, and can only write on each tape cell on its first $k$ visits.
+
+As proven by \citeauthor{Hib67}, in the nondeterministic case $k$-limited automata accept context-free languages for each $k\ge2$, while in the deterministic case they accept a hierarchy of smaller classes depending on $k$ \cite{Hib67}.
+$1$-limited automata (that is, when $k=1$) accept regular languages instead, both in the deterministic and nondeterministic cases \cite{WagWec86}.
+
+Unlike for finite state automata, limited automata have a working alphabet, whose size impacts on possible encodings of the machine.
+For this reason, the relevant quantities for the descriptional complexity of limited automata are both the number of states and the size of the working alphabet.
 
 \begin{defn}[limited automata]\label{def:kla}
 	Given an integer $k\ge0$, a \emph{$k$-limited automaton} (\kLA) is a 6-tuple $(Q,\Sigma,\Gamma,\delta,q_I,F)$ where:
 	\begin{itemize}
 		\item $Q$, $\Sigma$, $q_I$ and $F$ are defined as for \TNFAs,
 		\item $\Gamma$ is the finite \emph{working alphabet}, partitioned into $\Gamma_0\cup\Gamma_1\cup\cdots\cup\Gamma_k$, where $\Gamma_0=\Sigma$, and
-		\item $\delta:Q\times\Gamma\to\subsets{Q\times(\Gamma\setminus\set{\lem,\rem})\times\set{\tl,\tr}}$ is the \emph{transition function}.
+		\item $\delta:Q\times(\Gamma\cup\set{\lem,\rem})\to\subsets{Q\times\Gamma\times\set{\tl,\tr}}$ is the \emph{transition function}.
 	\end{itemize}
 	The initial configuration is the same as for \TNFAs.
 	In one move the machine, beside changing its state and moving the tape head, changes the content of scanned cell according to the transition function.
@@ -84,17 +144,24 @@ Given a transition function $\delta$, a set of states $S$, and a symbol $\sigma$
 		\item if $i<k$ and $d=\tr$ then $y\in\Gamma_j$, with $j=\min\set{\ceil{\frac{i}{2}}\cdot 2+1,k}$, and
 		\item if $i<k$ and $d=\tl$ then $y\in\Gamma_j$, with $j=\min\set{\ceil{\frac{i+1}{2}}\cdot 2,k}$.
 	\end{enumerate}
+	The way $\Gamma_j$ is selected implies that when the direction of movement changes, the visit count two times.
+	This keeps the correspondence between the parity of $j$ and the direction of movement consistent.
 
 	\noindent Acceptance is defined as for \TNFAs.
 
-	\noindent The deterministic version of \kLA is denoted \kDLA.
+	\noindent The deterministic version of \kLAs is denoted \kDLAs.
 \end{defn}
 
 
-\begin{defn}\label{def:sweeping}
-	A two-way machine is said to be \emph{sweeping} if the direction of the head movement only changes on the end-markers.
-	The computation is therefore divided into traversals of the entire tape, also called \emph{sweeps}.
-\end{defn}
+\subsection{Useful notation}
+\begin{itemize}
+	\item With an abuse of notation, we use $\delta$ to indicate both a transition function and its reflexive, transitive closure, possibly using strings for the second argument.
+	\item Given a transition function $\delta$, a set of states $S$, and a symbol $\sigma$, we define
+	      \begin{equation*}
+		      \delta(S,\sigma):=\bigcup_{q\in S} \delta(q,\sigma) \text.
+	      \end{equation*}
+	\item In the case of a deterministic machine, the transition function $\delta$ can be interpreted as a partial function, with the notation $\delta(s,\gamma)=t$ used as a shorthand for $\delta(s,\gamma)=\set{t}$.
+\end{itemize}
 
 
 
