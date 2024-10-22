@@ -1,5 +1,4 @@
 \chapter{From \emph{two-way} to \emph{one-way} automata}\label{ch:techniques}
-% TODO: use \trapp instead of t_
 When comparing different computational models, natural questions arise about their relative accepting power and, if equal, succinctness.
 In order to prove that two models are equivalent, it is typically shown that one can simulate the other and vice versa.
 When it comes to the simulations between two-way and one-way models for regular languages, one of the simulation directions is often trivial, when the one-way simulated machine is a particular case of the two-way simulating machine in question.
@@ -287,18 +286,18 @@ This lets us encapsulate all computations of the \TDFA in a finite set of states
 	Because the number of such functions is finite, the set $\transtabset$ is finite.
 	Notice that if for two strings $x,y$ it holds that $\tau_x=\tau_y$, then $\tau_{x\sigma}=\tau_{y\sigma}$ for all symbols $\sigma$.
 	Thus, if $\tau_x$ is known, knowledge of $x$ is not needed to calculate $\tau_{x\sigma}$.
-	This lets us define, for each $\sigma\in\Sigma$, the function $t_\sigma:\transtabset\to\transtabset$ that maps a transition table $\tau_x$ to $\tau_{x\sigma}$.
+	This lets us define, for each $\sigma\in\Sigma$, the function $\trapp_\sigma:\transtabset\to\transtabset$ that maps a transition table $\tau_x$ to $\tau_{x\sigma}$.
 \end{defn}
 
 \begin{figure}
 	\centering
 	\input{tikz/transtable.tikz}
-	\caption[A transition table and the function $\trapp$.]{Representation of $\tau_w(p)=q$, or, equivalently, $t_\sigma(\tau_x)(p)=q$.
+	\caption[A transition table and the function $\trapp$.]{Representation of $\tau_w(p)=q$, or, equivalently, $\trapp_\sigma(\tau_x)(p)=q$.
 		The relative path starts in state $p$ with the head scanning the last symbol $\sigma$ of $w$, performs a computation on the left part of the tape ending with $\sigma$, and eventually passes it to the right in state $q$.}
 	\label{fig:transtab}
 \end{figure}
 
-\Cref{fig:transtab} depicts a possible computation described by a transition table and the role of the function $t_\sigma$.
+\Cref{fig:transtab} depicts a possible computation described by a transition table and the role of the function $\trapp_\sigma$.
 
 
 \subsection{From \TDFAs to \ODFAs}
@@ -310,9 +309,9 @@ Let $A:=(Q,\Sigma,\delta,q_I,F)$ be a \TDFA.
 Define the \ODFA $A':=(Q',\Sigma,\delta',q'_I,F')$ where
 \begin{itemize}
 	\item $Q':=\transtabset\times Q$, where $\transtabset$ is the set of transition tables of $A$,
-	\item $\delta'((\tau,r),\sigma):=(\pi,s)$, with $\pi:=t_\sigma(\tau)$ and $s:=\pi(r)$,
+	\item $\delta'((\tau,r),\sigma):=(\pi,s)$, with $\pi:=\trapp_\sigma(\tau)$ and $s:=\pi(r)$,
 	\item $q'_I:=(\tau_\lem,s)$, where $\delta(q_I,\lem)=(s,\tr)$, and
-	\item $F':=\set{(\tau,p)\mid t_\rem(\tau)(p)\in F}$.
+	\item $F':=\set{(\tau,p)\mid \trapp_\rem(\tau)(p)\in F}$.
 \end{itemize}
 
 We now prove the following auxiliary result, which we shall use to assume a correspondence between each input string and the respective transition table in the state reached after reading it:
@@ -370,8 +369,8 @@ We can now prove that the two machines are equivalent:
 \begin{proof}
 	By \Cref{lem:transtab2DFA}, $\delta'(q'_I,w)=(\tau_w,p)$ if and only if there exists a computation of $A$ on input $w$ that reaches $\rem$ for the first time in state $p$.
 	\begin{description}
-		\item[$\genlang(A')\subseteq\genlang(A)$:] If $\delta'(q'_I,w)=(\tau_w,p)$ and $(\tau_w,p)$ is final, by definition $t_\rem(\tau_w)(p)\in F$, therefore $A$ on input $w$ ends its computation by passing $\rem$ in a final state.
-		\item[$\genlang(A)\subseteq\genlang(A')$:] If $A$ accepts $w$, the accepting computation can be split as in the previous proof, giving $\delta'(q'I_,w)=(\tau_w,p)$ and $t_\rem(\tau_w)(p)\in F$, thus proving that $A'$ accepts. \qedhere
+		\item[$\genlang(A')\subseteq\genlang(A)$:] If $\delta'(q'_I,w)=(\tau_w,p)$ and $(\tau_w,p)$ is final, by definition $\trapp_\rem(\tau_w)(p)\in F$, therefore $A$ on input $w$ ends its computation by passing $\rem$ in a final state.
+		\item[$\genlang(A)\subseteq\genlang(A')$:] If $A$ accepts $w$, the accepting computation can be split as in the previous proof, giving $\delta'(q'I_,w)=(\tau_w,p)$ and $\trapp_\rem(\tau_w)(p)\in F$, thus proving that $A'$ accepts. \qedhere
 	\end{description}
 \end{proof}
 
