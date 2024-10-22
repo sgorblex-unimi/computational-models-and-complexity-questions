@@ -89,7 +89,7 @@ In order to calculate this number, consider the following sequence of choices:
 	\item[$i$.] in general, the $(2i-1)$-th and $2i$-th states are chosen among $n-i+1$.
 \end{enumerate}
 By the \emph{fundamental principle of counting}, the total number of choices is obtained by multiplying the choices at each step.
-Therefore, the number of possible crossing sequences of length $2l-1$ (with $l\in\set{1,\dots,n}$) is given by:
+Therefore, the number of possible crossing sequences of length $2l-1$ (with $l\discint{1,\dots,n}$) is given by:
 \begin{equation*}
 	n \cdot n \cdot (n-1) \cdot (n-1) \cdots \underbrace{(n-l+2)}_{(2l-3)\text{-th}} \cdot \underbrace{(n-l+2)}_{(2l-2)\text{-th}} \cdot \underbrace{(n-l+1)}_{(2l-1)\text{-th}} \text,
 \end{equation*}
@@ -216,17 +216,17 @@ In order to prove that $A'$ accepts the same language as $A$, we prove two separ
 	$\genlang(A')\subseteq\genlang(A)$.
 \end{lemm}
 \begin{proof}
-	Given a word $w:=w_1\cdots w_n\in\genlang(A')$, let $w_0:=\lem$, $w_{n+1}:=\rem$, and, for each $i\in\set{1,\dots,n}$, let $c_i$ be the crossing sequence (state) guessed by $A'$ after reading $w_i$ in a fixed accepting computation, with $c_0$ the guessed starting state.
-	By definition of $\delta'$, for each $i\in\set{0,\dots,n-1}$, $c_i$ right-matches $c_{i+1}$ with respect to $w_{i+1}$.
+	Given a word $w:=w_1\cdots w_n\in\genlang(A')$, let $w_0:=\lem$, $w_{n+1}:=\rem$, and, for each $i\discint{1,\dots,n}$, let $c_i$ be the crossing sequence (state) guessed by $A'$ after reading $w_i$ in a fixed accepting computation, with $c_0$ the guessed starting state.
+	By definition of $\delta'$, for each $i\discint{0,\dots,n-1}$, $c_i$ right-matches $c_{i+1}$ with respect to $w_{i+1}$.
 	Furthermore let $c_{n+1}$ be a crossing sequence $[q_f]$, with $q_f\in F$, right-matched by $c_n$ with respect to $\rem$ (such sequence exists by definition of $F'$).
-	We prove by induction on $i\in\set{0,\dots,n+1}$ that $c_i=[q_1,\dots,q_k]$ implies that
+	We prove by induction on $i\discint{0,\dots,n+1}$ that $c_i=[q_1,\dots,q_k]$ implies that
 	\begin{statements}
 		\item \label{lem:2DFAto1NFA-2-1} Given $w$ as input, $A$ first moves right from position $i$ into state $q_1$.
 	\end{statements}
 	Since $c_{n+1}=[q_f]$, with $q_f\in F$, by \Cref{lem:2DFAto1NFA-2-1} $A$ first passes $\rem$, in position $n+1$, in state $q_f$. Therefore $A$ accepts $w$.
 	In order to show that the states chosen by $A'$ constitute in fact the crossing sequences of the accepting computation of $A$, we also show that $c_i=[q_1,\dots,q_k]$ implies that
 	\begin{statements}[resume]
-		\item \label{lem:2DFAto1NFA-2-2} For $j\in\set{1,\dots,\floor{\frac{k}{2}}}$, if $A$ is started in position $i$ in state $q_{2j}$, it eventually moves right from position $i$ in state $q_{2j+1}$.
+		\item \label{lem:2DFAto1NFA-2-2} For $j\discint{1,\dots,\floor{\frac{k}{2}}}$, if $A$ is started in position $i$ in state $q_{2j}$, it eventually moves right from position $i$ in state $q_{2j+1}$.
 	\end{statements}
 	\begin{description}
 		\item[Base] By definition of $I$, $c_0$ is right-matched by $[q_I]$ with respect to $\lem$. Since position $0$ contains $\lem$, which cannot be passed to the left, the right-match must follow from \Cref{itm:crossmatch2DFA-3}, hence $\delta(q_I,\lem)=(q_1,\tr)$ and $[~]$ left-matches $[q_2,\dots,q_k]$.
@@ -278,8 +278,8 @@ This lets us encapsulate all computations of the \TDFA in a finite set of states
 		\item for each $r\in Q,x\in\Sigma\star,\sigma\in\Sigma$, $\tau_{x\sigma}(r):=s$, if either $\delta(r,\sigma)=(s,\tr)$, or there exist an integer $k\ge1$ and states $q_1,\dots,q_k,r_1,\dots,r_k$ such that
 		\begin{itemize}
 			\item $\delta(r,\sigma)=(q_1,\tl)$,
-			\item $\tau_x(q_i)=r_i$ for all $i\in\set{1,\dots,k}$,
-			\item $\delta(r_i,\sigma)=(q_{i+1},\tl)$ for all $i\in\set{1,\dots,k-1}$, and
+			\item $\tau_x(q_i)=r_i$ for all $i\discint{1,\dots,k}$,
+			\item $\delta(r_i,\sigma)=(q_{i+1},\tl)$ for all $i\discint{1,\dots,k-1}$, and
 			\item $\delta(q_k,\sigma)=(s,\tr)$.
 		\end{itemize}
 	\end{rules}

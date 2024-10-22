@@ -74,7 +74,7 @@ Because the number of possible transitions is limited by a polynomial in the num
 	\end{itemize}
 	The input word $w$ is read from left to right, one symbol at a time.
 	At every step, the machine reads an input symbol and changes its state, with the transition function $\delta$ representing the possible next states based on the current state and the symbol read.
-	The \ONFA accepts an input string $w=w_1\cdots w_n$ if there is a sequence of states $q_0,q_1,\dots,q_n$ such that $q_0=q_I$, $q_n\in F$, and for each $i\in\set{0,1,\dots,n-1}$, $q_{i+1}\in\delta(q_i,w_i)$.
+	The \ONFA accepts an input string $w=w_1\cdots w_n$ if there is a sequence of states $q_0,q_1,\dots,q_n$ such that $q_0=q_I$, $q_n\in F$, and for each $i\discint{0,1,\dots,n-1}$, $q_{i+1}\in\delta(q_i,w_i)$.
 
 	\noindent The deterministic version of \ONFAs is denoted \ODFAs.
 \end{defn}

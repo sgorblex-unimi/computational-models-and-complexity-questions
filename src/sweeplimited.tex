@@ -299,15 +299,15 @@ Refer to \Cref{fig:swepkDLAtoNFA} for an illustration of the construction.
 			      Unlike the proof of \Cref{lem:2DFAto1NFA-1}, the right end-marker is not passed in this phase, so there is no matching with a crossing sequence on the right boundary of $\rem$.}
 		\item Consider the computation path relative to the $(k'+1)$-th sweep.
 		      Given $c_n=[q_1,\dots,q_{k'}]$, the computation starts with the head moving left from the right end-marker on a state $p_n$ such that $\delta(q_{k'},\rem)=(p_n,\rem,\tl)$ and proceeds in states $p_{n-1},\dots,p_0$ while reading the symbols that are frozen on the tape.
-		      In particular, called $\sigma_i:=\last(c_{i-1},c_i,w_i)$, we have $\delta(p_i,\sigma_i)=(p_{i-1},\sigma_i,\tl)$, for each $i\in\set{1,\dots,n}$.
+		      In particular, called $\sigma_i:=\last(c_{i-1},c_i,w_i)$, we have $\delta(p_i,\sigma_i)=(p_{i-1},\sigma_i,\tl)$, for each $i\discint{1,\dots,n}$.
 		\item The last phase of the computation starts with a state $s$ such that $\delta(p_0,\lem)=(s,\lem,\tr)$ and proceeds with a read-only computation on the entire tape, which ends in passing the right end-marker in a final state.
 		      As showed in the proof of \Cref{thm:transtab2DFA} the existence of such a computation implies the existence of a sequence of pairs $(\tau_i,r_i)$ such that $\tau_0=\tau_\lem$, $r_0=s$, and for all $i$, $\tau_i=\trapp_{\sigma_i}(\tau_{i-1})$ and $r_i=\tau_i(r_{i-1})$, with $\trapp_\rem(\tau_n)(r_n)\in F$.\footnote{%
 			      Here, $p_0$ has the role that the initial state had in the \TDFA.}
 	\end{enumerate}
-	Each of the three phases determines what states of $A'$ make an accepting computation path. In particular, for $i\in\set{0,\dots,n}$, $\delta(q'_I,w_1\cdots w_i)=(c_i,p_i,\tau_i,r_i)$, as:
+	Each of the three phases determines what states of $A'$ make an accepting computation path. In particular, for $i\discint{0,\dots,n}$, $\delta(q'_I,w_1\cdots w_i)=(c_i,p_i,\tau_i,r_i)$, as:
 	\begin{itemize}
 		\item $c_0$ is right-matched by $[q_I]$ and $\delta(p_0,\lem)=(r_0,\lem,\tr)$, thus $(c_0,p_0,\tau_0,r_0)$ is an initial state (\Cref{sfig:swepkDLAtoNFA-start});
-		\item for each $i\in\set{1,\dots,n}$:
+		\item for each $i\discint{1,\dots,n}$:
 		      \begin{itemize}
 			      \item $c_{i-1}$ right-matches $c_i$ \wrt $w_i$,
 			      \item called $\sigma_i:=\last(c_{i-1},c_i,w_i)$, $\delta(p_i,\sigma_i)=(p_{i-1},\sigma_i,\tl)$,
@@ -324,17 +324,17 @@ Refer to \Cref{fig:swepkDLAtoNFA} for an illustration of the construction.
 \begin{proof}
 	First, notice that if $A'$ accepts $\emptyword$, then either the final state belongs to $\set{q\in I\mid \emptyword\in\genlang(A)}$, which means $A$ accepts $\emptyword$, or the following argument holds for $w=\emptyword$.
 	Notice that the states in $I$ have no incoming transitions, as $\tau_\lem$ cannot be obtained by applying the function $t$.
-	Let $w:=w_1\cdots w_n\in\genlang(A')$. For each $i\in\set{1,\dots,n}$, let $(c_i,p_i,\tau_i,r_i)$ be the state guessed by $A'$ after reading $w_i$ in a fixed accepting computation, $(c_0,p_0,\tau_0,r_0)$ being the guessed starting state.
+	Let $w:=w_1\cdots w_n\in\genlang(A')$. For each $i\discint{1,\dots,n}$, let $(c_i,p_i,\tau_i,r_i)$ be the state guessed by $A'$ after reading $w_i$ in a fixed accepting computation, $(c_0,p_0,\tau_0,r_0)$ being the guessed starting state.
 	\begin{enumerate}
 		\item By a very similar argument to the one presented for the proof of \Cref{lem:2DFAto1NFA-2}, the components $c_i$ represent actual crossing sequences for the first $k'$ sweeps of $A$.\footnote{%
 			      Firstly, since we are not interested in a crossing sequence for the right boundary of $\rem$, there is no state $n+1$.
 			      Second, the right-matching rules applied in this case are of course the ones defined for sweeping \kDLAs, and not \TDFAs; however the only difference is that the symbols with respect of which the right-matches are defined change with every application of the rules.
 			      Although not known a priori, the correctness of the construction implies, being $A$ a sweeping machine, that all the right-matches, with the sole exception of the one including $[q_I]$, are built by alternating applications of \Cref{itm:crossmatchswepDLA-3,itm:crossmatchswepDLA-5} (after \Cref{itm:crossmatchswepDLA-1} for the base).
 			      Finally, the proof does not show that a word accepted by $A'$ is also accepted by $A$, but only that the guessed crossing sequences are correct.}
-		\item The components $p_i$ of the sequence imply the existence of a computation path in $A$ where, called $\sigma_i:=\last(c_{i-1},c_i,w_i)$, $\delta(p_i,\sigma_i)=(p_{i-1},\sigma_i,\tl)$, for all $i\in\set{0,\dots,n}$.
+		\item The components $p_i$ of the sequence imply the existence of a computation path in $A$ where, called $\sigma_i:=\last(c_{i-1},c_i,w_i)$, $\delta(p_i,\sigma_i)=(p_{i-1},\sigma_i,\tl)$, for all $i\discint{0,\dots,n}$.
 		      Furthermore, being $p_n$ part of a final state, it holds that $\delta(q_{k'},\rem)=(p_n,\rem,\tl)$, where $c_n=[q_1,\dots,q_{k'}]$.
 		\item Being $p_0$ part of an initial state, it must be $\delta(p_0,\lem)=(r_0,\lem,\tr)$.
-		      We also know that there exists a computation path where $\tau_0=\tau_\lem$ and, for each $i\in\set{1,\dots,n}$, $\tau_i=\trapp_{\sigma_i}(\tau_{i-1})$ and $r_i=\tau_i(r_{i-1})$.
+		      We also know that there exists a computation path where $\tau_0=\tau_\lem$ and, for each $i\discint{1,\dots,n}$, $\tau_i=\trapp_{\sigma_i}(\tau_{i-1})$ and $r_i=\tau_i(r_{i-1})$.
 		      Furthermore, being $\tau_n$ and $r_n$ part of a final state, we have $\trapp_\rem(\tau_n)(r_n)\in F$.
 		      By the same proof of \Cref{thm:transtab2DFA} there exists a computation of $A$ that starts in state $r_0$, performs a two-way computation over the entire frozen tape, and ends by passing the right end-marker in a final state.
 	\end{enumerate}
