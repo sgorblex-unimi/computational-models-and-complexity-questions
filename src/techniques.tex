@@ -16,7 +16,7 @@ In \Cref{sec:transtab2DFA} we introduce the concept of transition table for \TDF
 
 \section{Crossing sequences}\label{sec:crossseq2DFA}
 Given a two-way machine and one of its possible computations over a certain input, consider a tape cell and one of the two \emph{boundaries} at its sides.
-A crossing sequence $[q_1,q_2,\dots]$ is the sequence of states of the machine as the head crosses such boundary, \ie[,] it enters or leaves the cell on the chosen side.
+A crossing sequence $[q_1,q_2,\dots]$ is the sequence of states of the machine as the head crosses such boundary, \ie it enters or leaves the cell on the chosen side.
 In \Cref{sfig:example-crosseq-2}, the crossing sequences of an example \TDFA are shown as the sequences of states around each cell boundary.
 
 \begin{figure}
@@ -50,7 +50,7 @@ Therefore, the states at odd indices of every crossing sequence are entered afte
 	In a crossing sequence, states in odd positions are entered after moves to the right, while states in even positions are entered after moves to the left.
 \end{fact}
 
-Furthermore, since in the models we consider the input is accepted by crossing the right boundary of the tape, the last crossing of each boundary is towards the right, \ie[,] in an odd position:
+Furthermore, since in the models we consider the input is accepted by crossing the right boundary of the tape, the last crossing of each boundary is towards the right, \ie in an odd position:
 \begin{fact}\label{fact:crossing-length}
 	Every crossing sequence of an accepting computation has odd length.
 \end{fact}
@@ -377,6 +377,6 @@ In general:
 	Let $A$ be an $n$-state \TDFA and $A'$ the \ODFA built with the construction presented above.
 	By \Cref{thm:transtab2DFA}, $A'$ correctly simulates $A$.
 
-	Furthermore, the number of states in $A'$ is bounded by $n$ times the number of transition tables of $A$, which is the number of partial functions from $Q$ to $Q$, \ie $(n+1)^n$.
+	Furthermore, the number of states in $A'$ is bounded by $n$ times the number of transition tables of $A$, which is the number of partial functions from $Q$ to $Q$, namely $(n+1)^n$.
 	Overall we obtain an exponential bound of $n(n+1)^n$ states.
 \end{proof}

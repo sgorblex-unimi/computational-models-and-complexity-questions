@@ -55,8 +55,8 @@ In such a machine, we refer to the first $k'$ sweeps as the active computation.
 
 	When a transition that would bring the simulated device to accept (by passing the right end-marker in a final state) is detected, different cases occur:
 	\begin{enumerate}
-		\item If a symbol in $\Gamma_k$ has never been read (\ie[,] the bit of the second state component is set to $0$), less than $k+1<k'+2$ sweeps have been performed, therefore $A'$ enters the special state $q_0$, from which the machine performs the remaining sweeps (see below for details).
-		\item If a symbol in $\Gamma_k$ has been read (\ie[,] the stored bit is set to $1$), the automaton performed at least $k+1$ sweeps. In particular:
+		\item If a symbol in $\Gamma_k$ has never been read (\ie the bit of the second state component is set to $0$), less than $k+1<k'+2$ sweeps have been performed, therefore $A'$ enters the special state $q_0$, from which the machine performs the remaining sweeps (see below for details).
+		\item If a symbol in $\Gamma_k$ has been read (\ie the stored bit is set to $1$), the automaton performed at least $k+1$ sweeps. In particular:
 		      \begin{enumerate}
 			      \item If $k$ is even, $k'+2=k+3$, therefore in the worst case two more sweeps need to be performed.
 			            This is done by entering the state $\ql$ and performing a sweep, before turning right in state $\qr$ as $\lem$ is reached and continuing to the right until $\rem$ is passed, accepting.
@@ -360,7 +360,7 @@ In general:
 \end{proof}
 
 In the case $k=1$, the simulation has a cost of $(2n+4)^3\cdot(2n+5)^{2n+4}$ states.
-The construction provided by \citeauthor{PigPis14} \cite{PigPis14} for the simulation of generic \ODLA obtains a cost of $n\cdot (n+1)^n$ while also preserving determinism (\ie[,] obtaining a \ODFA) \cite{PigPis14}.
+The construction provided by \citeauthor{PigPis14} \cite{PigPis14} for the simulation of generic \ODLA obtains a cost of $n\cdot (n+1)^n$ while also preserving determinism (\ie obtaining a \ODFA) \cite{PigPis14}.
 
 
 

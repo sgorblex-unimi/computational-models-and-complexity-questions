@@ -17,12 +17,12 @@ Words are commonly denoted by lowercase Latin letters.
 The word containing no symbols is called the empty word and is denoted by $\emptyword$.
 The length of a word $w$ is the number of symbols it contains and is denoted by $\len w$.
 The set of words of length $n$ over $\Sigma$ is denoted by $\Sigma^n$, with $n\in\N$, and $\Sigma^0=\set{\emptyword}$ for any $\Sigma$.
-The set of all words over the alphabet $\Sigma$ is denoted by $\Sigma\star$, \ie[,] the union of all its powers, while $\Sigma^+$ denotes the set of non-empty words over $\Sigma$: $\Sigma^+ := \Sigma\star\setminus\set{\emptyword}$.
+The set of all words over the alphabet $\Sigma$ is denoted by $\Sigma\star$, \ie the union of all its powers, while $\Sigma^+$ denotes the set of non-empty words over $\Sigma$: $\Sigma^+ := \Sigma\star\setminus\set{\emptyword}$.
 Given two words $v=x_1\cdots x_n$ and $w=y_1\cdots y_m$, the concatenation of $v$ and $w$ is the word $vw:=x_1\cdots x_n y_1\cdots y_m$ composed of the symbols of $v$ followed by those of $w$.
 Note that $\len{vw}=\len v+\len w$.
 Given a word $w=w_1 w_2\cdots w_n$, the reversal of $w$ is $w\rev:=w_n w_{n-1}\cdots w_1$.
 
-\paragraph{Languages} A language $L$ over an alphabet $\Sigma$ is a set of words over $\Sigma$, \ie[,] $L\subseteq\Sigma\star$ (the powers of an alphabet are thus languages).
+\paragraph{Languages} A language $L$ over an alphabet $\Sigma$ is a set of words over $\Sigma$, \ie $L\subseteq\Sigma\star$ (the powers of an alphabet are thus languages).
 The symbol $\emptyset$ denotes the empty language, not to be confused with the language $\set{\emptyword}$.
 We sometimes omit the curly braces when denoting a singleton language (writing $a$ instead of $\set{a}$).
 A language over a unary alphabet is called unary.
