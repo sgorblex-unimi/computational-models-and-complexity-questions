@@ -1,6 +1,6 @@
 \chapter{Useful constructions}\label{app:constructions}
 In this appendix, we present several constructions that manipulate computational models while keeping the size growth to a minimum.
-In larger proofs throughout the thesis, we take these transformations for granted, letting us focus on more pivotal aspects.
+In larger proofs throughout the dissertation, we take these transformations for granted and we focus on more pivotal aspects.
 
 
 
@@ -15,41 +15,41 @@ Note that this is only possible on \ONFAs, since the removal of multiple startin
 	Every $n$-state \ONFA with multiple starting states can be simulated by an $(n+1)$-state \ONFA with a single starting state.
 \end{thrm}
 \begin{proof}
+	The logic behind the construction is to have a new state that simulates the behavior of all the original starting states at the same time, by making use of nondeterminism and creating "short circuits" for the transitions from the original starting states.
+
 	Let $A:=(Q,\Sigma,\delta,I,F)$ a multiple starting state \ONFA, where $I\subseteq Q$ is the set of starting states.
 	Define the \ONFA $A':=(Q',\Sigma,\delta',q_I,F')$, where
 	\begin{itemize}
 		\item $Q':=Q\cup\set{q_I}$,
-		\item $q_I\notin Q$ is the new, only starting state
-		\item $\delta'$ is defined as follows:
+		\item $q_I\notin Q$ is the new, unique starting state
+		\item For each $\sigma\in\Sigma$, $\delta'$ is defined as follows:
 		      \begin{itemize}
 			      \item $\delta'(q_I,\sigma):=\delta(I,\sigma)$
 			      \item for all $q\ne q_I$, $\delta'(q,\sigma)=\delta(q,\sigma)$, and
 		      \end{itemize}
 		\item $F':=F\cup\set{q_I\mid I\cap F\ne\emptyset}$
 	\end{itemize}
-	The logic behind the construction is that the new state simulates the behavior of all the original starting states at the same time, by making use of nondeterminism and creating "short circuits" for the transitions from the original starting states.
-
-	Obviously, if $n:=\card Q$, then $\card{Q'}=\card Q+1=n+1$. Therefore, it is only left to prove that $\genlang(A)=\genlang(A')$.
+	Obviously, $\card{Q'}=\card Q+1=n+1$. Therefore, it is only left to prove that $\genlang(A)=\genlang(A')$.
 	We start from the definition of $\genlang(A')$ and we temporarily ignore the possible presence of the empty word:
 	\begin{align*}
-		\genlang(A')\setminus\set{\emptyword} & = \set{w\in\Sigma\plus\mid \delta'(q_I,w)\cap F'\ne\emptyset}
+		\genlang(A')\setminus\set{\emptyword} & = \set{w\in\Sigma\plus\mid \delta'(q_I,w)\cap F'\ne\emptyset} \text.
 	\end{align*}
-	Because $F'$ can only differ from $F$ by the possible presence of $q_I$, and $q_I\notin\delta'(q_I,w)$ for any $w\in\Sigma\plus$, we have that $\delta'(q_I,w)\cap F'=\delta'(q_I,w)\cap F$:
+	Because $F'$ can only differ from $F$ by the possible presence of $q_I$, and $q_I\notin\delta'(q_I,w)$ for every $w\in\Sigma\plus$, we have that $\delta'(q_I,w)\cap F'=\delta'(q_I,w)\cap F$:
 	\begin{align*}
-		 & = \set{w\in\Sigma\plus\mid \delta'(q_I,w)\cap F\ne\emptyset}                                                                    \\
-		 & = \set{w\in\Sigma\plus\mid w=\sigma x, x\in\Sigma\star,\sigma\in\Sigma,\delta'(q_I,\sigma x)\cap F\ne\emptyset}                 \\
-		 & = \set{w\in\Sigma\plus\mid w=\sigma x, x\in\Sigma\star,\sigma\in\Sigma,\delta'(\delta'(q_I,\sigma),x)\cap F\ne\emptyset} \text.
+		\genlang(A')\setminus\set{\emptyword} & = \set{w\in\Sigma\plus\mid \delta'(q_I,w)\cap F\ne\emptyset}                                                                    \\
+		                                      & = \set{w\in\Sigma\plus\mid w=\sigma x, x\in\Sigma\star,\sigma\in\Sigma,\delta'(q_I,\sigma x)\cap F\ne\emptyset}                 \\
+		                                      & = \set{w\in\Sigma\plus\mid w=\sigma x, x\in\Sigma\star,\sigma\in\Sigma,\delta'(\delta'(q_I,\sigma),x)\cap F\ne\emptyset} \text.
 	\end{align*}
-	By definition of $\delta(q_I,\cdot)$, the last set is equal to
+	By definition of $\delta(q_I,\sigma)$, we have
 	\begin{align*}
-		 & = \set{w\in\Sigma\plus\mid w=\sigma x, x\in\Sigma\star,\sigma\in\Sigma,\delta'(\delta(I,\sigma),x)\cap F\ne\emptyset} \text.
+		\genlang(A')\setminus\set{\emptyword} & = \set{w\in\Sigma\plus\mid w=\sigma x, x\in\Sigma\star,\sigma\in\Sigma,\delta'(\delta(I,\sigma),x)\cap F\ne\emptyset} \text.
 	\end{align*}
 	Because $q_I\notin\delta(I,\sigma)$, in the last expression $\delta'$ can be replaced with $\delta$, as per its definition:
 	\begin{align*}
-		 & = \set{w\in\Sigma\plus\mid w=\sigma x, x\in\Sigma\star,\sigma\in\Sigma,\delta(\delta(I,\sigma),x)\cap F\ne\emptyset} \\
-		 & = \set{w\in\Sigma\plus\mid w=\sigma x, x\in\Sigma\star,\sigma\in\Sigma,\delta(I,\sigma x)\cap F\ne\emptyset}         \\
-		 & = \set{w\in\Sigma\plus\mid \delta(I,w)\cap F\ne\emptyset}                                                            \\
-		 & = \genlang(A)\setminus\set{\emptyword} \text.
+		\genlang(A')\setminus\set{\emptyword} & = \set{w\in\Sigma\plus\mid w=\sigma x, x\in\Sigma\star,\sigma\in\Sigma,\delta(\delta(I,\sigma),x)\cap F\ne\emptyset} \\
+		                                      & = \set{w\in\Sigma\plus\mid w=\sigma x, x\in\Sigma\star,\sigma\in\Sigma,\delta(I,\sigma x)\cap F\ne\emptyset}         \\
+		                                      & = \set{w\in\Sigma\plus\mid \delta(I,w)\cap F\ne\emptyset}                                                            \\
+		                                      & = \genlang(A)\setminus\set{\emptyword} \text.
 	\end{align*}
 
 	As for the possible presence of the empty word in $\genlang(A)$ and $\genlang(A')$:
@@ -66,17 +66,16 @@ Here, we prefer to give a more direct simulation.
 
 
 \subsection{Languages with a symbol prefix or suffix}
-Another tweak that can simplify constructions is the one of accepting a language with an added prefix or suffix.
+Another tweak that can simplify constructions is the one of accepting a language with an added symbol as a prefix or suffix.
 Here we present a construction that proves that on a \ONFA such simplification has no additional cost in the number of states in case the prefix or suffix is over a separate alphabet with respect to the original language.
 \begin{thrm}
-	For each $n$-state \ONFA accepting a language in the form $\gamma L$, with $L\in\Sigma\star$ for some alphabet $\Sigma$ and $\gamma\notin\Sigma$ is a symbol, there exists an $n$-state \ONFA accepting the language $L$.
+	Let $\Sigma$, $\Delta$ be alphabets.
+	For each $n$-state \ONFA $A:=(Q,\Sigma\cup\set{\gamma},\delta,q_I,F)$ accepting a language in the form $\gamma L$, with $L\in\Sigma\star$ and $\gamma\in\Delta\setminus\Sigma$, there exists an $n$-state \ONFA accepting the language $L$.
 \end{thrm}
 \begin{proof}
-	Let $A:=(Q,\Sigma\cup\set{\gamma},\delta,q_I,F)$ a \ONFA such that $\genlang(A)=\gamma L$, $\gamma\notin\Sigma$.
-
 	All the \emph{useful}\footnote{Meaning they are part of an accepting computation.} transitions defined from $q_I$ are labeled $\gamma$, otherwise there would exist an accepted word not starting with $\gamma$.
 	Conversely, all useful transitions from states other than $q_I$ are not labeled $\gamma$, otherwise there would exist an accepted word containing the symbol $\gamma$ in a position other than the first.
-	For the same reason, $q_I$ is not reachable by any useful transition (note that $q_I\notin F$, otherwise $\emptyword$, which is not in the required form, would be accepted).
+	For the same reason, $q_I$ is not reachable by any useful transition (note that $q_I\notin F$, otherwise $\emptyword$, which is not in $\gamma\Sigma\star$, would be accepted).
 	The following construction "skips" and removes $q_I$, making initial all the states reached from it by $\gamma$-transitions.
 
 	Define the \ONFA $A':=(Q',\Sigma,\delta',I,F)$, where
@@ -86,20 +85,19 @@ Here we present a construction that proves that on a \ONFA such simplification h
 		\item $I:=\delta(q_I,\gamma)$.
 	\end{itemize}
 
-	By the definitions of $\delta$ and $\delta'$, it holds that for any $w\in\Sigma\star$, $\delta'(I,w)=\delta(q_I,\gamma w)$.
+	By the definitions of $\delta$ and $\delta'$, it holds that for each $w\in\Sigma\star$, $\delta'(I,w)=\delta(q_I,\gamma w)$.
 	Therefore $w\in\genlang(A')\iff \gamma w\in\genlang(A)$.
 
-	The \ONFA $A'$ has $n-1$ states but contains multiple starting states. By applying \Cref{thm:mult-start-states} an equivalent $n$-state \ONFA with a single starting state can be constructed.
+	The \ONFA $A'$ has $n-1$ states but contains multiple starting states. By \Cref{thm:mult-start-states} an equivalent $n$-state \ONFA with a single starting state can be constructed.
 \end{proof}
 As in the previous construction, an equivalent method consists in switching useful transitions labeled $\gamma$ with $\emptyword$-transitions, and removing those.
 
 For suffixes we present a simpler construction:
 \begin{thrm}
-	For each $n$-state \ONFA accepting a language in the form $L\gamma$, with $L\in\Sigma\star$ for some alphabet $\Sigma$ and $\gamma\notin\Sigma$ is a symbol, there exists an $n$-state \ONFA accepting the language $L$.
+	Let $\Sigma$, $\Delta$ be alphabets.
+	For each $n$-state \ONFA $A:=(Q,\Sigma\cup\set{\gamma},\delta,q_I,F)$ accepting a language in the form $L\gamma$, with $L\in\Sigma\star$ and $\gamma\in\Delta\setminus\Sigma$, there exists an $n$-state \ONFA accepting the language $L$.
 \end{thrm}
 \begin{proof}
-	Let $A:=(Q,\Sigma\cup\set{\gamma},\delta,q_I,F)$ a \ONFA such that $\genlang(A)=L\gamma$, $\gamma\notin\Sigma$.
-
 	The \ONFA resulting from this construction accepts in those states that would reach an original accepting state upon reading $\gamma$.
 
 	Define the \ONFA $A':=(Q,\Sigma,\delta',q_I,F')$, where
@@ -120,11 +118,12 @@ For suffixes we present a simpler construction:
 
 An especially useful implication of the last two theorems is given in the following corollary:
 \begin{coro}
-	For each $n$-state \ONFA accepting a language in the form $\gamma_1 L\gamma_2$, with $L\in\Sigma\star$ for some alphabet $\Sigma$ and $\gamma_1,\gamma_2\notin\Sigma$ are symbols, there exists an $n$-state \ONFA accepting the language $L$.
+	Let $\Sigma$, $\Delta$ be alphabets.
+	For each $n$-state \ONFA accepting a language in the form $\gamma_1 L\gamma_2$, with $L\in\Sigma\star$ and $\gamma_1,\gamma_2\in\Delta\setminus\Sigma$, there exists an $n$-state \ONFA accepting the language $L$.
 \end{coro}
 This result is particularly effective when working with two-way automata with end-markers.
 In fact, it is sometimes more effective to produce one-way simulations that can read end-markers, meaning that, instead of accepting the language $L$ recognized by the original two-way machine, they accept $\lem L\rem$.
-This theorem proves that the obtained \ONFA can be converted in one that accepts $L$ with no additional cost in the number of states.
+This result proves that the obtained \ONFA can be converted in one that accepts $L$ with no additional cost in the number of states.
 
 
 
@@ -137,11 +136,11 @@ The next construction, originally introduced by \citeauthor{RabSco59} (\cite{Rab
 	Let $A:=(Q,\Sigma,\delta,q_I,F)$ a \ONFA.
 	Define the \ONFA $A':=(Q,\Sigma,\delta',I,F')$, where
 	\begin{itemize}
-		\item for all $q\in Q,\sigma\in\Sigma$, $\delta'(q,\sigma):=\delta^{-1}(q)=\set{p \mid \delta(p,\sigma)=q}$,
+		\item for all $q\in Q,\sigma\in\Sigma$, $\delta'(q,\sigma):=\set{p \mid \delta(p,\sigma)=q}$,
 		\item $I:=F$, and
 		\item $F':=\set{q_I}$.
 	\end{itemize}
-	The automaton is built so that its accepting computations correspond to accepting computations of $A$, reproduced from last to first.
+	The automaton is built so that its accepting computations correspond to backward accepting computations of $A$.
 	We prove by induction on a word $w\in\Sigma\star$ that for every $q\in Q$, $\delta(q_I,w)\ni p$ if and only if $\delta'(p,w\rev)\ni q_I$:
 	\begin{description}
 		\item[Base] if $w=\emptyword$, $\delta(q_I,w)=\set{q_I}$ and $\delta'(q_I,w\rev)=\set{q_I}$.
