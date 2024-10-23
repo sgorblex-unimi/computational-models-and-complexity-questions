@@ -18,7 +18,7 @@ Here we describe a way to convert a sweeping \kDLA in a normal form that isolate
 The way the number of minimum sweeps is chosen, besides uniforming the cases where $k$ is even or odd, also forces a read-only sweep to the left, which will be useful in the main simulation of this chapter (\Cref{sec:swkdla-to-NFA}).
 \Cref{tab:kprimesweep} shows the exact number of sweeps on each accepting computation of a sweeping \kDLA in normal form.
 In such a machine, we refer to the first $k'$ sweeps as the active computation.
-\begin{thrm}\label{thm:equiv-swep-dla}
+\begin{thrm}[normal form for sweeping \kDLAs]\label{thm:equiv-swep-dla}
 	Let $k$ be a natural number and $k':=2\floor{\frac{k}{2}}+1$ (namely the smallest odd number greater or equal to $k$).
 	Every sweeping \kDLA $A$ with $n$ states can be converted into a sweeping \kDLA $A'$ with $2n+4$ states and the same working alphabet that accepts $\genlang(A)\setminus\set{\emptyword}$ and performs at least $k'+2$ sweeps on every accepting computation.
 \end{thrm}
@@ -140,8 +140,9 @@ The definition of matching crossing sequences for sweeping \kDLAs is similar to 
 	Technically, this definition is valid for any restriction of a Turing machine. The simulation used for \TDFAs can be extended to work on any machine that accepts by crossing the right boundary of the tape; however, there might not be a way to limit the number of "valid" crossing sequences, thus producing an infinite-state automaton.}
 however, the symbol with respect to which the matching is defined changes with each application of a rule.
 
-\begin{defn}
-	Given a \kDLA $A:=(Q,\Sigma,\Gamma,\delta,q_I,F)$, we define left- and right-matching pairs of crossing sequences with respect to a symbol $\sigma\in\Gamma$ as follows:
+\begin{defn}[matching crossing sequences for \kDLA]
+	Consider a \kDLA $A:=(Q,\Sigma,\Gamma,\delta,q_I,F)$.
+	We define left- and right-matching pairs of crossing sequences with respect to a symbol $\sigma\in\Gamma$ as follows:
 	\begin{rules}
 		\item \label{itm:crossmatchswepDLA-1} The empty sequence $[~]$ right-matches and left-matches itself with respect to~$\sigma$.
 		\item \label{itm:crossmatchswepDLA-2} If $[q_3,\dots,q_h]$ right-matches $[p_1,\dots,p_l]$ with respect to~$\sigma'$ and $\delta(q_1,\sigma)=(q_2,\sigma',\tl)$, then $[q_1,\dots,q_h]$ right-matches $[p_1,\dots,p_l]$ with respect to~$\sigma$.
@@ -203,7 +204,7 @@ The function "intercepts" the first application of a rule different from \Cref{i
 As in \TDFAs, we want to limit the number of crossing sequences we use in our simulation.
 In the case of sweeping \kDLAs, we only want the crossing sequences to represent the active part of the computation, meaning the sweeps with rewriting capability (plus one in case $k$ is even, to make sure the represented computation ends with the head at the right end of the tape).
 Since the machine can write on the tape, unlike in \TDFAs there is no constraint on how many times a state can appear in a sequence. Furthermore, as the machine is sweeping, the length of the sequences is always the same.
-\begin{defn}
+\begin{defn}[active crossing sequence]
 	Given a sweeping \kLA $A$, a crossing sequence over the states of $A$ is called \emph{active} if its length is exactly $k':=2\floor{\frac{k}{2}}+1$.
 \end{defn}
 
@@ -211,7 +212,7 @@ Since the machine can write on the tape, unlike in \TDFAs there is no constraint
 
 \section{Simulation by \texorpdfstring{\ONFAs}{1NFAs}}\label{sec:swkdla-to-NFA}
 We are now ready to describe the simulation of sweeping \kDLAs by \ONFAs.
-The simulation combines three techniques: crossing sequences, transition tables (see \Cref{sec:transtab2DFA}), and a construction for the automaton recognizing the reversal of a given language.
+The simulation combines three techniques: crossing sequences, transition tables (see \Cref{sec:transtab2DFA}), and a construction for the automaton recognizing the reversal of a given language (see \Cref{sub:reversal}).
 
 We want to build the simulation so that there is a one-to-one correspondence between accepting computations of the sweeping \kDLA in normal form and the ones of the simulating \ONFA.
 To do so we divide each of the former in three parts:
@@ -357,6 +358,8 @@ In general:
 
 	If $A'$ is not in normal form, by \Cref{thm:equiv-swep-dla} it can be converted in a \kDLA in normal form with at most $2n+4$ states.
 	The number of states of the resulting \ONFA is therefore $(2n+4)^{k'+2}\cdot(2n+5)^{2n+4}$, which is exponential in~$n$ and in~$k$.
+
+	An equivalent \ONFA with a single starting state can be obtained by only adding one state, as described in \Cref{sub:multistart}.
 \end{proof}
 
 In the case $k=1$, the simulation has a cost of $(2n+4)^3\cdot(2n+5)^{2n+4}$ states.

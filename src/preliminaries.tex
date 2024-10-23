@@ -110,7 +110,7 @@ As in the one-way case, the relevant quantity for the descriptional complexity o
 \end{defn}
 
 Two-way finite automata, as all two-way machines, have a sweeping variant:
-\begin{defn}\label{def:sweeping}
+\begin{defn}[sweeping machine]\label{def:sweeping}
 	A two-way machine is said to be \emph{sweeping} if the direction of the head movement only changes on the end-markers.
 	The computation is therefore divided into traversals of the entire tape, also called \emph{sweeps}.
 \end{defn}
@@ -171,8 +171,8 @@ For this reason, the relevant quantities for the descriptional complexity of lim
 
 \subsection{Distinguishability}\label{sub:distinguishability}
 Distinguishability is a standard argument to prove lower bounds on the number of states of deterministic finite state automata accepting a given language.
-\begin{defn}
-	Given an alphabet $\Sigma$, two strings $x,y\in\Sigma\star$ are called distinguishable with respect to a language $L\subseteq\Sigma\star$ if there exists a string $z\in\Sigma\star$ such that exactly one of the two strings $xz$ and $yz$ belongs to $L$.
+\begin{defn}[distinguishable strings]
+	Given an alphabet $\Sigma$, two strings $x,y\in\Sigma\star$ are called \emph{distinguishable} with respect to a language $L\subseteq\Sigma\star$ if there exists a string $z\in\Sigma\star$ such that exactly one of the two strings $xz$ and $yz$ belongs to $L$.
 \end{defn}
 \begin{thrm}
 	The cardinality of each set of pairwise distinguishable strings with respect to a language $L$ is a lower bound for the number of states of every \ODFA accepting $L$.
@@ -182,19 +182,19 @@ Distinguishability is a standard argument to prove lower bounds on the number of
 \subsection{Fooling sets}\label{sub:foolingsets}
 Fooling sets are a generalization of distinguishability that can be used to prove lower bounds on the number of states of nondeterministic finite state automata accepting a given language.
 
-\begin{defn}[Fooling set]
-	Given a language $L$, a fooling set is a set of pairs of strings $\set{(x_i,y_i)}$ such that
+\begin{defn}[fooling set]
+	Given a language $L$, a \emph{fooling set} is a set of pairs of strings $\set{(x_i,y_i)}$ such that
 	\begin{itemize}
 		\item for all $i$, $x_iy_i\in L$, and
 		\item for all $i\ne j$, $x_iy_j\notin L$ and $x_jy_i\notin L$.
 	\end{itemize}
 \end{defn}
-\begin{thrm}
+\begin{thrm}[fooling set technique]
 	The cardinality of each fooling set for a language $L$ is a lower bound for the number of states of every \ONFA accepting $L$.
 \end{thrm}
 
 \citeauthor{Bir92} proved that for all $i<j$, just one between $x_iy_j\notin L$ and $x_jy_i\notin L$ is sufficient in order to prove the lower bound.
 This is known as an \emph{extended fooling set} \cite{Bir92}.
-\begin{thrm}
+\begin{thrm}[extended fooling set technique]
 	The cardinality of each extended fooling set for a language $L$ is a lower bound for the number of states of every \ONFA accepting $L$.
 \end{thrm}

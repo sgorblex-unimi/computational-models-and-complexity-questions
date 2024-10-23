@@ -65,7 +65,7 @@ In terms of crossing sequences:
 \end{fact}
 
 We are now ready to define \emph{valid crossing sequences} for \TDFAs:
-\begin{defn}\label{def:validcrossing2DFA}
+\begin{defn}[valid crossing sequence]\label{def:validcrossing2DFA}
 	Given a \TDFA $A$, a crossing sequence over the states of $A$ is called \emph{valid} if and only if:
 	\begin{itemize}
 		\item Its length is odd and bounded by $2n$, where $n$ is the number of states of $A$.
@@ -116,8 +116,9 @@ We then say that the sequence $[q_1,\dots,q_k]$ \emph{right-matches} the sequenc
 We say that $[q_1,\dots,q_k]$ \emph{left-matches} $[p_1,\dots,p_l]$ when the initial transition is to the left in state $p_1$, while still ending to the right of the cell.
 
 We now give the formal definition (for a visual representation see \Cref{fig:2DFA-crossmatch}):
-\begin{defn}\label{def:crossmatch2DFA}
-	Given a \TDFA $A=(Q,\Sigma,\delta,q_I,F)$ we define left- and right-matching pairs of crossing sequences with respect to a symbol $\sigma\in\Sigma$ as follows:
+\begin{defn}[matching crossing sequences]\label{def:crossmatch2DFA}
+	Let $A=(Q,\Sigma,\delta,q_I,F)$ be a \TDFA.
+	We define left- and right-matching pairs of crossing sequences with respect to a symbol $\sigma\in\Sigma$ as follows:
 	\begin{rules}
 		\item \label{itm:crossmatch2DFA-1} The empty sequence $[~]$ right-matches and left-matches itself with respect to~$\sigma$.
 		\item \label{itm:crossmatch2DFA-2} If $[q_3,\dots,q_k]$ right-matches $[p_1,\dots,p_l]$ with respect to~$\sigma$ and $\delta(q_1,\sigma)=(q_2,\tl)$, then $[q_1,\dots,q_k]$ right-matches $[p_1,\dots,p_l]$ with respect to~$\sigma$.
@@ -246,6 +247,7 @@ In general:
 	By the conjunction of \Cref{lem:2DFAto1NFA-1,lem:2DFAto1NFA-2}, it holds that $\genlang(A)=\genlang(A')$, \ie $A'$ correctly simulates $A$.
 
 	Furthermore, the number of states in $A'$ is the number of valid crossing sequences of $A$, which by \Cref{fact:crossing-2DFA-num} is exponential in $n$.
+	We point out that an equivalent \ONFA with a single starting state can be obtained by only adding one state, as described in \Cref{sub:multistart}.
 \end{proof}
 
 
@@ -264,7 +266,7 @@ In the case of a \TDFA, each of these computation paths can be described, given 
 As we shall see, despite the possible input prefixes being of arbitrary length and infinite number, the number of such functions is finite.
 This lets us encapsulate all computations of the \TDFA in a finite set of states, which we use to build an equivalent \ODFA.
 
-\begin{defn}\label{def:transtab2DFA}
+\begin{defn}[transition table]\label{def:transtab2DFA}
 	Given a \TDFA $A=(Q,\Sigma,\delta,q_I,F)$, a transition table of $A$ is a partial function $\tau:Q\to Q$.
 	A transition table is assigned to each word. In particular:
 	\begin{rules}

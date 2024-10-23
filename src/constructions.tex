@@ -7,11 +7,11 @@ In larger proofs throughout the thesis, we take these transformations for grante
 \section{Modifications of \texorpdfstring{\ONFAs}{1NFAs}}
 
 
-\subsection{\texorpdfstring{\ONFAs}{1NFAs} with multiple starting states}
+\subsection{\texorpdfstring{\ONFAs}{1NFAs} with multiple starting states}\label{sub:multistart}
 In some constructions, it is more intuitive to build a set of initial states for a \ONFA rather than a single state.
 Here we prove that such simplification does not affect the asymptotic size of the resulting machine, since an equivalent one with a single starting state can be built by only introducing one extra state.
 Note that this is only possible on \ONFAs, since the removal of multiple starting states from a \ODFA can imply an exponential growth in the number of states \cite{HolSal+01}.
-\begin{thrm}\label{thm:mult-start-states}
+\begin{thrm}[removal of multiple starting states]\label{thm:mult-start-states}
 	Every $n$-state \ONFA with multiple starting states can be simulated by an $(n+1)$-state \ONFA with a single starting state.
 \end{thrm}
 \begin{proof}
@@ -128,9 +128,9 @@ This theorem proves that the obtained \ONFA can be converted in one that accepts
 
 
 
-\section{\texorpdfstring{\ONFA}{1NFA} for the reversal}
+\section{\texorpdfstring{\ONFA}{1NFA} for the reversal}\label{sub:reversal}
 The next construction, originally introduced by \citeauthor{RabSco59} (\cite{RabSco59}), lets us build, from a \ONFA accepting a language, a \ONFA for its reversal, with no growth in size.
-\begin{thrm}
+\begin{thrm}[\ONFA for the reversal]
 	For every $n$-state \ONFA $A$, there exists an $n$-state \ONFA accepting $\genlang(A)\rev$.
 \end{thrm}
 \begin{proof}
