@@ -7,21 +7,21 @@ In larger proofs throughout the dissertation, we take these transformations for 
 \section{Modifications of \texorpdfstring{\ONFAs}{1NFAs}}
 
 
-\subsection{\texorpdfstring{\ONFAs}{1NFAs} with multiple starting states}\label{sub:multistart}
+\subsection{\texorpdfstring{\ONFAs}{1NFAs} with multiple initial states}\label{sub:multistart}
 In some constructions, it is more intuitive to build a set of initial states for a \ONFA rather than a single state.
-Here we prove that such simplification does not affect the asymptotic size of the resulting machine, since an equivalent one with a single starting state can be built by only introducing one extra state.
-Note that this is only possible on \ONFAs, since the removal of multiple starting states from a \ODFA can imply an exponential growth in the number of states \cite{HolSal+01}.
-\begin{thrm}[removal of multiple starting states]\label{thm:mult-start-states}
-	Every $n$-state \ONFA with multiple starting states can be simulated by an $(n+1)$-state \ONFA with a single starting state.
+Here we prove that such simplification does not affect the asymptotic size of the resulting machine, since an equivalent one with a single initial state can be built by only introducing one extra state.
+Note that this is only possible on \ONFAs, since the removal of multiple initial states from a \ODFA can imply an exponential growth in the number of states \cite{HolSal+01}.
+\begin{thrm}[removal of multiple initial states]\label{thm:mult-start-states}
+	Every $n$-state \ONFA with multiple initial states can be simulated by an $(n+1)$-state \ONFA with a single initial state.
 \end{thrm}
 \begin{proof}
-	The logic behind the construction is to have a new state that simulates the behavior of all the original starting states at the same time, by making use of nondeterminism and creating "short circuits" for the transitions from the original starting states.
+	The logic behind the construction is to have a new state that simulates the behavior of all the original initial states at the same time, by making use of nondeterminism and creating "short circuits" for the transitions from the original initial states.
 
-	Let $A:=(Q,\Sigma,\delta,I,F)$ a multiple starting state \ONFA, where $I\subseteq Q$ is the set of starting states.
+	Let $A:=(Q,\Sigma,\delta,I,F)$ a multiple initial state \ONFA, where $I\subseteq Q$ is the set of initial states.
 	Define the \ONFA $A':=(Q',\Sigma,\delta',q_I,F')$, where
 	\begin{itemize}
 		\item $Q':=Q\cup\set{q_I}$,
-		\item $q_I\notin Q$ is the new, unique starting state
+		\item $q_I\notin Q$ is the new, unique initial state
 		\item For each $\sigma\in\Sigma$, $\delta'$ is defined as follows:
 		      \begin{itemize}
 			      \item $\delta'(q_I,\sigma):=\delta(I,\sigma)$
@@ -88,7 +88,7 @@ Here we present a construction that proves that on a \ONFA such simplification h
 	By the definitions of $\delta$ and $\delta'$, it holds that for each $w\in\Sigma\star$, $\delta'(I,w)=\delta(q_I,\gamma w)$.
 	Therefore $w\in\genlang(A')\iff \gamma w\in\genlang(A)$.
 
-	The \ONFA $A'$ has $n-1$ states but contains multiple starting states. By \Cref{thm:mult-start-states} an equivalent $n$-state \ONFA with a single starting state can be constructed.
+	The \ONFA $A'$ has $n-1$ states but contains multiple initial states. By \Cref{thm:mult-start-states} an equivalent $n$-state \ONFA with a single initial state can be constructed.
 \end{proof}
 As in the previous construction, an equivalent method consists in switching useful transitions labeled $\gamma$ with $\emptyword$-transitions, and removing those.
 

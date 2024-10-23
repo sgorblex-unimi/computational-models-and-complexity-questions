@@ -181,13 +181,13 @@ Define the \ONFA $A':=(Q',\Sigma,\delta',I,F')$ where\footnote{%
 	\item $Q'$ is the set of valid crossing sequences of $A$.
 	\item $\delta'(c,\sigma):=\set{d \mid \text{$d$ is right-matched by $c$ with respect to~$\sigma$}}$.
 \end{itemize}
-Since \ONFAs do not read end-markers, the starting state will be guessed among the crossing sequences that match $[q_I]$, which simulates entering the left end-marker from the left (as if $\lem$ was entered, rather than being the initial position).
+Since \ONFAs do not read end-markers, the initial state will be guessed among the crossing sequences that match $[q_I]$, which simulates entering the left end-marker from the left (as if $\lem$ was entered, rather than being the initial position).
 For the same reason, final states correspond to crossing sequences that are compatible to the one passing the right end-marker:
 \begin{itemize}
 	\item $I:=\set{d\mid \text{$d$ is right-matched by $[q_I]$ with respect to $\lem$}}$.
 	\item $F':=\set{d\mid \exists q_f\in F: \text{$d$ right-matches $[q_f]$ with respect to $\rem$}}$.
 \end{itemize}
-In the previous example, the starting state is $[q_I]$ as it matches $[q_I]$ with respect to $\lem$, and the machine accepts since the last entered state $[q_I,q_1,q_f]$ matches the crossing sequence $[q_f]$ at the right boundary of the tape with respect to $\rem$.
+In the previous example, the initial state is $[q_I]$ as it matches $[q_I]$ with respect to $\lem$, and the machine accepts since the last entered state $[q_I,q_1,q_f]$ matches the crossing sequence $[q_f]$ at the right boundary of the tape with respect to $\rem$.
 
 In order to prove that $A'$ accepts the same language as $A$, we prove two separate lemmas:
 \begin{lemm}\label{lem:2DFAto1NFA-1}
@@ -213,7 +213,7 @@ In order to prove that $A'$ accepts the same language as $A$, we prove two separ
 	$\genlang(A')\subseteq\genlang(A)$.
 \end{lemm}
 \begin{proof}
-	Given a word $w:=w_1\cdots w_n\in\genlang(A')$, let $w_0:=\lem$, $w_{n+1}:=\rem$, and, for each $i\discint{1,\dots,n}$, let $c_i$ be the crossing sequence (state) guessed by $A'$ after reading $w_i$ in a fixed accepting computation, with $c_0$ the guessed starting state.
+	Given a word $w:=w_1\cdots w_n\in\genlang(A')$, let $w_0:=\lem$, $w_{n+1}:=\rem$, and, for each $i\discint{1,\dots,n}$, let $c_i$ be the crossing sequence (state) guessed by $A'$ after reading $w_i$ in a fixed accepting computation, with $c_0$ the guessed initial state.
 	By definition of $\delta'$, for each $i\discint{0,\dots,n-1}$, $c_i$ right-matches $c_{i+1}$ with respect to $w_{i+1}$.
 	Furthermore let $c_{n+1}$ be a crossing sequence $[q_f]$, with $q_f\in F$, right-matched by $c_n$ with respect to $\rem$ (such sequence exists by definition of $F'$).
 	We prove by induction on $i\discint{0,\dots,n+1}$ that $c_i=[q_1,\dots,q_k]$ implies that
@@ -247,7 +247,7 @@ In general:
 	By the conjunction of \Cref{lem:2DFAto1NFA-1,lem:2DFAto1NFA-2}, it holds that $\genlang(A)=\genlang(A')$, \ie $A'$ correctly simulates $A$.
 
 	Furthermore, the number of states in $A'$ is the number of valid crossing sequences of $A$, which by \Cref{fact:crossing-2DFA-num} is exponential in $n$.
-	We point out that an equivalent \ONFA with a single starting state can be obtained by only adding one state, as described in \Cref{sub:multistart}.
+	We point out that an equivalent \ONFA with a single initial state can be obtained by only adding one state, as described in \Cref{sub:multistart}.
 \end{proof}
 
 

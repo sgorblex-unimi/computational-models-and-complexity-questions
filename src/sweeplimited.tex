@@ -325,7 +325,7 @@ Refer to \Cref{fig:swepkDLAtoNFA} for an illustration of the construction.
 \begin{proof}
 	First, notice that if $A'$ accepts $\emptyword$, then either the final state belongs to $\set{q\in I\mid \emptyword\in\genlang(A)}$, which means $A$ accepts $\emptyword$, or the following argument holds for $w=\emptyword$.
 	Notice that the states in $I$ have no incoming transitions, as $\tau_\lem$ cannot be obtained by applying the function $t$.
-	Let $w:=w_1\cdots w_n\in\genlang(A')$. For each $i\discint{1,\dots,n}$, let $(c_i,p_i,\tau_i,r_i)$ be the state guessed by $A'$ after reading $w_i$ in a fixed accepting computation, $(c_0,p_0,\tau_0,r_0)$ being the guessed starting state.
+	Let $w:=w_1\cdots w_n\in\genlang(A')$. For each $i\discint{1,\dots,n}$, let $(c_i,p_i,\tau_i,r_i)$ be the state guessed by $A'$ after reading $w_i$ in a fixed accepting computation, $(c_0,p_0,\tau_0,r_0)$ being the guessed initial state.
 	\begin{enumerate}
 		\item By a very similar argument to the one presented for the proof of \Cref{lem:2DFAto1NFA-2}, the components $c_i$ represent actual crossing sequences for the first $k'$ sweeps of $A$.\footnote{%
 			      Firstly, since we are not interested in a crossing sequence for the right boundary of $\rem$, there is no state $n+1$.
@@ -359,7 +359,7 @@ In general:
 	If $A'$ is not in normal form, by \Cref{thm:equiv-swep-dla} it can be converted in a \kDLA in normal form with at most $2n+4$ states.
 	The number of states of the resulting \ONFA is therefore $(2n+4)^{k'+2}\cdot(2n+5)^{2n+4}$, which is exponential in~$n$ and in~$k$.
 
-	An equivalent \ONFA with a single starting state can be obtained by only adding one state, as described in \Cref{sub:multistart}.
+	An equivalent \ONFA with a single initial state can be obtained by only adding one state, as described in \Cref{sub:multistart}.
 \end{proof}
 
 In the case $k=1$, the simulation has a cost of $(2n+4)^3\cdot(2n+5)^{2n+4}$ states.
@@ -413,7 +413,7 @@ In this case, we have $m:=n^n$.
 \subsection{A sweeping \texorpdfstring{\kDLA}{k-DLA} accepting \texorpdfstring{$D_n$}{Ln}}
 Given a value for $n$, we describe a \DLA{2n} that behaves as follows. Given an input word $w$:
 \begin{enumerate}
-	\item On the first left-to-right traversal, the machine is kept in the starting state while simply leaving the symbols intact.\footnote{%
+	\item On the first left-to-right traversal, the machine is kept in the initial state while simply leaving the symbols intact.\footnote{%
 		      Technically, because of how $k$-limited automata are defined, all transitions in the first $k$ visits are rewriting. For simplicity, we may say that a cell remain unaltered, while its symbol is actually replaced by a different symbol which keeps the original information of the input one.}
 	\item On the following right-to-left sweep, the automaton deletes all the symbols in $w\rev$ that are in a position that is not a multiple of $n$, by substituting them with a special symbol $X$.
 	\item The automaton proceeds as in the first two steps for a total of $n$ times, making sure to only count symbols different from $X$ when deleting.
