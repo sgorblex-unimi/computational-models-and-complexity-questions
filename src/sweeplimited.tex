@@ -387,9 +387,10 @@ Called $n$ the number of states of the machine, the number of sequences of the f
 \end{equation*}
 Called $\beta$ the number of valid crossing sequences for $\TDFAs$ showed in \Cref{fact:crossing-2DFA-num}, the number of crossing sequences of the second type is $n^k \beta$.
 The total number of valid crossing sequences for sweeping \kDLAs is therefore
-\begin{equation*}
-	\alpha+n^k\beta = \frac{n(n^k-1)}{n-1}+n^k\sum_{l=1}^n \frac{n!}{(n-l)!}\frac{n!}{(n-l+1)!} \approx n^k + n^k n^{2n} = O(n^{2n+k}) \text.
-\end{equation*}
+\begin{align*}
+	\alpha+n^k\beta & = \frac{n(n^k-1)}{n-1} + n^k\sum_{l=1}^n \frac{n!}{(n-l)!}\frac{n!}{(n-l+1)!} \\
+					& = \crossphantom{\hspace{1em} O(n^k)}{\frac{n(n^k-1)}{n-1}} + \crossphantom{\hspace{3.5em} n^k O(n^{2n})}{n^k\sum_{l=1}^n \frac{n!}{(n-l)!}\frac{n!}{(n-l+1)!}} = O(n^{2n+k}) \text.
+\end{align*}
 
 The construction is identical to the \TDFA case, provided that the updated definition of matching (\Cref{sub:crossseqswdla-matching}) is used.
 The correctness of the simulation follows from the same proof of \Cref{thm:2DFAto1NFA}.

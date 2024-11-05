@@ -96,7 +96,7 @@ which, by grouping odd- and even-numbered choices, we can write in the form
 \end{equation*}
 Therefore, including all possible lengths, the total number of valid crossing sequences is
 \begin{align*}
-	\sum_{l=1}^n \left(\frac{n!}{(n-l)!}\cdot\frac{n!}{(n-l+1)!}\right) \le n(n!)^2 \le n\cdot n^{2n} = 2^{(2n+1) \log_2 n} \text.
+	\sum_{l=1}^n \left(\frac{n!}{(n-l)!}\cdot\frac{n!}{(n-l+1)!}\right) = O((n!)^2) = O(n^{2n}) = O(2^{2n \log_2 n}) = 2^{\tilde O(n)} \text.
 \end{align*}
 
 \begin{fact}\label{fact:crossing-2DFA-num}
