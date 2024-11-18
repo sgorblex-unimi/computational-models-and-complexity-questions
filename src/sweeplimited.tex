@@ -1,6 +1,6 @@
 \chapter{Sweeping limited automata}\label{ch:sweeping}
-Given a natural number $k$, a sweeping $k$-limited automaton is a sweeping machine that can only write on its first $k$ sweeps (see \Cref{def:kla,def:sweeping} for a formal description).
-In this chapter we show that, for every $k$, deterministic sweeping \kLAs characterize regular languages, by proving that they are as powerful as finite state automata. We also study this equivalence from a descriptional complexity point of view.
+Given a natural number~$k$, a sweeping $k$-limited automaton is a sweeping machine that can only write on its first~$k$ sweeps (see \Cref{def:kla,def:sweeping} for a formal description).
+In this chapter we show that, for every~$k$, deterministic sweeping \kLAs characterize regular languages, by proving that they are as powerful as finite state automata. We also study this equivalence from a descriptional complexity point of view.
 
 In order to prove the equivalence, we describe a way to construct, given a sweeping \kDLA, an equivalent \ONFA.
 To do so, we recall and revise some of the techniques presented in \Cref{ch:techniques} to obtain a simulation.
@@ -14,30 +14,30 @@ Finally, in \Cref{sec:sweplower} we present a weak lower bound for the obtained 
 
 \section{A normal form for sweeping \texorpdfstring{\kDLAs}{k-DLAs}}\label{sec:equiv-swep-dla}
 A possibly problematic characteristic of sweeping \kDLAs is that they may accept during the \emph{active} part of computation, that is, while writing is still possible.
-Here we describe a way to convert a sweeping \kDLA in a normal form that isolates the active computation by forcing the number of sweeps to be more than $k$ every time the machine accepts.
-The way the number of minimum sweeps is chosen, besides uniforming the cases where $k$ is even or odd, also forces a read-only sweep to the left, which will be useful in the main simulation of this chapter (\Cref{sec:swkdla-to-NFA}).
+Here we describe a way to convert a sweeping \kDLA in a normal form that isolates the active computation by forcing the number of sweeps to be more than~$k$ every time the machine accepts.
+The way the number of minimum sweeps is chosen, besides uniforming the cases where~$k$ is even or odd, also forces a read-only sweep to the left, which will be useful in the main simulation of this chapter (\Cref{sec:swkdla-to-NFA}).
 \Cref{tab:kprimesweep} shows the exact number of sweeps on each accepting computation of a sweeping \kDLA in normal form.
-In such a machine, we refer to the first $k'$ sweeps as the active computation.
+In such a machine, we refer to the first~$k'$ sweeps as the active computation.
 \begin{thrm}[normal form for sweeping \kDLAs]\label{thm:equiv-swep-dla}
-	Let $k$ be a natural number and $k':=2\floor{\frac{k}{2}}+1$ (namely the smallest odd number greater or equal to $k$).
-	Every sweeping \kDLA $A$ with $n$ states can be converted into a sweeping \kDLA $A'$ with $2n+4$ states and the same working alphabet that accepts $\genlang(A)\setminus\set{\emptyword}$ and performs at least $k'+2$ sweeps on every accepting computation.
+	Let~$k$ be a natural number and~$k':=2\floor{\frac{k}{2}}+1$ (namely the smallest odd number greater or equal to~$k$).
+	Every sweeping \kDLA~$A$ with~$n$ states can be converted into a sweeping \kDLA~$A'$ with~$2n+4$ states and the same working alphabet that accepts~$\genlang(A)\setminus\set{\emptyword}$ and performs at least~$k'+2$ sweeps on every accepting computation.
 \end{thrm}
 \begin{proof}
 	\newcommand{\ql}{q_{1\mathtt{L}}}
 	\newcommand{\qr}{q_{1\mathtt{R}}}
 	\newcommand{\qqr}{q_{2\mathtt{R}}}
 
-	Let $A:=(Q,\Sigma,\Gamma,\delta,q_I,F)$ be a sweeping \kDLA.
-	We define the sweeping \kDLA $A':=(Q',\Sigma,\Gamma,\delta',q'_I,F')$, where
+	Let~$A:=(Q,\Sigma,\Gamma,\delta,q_I,F)$ be a sweeping \kDLA.
+	We define the sweeping \kDLA~$A':=(Q',\Sigma,\Gamma,\delta',q'_I,F')$, where
 	\begin{itemize}
 		\item $Q'=(Q\times\set{0,1})\cup\set{q_0,\ql,\qr,\qqr}$,
 		\item $q'_I:=(q_I,0)$,
 		\item $F':=(F\times\set{1})\cup\set{\qr}$.
 	\end{itemize}
 
-	The automaton $A'$ initially simulates $A$ using the first component of the states in $Q\times\set{0,1}$ for a direct simulation of the behavior of $A$, and the second component to remember whether a symbol from $\Gamma_k$ has ever been read along the computation (bit set to $1$), or not (bit set to $0$).
-	The automaton proceeds like this until $A$ would accept.
-	That is, for each $q\in Q$ and $\sigma\in\Gamma$ such that $\delta(q,\sigma)=(q',\sigma',d)$:
+	The automaton~$A'$ initially simulates~$A$ using the first component of the states in~$Q\times\set{0,1}$ for a direct simulation of the behavior of~$A$, and the second component to remember whether a symbol from~$\Gamma_k$ has ever been read along the computation (bit set to~$1$), or not (bit set to~$0$).
+	The automaton proceeds like this until~$A$ would accept.
+	That is, for each~$q\in Q$ and~$\sigma\in\Gamma$ such that~$\delta(q,\sigma)=(q',\sigma',d)$:
 	\begin{align*}
 		\delta'((q,0),\sigma) & :=\begin{cases}
 			                          ((q',1),\sigma,d) \qquad  & \text{if }\sigma\in\Gamma_k \\
@@ -47,7 +47,7 @@ In such a machine, we refer to the first $k'$ sweeps as the active computation.
 		\delta'((q,1),\sigma) & :=((q',1),\sigma',d) \text,                               \\
 		\delta'((q,1),\lem)   & :=((q',1),\lem,\tr) \text,
 	\end{align*}
-	and if $\delta(q,\rem)=(q',\rem,\tl)$:
+	and if~$\delta(q,\rem)=(q',\rem,\tl)$:
 	\begin{align*}
 		\delta'((q,0),\rem) & =((q',0),\rem,\tl) \text, \\
 		\delta'((q,1),\rem) & =((q',1),\rem,\tl) \text.
@@ -55,24 +55,24 @@ In such a machine, we refer to the first $k'$ sweeps as the active computation.
 
 	When a transition that would bring the simulated device to accept (by passing the right end-marker in a final state) is detected, different cases occur:
 	\begin{enumerate}
-		\item If a symbol in $\Gamma_k$ has never been read (\ie the bit of the second state component is set to $0$), less than $k+1<k'+2$ sweeps have been performed, therefore $A'$ enters the special state $q_0$, from which the machine performs the remaining sweeps (see below for details).
-		\item If a symbol in $\Gamma_k$ has been read (\ie the stored bit is set to $1$), the automaton performed at least $k+1$ sweeps. In particular:
+		\item If a symbol in~$\Gamma_k$ has never been read (\ie the bit of the second state component is set to~$0$), less than~$k+1<k'+2$ sweeps have been performed, therefore~$A'$ enters the special state~$q_0$, from which the machine performs the remaining sweeps (see below for details).
+		\item If a symbol in~$\Gamma_k$ has been read (\ie the stored bit is set to~$1$), the automaton performed at least~$k+1$ sweeps. In particular:
 		      \begin{enumerate}
-			      \item If $k$ is even, $k'+2=k+3$, therefore in the worst case two more sweeps need to be performed.
-			            This is done by entering the state $\ql$ and performing a sweep, before turning right in state $\qr$ as $\lem$ is reached and continuing to the right until $\rem$ is passed, accepting.
-			      \item If $k$ is odd, then $k'+2=k+2$. However, the $(k+1)$-th sweep was a right-to-left traversal, thus, since the right end-marker has been reached, at least $k+2=k'+2$ sweeps have been performed. Therefore $A'$ can pass $\rem$ and accept.
+			      \item If~$k$ is even,~$k'+2=k+3$, therefore in the worst case two more sweeps need to be performed.
+			            This is done by entering the state~$\ql$ and performing a sweep, before turning right in state~$\qr$ as~$\lem$ is reached and continuing to the right until~$\rem$ is passed, accepting.
+			      \item If~$k$ is odd, then~$k'+2=k+2$. However, the~$(k+1)$-th sweep was a right-to-left traversal, thus, since the right end-marker has been reached, at least~$k+2=k'+2$ sweeps have been performed. Therefore~$A'$ can pass~$\rem$ and accept.
 		      \end{enumerate}
 	\end{enumerate}
 
-	Formally, if $\delta(q,\rem)=(q_f,\rem,\tr)$ (with $q_f\in F$):
+	Formally, if~$\delta(q,\rem)=(q_f,\rem,\tr)$ (with~$q_f\in F$):
 	\begin{align*}
 		\delta'((q,0),\rem) & := (q_0,\rem,\tl) \text,                               \\
 		\delta'((q,1),\rem) & := \begin{cases}
-			                         (\ql,\rem,\tl) \qquad     & \text{if $k$ is even}   \\
+			                         (\ql,\rem,\tl) \qquad     & \text{if~$k$ is even}   \\
 			                         ((q_f,1),\rem,\tr) \qquad & \text{otherwise} \text.
 		                         \end{cases}
 	\end{align*}
-	As for $\ql$ and $\qr$, for any $\sigma\in\Gamma$:
+	As for~$\ql$ and~$\qr$, for any~$\sigma\in\Gamma$:
 	\begin{align*}
 		\delta'(\ql,\sigma) & :=(\ql,\sigma,\tl) \text, \\
 		\delta'(\ql,\lem)   & :=(\qr,\lem,\tr) \text,   \\
@@ -80,31 +80,31 @@ In such a machine, we refer to the first $k'$ sweeps as the active computation.
 		\delta'(\qr,\rem)   & :=(\qr,\rem,\tr) \text.
 	\end{align*}
 
-	The computation in state $q_0$ proceeds by performing the remaining sweeps, writing for the $j$-th sweep an arbitrary symbol from $\Gamma_j$.
-	Only one state is necessary for both directions, as the move will be to the right if the read symbol belongs to $\Gamma_i$ where $i$ is even (or the left end-marker is read), and to the left otherwise.
-	When a symbol from $\Gamma_k$ is read, similarly to above, the machine is traversing the input for the $(k+1)$-th time. Two cases can occur:
+	The computation in state~$q_0$ proceeds by performing the remaining sweeps, writing for the~$j$-th sweep an arbitrary symbol from~$\Gamma_j$.
+	Only one state is necessary for both directions, as the move will be to the right if the read symbol belongs to~$\Gamma_i$ where~$i$ is even (or the left end-marker is read), and to the left otherwise.
+	When a symbol from~$\Gamma_k$ is read, similarly to above, the machine is traversing the input for the~$(k+1)$-th time. Two cases can occur:
 	\begin{enumerate}
-		\item If $k$ is even, then the automaton is moving to the right, and must complete the current traversal of the tape and perform two more. This is done using a state $\qqr$ (first sweep) and the states $\ql$ and $\qr$ (last two sweeps).
-		\item If $k$ is odd, then the automaton is moving to the left, and must finish the current sweep before performing the last traversal to the right and accept. As before, this can be done using the states $\ql$ and $\qr$.
+		\item If~$k$ is even, then the automaton is moving to the right, and must complete the current traversal of the tape and perform two more. This is done using a state~$\qqr$ (first sweep) and the states~$\ql$ and~$\qr$ (last two sweeps).
+		\item If~$k$ is odd, then the automaton is moving to the left, and must finish the current sweep before performing the last traversal to the right and accept. As before, this can be done using the states~$\ql$ and~$\qr$.
 	\end{enumerate}
 
-	Formally, for each $\sigma\in\Gamma_i$, $i\le k$, and called $\sigma_j$ an arbitrary element of $\Gamma_j$:
+	Formally, for each~$\sigma\in\Gamma_i$,~$i\le k$, and called~$\sigma_j$ an arbitrary element of~$\Gamma_j$:
 	\begin{align*}
 		\delta'(q_0,\sigma) & := \begin{cases}
-			                         (q_0,\sigma_{i+1},\tr) \qquad & \text{if $i$ is even}   \\
+			                         (q_0,\sigma_{i+1},\tr) \qquad & \text{if~$i$ is even}   \\
 			                         (q_0,\sigma_{i+1},\tl) \qquad & \text{otherwise} \text,
 		                         \end{cases} \\[1ex]
 		\delta'(q_0,\lem)   & := (q_0,\lem,\tr) \text,                                   \\
 		\delta'(q_0,\rem)   & := (q_0,\rem,\tl) \text,
 	\end{align*}
-	and given $\sigma\in\Gamma_k$:
+	and given~$\sigma\in\Gamma_k$:
 	\begin{align*}
 		\delta'(q_0,\sigma) & := \begin{cases}
-			                         (\qqr,\sigma,\tr) \qquad & \text{if $k$ is even}   \\
+			                         (\qqr,\sigma,\tr) \qquad & \text{if~$k$ is even}   \\
 			                         (\ql,\sigma,\tl) \qquad  & \text{otherwise} \text.
 		                         \end{cases}
 	\end{align*}
-	As for $\qqr$, for each $\sigma\in\Gamma$:
+	As for~$\qqr$, for each~$\sigma\in\Gamma$:
 	\begin{align*}
 		\delta'(\qqr,\sigma) & :=(\qqr,\sigma,\tr) \text,       \\
 		\delta'(\qqr,\rem)   & :=(\ql,\rem,\tl) \text. \qedhere
@@ -115,13 +115,13 @@ In such a machine, we refer to the first $k'$ sweeps as the active computation.
 	\centering
 	\begin{tabular}{lcc}
 		\toprule
-		~        & $k'$  & \# sweeps \\
+		~        &~$k'$  & \# sweeps \\
 		\midrule
-		$k$ even & $k+1$ & $k+3$     \\
-		$k$ odd  & $k$   & $k+2$     \\
+		$k$ even &~$k+1$ &~$k+3$     \\
+		$k$ odd  &~$k$   &~$k+2$     \\
 		\bottomrule
 	\end{tabular}
-	\caption[The values of $k'$ and the number of sweeps performed by a sweeping \kDLA in normal form.]{Summary of the values of $k'$ and the number of sweeps performed by the output automaton from the construction in \Cref{thm:equiv-swep-dla}.}
+	\caption[The values of~$k'$ and the number of sweeps performed by a sweeping \kDLA in normal form.]{Summary of the values of~$k'$ and the number of sweeps performed by the output automaton from the construction in \Cref{thm:equiv-swep-dla}.}
 	\label{tab:kprimesweep}
 \end{table}
 
@@ -141,16 +141,16 @@ The definition of matching crossing sequences for sweeping \kDLAs is similar to 
 however, the symbol with respect to which the matching is defined changes with each application of a rule.
 
 \begin{defn}[matching crossing sequences for \kDLAs]
-	Consider a \kDLA $A:=(Q,\Sigma,\Gamma,\delta,q_I,F)$.
-	We define left- and right-matching pairs of crossing sequences with respect to a symbol $\sigma\in\Gamma$ as follows:
+	Consider a \kDLA~$A:=(Q,\Sigma,\Gamma,\delta,q_I,F)$.
+	We define left- and right-matching pairs of crossing sequences with respect to a symbol~$\sigma\in\Gamma$ as follows:
 	\begin{rules}
-		\item \label{itm:crossmatchswepDLA-1} The empty sequence $[~]$ right-matches and left-matches itself with respect to~$\sigma$.
-		\item \label{itm:crossmatchswepDLA-2} If $[q_3,\dots,q_h]$ right-matches $[p_1,\dots,p_l]$ with respect to~$\sigma'$ and $\delta(q_1,\sigma)=(q_2,\sigma',\tl)$, then $[q_1,\dots,q_h]$ right-matches $[p_1,\dots,p_l]$ with respect to~$\sigma$.
-		A computation could enter the cell from the left in state $q_1$, turn around right away leaving it to the left in $q_2$ writing $\sigma'$, and eventually come back to it in $q_3$, to which we apply induction.
-		\item \label{itm:crossmatchswepDLA-3} If $[q_2,\dots,q_h]$ left-matches $[p_2,\dots,p_l]$ with respect to~$\sigma'$ and $\delta(q_1,\sigma)=(p_1,\sigma',\tr)$, then $[q_1,\dots,q_h]$ right-matches $[p_1,\dots,p_l]$ with respect to~$\sigma$.
-		A computation could enter the cell from the right in state $p_1$, immediately leave it to the left in $q_1$ writing $\sigma'$, and eventually come back to it in $q_2$, to which we apply induction.
-		\item \label{itm:crossmatchswepDLA-4} Similarly to \Cref{itm:crossmatchswepDLA-2}, if $[q_1,\dots,q_h]$ left-matches $[p_3,\dots,p_l]$ with respect to~$\sigma'$ and $\delta(p_1,\sigma)=(p_2,\sigma',\tr)$, then $[q_1,\dots,q_h]$ left-matches $[p_1,\dots,p_l]$ with respect to~$\sigma$.
-		\item \label{itm:crossmatchswepDLA-5} Similarly to \Cref{itm:crossmatchswepDLA-3}, if $[q_2,\dots,q_h]$ right-matches $[p_2,\dots,p_l]$ with respect to~$\sigma'$ and $\delta(p_1,\sigma)=(q_1,\sigma',\tl)$, then $[q_1,\dots,q_h]$ left-matches $[p_1,\dots,p_l]$ with respect to~$\sigma$.
+		\item \label{itm:crossmatchswepDLA-1} The empty sequence~$[~]$ right-matches and left-matches itself with respect to~$\sigma$.
+		\item \label{itm:crossmatchswepDLA-2} If~$[q_3,\dots,q_h]$ right-matches~$[p_1,\dots,p_l]$ with respect to~$\sigma'$ and~$\delta(q_1,\sigma)=(q_2,\sigma',\tl)$, then~$[q_1,\dots,q_h]$ right-matches~$[p_1,\dots,p_l]$ with respect to~$\sigma$.
+		A computation could enter the cell from the left in state~$q_1$, turn around right away leaving it to the left in~$q_2$ writing~$\sigma'$, and eventually come back to it in~$q_3$, to which we apply induction.
+		\item \label{itm:crossmatchswepDLA-3} If~$[q_2,\dots,q_h]$ left-matches~$[p_2,\dots,p_l]$ with respect to~$\sigma'$ and~$\delta(q_1,\sigma)=(p_1,\sigma',\tr)$, then~$[q_1,\dots,q_h]$ right-matches~$[p_1,\dots,p_l]$ with respect to~$\sigma$.
+		A computation could enter the cell from the right in state~$p_1$, immediately leave it to the left in~$q_1$ writing~$\sigma'$, and eventually come back to it in~$q_2$, to which we apply induction.
+		\item \label{itm:crossmatchswepDLA-4} Similarly to \Cref{itm:crossmatchswepDLA-2}, if~$[q_1,\dots,q_h]$ left-matches~$[p_3,\dots,p_l]$ with respect to~$\sigma'$ and~$\delta(p_1,\sigma)=(p_2,\sigma',\tr)$, then~$[q_1,\dots,q_h]$ left-matches~$[p_1,\dots,p_l]$ with respect to~$\sigma$.
+		\item \label{itm:crossmatchswepDLA-5} Similarly to \Cref{itm:crossmatchswepDLA-3}, if~$[q_2,\dots,q_h]$ right-matches~$[p_2,\dots,p_l]$ with respect to~$\sigma'$ and~$\delta(p_1,\sigma)=(q_1,\sigma',\tl)$, then~$[q_1,\dots,q_h]$ left-matches~$[p_1,\dots,p_l]$ with respect to~$\sigma$.
 	\end{rules}
 \end{defn}
 
@@ -159,13 +159,13 @@ While the definition does not require the machine to be sweeping, we highlight t
 Besides the fact that two crossing sequences match, we want to keep track of what symbol is contained in the cell that the respective boundaries enclose.
 By knowing the sequence of states the machine enters while scanning a cell, and the symbol initially contained in it, we can calculate every subsequent symbol written in that cell.
 Such a sequence can be deduced from the two matching crossing sequences.
-In particular, given two crossing sequences $c_1,c_2$ at the boundaries of a cell initially containing $\sigma$, we define the function $\last(c_1,c_2,\sigma)$, which returns the symbol left on the tape cell after the computation represented by the crossing sequences.
+In particular, given two crossing sequences~$c_1,c_2$ at the boundaries of a cell initially containing~$\sigma$, we define the function~$\last(c_1,c_2,\sigma)$, which returns the symbol left on the tape cell after the computation represented by the crossing sequences.
 \begin{defn}
-	Given a \kDLA, we define the partial function $\last:\crosseqset\times\crosseqset\times\Gamma\to\Gamma$ as follows:
+	Given a \kDLA, we define the partial function~$\last:\crosseqset\times\crosseqset\times\Gamma\to\Gamma$ as follows:
 
-	Given two crossing sequences $c=[q_1,\dots,q_h]$ and $d=[p_1,\dots,p_l]$ and a symbol $\sigma\in\Gamma$:
+	Given two crossing sequences~$c=[q_1,\dots,q_h]$ and~$d=[p_1,\dots,p_l]$ and a symbol~$\sigma\in\Gamma$:
 	\begin{itemize}
-		\item If $c$ right-matches $d$ with respect to $\sigma$ via \Cref{itm:crossmatchswepDLA-2}, then $\delta(q_1,\sigma)=(q_2,\sigma',\tl)$ for some $\sigma'$, and we define:
+		\item If~$c$ right-matches~$d$ with respect to~$\sigma$ via \Cref{itm:crossmatchswepDLA-2}, then~$\delta(q_1,\sigma)=(q_2,\sigma',\tl)$ for some~$\sigma'$, and we define:
 		      \begin{equation*}
 			      \last(c,d,\sigma):=\begin{cases}
 				      \sigma'                                        & \text{if } c=[q_1,q_2] \text{ and } d=[~], \\
@@ -173,14 +173,14 @@ In particular, given two crossing sequences $c_1,c_2$ at the boundaries of a cel
 				      % \last([q_3,\dots,q_h],d,\sigma') & \text{otherwise}.
 			      \end{cases}
 		      \end{equation*}
-		\item If $c$ right-matches $d$ with respect to $\sigma$ via \Cref{itm:crossmatchswepDLA-3}, then $\delta(q_1,\sigma)=(p_1,\sigma',\tr)$ for some $\sigma'$, and we define:
+		\item If~$c$ right-matches~$d$ with respect to~$\sigma$ via \Cref{itm:crossmatchswepDLA-3}, then~$\delta(q_1,\sigma)=(p_1,\sigma',\tr)$ for some~$\sigma'$, and we define:
 		      \begin{equation*}
 			      \last(c,d,\sigma):=\begin{cases}
 				      \sigma'                                        & \text{if } c=[q_1] \text{ and } d=[p_1],~~ \\
 				      \last([q_2,\dots,q_h],[p_2,\dots,p_l],\sigma') & \text{otherwise}.
 			      \end{cases}
 		      \end{equation*}
-		\item If $c$ left-matches $d$ with respect to $\sigma$ via \Cref{itm:crossmatchswepDLA-4}, then $\delta(p_1,\sigma)=(p_2,\sigma',\tr)$ for some $\sigma'$, and we define:
+		\item If~$c$ left-matches~$d$ with respect to~$\sigma$ via \Cref{itm:crossmatchswepDLA-4}, then~$\delta(p_1,\sigma)=(p_2,\sigma',\tr)$ for some~$\sigma'$, and we define:
 		      \begin{equation*}
 			      \last(c,d,\sigma):=\begin{cases}
 				      \sigma'                                        & \text{if } c=[~] \text{ and } d=[p_1,p_2], \\
@@ -188,7 +188,7 @@ In particular, given two crossing sequences $c_1,c_2$ at the boundaries of a cel
 				      % \last(c,[p_3,\dots,p_l],\sigma') & \text{otherwise}.
 			      \end{cases}
 		      \end{equation*}
-		\item If $c$ left-matches $d$ with respect to $\sigma$ via \Cref{itm:crossmatchswepDLA-5}, then $\delta(p_1,\sigma)=(q_1,\sigma',\tl)$ for some $\sigma'$, and we define:
+		\item If~$c$ left-matches~$d$ with respect to~$\sigma$ via \Cref{itm:crossmatchswepDLA-5}, then~$\delta(p_1,\sigma)=(q_1,\sigma',\tl)$ for some~$\sigma'$, and we define:
 		      \begin{equation*}
 			      \last(c,d,\sigma):=\begin{cases}
 				      \sigma'                                        & \text{if } c=[q_1] \text{ and } d=[p_1],~~ \\
@@ -202,10 +202,10 @@ The function "intercepts" the first application of a rule different from \Cref{i
 
 \subsection{Active crossing sequences}
 As in \TDFAs, we want to limit the number of crossing sequences we use in our simulation.
-In the case of sweeping \kDLAs, we only want the crossing sequences to represent the active part of the computation, meaning the sweeps with rewriting capability (plus one in case $k$ is even, to make sure the represented computation ends with the head at the right end of the tape).
+In the case of sweeping \kDLAs, we only want the crossing sequences to represent the active part of the computation, meaning the sweeps with rewriting capability (plus one in case~$k$ is even, to make sure the represented computation ends with the head at the right end of the tape).
 Since the machine can write on the tape, unlike in \TDFAs there is no constraint on how many times a state can appear in a sequence. Furthermore, as the machine is sweeping, the length of the sequences is always the same.
 \begin{defn}[active crossing sequence]
-	Given a sweeping \kLA $A$, a crossing sequence over the states of $A$ is called \emph{active} if its length is exactly $k':=2\floor{\frac{k}{2}}+1$.
+	Given a sweeping \kLA~$A$, a crossing sequence over the states of~$A$ is called \emph{active} if its length is exactly~$k':=2\floor{\frac{k}{2}}+1$.
 \end{defn}
 
 
@@ -217,30 +217,30 @@ The simulation combines three techniques: crossing sequences, transition tables 
 We want to build the simulation so that there is a one-to-one correspondence between accepting computations of the sweeping \kDLA in normal form and the ones of the simulating \ONFA.
 To do so we divide each of the former in three parts:
 \begin{itemize}
-	\item the first part is composed by the first $k'$ sweeps, with the head ending to the right and the tape in a frozen state. We simulate this part by using crossing sequences, which also give us a way to compute the last symbol written on each cell,
+	\item the first part is composed by the first~$k'$ sweeps, with the head ending to the right and the tape in a frozen state. We simulate this part by using crossing sequences, which also give us a way to compute the last symbol written on each cell,
 	\item the second part consists in the following sweep to the left, simulated by the reversal construction,
 	\item the third part corresponds to the remaining sweeps and it is simulated using transition tables.
 \end{itemize}
 
-Let $A:=(Q,\Sigma,\Gamma,\delta,q_I,F)$ be a sweeping \kDLA.
-Let $\crosseqset$ be the set of its active crossing sequences and $\transtabset$ is the set of its transition tables.
-Without loss of generality (\Cref{thm:equiv-swep-dla}), $A$ performs at least $k'+2$ sweeps on each accepting computation other than on $\emptyword$.
+Let~$A:=(Q,\Sigma,\Gamma,\delta,q_I,F)$ be a sweeping \kDLA.
+Let~$\crosseqset$ be the set of its active crossing sequences and~$\transtabset$ is the set of its transition tables.
+Without loss of generality (\Cref{thm:equiv-swep-dla}),~$A$ performs at least~$k'+2$ sweeps on each accepting computation other than on~$\emptyword$.
 
-Define the \ONFA $A':=(Q',\Sigma,\delta',I,F')$, where
+Define the \ONFA~$A':=(Q',\Sigma,\delta',I,F')$, where
 \begin{itemize}
 	\item $Q'=\crosseqset\times Q\times\transtabset\times Q$,
-	\item $\delta'((c,p,\tau,r),\sigma):=\{(d,q,\pi,s) \mid \text{$d$ is right-matched by $c$ \wrt $\sigma$,}$\\
+	\item $\delta'((c,p,\tau,r),\sigma):=\{(d,q,\pi,s) \mid \text{$d$ is right-matched by~$c$ \wrt~$\sigma$,}$\\
 	      \newcommand{\phant}{\phantom{\delta'((c,p,\tau,r),\sigma):=\{(d,q,\pi,s) \mid ~}}
-	      $\phant \sigma':=\last(c,d,\sigma)$, \\
-	      $\phant \delta(q,\sigma')=(p,\sigma',\tl)$, \\
-	      $\phant \pi=\trapp_{\sigma'}(\tau)$, \\
-	      $\phant \crossphantom{s=\pi(r)}{\text{$d$ is right-matched by $c$ \wrt $\sigma$,}}\}$,
-	\item $I:=\{(c,q,\tau_\lem,s) \mid \text{$c$ is right-matched by $[q_I]$ \wrt $\lem$},\\
-		      \phantom{I:=\{(c,p,\tau_\lem,s) \mid~} \crossphantom{\delta(q,\lem)=(s,\lem,\tr)}{\text{$c$ is right-matched by $[q_I]$ \wrt $\lem$},}\}$, and
+	     ~$\phant \sigma':=\last(c,d,\sigma)$, \\
+	     ~$\phant \delta(q,\sigma')=(p,\sigma',\tl)$, \\
+	     ~$\phant \pi=\trapp_{\sigma'}(\tau)$, \\
+	     ~$\phant \crossphantom{s=\pi(r)}{\text{$d$ is right-matched by~$c$ \wrt~$\sigma$,}}\}$,
+	\item $I:=\{(c,q,\tau_\lem,s) \mid \text{$c$ is right-matched by~$[q_I]$ \wrt~$\lem$},\\
+		      \phantom{I:=\{(c,p,\tau_\lem,s) \mid~} \crossphantom{\delta(q,\lem)=(s,\lem,\tr)}{\text{$c$ is right-matched by~$[q_I]$ \wrt~$\lem$},}\}$, and
 	\item $F':=\{(c,p,\tau,r) \mid c=[q_1,\dots,q_{k'}]$, \\
 	      \renewcommand{\phant}{\phantom{F':=\{(c,p,\tau,r) \mid ~}}
-	      $\phant \delta(q_{k'},\rem)=(p,\rem,\tl)$, \\
-	      $\phant \crossphantom{\trapp_\rem(\tau)(r)\in F}{\delta(q_{k'},\rem)=(p,\rem,\tr)\text,}\}\cup\set{q\in I\mid \emptyword\in\genlang(A)}$.
+	     ~$\phant \delta(q_{k'},\rem)=(p,\rem,\tl)$, \\
+	     ~$\phant \crossphantom{\trapp_\rem(\tau)(r)\in F}{\delta(q_{k'},\rem)=(p,\rem,\tr)\text,}\}\cup\set{q\in I\mid \emptyword\in\genlang(A)}$.
 \end{itemize}
 
 We now prove that the original machine and the constructed one are equivalent.
@@ -282,7 +282,7 @@ Refer to \Cref{fig:swepkDLAtoNFA} for an illustration of the construction.
 		Transitions are indicated by solid arrows, while general computations paths by dashed arrows.
 		The crossing sequences are the sequences of states along the boundaries of the cell (dashed vertical lines) and labeled by vertical braces.
 		Transition tables are represented by the tape segments containing the respective strings and labeled by horizontal braces.
-		Each symbol $w_i$ of the input is rewritten $k$ times, leaving $\sigma_i=\last(c_{i-1},c_i,w_i)$ on the tape.
+		Each symbol~$w_i$ of the input is rewritten~$k$ times, leaving~$\sigma_i=\last(c_{i-1},c_i,w_i)$ on the tape.
 		The rest of the notation is as used in the proof.}
 	\label{fig:swepkDLAtoNFA}
 \end{figure}
@@ -291,31 +291,31 @@ Refer to \Cref{fig:swepkDLAtoNFA} for an illustration of the construction.
 	$\genlang(A)\subseteq\genlang(A')$.
 \end{lemm}
 \begin{proof}
-	First, notice that if $A$ accepts $\emptyword$, then $A'$ accepts $\emptyword$ as well, as each initial state of $A'$ is accepting.
-	Let $w:=w_1\cdots w_n\in\genlang(A)\setminus\set{\emptyword}$.
+	First, notice that if~$A$ accepts~$\emptyword$, then~$A'$ accepts~$\emptyword$ as well, as each initial state of~$A'$ is accepting.
+	Let~$w:=w_1\cdots w_n\in\genlang(A)\setminus\set{\emptyword}$.
 	\begin{enumerate}
-		\item Consider the crossing sequences $c_0,\dots,c_n$ generated by the first $k'$ sweeps of the accepting computation of $A$ on input $w$.
-		      Because the machine is sweeping, the length of all such crossing sequences is $k'$.
-		      Furthermore, as for the proof of \Cref{lem:2DFAto1NFA-1}, the crossing sequence of the right boundary of $\lem$ is right-matched by $[q_I]$ \wrt $\lem$, and all subsequent crossing sequences right match with respect to the input symbols.\footnote{%
-			      Unlike the proof of \Cref{lem:2DFAto1NFA-1}, the right end-marker is not passed in this phase, so there is no matching with a crossing sequence on the right boundary of $\rem$.}
-		\item Consider the computation path relative to the $(k'+1)$-th sweep.
-		      Given $c_n=[q_1,\dots,q_{k'}]$, the computation starts with the head moving left from the right end-marker on a state $p_n$ such that $\delta(q_{k'},\rem)=(p_n,\rem,\tl)$ and proceeds in states $p_{n-1},\dots,p_0$ while reading the symbols that are frozen on the tape.
-		      In particular, called $\sigma_i:=\last(c_{i-1},c_i,w_i)$, we have $\delta(p_i,\sigma_i)=(p_{i-1},\sigma_i,\tl)$, for each $i\discint{1,\dots,n}$.
-		\item The last phase of the computation starts with a state $s$ such that $\delta(p_0,\lem)=(s,\lem,\tr)$ and proceeds with a read-only computation on the entire tape, which ends in passing the right end-marker in a final state.
-		      As showed in the proof of \Cref{thm:transtab2DFA} the existence of such a computation implies the existence of a sequence of pairs $(\tau_i,r_i)$ such that $\tau_0=\tau_\lem$, $r_0=s$, and for all $i$, $\tau_i=\trapp_{\sigma_i}(\tau_{i-1})$ and $r_i=\tau_i(r_{i-1})$, with $\trapp_\rem(\tau_n)(r_n)\in F$.\footnote{%
-			      Here, $p_0$ has the role that the initial state had in the \TDFA.}
+		\item Consider the crossing sequences~$c_0,\dots,c_n$ generated by the first~$k'$ sweeps of the accepting computation of~$A$ on input~$w$.
+		      Because the machine is sweeping, the length of all such crossing sequences is~$k'$.
+		      Furthermore, as for the proof of \Cref{lem:2DFAto1NFA-1}, the crossing sequence of the right boundary of~$\lem$ is right-matched by~$[q_I]$ \wrt~$\lem$, and all subsequent crossing sequences right match with respect to the input symbols.\footnote{%
+			      Unlike the proof of \Cref{lem:2DFAto1NFA-1}, the right end-marker is not passed in this phase, so there is no matching with a crossing sequence on the right boundary of~$\rem$.}
+		\item Consider the computation path corresponding to the~$(k'+1)$-th sweep.
+		      Given~$c_n=[q_1,\dots,q_{k'}]$, the computation starts with the head moving left from the right end-marker on a state~$p_n$ such that~$\delta(q_{k'},\rem)=(p_n,\rem,\tl)$ and proceeds in states~$p_{n-1},\dots,p_0$ while reading the symbols that are frozen on the tape.
+		      In particular, called~$\sigma_i:=\last(c_{i-1},c_i,w_i)$, we have~$\delta(p_i,\sigma_i)=(p_{i-1},\sigma_i,\tl)$, for each~$i\discint{1,\dots,n}$.
+		\item The last phase starts with a state~$s$ such that~$\delta(p_0,\lem)=(s,\lem,\tr)$ and proceeds with a read-only computation on the entire tape, which ends in passing the right end-marker in a final state.
+		      As showed in the proof of \Cref{thm:transtab2DFA} the existence of such a computation implies the existence of a sequence of pairs~$(\tau_i,r_i)$ such that~$\tau_0=\tau_\lem$,~$r_0=s$, and for all~$i$,~$\tau_i=\trapp_{\sigma_i}(\tau_{i-1})$ and~$r_i=\tau_i(r_{i-1})$, with~$\trapp_\rem(\tau_n)(r_n)\in F$.\footnote{%
+			      Here,~$p_0$ has the role that the initial state had in the \TDFA.}
 	\end{enumerate}
-	Each of the three phases determines what states of $A'$ make an accepting computation path. In particular, for $i\discint{0,\dots,n}$, $\delta(q'_I,w_1\cdots w_i)=(c_i,p_i,\tau_i,r_i)$, as:
+	Each of the three phases determines what states of~$A'$ make an accepting computation path. In particular, for~$i\discint{0,\dots,n}$,~$\delta(q'_I,w_1\cdots w_i)=(c_i,p_i,\tau_i,r_i)$, as:
 	\begin{itemize}
-		\item $c_0$ is right-matched by $[q_I]$ and $\delta(p_0,\lem)=(r_0,\lem,\tr)$, thus $(c_0,p_0,\tau_0,r_0)$ is an initial state (\Cref{sfig:swepkDLAtoNFA-start});
-		\item for each $i\discint{1,\dots,n}$:
+		\item $c_0$ is right-matched by~$[q_I]$ and~$\delta(p_0,\lem)=(r_0,\lem,\tr)$, thus~$(c_0,p_0,\tau_0,r_0)$ is an initial state (\Cref{sfig:swepkDLAtoNFA-start});
+		\item for each~$i\discint{1,\dots,n}$:
 		      \begin{itemize}
-			      \item $c_{i-1}$ right-matches $c_i$ \wrt $w_i$,
-			      \item called $\sigma_i:=\last(c_{i-1},c_i,w_i)$, $\delta(p_i,\sigma_i)=(p_{i-1},\sigma_i,\tl)$,
-			      \item $\tau_i=\trapp_{\sigma_i}(\tau_{i-1})$ and $r_i=\tau_i(r_{i-1})$.
+			      \item $c_{i-1}$ right-matches~$c_i$ \wrt~$w_i$,
+			      \item called~$\sigma_i:=\last(c_{i-1},c_i,w_i)$,~$\delta(p_i,\sigma_i)=(p_{i-1},\sigma_i,\tl)$,
+			      \item $\tau_i=\trapp_{\sigma_i}(\tau_{i-1})$ and~$r_i=\tau_i(r_{i-1})$.
 		      \end{itemize}
-		      Thus $\delta'((c_{i-1},p_{i-1},\tau_{i-1},r_{i-1}),w_i)=(c_i,p_i,\tau_i,r_i)$ (\Cref{sfig:swepkDLAtoNFA-mid});
-		\item $(c_n,p_n,\tau_n,r_n)$ is final, as $c_n=[q_1,\dots,q_{k'}]$, $\delta(q_{k'},\rem)=(p_n,\rem,\tl)$, and $\trapp_\rem(\tau_n)(r_n)\in F$ (\Cref{sfig:swepkDLAtoNFA-end}). \qedhere
+		      Thus~$\delta'((c_{i-1},p_{i-1},\tau_{i-1},r_{i-1}),w_i)=(c_i,p_i,\tau_i,r_i)$ (\Cref{sfig:swepkDLAtoNFA-mid});
+		\item $(c_n,p_n,\tau_n,r_n)$ is final, as~$c_n=[q_1,\dots,q_{k'}]$,~$\delta(q_{k'},\rem)=(p_n,\rem,\tl)$, and $\trapp_\rem(\tau_n)(r_n)\in F$ (\Cref{sfig:swepkDLAtoNFA-end}). \qedhere
 	\end{itemize}
 \end{proof}
 
@@ -323,47 +323,47 @@ Refer to \Cref{fig:swepkDLAtoNFA} for an illustration of the construction.
 	$\genlang(A')\subseteq\genlang(A)$.
 \end{lemm}
 \begin{proof}
-	First, notice that if $A'$ accepts $\emptyword$, then either the final state belongs to $\set{q\in I\mid \emptyword\in\genlang(A)}$, which means $A$ accepts $\emptyword$, or the following argument holds for $w=\emptyword$.
-	Notice that the states in $I$ have no incoming transitions, as $\tau_\lem$ cannot be obtained by applying the function $t$.
-	Let $w:=w_1\cdots w_n\in\genlang(A')$. For each $i\discint{1,\dots,n}$, let $(c_i,p_i,\tau_i,r_i)$ be the state guessed by $A'$ after reading $w_i$ in a fixed accepting computation, $(c_0,p_0,\tau_0,r_0)$ being the guessed initial state.
+	First, notice that if~$A'$ accepts~$\emptyword$, then either the final state belongs to~$\set{q\in I\mid \emptyword\in\genlang(A)}$, which means~$A$ accepts~$\emptyword$, or the following argument holds for~$w=\emptyword$.
+	Notice that the states in~$I$ have no incoming transitions, as~$\tau_\lem$ cannot be obtained by applying the function~$t$.
+	Let~$w:=w_1\cdots w_n\in\genlang(A')$. For each~$i\discint{1,\dots,n}$, let~$(c_i,p_i,\tau_i,r_i)$ be the state guessed by~$A'$ after reading~$w_i$ in a fixed accepting computation,~$(c_0,p_0,\tau_0,r_0)$ being the guessed initial state.
 	\begin{enumerate}
-		\item By a very similar argument to the one presented for the proof of \Cref{lem:2DFAto1NFA-2}, the components $c_i$ represent actual crossing sequences for the first $k'$ sweeps of $A$.\footnote{%
-			      Firstly, since we are not interested in a crossing sequence for the right boundary of $\rem$, there is no state $n+1$.
+		\item By a very similar argument to the one presented for the proof of \Cref{lem:2DFAto1NFA-2}, the components~$c_i$ represent actual crossing sequences for the first~$k'$ sweeps of~$A$.\footnote{%
+			      Firstly, since we are not interested in a crossing sequence for the right boundary of~$\rem$, there is no state~$n+1$.
 			      Second, the right-matching rules applied in this case are of course the ones defined for sweeping \kDLAs, and not \TDFAs; however the only difference is that the symbols with respect of which the right-matches are defined change with every application of the rules.
-			      Although not known a priori, the correctness of the construction implies, being $A$ a sweeping machine, that all the right-matches, with the sole exception of the one including $[q_I]$, are built by alternating applications of \Cref{itm:crossmatchswepDLA-3,itm:crossmatchswepDLA-5} (after \Cref{itm:crossmatchswepDLA-1} for the base).
-			      Finally, the proof does not show that a word accepted by $A'$ is also accepted by $A$, but only that the guessed crossing sequences are correct.}
-		\item The components $p_i$ of the sequence imply the existence of a computation path in $A$ where, called $\sigma_i:=\last(c_{i-1},c_i,w_i)$, $\delta(p_i,\sigma_i)=(p_{i-1},\sigma_i,\tl)$, for all $i\discint{0,\dots,n}$.
-		      Furthermore, being $p_n$ part of a final state, it holds that $\delta(q_{k'},\rem)=(p_n,\rem,\tl)$, where $c_n=[q_1,\dots,q_{k'}]$.
-		\item Being $p_0$ part of an initial state, it must be $\delta(p_0,\lem)=(r_0,\lem,\tr)$.
-		      We also know that there exists a computation path where $\tau_0=\tau_\lem$ and, for each $i\discint{1,\dots,n}$, $\tau_i=\trapp_{\sigma_i}(\tau_{i-1})$ and $r_i=\tau_i(r_{i-1})$.
-		      Furthermore, being $\tau_n$ and $r_n$ part of a final state, we have $\trapp_\rem(\tau_n)(r_n)\in F$.
-		      By the same proof of \Cref{thm:transtab2DFA} there exists a computation of $A$ that starts in state $r_0$, performs a two-way computation over the entire frozen tape, and ends by passing the right end-marker in a final state.
+			      Although not known a priori, the correctness of the construction implies, being~$A$ a sweeping machine, that all the right-matches, with the sole exception of the one including~$[q_I]$, are built by alternating applications of \Cref{itm:crossmatchswepDLA-3,itm:crossmatchswepDLA-5} (after \Cref{itm:crossmatchswepDLA-1} for the base).
+			      Finally, the proof does not show that a word accepted by~$A'$ is also accepted by~$A$, but only that the guessed crossing sequences are correct.}
+		\item The components~$p_i$ of the sequence imply the existence of a computation path in~$A$ where, called~$\sigma_i:=\last(c_{i-1},c_i,w_i)$,~$\delta(p_i,\sigma_i)=(p_{i-1},\sigma_i,\tl)$, for all~$i\discint{0,\dots,n}$.
+		      Furthermore, being~$p_n$ part of a final state, it holds that~$\delta(q_{k'},\rem)=(p_n,\rem,\tl)$, where~$c_n=[q_1,\dots,q_{k'}]$.
+		\item Being~$p_0$ part of an initial state, it must be~$\delta(p_0,\lem)=(r_0,\lem,\tr)$.
+		      We also know that there exists a computation path where~$\tau_0=\tau_\lem$ and, for each~$i\discint{1,\dots,n}$,~$\tau_i=\trapp_{\sigma_i}(\tau_{i-1})$ and~$r_i=\tau_i(r_{i-1})$.
+		      Furthermore, being~$\tau_n$ and~$r_n$ part of a final state, we have~$\trapp_\rem(\tau_n)(r_n)\in F$.
+		      By the same proof of \Cref{thm:transtab2DFA} there exists a computation of~$A$ that starts in state~$r_0$, performs a two-way computation over the entire frozen tape, and ends by passing the right end-marker in a final state.
 	\end{enumerate}
-	By putting together these three results, we obtain a computation that performs $k'$ sweeps (represented by the crossing sequences) ending in state $q_{k'}$, enters state $p_n$ and performs a sweep to the left (represented by the second component) ending in $p_0$, enters $r_0$ and performs a number of sweeps (represented by the transition tables) before accepting by passing the right end-marker in a final state.
+	By putting together these three results, we obtain a computation that performs~$k'$ sweeps (represented by the crossing sequences) ending in state~$q_{k'}$, enters state~$p_n$ and performs a sweep to the left (represented by the second component) ending in~$p_0$, enters~$r_0$ and performs a number of sweeps (represented by the transition tables) before accepting by passing the right end-marker in a final state.
 \end{proof}
 
-Since the inclusion between $\genlang(A)$ and $\genlang(A')$ holds both ways, we can conclude that the two machines accept the same language.
+Since the inclusion between~$\genlang(A)$ and~$\genlang(A')$ holds both ways, we can conclude that the two machines accept the same language.
 In general:
 \begin{thrm}\label{thm:swkLAtoNFA}
-	% Every $n$-state sweeping \kDLA can be simulated by a \ONFA with an exponential number of states in $n$ and in $k$.
-	Every $n$-state sweeping \kDLA can be simulated by a \ONFA with $(2n+4)^{k'+2}\cdot(2n+5)^{2n+4}$ states, independently of the working alphabet.
+	% Every~$n$-state sweeping \kDLA can be simulated by a \ONFA with an exponential number of states in~$n$ and in~$k$.
+	Every~$n$-state sweeping \kDLA can be simulated by a \ONFA with~$(2n+4)^{k'+2}\cdot(2n+5)^{2n+4}$ states, independently of the working alphabet.
 \end{thrm}
 \begin{proof}
-	Let $A$ be an $n$-state sweeping \kDLA and $A'$ the \ONFA built using the construction presented above.
-	By the conjunction of \Cref{lem:swkLAtoNFA-1,lem:swkLAtoNFA-2}, it holds that $\genlang(A)=\genlang(A')$, \ie $A'$ correctly simulates $A$.
+	Let~$A$ be an~$n$-state sweeping \kDLA and~$A'$ the \ONFA built using the construction presented above.
+	By the conjunction of \Cref{lem:swkLAtoNFA-1,lem:swkLAtoNFA-2}, it holds that~$\genlang(A)=\genlang(A')$, \ie~$A'$ correctly simulates~$A$.
 
-	If $A$ is in normal form, the number of states of the resulting \ONFA is given by $\card{Q'}=\card\crosseqset\cdot\card Q\cdot\card\transtabset\cdot\card Q$.
-	Of course, $\card Q=n$, while the number of active crossing sequences of $A$ is $(\card Q)^{k'}=n^{k'}$ and the number of its transition tables is $(n+1)^n$.
-	Hence, the obtained automaton has $n^{k'+2}\cdot(n+1)^n$ states.
+	If~$A$ is in normal form, the number of states of the resulting \ONFA is given by~$\card{Q'}=\card\crosseqset\cdot\card Q\cdot\card\transtabset\cdot\card Q$.
+	Of course,~$\card Q=n$, while the number of active crossing sequences of~$A$ is~$(\card Q)^{k'}=n^{k'}$ and the number of its transition tables is~$(n+1)^n$.
+	Hence, the obtained automaton has~$n^{k'+2}\cdot(n+1)^n$ states.
 
-	If $A'$ is not in normal form, by \Cref{thm:equiv-swep-dla} it can be converted in a \kDLA in normal form with at most $2n+4$ states.
-	The number of states of the resulting \ONFA is therefore $(2n+4)^{k'+2}\cdot(2n+5)^{2n+4}$, which is exponential in~$n$ and in~$k$.
+	If~$A'$ is not in normal form, by \Cref{thm:equiv-swep-dla} it can be converted in a \kDLA in normal form with at most~$2n+4$ states.
+	The number of states of the resulting \ONFA is therefore~$(2n+4)^{k'+2}\cdot(2n+5)^{2n+4}$, which is exponential in~$n$ and in~$k$.
 
 	An equivalent \ONFA with a single initial state can be obtained by only adding one state, as described in \Cref{sub:multistart}.
 \end{proof}
 
-In the case $k=1$, the simulation has a cost of $(2n+4)^3\cdot(2n+5)^{2n+4}$ states.
-The construction provided by \citeauthor{PigPis14} \cite{PigPis14} for the simulation of generic \ODLAs obtains a cost of $n\cdot (n+1)^n$ while also preserving determinism (\ie obtaining a \ODFA) \cite{PigPis14}.
+In the case~$k=1$, the simulation has a cost of~$(2n+4)^3\cdot(2n+5)^{2n+4}$ states.
+The construction provided by \citeauthor{PigPis14} \cite{PigPis14} for the simulation of generic \ODLAs obtains a cost of~$n\cdot (n+1)^n$ while also preserving determinism (\ie obtaining a \ODFA) \cite{PigPis14}.
 
 
 
@@ -373,19 +373,19 @@ The construction provided by \citeauthor{PigPis14} \cite{PigPis14} for the simul
 \subsection{Linear time acceptors}
 It is worth noting that the fact that sweeping \kDLAs can only accept regular languages can be considered a consequence of \citeauthor{Hen65}'s result about linear time computational models \cite{Hen65}.
 The theorem states that any machine that accepts in a number of steps that is linear with respect to the length of the input can only accept regular languages.
-While a sweeping \kLA can potentially run in infinite loops, all its accepting computations either end within $k$ sweeps (therefore in a number of steps limited by $kn$) or in the following sweeps, the number of which is limited (provided that the machine doesn't loop infinitely) by a function of the number of states, thus constant with respect to the length of the input.
+While a sweeping \kLA can potentially run in infinite loops, all its accepting computations either end within~$k$ sweeps (therefore in a number of steps limited by~$kn$) or in the following sweeps, the number of which is limited (provided that the machine doesn't loop infinitely) by a function of the number of states, thus constant with respect to the length of the input.
 
 
 \subsection{A crossing sequence only simulation}
 A simulation of sweeping \kDLAs by \ONFAs exclusively based on crossing sequences can be defined as for \TDFAs (\Cref{sec:crossseq2DFA}).
 Sweeping \kDLAs can either accept during the writing capable phase or, after it, enter a read only phase where they behave exactly like \TDFAs.
-Therefore, valid crossing sequences in this case would be composed by either any sequence of states of length at most $k$, or by a sequence of any $k$ states followed by a second sequence that complies with the rules defined in \Cref{def:validcrossing2DFA} for valid crossing sequences for \TDFAs.
+Therefore, valid crossing sequences in this case would be composed by either any sequence of states of length at most~$k$, or by a sequence of any~$k$ states followed by a second sequence that complies with the rules defined in \Cref{def:validcrossing2DFA} for valid crossing sequences for \TDFAs.
 
-Called $n$ the number of states of the machine, the number of sequences of the first type is
+Called~$n$ the number of states of the machine, the number of sequences of the first type is
 \begin{equation*}
 	\alpha:=\sum_{l=1}^k n^l = \frac{n(n^k-1)}{n-1} \text.
 \end{equation*}
-Called $\beta$ the number of valid crossing sequences for $\TDFAs$ showed in \Cref{fact:crossing-2DFA-num}, the number of crossing sequences of the second type is $n^k \beta$.
+Called~$\beta$ the number of valid crossing sequences for~$\TDFAs$ showed in \Cref{fact:crossing-2DFA-num}, the number of crossing sequences of the second type is~$n^k \beta$.
 The total number of valid crossing sequences for sweeping \kDLAs is therefore
 \begin{align*}
 	\alpha+n^k\beta & = \frac{n(n^k-1)}{n-1} + n^k\sum_{l=1}^n \frac{n!}{(n-l)!}\frac{n!}{(n-l+1)!} \\
@@ -400,26 +400,26 @@ Different definitions of crossing sequences for machine with writing capabilitie
 
 
 \section{A lower bound}\label{sec:sweplower}
-In this section we show a language that can be accepted by an $n$-state sweeping \kDLA, but for which any \ONFA simulating it must have a number of states that is exponential in $n$.
+In this section we show a language that can be accepted by an~$n$-state sweeping \kDLA, but for which any \ONFA simulating it must have a number of states that is exponential in~$n$.
 We therefore prove a lower bound on the number of states of a \ONFA simulating a sweeping \kDLA, hence showing that sweeping \kDLAs can be exponentially more succinct.
 
-Consider the following language, parameterized by a positive integer $n$:
+Consider the following language, parameterized by a positive integer~$n$:
 \begin{equation*}
 	D_n := (a+b)\star a (a+b)^{n^n-1} \text.
 \end{equation*}
-The language extends the classic language family where the $m$-th symbol from the right is $a$, which is a witness of the exponential cost for the simulation of a \TDFA by a \ODFA.
-In this case, we have $m:=n^n$.
+The language extends the classic language family where the~$m$-th symbol from the right is~$a$, which is a witness of the exponential cost for the simulation of a \TDFA by a \ODFA.
+In this case, we have~$m:=n^n$.
 
 
 \subsection{A sweeping \texorpdfstring{\kDLA}{k-DLA} accepting \texorpdfstring{$D_n$}{Ln}}
-Given a value for $n$, we describe a \DLA{2n} that behaves as follows. Given an input word $w$:
+Given a value for~$n$, we describe a \DLA{2n} that behaves as follows. Given an input word~$w$:
 \begin{enumerate}
 	\item On the first left-to-right traversal, the machine is kept in the initial state while simply leaving the symbols intact.\footnote{%
-		      Technically, because of how $k$-limited automata are defined, all transitions in the first $k$ visits are rewriting. For simplicity, we may say that a cell remain unaltered, while its symbol is actually replaced by a different symbol which keeps the original information of the input one.}
-	\item On the following right-to-left sweep, the automaton deletes all the symbols in $w\rev$ that are in a position that is not a multiple of $n$, by substituting them with a special symbol $X$.
-	\item The automaton proceeds as in the first two steps for a total of $n$ times, making sure to only count symbols different from $X$ when deleting.
-	      Because each symbol $\sigma\nth i\in\Gamma_i$ is actually always rewritten with a symbol $\sigma\nth{i+1}\in\Gamma_{i+1}$ (see \Cref{def:kla}), the automaton can keep track of how many deleting sweeps it has performed, thus being able to stop after $n$ without the need for a counter in the finite state memory.
-	\item After $n$ deleting sweeps ($2n$ sweeps in total), the automaton checks that the first non-deleted symbol from the right is $a$.
+		      Technically, because of how $k$-limited automata are defined, all transitions in the first~$k$ visits are rewriting. For simplicity, we may say that a cell remain unaltered, while its symbol is actually replaced by a different symbol which keeps the original information of the input one.}
+	\item On the following right-to-left sweep, the automaton deletes all the symbols in~$w\rev$ that are in a position that is not a multiple of~$n$, by substituting them with a special symbol~$X$.
+	\item The automaton proceeds as in the first two steps for a total of~$n$ times, making sure to only count symbols different from~$X$ when deleting.
+	      Because each symbol~$\sigma\nth i\in\Gamma_i$ is actually always rewritten with a symbol~$\sigma\nth{i+1}\in\Gamma_{i+1}$ (see \Cref{def:kla}), the automaton can keep track of how many deleting sweeps it has performed, thus being able to stop after~$n$ without the need for a counter in the finite state memory.
+	\item After~$n$ deleting sweeps ($2n$ sweeps in total), the automaton checks that the first non-deleted symbol from the right is~$a$.
 	      If so, it finishes the next sweep to the right and accepts.
 \end{enumerate}
 
@@ -429,57 +429,57 @@ Given a value for $n$, we describe a \DLA{2n} that behaves as follows. Given an 
 		\centering
 		\input{tikz/sweepingDnstates.tikz}
 		\caption{State transition graph.
-			States $q_0$ and $q_1$ make the counter modulo $2$, while states $q_2$ and $q_f$ are entered when an $a$ in the correct position is detected, in order to accept.}
+			States~$q_0$ and~$q_1$ make the counter modulo~$2$, while states~$q_2$ and~$q_f$ are entered when an~$a$ in the correct position is detected, in order to accept.}
 	\end{subfigure}
 	\hfill
 	\begin{subfigure}[b]{0.46\textwidth}
 		\centering
 		\input{tikz/sweepingDntape.tikz}
-		\caption{Representation of the computation over the input word $ababba$.
-			The $X$ symbols are placed under in correspondence of a transition that "deletes" the cell above.
-			The circle represents the identification of the $a$ symbol in the correct position.}
+		\caption{Representation of the computation over the input word~$ababba$.
+			The~$X$ symbols are placed under in correspondence of a transition that "deletes" the cell above.
+			The circle represents the identification of the~$a$ symbol in the correct position.}
 	\end{subfigure}
 
-	\caption[The sweeping $4$-limited automaton for $D_2$ witnessing the lower bound for the gap between sweeping \kDLAs and \ONFAs.]{The sweeping $4$-limited automaton for $D_2$, with $2+2=4$ states and a working alphabet of $2+(2\cdot2)3=14$ symbols.}
+	\caption[The sweeping $4$-limited automaton for~$D_2$ witnessing the lower bound for the gap between sweeping \kDLAs and \ONFAs.]{The sweeping $4$-limited automaton for~$D_2$, with~$2+2=4$ states and a working alphabet of~$2+(2\cdot2)3=14$ symbols.}
 	\label{fig:sweepingDn}
 \end{figure}
-\Cref{fig:sweepingDn} shows the transition graph and an example of computation of the automaton for $n=2$.
+\Cref{fig:sweepingDn} shows the transition graph and an example of computation of the automaton for~$n=2$.
 
-The number of necessary rewrite-capable visits is $2n$, since each pair of sweeps takes care of one of the $n$ factors equal to $n$ (the final traversals do not need to write).
-The automaton only needs a counter modulo $n$, which takes $n$ states to be implemented.
-Considering that the direction of movement and the current sweep can be deduced from the scanned symbols (specifically from the parity and the index of $i$, respectively, if the current symbol belongs to $\Gamma_i$), only two additional states, used for accepting, are needed for the rest of the computation.
-The total number of states is thus $n+2$.
-The size of the working alphabet is also linear in $n$: only one extra symbol per write is required along the ones leaving $a$ and $b$ intact.
-Specifically, aside the $2$ symbols of the input alphabet, $2n\cdot3$ symbols are required (notice that the number is linear and not constant because the number of rewritings depends on $n$).
-Therefore, overall the size of the machine is quadratic in $n$.
+The number of necessary rewrite-capable visits is~$2n$, since each pair of sweeps takes care of one of the~$n$ factors equal to~$n$ (the final traversals do not need to write).
+The automaton only needs a counter modulo~$n$, which takes~$n$ states to be implemented.
+Considering that the direction of movement and the current sweep can be deduced from the scanned symbols (specifically from the parity and the index of~$i$, respectively, if the current symbol belongs to~$\Gamma_i$), only two additional states, used for accepting, are needed for the rest of the computation.
+The total number of states is thus~$n+2$.
+The size of the working alphabet is also linear in~$n$: only one extra symbol per write is required along the ones leaving~$a$ and~$b$ intact.
+Specifically, aside the~$2$ symbols of the input alphabet,~$2n\cdot3$ symbols are required (notice that the number is linear and not constant because the number of rewritings depends on~$n$).
+Therefore, overall the size of the machine is quadratic in~$n$.
 
-\subsection[Size of finite state automata accepting \texorpdfstring{$D_n$}{Ln}]{Lower bounds on the size of finite state automata accepting $D_n$}
-A \ODFA of size double exponential in $n$ can accept $D_n$ by saving in the finite state memory a window of the last $n^n$ symbols, and then accept if and only if, after scanning the input word, the first symbol of such window is $a$.
-This would require $2^{n^n}$ states.
+\subsection[Size of finite state automata accepting \texorpdfstring{$D_n$}{Ln}]{Lower bounds on the size of finite state automata accepting~$D_n$}
+A \ODFA of size double exponential in~$n$ can accept~$D_n$ by saving in the finite state memory a window of the last~$n^n$ symbols, and then accept if and only if, after scanning the input word, the first symbol of such window is~$a$.
+This would require~$2^{n^n}$ states.
 
-In order to prove that each \ODFA needs a double exponential number of states in $n$ in order to accept $D_n$, we use a distinguishability argument (see \Cref{sub:distinguishability}).
+In order to prove that each \ODFA needs a double exponential number of states in~$n$ in order to accept~$D_n$, we use a distinguishability argument (see \Cref{sub:distinguishability}).
 
-Given the set of strings $S:=\set{a,b}^{n^n}$, consider two strings $x,y\in S$ such that $x\ne y$.
-In particular, let $i$ be the first index such that $x_i\ne y_i$.
-Then, the string $z:=b^{i-1}$ distinguishes $x$ and $y$.
-For example, if $x_i=a$ and $y_i=b$, the $n^n$-th symbol of $(xz)\rev$ is $a$, meaning $xz\in D_n$, while the $n^n$-th symbol of $(yz)\rev$ is $b$, meaning $yz\notin D_n$.
+Given the set of strings~$S:=\set{a,b}^{n^n}$, consider two strings~$x,y\in S$ such that~$x\ne y$.
+In particular, let~$i$ be the first index such that~$x_i\ne y_i$.
+Then, the string~$z:=b^{i-1}$ distinguishes~$x$ and~$y$.
+For example, if~$x_i=a$ and~$y_i=b$, the~$n^n$-th symbol of~$(xz)\rev$ is~$a$, meaning~$xz\in D_n$, while the~$n^n$-th symbol of~$(yz)\rev$ is~$b$, meaning~$yz\notin D_n$.
 
-Hence, $S$ is a set of pairwise distinguishable strings with respect to $D_n$.
-Because $\card S=2^{n^n}=2^{2^{n\log n}}$, every \ODFA accepting $D_n$ needs a number of states two times exponential in $n$.
+Hence,~$S$ is a set of pairwise distinguishable strings with respect to~$D_n$.
+Because~$\card S=2^{n^n}=2^{2^{n\log n}}$, every \ODFA accepting~$D_n$ needs a number of states two times exponential in~$n$.
 
 \begin{thrm}
-	For each positive integer $n$ there exist an integer $k$ and an $n$-state sweeping \kDLA $A$ such that every \ODFA recognizing $\genlang(A)$ requires a double exponential number of states in $n$.
-	Furthermore, $k$ can be linear in $n$.
+	For each positive integer~$n$ there exist an integer~$k$ and an~$n$-state sweeping \kDLA~$A$ such that every \ODFA recognizing~$\genlang(A)$ requires a double exponential number of states in~$n$.
+	Furthermore,~$k$ can be linear in~$n$.
 \end{thrm}
 
 Since the cost of the simulation of a \ONFA by a \ODFA is exponential, this implies that
 
 \begin{coro}
-	For each positive integer $n$ there exist an integer $k$ and an $n$-state sweeping \kDLA $A$ such that every \ONFA recognizing $\genlang(A)$ requires an exponential number of states in $n$.
-	Furthermore, $k$ can be linear in $n$.
+	For each positive integer~$n$ there exist an integer~$k$ and an~$n$-state sweeping \kDLA~$A$ such that every \ONFA recognizing~$\genlang(A)$ requires an exponential number of states in~$n$.
+	Furthermore,~$k$ can be linear in~$n$.
 \end{coro}
 
 Which matches the upper bound given in \Cref{thm:swkLAtoNFA}.
 
-The result above is a "weak" lower bound, since it requires a different value of $k$ for a sweeping \kDLA accepting $D_n$ for each value of $n$.
-A stronger result would consist in finding a language $L'_n$ and a constant value of $k$ for which there exists a sweeping \kDLA accepting $L'_n$ while a \ODFA requires a double exponential number of states in $n$, for each value of $n$.
+The result above is a "weak" lower bound, since it requires a different value of~$k$ for a sweeping \kDLA accepting~$D_n$ for each value of~$n$.
+A stronger result would consist in finding a language~$L'_n$ and a constant value of~$k$ for which there exists a sweeping \kDLA accepting~$L'_n$ while a \ODFA requires a double exponential number of states in~$n$, for each value of~$n$.

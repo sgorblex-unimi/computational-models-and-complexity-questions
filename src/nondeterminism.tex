@@ -20,7 +20,7 @@ However, for each computation that results in a crossing sequence containing a s
 This is because the transition taken in correspondence of the last occurrence of the repeating state can be taken on the first occurrence instead.
 For this reason, the set of valid crossing sequences remains the same in the nondeterministic case, as each accepted word admits a computation that only results in crossing sequences without such repetitions.
 
-\paragraph{Matching crossing sequences} \Cref{def:crossmatch2DFA} of matching crossing sequences remains mostly unchanged in the nondeterministic case, with the exception of replacing $\delta(q,\sigma)=(q',d)$ with $\delta(q,\sigma)\ni(q',d)$, where $q,q'$ are states, $\sigma$ is an input symbol, and $d$ is a move direction.
+\paragraph{Matching crossing sequences} \Cref{def:crossmatch2DFA} of matching crossing sequences remains mostly unchanged in the nondeterministic case, with the exception of replacing~$\delta(q,\sigma)=(q',d)$ with~$\delta(q,\sigma)\ni(q',d)$, where~$q,q'$ are states,~$\sigma$ is an input symbol, and~$d$ is a move direction.
 
 \paragraph{Simulation} The simulation is defined as for the \TDFA version.
 The proof still holds; however, given an input word, the simulated computation is of course just \emph{one} of the possible computations over said word.
@@ -32,17 +32,17 @@ The notes on sweeping \TDFAs in \Cref{sub:swep2DFA} still hold for sweeping \TNF
 \subsection{Transition tables}
 
 \paragraph{Definition} In the nondeterministic case, transition tables are binary relations rather than functions.
-Specifically, given a \TNFA $A=(Q,\Sigma,\delta,q_I,F)$, a transition table of $A$ is a binary relation $\tau\subseteq Q\times Q$.
-Transition tables are assigned to words as described in \Cref{def:transtab2DFA}, except of course we use $(p,q)\in\tau$ instead of $\tau(p)=q$.
+Specifically, given a \TNFA~$A=(Q,\Sigma,\delta,q_I,F)$, a transition table of~$A$ is a binary relation~$\tau\subseteq Q\times Q$.
+Transition tables are assigned to words as described in \Cref{def:transtab2DFA}, except of course we use~$(p,q)\in\tau$ instead of~$\tau(p)=q$.
 
-\paragraph{Simulation} The simulation is slightly different from the \TDFA version, having the second state component consisting in a set of states rather than a single state: $Q':=\transtabset\times\subsets{Q}$.
+\paragraph{Simulation} The simulation is slightly different from the \TDFA version, having the second state component consisting in a set of states rather than a single state:~$Q':=\transtabset\times\subsets{Q}$.
 Because the transition table of any given input prefix is the same independently of the computation path taken, all the states that can be reached after reading said prefix can be grouped in a set, analogously to the subset construction \cite{RabSco59,HopUll79}.
-The transition function is defined accordingly: given a state $(\tau,\alpha)$ (where $\alpha$ is a set of states of the \TNFA) and a symbol $\sigma$, $\delta((\tau,\alpha),\sigma)=(\pi,\beta)$ where $\pi:=\trapp_\sigma(\tau)$ and $\beta:=\set{q\in Q\mid p\in\alpha, (p,q)\in\pi}$.
+The transition function is defined accordingly: given a state~$(\tau,\alpha)$ (where~$\alpha$ is a set of states of the \TNFA) and a symbol~$\sigma$,~$\delta((\tau,\alpha),\sigma)=(\pi,\beta)$ where~$\pi:=\trapp_\sigma(\tau)$ and~$\beta:=\set{q\in Q\mid p\in\alpha, (p,q)\in\pi}$.
 The initial state is defined analogously.
 
 The proof still holds, with the note that the one-to-one relation is between computations of the \ODFA and the set of possible computations of the \TNFA over the same input.
 
-Because transition tables are defined differently, the complexity of the simulating machine changes, but remains exponential, as there are $2^{\card Q^2}$ possible transition tables and $2^{\card Q}$ subsets of $Q$, giving a total of $2^{\card Q^3}$ states.
+Because transition tables are defined differently, the complexity of the simulating machine changes, but remains exponential, as there are~$2^{\card Q^2}$ possible transition tables and~$2^{\card Q}$ subsets of~$Q$, giving a total of~$2^{\card Q^3}$ states.
 
 Note that the existence of this simulation proves that the cost of simulating a \TNFA with a \ODFA is only single exponential.
 
@@ -56,13 +56,13 @@ Only minor adjustments are needed for the simulation of sweeping $k$-limited aut
 
 \paragraph{Components} Crossing sequences and transition tables are defined as for the \TNFA case. The definition of matching crossing sequences needs appropriate adjustments given by the rewriting capabilities, as for the deterministic case.
 
-In order to calculate the symbol left on a tape cell given two crossing sequences at its boundaries, we define a relation $\last\subseteq(\crosseqset\times\crosseqset\times\Gamma)\times\Gamma$ in place of the partial function used in the deterministic case.
+In order to calculate the symbol left on a tape cell given two crossing sequences at its boundaries, we define a relation~$\last\subseteq(\crosseqset\times\crosseqset\times\Gamma)\times\Gamma$ in place of the partial function used in the deterministic case.
 % A triple crossing sequence/crossing sequence/symbol is in relation with a symbol if and only if such a symbol can be left on a tape containing the first symbol after the computation represented by the crossing sequences on the cell boundaries.
 The new relation can be defined inductively analogously to the deterministic case.
 
 Active crossing sequences are defined as in the deterministic case.
 
-\paragraph{Simulation} The simulation remains substantially the same, with the exception of using the relation forms of transition tables and $\last$.
+\paragraph{Simulation} The simulation remains substantially the same, with the exception of using the relation forms of transition tables and~$\last$.
 Unlike in the simulation of \TNFAs by \ODFAs by transition tables, we do not group states for the last phase of the simulation, as the resulting machine is nondeterministic and no advantage would be obtained.\footnote{%
 	When a machine can rewrite, using transition tables for its simulation is not possible in the traditional sense, because different prefixes origin different transition tables.
 	In this case, it would, however, be possible, since the phase simulated via transition table is read-only.}
@@ -70,4 +70,4 @@ Unlike in the simulation of \TNFAs by \ODFAs by transition tables, we do not gro
 The correctness of the simulation derives from the nondeterministic versions of the proofs of correctness of the single components, following the steps used in the deterministic case.
 
 The cost of the simulation changes slightly, as changed the number of transition tables.
-If $n$ is the number of states of the original machine, the number of states of the resulting \ONFAs is $n^{k'+2}\cdot2^{n^2}$, plus the cost of the normal form construction, for a total of $(2n+4)^{k'+2}\cdot2^{(2n+4)^2}$ states.
+If~$n$ is the number of states of the original machine, the number of states of the resulting \ONFAs is~$n^{k'+2}\cdot2^{n^2}$, plus the cost of the normal form construction, for a total of~$(2n+4)^{k'+2}\cdot2^{(2n+4)^2}$ states.

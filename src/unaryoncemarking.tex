@@ -7,7 +7,7 @@ The descriptional complexity of unary automata has been thoroughly investigated 
 Because of the equality of the two classes, many computational models are equivalent: typical regular language acceptors such as one- and two-way finite state automata as well as typical context-free models such as pushdown automata.
 The relative succinctness of these models has been inspected by providing simulations and studying lower bounds (see, \eg[,] \cite{GefMer+03,MerPig01,Pig09,PigSha+02}).
 At the same time, many bounds have been proven on the descriptional complexity of operations on unary languages (see, \eg[,] \cite{HolKut03,KunOkh12,MerPig05,PigSha02}).
-Another reason why the unary case is studied extensively is that proving the Sakoda and Sipser conjecture, even in the unary case, would prove the separation of the space complexity classes $\cL$ and $\cNL$ (see \Cref{sec:context-descrcomp}).
+Another reason why the unary case is studied extensively is that proving the Sakoda and Sipser conjecture, even in the unary case, would prove the separation of the space complexity classes~$\cL$ and~$\cNL$ (see \Cref{sec:context-descrcomp}).
 
 Once-marking $1$-limited automata consist in machines with a single tape, delimited by end-markers ($\lem$,$\rem$), that can only write once during the computation, on the first visit of a tape cell.
 They have been introduced and studied by \citeauthor{PigPri23a}, who proved a tight double exponential bound for the simulation by \ODFAs in the general case and a polynomial one by \TDFAs in the deterministic case \cite{PigPri23a}.
@@ -36,33 +36,33 @@ We summarize these and other related results in \Cref{tab:sims-om-general-oncema
 % We point out that the simulation of \OMODLAs by \ONFAs has been mistakenly labeled as polynomial in \cite{PigPri23a}, while there is indeed an exponential lower bound:
 We give here an exponential lower bound for the simulation of \OMODLAs by \ONFAs (previously mislabeled polynomial):
 \begin{thrm}\label{thm:OM1DLAto1NFAlower}
-	For each integer $n$ there exists an $n$-state \OMODLA $A$ such that every \ONFA recognizing $\genlang(A)$ requires an exponential number of states in $n$.
+	For each integer~$n$ there exists an~$n$-state \OMODLA~$A$ such that every \ONFA recognizing~$\genlang(A)$ requires an exponential number of states in~$n$.
 \end{thrm}
 \begin{proof}
-	Consider the language $\double:=\set{ww\mid w\in\set{a,b}^n}$.
-	A \OMODLA can recognize $\double$ as follows:
+	Consider the language~$\double:=\set{ww\mid w\in\set{a,b}^n}$.
+	A \OMODLA can recognize~$\double$ as follows:
 	\begin{enumerate}
-		\item By using an $n$-state counter, the automaton marks the $(n+1)$-th input cell, which in case of an accepted string is the first symbol of the second half of the word (if there is no such cell, it rejects).
+		\item By using an~$n$-state counter, the automaton marks the~$(n+1)$-th input cell, which in case of an accepted string is the first symbol of the second half of the word (if there is no such cell, it rejects).
 		\item The tape head is reset to the first input symbol by first reaching the left end-marker and then moving right once. The scanned symbol is saved in the finite state memory.
-		\item\label{itm:double-step3} By moving $n$ times to the right, the head is brought to the first symbol in the second "half" of the input. The scanned symbol is compared to the one saved.
+		\item\label{itm:double-step3} By moving~$n$ times to the right, the head is brought to the first symbol in the second "half" of the input. The scanned symbol is compared to the one saved.
 		      If they are different, the machine rejects.
-		\item\label{itm:double-step4} By moving $n$ times to the left followed by one to the right (or simply $n-1$ times to the left), the head is brought to the second symbol in the first half of the input. The scanned symbol is saved.
+		\item\label{itm:double-step4} By moving~$n$ times to the left followed by one to the right (or simply~$n-1$ times to the left), the head is brought to the second symbol in the first half of the input. The scanned symbol is saved.
 		\item Steps \ref{itm:double-step3} and \ref{itm:double-step4} are repeated until, after the single move to the right in step \ref{itm:double-step4}, the head scans the marked cell. When this happens, the comparison of the two halves has been completed.
-		\item The machine performs $n$ steps to the right and, provided the scanned cell is $\rem$, accepts by moving to the right once more.
-		      Otherwise, the input string is longer than $2n$, therefore the machine must reject.
+		\item The machine performs~$n$ steps to the right and, provided the scanned cell is~$\rem$, accepts by moving to the right once more.
+		      Otherwise, the input string is longer than~$2n$, therefore the machine must reject.
 	\end{enumerate}
-	The resulting automaton, which only uses a counter up to $n$ and saves a symbol in $\set{a,b}$, has a linear number of states in $n$.
+	The resulting automaton, which only uses a counter up to~$n$ and saves a symbol in~$\set{a,b}$, has a linear number of states in~$n$.
 
-	We now prove that every \ONFA needs an exponential number of states to accept $\double$.
+	We now prove that every \ONFA needs an exponential number of states to accept~$\double$.
 	In order to do so, we use the fooling set technique (see \Cref{sub:foolingsets}).
 
-	Consider the set $S:=\set{(w_i,w_i)\mid w_i\in\set{a,b}^n}$.
-	Obviously, $w_iw_i\in\double$ for all $i$.
-	Furthermore, if $i\ne j$, $w_iw_j$ and $w_jw_i$ do not belong to $\double$, as the two halves of each word are different.
-	Hence, $S$ is a fooling set for $\double$.
-	Since $\card S=2^n$, every \ONFA accepting $\double$ has at least $2^n$ states.
+	Consider the set~$S:=\set{(w_i,w_i)\mid w_i\in\set{a,b}^n}$.
+	Obviously,~$w_iw_i\in\double$ for all~$i$.
+	Furthermore, if~$i\ne j$,~$w_iw_j$ and~$w_jw_i$ do not belong to~$\double$, as the two halves of each word are different.
+	Hence,~$S$ is a fooling set for~$\double$.
+	Since~$\card S=2^n$, every \ONFA accepting~$\double$ has at least~$2^n$ states.
 
-	Finally, we point out that, by replacing the marked cell with a simple check that the input length is $2n$, the language $\double$ can be accepted by a simple \TDFA with a slightly greater number of states.
+	Finally, we point out that, by replacing the marked cell with a simple check that the input length is~$2n$, the language~$\double$ can be accepted by a simple \TDFA with a slightly greater number of states.
 	Indeed, since \TDFAs can be considered a special case of \OMODLAs, the exponential cost of the simulation of \OMODLAs by \ONFAs can be simply considered a consequence of the one of \TDFAs by \ONFAs.
 \end{proof}
 
@@ -96,18 +96,18 @@ As said above, we investigated the possible improvements of both the lower and t
 \subsection{Lower bound}
 
 \paragraph{Bounded regular languages} A first idea was the possibility of applying to the once-marking model techniques known for bounded regular languages.
-A language is called (\emph{strongly}) \emph{bounded} if it is a subset of $\sigma_1\star\sigma_2\star\cdots\sigma_k\star$, where $k$ is a positive integer and $\sigma_1,\sigma_2,\dots,\sigma_k$ are (pairwise distinct) symbols \cite{GinSpa66}.\footnote{%
+A language is called (\emph{strongly}) \emph{bounded} if it is a subset of~$\sigma_1\star\sigma_2\star\cdots\sigma_k\star$, where~$k$ is a positive integer and~$\sigma_1,\sigma_2,\dots,\sigma_k$ are (pairwise distinct) symbols \cite{GinSpa66}.\footnote{%
 	Results on the descriptional complexity of bounded languages can be found in \cite{Gin66,MalPig13,IbaRav16,HerKut+17}.}
 
-Consider a computation of a unary once-marking $1$-limited automaton on input $w\in\sigma\star$.
-Once the automaton marks a cell, the string on the tape is divided into two parts $\sigma\cdots\sigma \tilde\sigma \sigma\cdots\sigma$, the second starting with the marked symbol, making it essentially equivalent to a string belonging to $\sigma_1\star\sigma_2\star$.
+Consider a computation of a unary once-marking $1$-limited automaton on input~$w\in\sigma\star$.
+Once the automaton marks a cell, the string on the tape is divided into two parts~$\sigma\cdots\sigma \tilde\sigma \sigma\cdots\sigma$, the second starting with the marked symbol, making it essentially equivalent to a string belonging to~$\sigma_1\star\sigma_2\star$.
 Of course, after it performs the write operation, the automaton is equivalent to a \TNFA, therefore only regular languages of this kind can be accepted.
-Hence, bounded regular languages, specifically when $k=2$, are of interest for the analysis of unary \OMOLAs.
+Hence, bounded regular languages, specifically when~$k=2$, are of interest for the analysis of unary \OMOLAs.
 
-Unfortunately, the techniques we know for studying lower bounds for bounded regular languages use a non-fixed alphabet, defining $k$ in function of the parameter under consideration (number of states), while we would need a constant $k=2$.
+Unfortunately, the techniques we know for studying lower bounds for bounded regular languages use a non-fixed alphabet, defining~$k$ in function of the parameter under consideration (number of states), while we would need a constant~$k=2$.
 An example is the "tool for constructing lower bound witnesses" proposed by \citeauthor{HerKut+17} in \cite{HerKut+17}.
 
-\paragraph{Unary concatenation} An interesting solution to the problem of limiting $k$ to $2$ would be to obtain a witness language as a concatenation of two unary languages over different unary alphabets.
+\paragraph{Unary concatenation} An interesting solution to the problem of limiting~$k$ to~$2$ would be to obtain a witness language as a concatenation of two unary languages over different unary alphabets.
 Unfortunately, the results we could find in literature mainly study the concatenation of two unary languages over the same alphabet, as it was the case in \cite{YuZhu+94,PigSha02}.
 Besides, such results, if extended to different alphabets, would only imply a quadratic lower bound, which is worse than the currently-known subexponential bound.
 
@@ -122,7 +122,7 @@ In particular, the concatenation of two similar (but different) witness language
 \paragraph{Limiting the marking position} A promising idea is the one of restricting the positions where the automaton can mark cells, specifically by limiting the distance from the end-markers where the writing transition can be performed.
 This concept is inspired by the simulation of unary \TNFAs by \ODFAs presented by \doublecite{MerPig01}.
 Here, they limit the distance from end-markers where the \TNFA can perform a "U-turn" (that is, changing direction of movement).
-Specifically, they prove that there are constants $\ell$ and $m_0$, respectively subexponential and quadratic in the number of states of the \TNFA, such that a U-turn is possible in a position $i\ge m_0$ if and only if it is possible in position $i+\ell$.
+Specifically, they prove that there are constants~$\ell$ and~$m_0$, respectively subexponential and quadratic in the number of states of the \TNFA, such that a U-turn is possible in a position~$i\ge m_0$ if and only if it is possible in position~$i+\ell$.
 
 We believe that a similar argument can be made to limit the positions where, in a unary once-marking $1$-limited automaton, the write operation is performed, thus reducing the size of a simulating machine.
 We point out that if a subexponential simulation of \OMOLAs by \ODFAs was to be found, all the costs on one-way finite automata would collapse to subexponential.
