@@ -1,8 +1,8 @@
 \chapter{Nondeterminism}\label{ch:nondetsweep}
-While the construction presented in \Cref{ch:sweeping} proves that deterministic sweeping \kLA characterize regular languages, such a result can be extended to the nondeterministic case.
+While the construction presented in \Cref{ch:sweeping} proves that deterministic sweeping \kLAs characterize regular languages, such a result can be extended to the nondeterministic case.
 Furthermore, no substantial further size blow-up is required in this case.
 
-In this chapter, we revise the notions and techniques used for the simulation of sweeping \kDLA by \ONFA in the nondeterministic case, proving that all sweeping \kLA accept only regular languages.
+In this chapter, we revise the notions and techniques used for the simulation of sweeping \kDLAs by \ONFAs in the nondeterministic case, proving that all sweeping \kLAs accept only regular languages.
 In \Cref{sec:nondet-techniques}, we show how to extend the techniques presented in \Cref{ch:techniques} for the simulation of \TDFAs to the one of \TNFAs.
 In \Cref{sec:nondet-sweeping}, we show how to extend the simulation of \Cref{sec:swkdla-to-NFA} to simulate a nondeterministic sweeping \kLA.
 
@@ -26,7 +26,7 @@ For this reason, the set of valid crossing sequences remains the same in the non
 The proof still holds; however, given an input word, the simulated computation is of course just \emph{one} of the possible computations over said word.
 Precisely, not all accepting computations can be simulated by the \ONFA (since only valid crossing sequences are considered), but at least one accepting computation is simulated for each word accepted by the \TNFA.
 Because the set of states is unchanged, the cost of the simulation is the same.
-The notes on sweeping \TDFA in \Cref{sub:swep2DFA} still hold for sweeping \TNFA.
+The notes on sweeping \TDFAs in \Cref{sub:swep2DFA} still hold for sweeping \TNFAs.
 
 
 \subsection{Transition tables}
@@ -48,11 +48,11 @@ Note that the existence of this simulation proves that the cost of simulating a 
 
 
 
-\section[Nondeterministic sweeping \texorpdfstring{\kLA}{k-LA}]{Nondeterministic sweeping $k$-limited automata}\label{sec:nondet-sweeping}
-Only minor adjustments are needed for the simulation of sweeping $k$-limited automata by \ONFA in the nondeterministic case.
+\section[Nondeterministic sweeping \texorpdfstring{\kLAs}{k-LAs}]{Nondeterministic sweeping $k$-limited automata}\label{sec:nondet-sweeping}
+Only minor adjustments are needed for the simulation of sweeping $k$-limited automata by \ONFAs in the nondeterministic case.
 
 
-\paragraph{Normal form} The normal form for sweeping \kLA (\Cref{sec:equiv-swep-dla}) is mostly unchanged, simply extending the definitions of the transitions to the sets of possible transitioning states.
+\paragraph{Normal form} The normal form for sweeping \kLAs (\Cref{sec:equiv-swep-dla}) is mostly unchanged, simply extending the definitions of the transitions to the sets of possible transitioning states.
 
 \paragraph{Components} Crossing sequences and transition tables are defined as for the \TNFA case. The definition of matching crossing sequences needs appropriate adjustments given by the rewriting capabilities, as for the deterministic case.
 
@@ -63,11 +63,11 @@ The new relation can be defined inductively analogously to the deterministic cas
 Active crossing sequences are defined as in the deterministic case.
 
 \paragraph{Simulation} The simulation remains substantially the same, with the exception of using the relation forms of transition tables and $\last$.
-Unlike in the simulation of \TNFA by \ODFA by transition tables, we do not group states for the last phase of the simulation, as the resulting machine is nondeterministic and no advantage would be obtained.\footnote{%
+Unlike in the simulation of \TNFAs by \ODFAs by transition tables, we do not group states for the last phase of the simulation, as the resulting machine is nondeterministic and no advantage would be obtained.\footnote{%
 	When a machine can rewrite, using transition tables for its simulation is not possible in the traditional sense, because different prefixes origin different transition tables.
 	In this case, it would, however, be possible, since the phase simulated via transition table is read-only.}
 
 The correctness of the simulation derives from the nondeterministic versions of the proofs of correctness of the single components, following the steps used in the deterministic case.
 
 The cost of the simulation changes slightly, as changed the number of transition tables.
-If $n$ is the number of states of the original machine, the number of states of the resulting \ONFA is $n^{k'+2}\cdot2^{n^2}$, plus the cost of the normal form construction, for a total of $(2n+4)^{k'+2}\cdot2^{(2n+4)^2}$ states.
+If $n$ is the number of states of the original machine, the number of states of the resulting \ONFAs is $n^{k'+2}\cdot2^{n^2}$, plus the cost of the normal form construction, for a total of $(2n+4)^{k'+2}\cdot2^{(2n+4)^2}$ states.

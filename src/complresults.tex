@@ -9,8 +9,8 @@ The simulations marked $\Ctriv$ are ones where the simulated machine is essentia
 Furthermore, we highlight a few special cases:
 \begin{itemize}
 	\item The cells highlighted in \hlR{red} represent the unsolved Sakoda and Sipser problem \cite{SakSip78} about the cost of removal of nondeterminism from finite state automata.
-	\item The cells highlighted in \hlB{blue} consist in a relaxed version of the problem, with an extension of \TNFA, namely \ODLA, as the simulating machine.
-	\item The cells highlighted in \hlG{green} consist in a harder version of the problem, with an extension of nondeterministic finite automata, namely \OLA, as the simulated machine.
+	\item The cells highlighted in \hlB{blue} consist in a relaxed version of the problem, with an extension of \TNFAs, namely \ODLAs, as the simulating machine.
+	\item The cells highlighted in \hlG{green} consist in a harder version of the problem, with an extension of nondeterministic finite automata, namely \OLAs, as the simulated machine.
 \end{itemize}
 
 
@@ -62,12 +62,12 @@ Here we give a description of each nontrivial result:
 \paragraph{\ONFA{}\tto\ODLA}
 \begin{itemize}
 	\item $\le\Cexp$: by using construction for \hyperref[cost:1NFAto1DFA]{\ONFA{}\tto\ODFA}, which is $\le\Cexp$, combined with $\Ctriv$ \ODFA{}\tto\ODLA,
-	\item relaxed form of the Sakoda and Sipser conjecture with extended \TDFA.
+	\item relaxed form of the Sakoda and Sipser conjecture with an extended \TDFA.
 \end{itemize}
 \paragraph{\TNFA{}\tto\ODLA}
 \begin{itemize}
 	\item $\le\Cexp$: by using construction for \hyperref[cost:2NFAto1DFA]{\TNFA{}\tto\ODFA}, which is $\le\Cexp$, combined with $\Ctriv$ \ODFA{}\tto\ODLA,
-	\item relaxed form of the Sakoda and Sipser conjecture with extended \TDFA.
+	\item relaxed form of the Sakoda and Sipser conjecture with an extended \TDFA.
 \end{itemize}
 \paragraph{\OLA{}\tto\ODFA}\label{cost:1LAto1DFA}
 \begin{itemize}
@@ -83,7 +83,7 @@ Here we give a description of each nontrivial result:
 \begin{itemize}
 	\item $\le\Cdexp$: by using construction for \hyperref[cost:1LAto1DFA]{\OLA{}\tto\ODFA}, which is $\le\Cdexp$, combined with $\Ctriv$ \ODFA{}\tto\TDFA,
 	\item $\ge\Cexp$: otherwise \hyperref[cost:1LAto1DFA]{\OLA{}\tto\ODFA} would be less than $\Cdexp$ since \hyperref[cost:2DFAto1DFA]{\TDFA{}\tto\ODFA} is $\Cexp$,
-	\item harder form of the Sakoda and Sipser conjecture with extended \TNFA.
+	\item harder form of the Sakoda and Sipser conjecture with an extended \TNFA.
 \end{itemize}
 \paragraph{\OLA{}\tto\TNFA}
 \begin{itemize}
@@ -131,28 +131,28 @@ Here we give a description of each nontrivial result that hasn't been explained 
 \paragraph{\ONFA{}\tto\OMODLA}
 \begin{itemize}
 	\item $\le\Cexp$: by using construction for \hyperref[cost:1NFAto1DFA]{\ONFA{}\tto\ODFA}, which is $\le\Cexp$, combined with $\Ctriv$ \ODFA{}\tto\OMODLA,
-	\item relaxed form of the Sakoda and Sipser conjecture with extended \TDFA.
+	\item relaxed form of the Sakoda and Sipser conjecture with an extended \TDFA.
 \end{itemize}
 \paragraph{\TNFA{}\tto\OMODLA}
 \begin{itemize}
 	\item $\le\Cexp$: by using construction for \hyperref[cost:2NFAto1DFA]{\TNFA{}\tto\ODFA}, which is $\le\Cexp$, combined with $\Ctriv$ \ODFA{}\tto\OMODLA,
-	\item relaxed form of the Sakoda and Sipser conjecture with extended \TDFA.
+	\item relaxed form of the Sakoda and Sipser conjecture with an extended \TDFA.
 \end{itemize}
 \paragraph{\OMOLA{}\tto\ODFA}\label{cost:OM1LAto1DFA}
 \begin{itemize}
-	\item $\le\Cdexp$: by using the transition table construction for general \OLA presented by \triplecite{PigPis14},
+	\item $\le\Cdexp$: by using the transition table construction for general \OLAs presented by \triplecite{PigPis14},
 	\item $\ge\Cdexp$: distinguishability arguments on witness language $K_n$ defined by \triplecite{PigPri23a}.
 \end{itemize}
 \paragraph{\OMOLA{}\tto\ONFA}\label{cost:OM1LAto1NFA}
 \begin{itemize}
-	\item $\le\Cexp$: by using the transition table construction for general \OLA presented by \triplecite{PigPis14},
+	\item $\le\Cexp$: by using the transition table construction for general \OLAs presented by \triplecite{PigPis14},
 	\item $\ge\Cexp$: otherwise \hyperref[cost:OM1LAto1DFA]{\OMOLA{}\tto\ODFA} would be less than $\Cdexp$ since\linebreak\hyperref[cost:1NFAto1DFA]{\ONFA{}\tto\ODFA} is $\Cexp$.
 \end{itemize}
 \paragraph{\OMOLA{}\tto\TDFA}
 \begin{itemize}
 	\item $\le\Cdexp$: by using construction for \hyperref[cost:OM1LAto1DFA]{\OMOLA{}\tto\ODFA}, which is $\le\Cdexp$, combined with $\Ctriv$ \ODFA{}\tto\TDFA,
 	\item $\ge\Cexp$: otherwise \hyperref[cost:OM1LAto1DFA]{\OMOLA{}\tto\ODFA} would be less than $\Cdexp$ since\linebreak\hyperref[cost:2DFAto1DFA]{\TDFA{}\tto\ODFA} is $\Cexp$,
-	\item harder form of the Sakoda and Sipser conjecture with extended \TNFA.
+	\item harder form of the Sakoda and Sipser conjecture with an extended \TNFA.
 \end{itemize}
 \paragraph{\OMOLA{}\tto\TNFA}
 \begin{itemize}
@@ -161,7 +161,7 @@ Here we give a description of each nontrivial result that hasn't been explained 
 \end{itemize}
 \paragraph{\OMODLA{}\tto\ODFA}\label{cost:OM1DLAto1DFA}
 \begin{itemize}
-	\item $\le\Cexp$: by using the transition table construction for general \ODLA presented by \triplecite{PigPis14},
+	\item $\le\Cexp$: by using the transition table construction for general \ODLAs presented by \triplecite{PigPis14},
 	\item $\ge\Cexp$: since the witness language $K_n$ is recognized by a linear size \OMODLA, but cannot be recognised by a \TNFA with less than $\Cexp$ states, as proven by \triplecite{PigPri23a}.
 \end{itemize}
 \paragraph{\OMOLA{}\tto\OMODLA}
@@ -252,12 +252,12 @@ Here we give a description of each nontrivial result in \Cref{tab:sims-1la-unary
 \paragraph{\ONFA{}\tto\ODLA}\label{cost:1NFAto1DLAu}
 \begin{itemize}
 	\item $\le O(n^2)$: by using construction for \hyperref[cost:1NFAto2DFAu]{\ONFA{}\tto\TDFA}, which is $\le O(n^2)$, combined with $\Ctriv$ \TDFA{}\tto\ODLA,
-	\item relaxed form of the Sakoda and Sipser conjecture with extended \TDFA.
+	\item relaxed form of the Sakoda and Sipser conjecture with an extended \TDFA.
 \end{itemize}
 \paragraph{\TNFA{}\tto\ODLA}
 \begin{itemize}
 	\item $\le e^{O(\ln^2n)}$: by using construction for \hyperref[cost:2NFAto2DFAu]{\TNFA{}\tto\TDFA}, which is $\le e^{O(\ln^2n)}$, combined with $\Ctriv$ \TDFA{}\tto\ODLA,
-	\item relaxed form of the Sakoda and Sipser conjecture with extended \TDFA.
+	\item relaxed form of the Sakoda and Sipser conjecture with an extended \TDFA.
 \end{itemize}
 \paragraph{\ODLA{}\tto\ODFA}\label{cost:1DLAto1DFAu}
 \begin{itemize}
@@ -294,7 +294,7 @@ Here we give a description of each nontrivial result in \Cref{tab:sims-1la-unary
 \begin{itemize}
 	\item $\le\Cexp$: by using construction for \hyperref[cost:1LAto1NFAu]{\OLA{}\tto\ONFA}, which is $\le\Cexp$, combined with $O(n^2)$ \hyperref[cost:1NFAto2DFAu]{\ONFA{}\tto\TDFA},
 	\item $\ge\Cexp$: otherwise \hyperref[cost:1DLAto2DFAu]{\ODLA{}\tto\TDFA} would be less than $\Cexp$ since \ODLA{}\tto\OLA is $\Ctriv$,
-	\item solved harder form of the Sakoda and Sipser conjecture with extended \TNFA.
+	\item solved harder form of the Sakoda and Sipser conjecture with an extended \TNFA.
 \end{itemize}
 \paragraph{\OLA{}\tto\TNFA}
 \begin{itemize}
@@ -324,16 +324,16 @@ Here we give a description of each nontrivial result that hasn't been explained 
 \paragraph{\TNFA{}\tto\OMODLA}
 \begin{itemize}
 	\item $\le e^{O(\ln^2n)}$: by using construction for \hyperref[cost:2NFAto2DFAu]{\TNFA{}\tto\TDFA}, which is $\le e^{O(\ln^2n)}$, combined with $\Ctriv$ \TDFA{}\tto\OMODLA,
-	\item relaxed form of the Sakoda and Sipser conjecture with extended \TDFA.
+	\item relaxed form of the Sakoda and Sipser conjecture with an extended \TDFA.
 \end{itemize}
 \paragraph{\OMOLA{}\tto\ODFA}
 \begin{itemize}
-	\item $\le\Cdexp$: by using the transition table construction for general \OLA presented by \triplecite{PigPis14},
+	\item $\le\Cdexp$: by using the transition table construction for general \OLAs presented by \triplecite{PigPis14},
 	\item $\ge\CsubGe$: otherwise \hyperref[cost:2DFAto1DFAu]{\TDFA{}\tto\ODFA} would be less than $\CsubLe$ since \TDFA{}\tto\OMOLA is $\Ctriv$.
 \end{itemize}
 \paragraph{\OMOLA{}\tto\ONFA}\label{cost:OM1LAto1NFAu}
 \begin{itemize}
-	\item $\le\Cexp$: by using the transition table construction for general \OLA presented by \triplecite{PigPis14},
+	\item $\le\Cexp$: by using the transition table construction for general \OLAs presented by \triplecite{PigPis14},
 	\item $\ge\CsubGe$: otherwise \hyperref[cost:2DFAto1NFAu]{\TDFA{}\tto\ONFA} would be less than $\CsubLe$ since \TDFA{}\tto\OMOLA is $\Ctriv$.
 \end{itemize}
 \paragraph{\OMOLA{}\tto\TDFA}
@@ -350,7 +350,7 @@ Here we give a description of each nontrivial result that hasn't been explained 
 \end{itemize}
 \paragraph{\OMODLA{}\tto\ODFA}\label{cost:OM1DLAto1DFAu}
 \begin{itemize}
-	\item $\le\Cexp$: by using the transition table construction for general \ODLA presented by \triplecite{PigPis14},
+	\item $\le\Cexp$: by using the transition table construction for general \ODLAs presented by \triplecite{PigPis14},
 	\item $\ge\CsubGe$: otherwise \hyperref[cost:2DFAto1DFAu]{\TDFA{}\tto\ODFA} would be less than $\CsubLe$ since \TDFA{}\tto\OMODLA is $\Ctriv$.
 \end{itemize}
 \paragraph{\OMODLA{}\tto\ONFA}
@@ -360,7 +360,7 @@ Here we give a description of each nontrivial result that hasn't been explained 
 \end{itemize}
 \paragraph{\OMODLA{}\tto\TDFA}\label{cost:OM1DLAto2DFAu}
 \begin{itemize}
-	\item $\le O(n^3)$: by using the simulation via computation trees for general \OMODLA presented by \triplecite{PigPri23a}.
+	\item $\le O(n^3)$: by using the simulation via computation trees for general \OMODLAs presented by \triplecite{PigPri23a}.
 \end{itemize}
 \paragraph{\OMODLA{}\tto\TNFA}
 \begin{itemize}

@@ -27,8 +27,8 @@ One of the very first problems in the field was to determine if the nondetermini
 While this was found to be the case for the canonical recognizers of recursively enumerable, context-sensitive and regular languages, \citeauthor{Fis63} and \citeauthor{Sch63} proved that deterministic pushdown automata accept a smaller class than their nondeterministic counterpart, called \emph{deterministic context-free languages} \cite{Fis63,Sch63}.
 Concerning the regular language class, \citeauthor{RabSco59} found in \citeyear{RabSco59} a construction, known as the \emph{subset} (or \emph{powerset}) \emph{construction}, to convert a nondeterministic finite automaton into a deterministic one \cite{RabSco59}.
 
-\paragraph{Two-way models} In the same article, \citeauthor{RabSco59} defined \emph{two-way} nondeterministic and deterministic \emph{finite automata} (\TNFA and \TDFA, respectively).
-These models act in a similar way to the classic, one-way finite automata (\ONFA and \ODFA), where the input is read one symbol at a time and the machine changes state depending on the scanned symbol and the current state. However, while one-way machines read the input symbols subsequently from left to right, two-way models can move left or right freely, as described by the transition rules.
+\paragraph{Two-way models} In the same article, \citeauthor{RabSco59} defined \emph{two-way} nondeterministic and deterministic \emph{finite automata} (\TNFAs and \TDFAs, respectively).
+These models act in a similar way to the classic, one-way finite automata (\ONFAs and \ODFAs), where the input is read one symbol at a time and the machine changes state depending on the scanned symbol and the current state. However, while one-way machines read the input symbols subsequently from left to right, two-way models can move left or right freely, as described by the transition rules.
 \citeauthor{RabSco59} proved that these new models also characterize regular languages, by simulating them with a \ONFA with a construction based on \emph{crossing sequences} (more in \Cref{sec:crossseq2DFA}) \cite{RabSco59}.
 The same result was found in parallel by \citeauthor{She59}, who used a different construction based on \emph{transition tables} and that also works with a deterministic simulating machine (see \Cref{sec:transtab2DFA}) \cite{She59}.
 
@@ -47,10 +47,10 @@ In their article, \citeauthor{MeyFis71} proved that there exist families of lang
 See \cite{KutMor+21} for a recent overview of descriptional complexity results and problems of interest.
 
 \paragraph{The Sakoda and Sipser conjecture} Given the exponential gap between the sizes of the nondeterministic and deterministic one-way models, the natural next step was to compare their two-way counterparts.
-The constructions mentioned above by crossing sequences \cite{RabSco59} and transition tables \cite{She59} gave an exponential upper bound on the simulation of \TNFA or \TDFA by \ONFA or \ODFA.
-An exponential lower bound on the simulation of \TNFA by \ODFA is a direct consequence of the one on the simulation of \ONFA by \ODFA.
-Later, thanks to \citeauthor{Bir93} (\citeyear{Bir93}) and \citeauthor{Kap05} (\citeyear{Kap05}), matching exponential lower bounds were found for the simulations of \TDFA by \ONFA and \ODFA and of \TNFA by \ONFA \cite{Bir93,Kap05}.
-These descriptional complexity results for regular language acceptors, summarized in \Cref{tab:sims-core-general-context}, leave two open problems (highlighted in red): the simulations by \TDFA of \TNFA and \ONFA.
+The constructions mentioned above by crossing sequences \cite{RabSco59} and transition tables \cite{She59} gave an exponential upper bound on the simulation of \TNFAs or \TDFAs by \ONFAs or \ODFAs.
+An exponential lower bound on the simulation of \TNFAs by \ODFAs is a direct consequence of the one on the simulation of \ONFAs by \ODFAs.
+Later, thanks to \citeauthor{Bir93} (\citeyear{Bir93}) and \citeauthor{Kap05} (\citeyear{Kap05}), matching exponential lower bounds were found for the simulations of \TDFAs by \ONFAs and \ODFAs and of \TNFAs by \ONFAs \cite{Bir93,Kap05}.
+These descriptional complexity results for regular language acceptors, summarized in \Cref{tab:sims-core-general-context}, leave two open problems (highlighted in red): the simulations by \TDFAs of \TNFAs and \ONFAs.
 
 \begin{table}
 	\centering
@@ -93,12 +93,12 @@ Limited automata were introduced by \citefullauthor{Hib67} in \citeyear{Hib67} w
 These devices are nondeterministic Turing machines with rewriting restrictions.
 In particular, given a non-negative integer $k$, a \emph{$k$-limited automaton} (\kLA) is a machine with a single tape delimited to the cells initially containing the input by special symbols called end-markers ($\lem$,$\rem$), which can only write on each cell on its first $k$ visits.
 
-In his seminal paper, \citeauthor{Hib67} proved that, for $k\ge2$, the class accepted by deterministic $k$-limited automata (\kDLA) is a strict subset of the class accepted by deterministic $(k+1)$-limited automata, hence generating an infinite, fine-grained hierarchy of context-free languages.
-Only in \citeyear{PigPis15} it was proven that \DLA2 accept exactly deterministic context-free languages \cite{PigPis15}.
+In his seminal paper, \citeauthor{Hib67} proved that, for $k\ge2$, the class accepted by deterministic $k$-limited automata (\kDLAs) is a strict subset of the class accepted by deterministic $(k+1)$-limited automata, hence generating an infinite, fine-grained hierarchy of context-free languages.
+Only in \citeyear{PigPis15} it was proven that \DLA2s accept exactly deterministic context-free languages \cite{PigPis15}.
 Furthermore, he proved that, for every $k\ge2$, nondeterministic $k$-limited automata characterize the class of context-free languages.
-The latter result was proven by constructing simulations of \LA2 by models equivalent to pushdown automata and vice versa, along with reductions from $\kLA$ to $\LA{(k-1)}$.\footnote{%
+The latter result was proven by constructing simulations of \LA2s by models equivalent to pushdown automata and vice versa, along with reductions from \kLAs to \LA{(k-1)}s.\footnote{%
 	A simpler proof can be obtained as a consequence of the \emph{Chomsky-Shützenberger theorem} \cite{ChoSch63}, which states that every context-free language can be expressed as the homomorphic image of a \emph{Dyck language} (a language of balanced parentheses).
-	A $\LA2$ accepting a Dyck language can be combined with a transformer applying the homomorphism, in order to accept any given language (see \cite{Pig19} for details).}
+	A \LA2 accepting a Dyck language can be combined with a transformer applying the homomorphism, in order to accept any given language (see \cite{Pig19} for details).}
 
 For $k=0$, the model coincides with two-way finite automata, therefore the accepting power is limited to regular languages.
 In \citeyear{WagWec86}, \citeauthor{WagWec86} proved that the accepting power of a \TNFA does not improve if the machine can overwrite the content of each tape cell only on its first visit, namely $1$-limited automata characterize regular languages \cite{WagWec86}.
