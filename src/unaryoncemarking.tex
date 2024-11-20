@@ -2,15 +2,15 @@
 In this chapter we discuss unary once-marking automata, that is, once-marking automata over unary languages.
 
 Unary languages are languages over a one-letter alphabet.
-In formal language theory, they have been studied extensively, one of the main reasons being that, in the unary case, the classes of context-free and regular languages coincide \cite{GinRic62}.
+In formal language theory, they have been studied extensively, one of the main reasons being that, in the unary case, the classes of context-free and regular languages coincide~\cite{GinRic62}.
 The descriptional complexity of unary automata has been thoroughly investigated over the years.
 Because of the equality of the two classes, many computational models are equivalent: typical regular language acceptors such as one- and two-way finite state automata as well as typical context-free models such as pushdown automata.
-The relative succinctness of these models has been inspected by providing simulations and studying lower bounds (see, \eg[,] \cite{GefMer+03,MerPig01,Pig09,PigSha+02}).
-At the same time, many bounds have been proven on the descriptional complexity of operations on unary languages (see, \eg[,] \cite{HolKut03,KunOkh12,MerPig05,PigSha02}).
+The relative succinctness of these models has been inspected by providing simulations and studying lower bounds (see, \eg[,]~\cite{GefMer+03,MerPig01,Pig09,PigSha+02}).
+At the same time, many bounds have been proven on the descriptional complexity of operations on unary languages (see, \eg[,]~\cite{HolKut03,KunOkh12,MerPig05,PigSha02}).
 Another reason why the unary case is studied extensively is that proving the Sakoda and Sipser conjecture, even in the unary case, would prove the separation of the space complexity classes~$\cL$ and~$\cNL$ (see \Cref{sec:context-descrcomp}).
 
 Once-marking $1$-limited automata consist in machines with a single tape, delimited by end-markers ($\lem$,$\rem$), that can only write once during the computation, on the first visit of a tape cell.
-They have been introduced and studied by \citeauthor{PigPri23a}, who proved a tight double exponential bound for the simulation by \ODFAs in the general case and a polynomial one by \TDFAs in the deterministic case \cite{PigPri23a}.
+They have been introduced and studied by~\citeauthor{PigPri23a}, who proved a tight double exponential bound for the simulation by \ODFAs in the general case and a polynomial one by \TDFAs in the deterministic case~\cite{PigPri23a}.
 
 In \Cref{sec:oncemarking-general}, we revise the previous work on once-marking $1$-limited automata, proving a lower bound for the simulation by \ONFAs.
 We then gather previous results in order to obtain a map of the costs in the unary case (\Cref{sec:oncemarking-unary}).
@@ -21,7 +21,7 @@ Finally, we discuss ideas to potentially improve these bounds, by applying to th
 \section{The general case}\label{sec:oncemarking-general}
 Once-marking $1$-limited automata (\OMOLAs) are a restriction of $1$-limited automata (see \Cref{def:kla}) that can only mark a single tape cell throughout the entire computation.
 
-In the paper that introduced the model, \citeauthor{PigPri23a} show that in the general case there is a double exponential tight bound for the simulation of a \OMOLA by a \ODFA \cite{PigPri23a}.
+In the paper that introduced the model,~\citeauthor{PigPri23a} show that in the general case there is a double exponential tight bound for the simulation of a \OMOLA by a \ODFA~\cite{PigPri23a}.
 In particular, the upper bound is inherited from the simulation of \OLAs, while a new lower bound is proven with a restricted case of \OMOLA that is also sweeping and only nondeterministic in the first visit to tape cells.
 Regarding deterministic once-marking $1$-limited automata (\OMODLAs), the authors build a construction based on the simulation of the machine's computation tree by a \TDFA, which only requires a cubic size increase.
 
@@ -33,7 +33,7 @@ Regarding deterministic once-marking $1$-limited automata (\OMODLAs), the author
 \end{table}
 
 We summarize these and other related results in \Cref{tab:sims-om-general-oncemarking}.
-% We point out that the simulation of \OMODLAs by \ONFAs has been mistakenly labeled as polynomial in \cite{PigPri23a}, while there is indeed an exponential lower bound:
+% We point out that the simulation of \OMODLAs by \ONFAs has been mistakenly labeled as polynomial in~\cite{PigPri23a}, while there is indeed an exponential lower bound:
 We give here an exponential lower bound for the simulation of \OMODLAs by \ONFAs (previously mislabeled polynomial):
 \begin{thrm}\label{thm:OM1DLAto1NFAlower}
 	For each integer~$n$ there exists an~$n$-state \OMODLA~$A$ such that every \ONFA recognizing~$\genlang(A)$ requires an exponential number of states in~$n$.
@@ -96,8 +96,8 @@ As said above, we investigated the possible improvements of both the lower and t
 \subsection{Lower bound}
 
 \paragraph{Bounded regular languages} A first idea was the possibility of applying to the once-marking model techniques known for bounded regular languages.
-A language is called (\emph{strongly}) \emph{bounded} if it is a subset of~$\sigma_1\star\sigma_2\star\cdots\sigma_k\star$, where~$k$ is a positive integer and~$\sigma_1,\sigma_2,\dots,\sigma_k$ are (pairwise distinct) symbols \cite{GinSpa66}.\footnote{%
-	Results on the descriptional complexity of bounded languages can be found in \cite{Gin66,MalPig13,IbaRav16,HerKut+17}.}
+A language is called (\emph{strongly}) \emph{bounded} if it is a subset of~$\sigma_1\star\sigma_2\star\cdots\sigma_k\star$, where~$k$ is a positive integer and~$\sigma_1,\sigma_2,\dots,\sigma_k$ are (pairwise distinct) symbols~\cite{GinSpa66}.\footnote{%
+	Results on the descriptional complexity of bounded languages can be found in~\cite{Gin66,MalPig13,IbaRav16,HerKut+17}.}
 
 Consider a computation of a unary once-marking $1$-limited automaton on input~$w\in\sigma\star$.
 Once the automaton marks a cell, the string on the tape is divided into two parts~$\sigma\cdots\sigma \tilde\sigma \sigma\cdots\sigma$, the second starting with the marked symbol, making it essentially equivalent to a string belonging to~$\sigma_1\star\sigma_2\star$.
@@ -105,13 +105,13 @@ Of course, after it performs the write operation, the automaton is equivalent to
 Hence, bounded regular languages, specifically when~$k=2$, are of interest for the analysis of unary \OMOLAs.
 
 Unfortunately, the techniques we know for studying lower bounds for bounded regular languages use a non-fixed alphabet, defining~$k$ in function of the parameter under consideration (number of states), while we would need a constant~$k=2$.
-An example is the "tool for constructing lower bound witnesses" proposed by \citeauthor{HerKut+17} in \cite{HerKut+17}.
+An example is the "tool for constructing lower bound witnesses" proposed by~\citeauthor{HerKut+17} in~\cite{HerKut+17}.
 
 \paragraph{Unary concatenation} An interesting solution to the problem of limiting~$k$ to~$2$ would be to obtain a witness language as a concatenation of two unary languages over different unary alphabets.
-Unfortunately, the results we could find in literature mainly study the concatenation of two unary languages over the same alphabet, as it was the case in \cite{YuZhu+94,PigSha02}.
+Unfortunately, the results we could find in literature mainly study the concatenation of two unary languages over the same alphabet, as it was the case in~\cite{YuZhu+94,PigSha02}.
 Besides, such results, if extended to different alphabets, would only imply a quadratic lower bound, which is worse than the currently-known subexponential bound.
 
-\paragraph{Chrobak's witness language} A different approach could be to study a variation of the well-known witness language used by \citeauthor{Chr86} to prove many of the lower bounds on basic unary regular language acceptors \cite{Chr86}.
+\paragraph{Chrobak's witness language} A different approach could be to study a variation of the well-known witness language used by~\citeauthor{Chr86} to prove many of the lower bounds on basic unary regular language acceptors~\cite{Chr86}.
 In particular, the concatenation of two similar (but different) witness languages might force a \ODFA to require a subexponential state component for each part of the input word, while a once-marking automaton could simply nondeterministically guess and mark the first symbol of the second part and separately verify that each of the two factors belongs to its respective language.
 
 

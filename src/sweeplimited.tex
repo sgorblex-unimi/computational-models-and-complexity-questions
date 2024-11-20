@@ -363,7 +363,7 @@ In general:
 \end{proof}
 
 In the case~$k=1$, the simulation has a cost of~$(2n+4)^3\cdot(2n+5)^{2n+4}$ states.
-The construction provided by \citeauthor{PigPis14} \cite{PigPis14} for the simulation of generic \ODLAs obtains a cost of~$n\cdot (n+1)^n$ while also preserving determinism (\ie obtaining a \ODFA) \cite{PigPis14}.
+The construction provided by~\citeauthor{PigPis14}~\cite{PigPis14} for the simulation of generic \ODLAs obtains a cost of~$n\cdot (n+1)^n$ while also preserving determinism (\ie obtaining a \ODFA)~\cite{PigPis14}.
 
 
 
@@ -371,7 +371,7 @@ The construction provided by \citeauthor{PigPis14} \cite{PigPis14} for the simul
 
 
 \subsection{Linear time acceptors}
-It is worth noting that the fact that sweeping \kDLAs can only accept regular languages can be considered a consequence of \citeauthor{Hen65}'s result about linear time computational models \cite{Hen65}.
+It is worth noting that the fact that sweeping \kDLAs can only accept regular languages can be considered a consequence of~\citeauthor{Hen65}'s result about linear time computational models~\cite{Hen65}.
 The theorem states that any machine that accepts in a number of steps that is linear with respect to the length of the input can only accept regular languages.
 While a sweeping \kLA can potentially run in infinite loops, all its accepting computations either end within~$k$ sweeps (therefore in a number of steps limited by~$kn$) or in the following sweeps, the number of which is limited (provided that the machine doesn't loop infinitely) by a function of the number of states, thus constant with respect to the length of the input.
 
@@ -395,7 +395,7 @@ The total number of valid crossing sequences for sweeping \kDLAs is therefore
 The construction is identical to the \TDFA case, provided that the updated definition of matching (\Cref{sub:crossseqswdla-matching}) is used.
 The correctness of the simulation follows from the same proof of \Cref{thm:2DFAto1NFA}.
 
-Different definitions of crossing sequences for machine with writing capabilities were studied by \citeauthor{Hen65} \cite{Hen65}.
+Different definitions of crossing sequences for machine with writing capabilities were studied by~\citeauthor{Hen65}~\cite{Hen65}.
 
 
 

@@ -8,16 +8,16 @@ Each of these machines can recognize what strings belong to a certain set, calle
 Different types of machines can accept different classes of languages, bringing to the questions of their equivalence and their comparison in size.
 Descriptional Complexity studies ways of describing languages, including computational models, in terms of how succinct they can be.
 
-The innermost class of the classic hierarchy of languages (the Chomsky hierarchy \cite{Cho56}) is the one of regular languages, famously recognized by finite state automata.
-An important open problem of Descriptional Complexity is the Sakoda and Sipser conjecture \cite{SakSip78}, regarding the size trade-off between nondeterministic and deterministic regular language acceptors.
+The innermost class of the classic hierarchy of languages (the Chomsky hierarchy~\cite{Cho56}) is the one of regular languages, famously recognized by finite state automata.
+An important open problem of Descriptional Complexity is the Sakoda and Sipser conjecture~\cite{SakSip78}, regarding the size trade-off between nondeterministic and deterministic regular language acceptors.
 The most powerful computational model is the Turing Machine, composed by a tape with an infinite number of cells, a head which scans and possibly writes on one cell at a time, and a finite state memory.
 Many restrictions of the Turing Machine have been studied, by comparing their accepting power with the ones of other models.
 
-Limited automata were introduced by \citeauthor{Hib67} in \citeyear{Hib67} as a restriction of nondeterministic Turing Machines \cite{Hib67}.
+Limited automata were introduced by~\citeauthor{Hib67} in~\citeyear{Hib67} as a restriction of nondeterministic Turing Machines~\cite{Hib67}.
 % Given an integer~$k$, a $k$-limited automaton has a finite tape, initially containing the input string and delimited by special symbols called end-markers, and can only write on each tape cell on its first~$k$ visits.
 Given an integer~$k$, a $k$-limited automaton has a finite tape, initially containing the input string, and can only write on each tape cell on its first~$k$ visits.
-In \citeyear{WagWec86}, \citeauthor{WagWec86} proved that when~$k=1$ such machines accept regular languages \cite{WagWec86}.
-Later, \citeauthor{PigPis14} proved that their simulation by deterministic finite state automata can require a double exponential growth in size, making $1$-limited automata much more succinct \cite{PigPis14}.
+In~\citeyear{WagWec86},~\citeauthor{WagWec86} proved that when~$k=1$ such machines accept regular languages~\cite{WagWec86}.
+Later,~\citeauthor{PigPis14} proved that their simulation by deterministic finite state automata can require a double exponential growth in size, making $1$-limited automata much more succinct~\cite{PigPis14}.
 
 The discovery of a new succinct model for regular languages sparked a new interest for limited automata, leading to the study of several variations of the model, with the hope of a new perspective on tackling the Sakoda and Sipser problem.
 In this work, we studied two models in particular: \emph{sweeping} $k$-limited automata, and \emph{once-marking} $1$-limited automata.

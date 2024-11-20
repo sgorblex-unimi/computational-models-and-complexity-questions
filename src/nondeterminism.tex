@@ -36,7 +36,7 @@ Specifically, given a \TNFA~$A=(Q,\Sigma,\delta,q_I,F)$, a transition table of~$
 Transition tables are assigned to words as described in \Cref{def:transtab2DFA}, except of course we use~$(p,q)\in\tau$ instead of~$\tau(p)=q$.
 
 \paragraph{Simulation} The simulation is slightly different from the \TDFA version, having the second state component consisting in a set of states rather than a single state:~$Q':=\transtabset\times\subsets{Q}$.
-Because the transition table of any given input prefix is the same independently of the computation path taken, all the states that can be reached after reading said prefix can be grouped in a set, analogously to the subset construction \cite{RabSco59,HopUll79}.
+Because the transition table of any given input prefix is the same independently of the computation path taken, all the states that can be reached after reading said prefix can be grouped in a set, analogously to the subset construction~\cite{RabSco59,HopUll79}.
 The transition function is defined accordingly: given a state~$(\tau,\alpha)$ (where~$\alpha$ is a set of states of the \TNFA) and a symbol~$\sigma$,~$\delta((\tau,\alpha),\sigma)=(\pi,\beta)$ where~$\pi:=\trapp_\sigma(\tau)$ and~$\beta:=\set{q\in Q\mid p\in\alpha, (p,q)\in\pi}$.
 The initial state is defined analogously.
 

@@ -8,7 +8,7 @@ The simulations marked~$\Ctriv$ are ones where the simulated machine is essentia
 
 Furthermore, we highlight a few special cases:
 \begin{itemize}
-	\item The cells highlighted in \hlR{red} represent the unsolved Sakoda and Sipser problem \cite{SakSip78} about the cost of removal of nondeterminism from finite state automata.
+	\item The cells highlighted in \hlR{red} represent the unsolved Sakoda and Sipser problem~\cite{SakSip78} about the cost of removal of nondeterminism from finite state automata.
 	\item The cells highlighted in \hlB{blue} consist in a relaxed version of the problem, with an extension of \TNFAs, namely \ODLAs, as the simulating machine.
 	\item The cells highlighted in \hlG{green} consist in a harder version of the problem, with an extension of nondeterministic finite automata, namely \OLAs, as the simulated machine.
 \end{itemize}
@@ -28,12 +28,12 @@ Here we give a description of each nontrivial result:
 \paragraph{\ONFA{}\tto\ODFA}\label{cost:1NFAto1DFA}
 \begin{itemize}
 	\item $\le\Cexp$: by using the subset construction presented by \triplecite{RabSco59},
-	\item $\ge\Cexp$: distinguishability arguments on the witness languages recognised by Meyer and Fischer's automaton \cite{MeyFis71} and Moore's automaton \cite{Moo71}.
+	\item $\ge\Cexp$: distinguishability arguments on the witness languages recognised by Meyer and Fischer's automaton~\cite{MeyFis71} and Moore's automaton~\cite{Moo71}.
 \end{itemize}
 \paragraph{\ONFA{}\tto\TDFA}
 \begin{itemize}
 	\item $\le\Cexp$: by using construction for \hyperref[cost:1NFAto1DFA]{\ONFA{}\tto\ODFA}, which is~$\le\Cexp$, combined with~$\Ctriv$ \ODFA{}\tto\TDFA,
-	\item believed to be~$=\Cexp$ (Sakoda and Sipser conjecture \cite{SakSip78}).
+	\item believed to be~$=\Cexp$ (Sakoda and Sipser conjecture~\cite{SakSip78}).
 \end{itemize}
 \paragraph{\TDFA{}\tto\ODFA}\label{cost:2DFAto1DFA}
 \begin{itemize}
@@ -57,7 +57,7 @@ Here we give a description of each nontrivial result:
 \paragraph{\TNFA{}\tto\TDFA}
 \begin{itemize}
 	\item $\le\Cexp$: by using construction for \hyperref[cost:2NFAto1DFA]{\TNFA{}\tto\ODFA}, which is~$\le\Cexp$, combined with~$\Ctriv$ \ODFA{}\tto\TDFA,
-	\item believed to be~$=\Cexp$ (Sakoda and Sipser conjecture \cite{SakSip78}).
+	\item believed to be~$=\Cexp$ (Sakoda and Sipser conjecture~\cite{SakSip78}).
 \end{itemize}
 \paragraph{\ONFA{}\tto\ODLA}
 \begin{itemize}
@@ -93,7 +93,7 @@ Here we give a description of each nontrivial result:
 \paragraph{\ODLA{}\tto\ODFA}\label{cost:1DLAto1DFA}
 \begin{itemize}
 	\item $\le\Cexp$: by using the transition table construction presented by \triplecite{PigPis14},
-	\item $\ge\Cexp$: otherwise with \hyperref[cost:1DLAto1DFA]{\ODLA{}\tto\ODFA} we would obtain a \ODFA for~$L_n$ with~$<\Cdexp$ states (impossible by distinguishability), as a \ODLA (\TDFA) of size~$\Cexp$ accepts~$L_n$ \cite{PigPis14}.
+	\item $\ge\Cexp$: otherwise with \hyperref[cost:1DLAto1DFA]{\ODLA{}\tto\ODFA} we would obtain a \ODFA for~$L_n$ with~$<\Cdexp$ states (impossible by distinguishability), as a \ODLA (\TDFA) of size~$\Cexp$ accepts~$L_n$~\cite{PigPis14}.
 \end{itemize}
 \paragraph{\OLA{}\tto\ODLA}
 \begin{itemize}
@@ -197,13 +197,13 @@ Here we give a description of each nontrivial result that hasn't been explained 
 \end{table}
 
 \Cref{tab:sims-1la-unary} contains the costs of simulations between basic regular language acceptors and $1$-limited automata, for unary languages.
-Many of these bounds, found by pioneer of unary descriptional complexity \citefullauthor{Chr86}, are given by the Landau function \cite{Chr86}:
+Many of these bounds, found by pioneer of unary descriptional complexity~\citefullauthor{Chr86}, are given by the Landau function~\cite{Chr86}:
 \begin{equation}
 	F(n) := \max\set{\lcm(x_1,\dots,x_k)\mid x_1+\dots+x_k=n} \text,
 \end{equation}
 where~$n\in\N$.
 The problem of approximating this function is known as Landau's problem.
-For the sake of our usage of the function, the following approximation, which was found by Landau himself in the early twentieth century, is sufficient \cite{Lan03,Lan09}:
+For the sake of our usage of the function, the following approximation, which was found by Landau himself in the early twentieth century, is sufficient~\cite{Lan03,Lan09}:
 \begin{equation}
 	F(n) = \CsubEq \text.
 \end{equation}
@@ -261,7 +261,7 @@ Here we give a description of each nontrivial result in \Cref{tab:sims-1la-unary
 \end{itemize}
 \paragraph{\ODLA{}\tto\ODFA}\label{cost:1DLAto1DFAu}
 \begin{itemize}
-	\item $\le\Cexp$: by using the transition table construction for the \hyperref[cost:1DLAto1DFA]{general case} \cite{PigPis14},
+	\item $\le\Cexp$: by using the transition table construction for the \hyperref[cost:1DLAto1DFA]{general case}~\cite{PigPis14},
 	\item $\ge\Cexp$: otherwise \hyperref[cost:1DLAto2NFAu]{\ODLA{}\tto\TNFA} would be less than~$\Cexp$ since \ODFA{}\tto\TNFA is~$\Ctriv$ (see lower bound below).
 \end{itemize}
 \paragraph{\ODLA{}\tto\TNFA}\label{cost:1DLAto2NFAu}
@@ -282,12 +282,12 @@ Here we give a description of each nontrivial result in \Cref{tab:sims-1la-unary
 \end{itemize}
 \paragraph{\OLA{}\tto\ODFA}
 \begin{itemize}
-	\item $\le\Cdexp$: by using the transition table construction for the \hyperref[cost:1LAto1DFA]{general case} \cite{PigPis14},
+	\item $\le\Cdexp$: by using the transition table construction for the \hyperref[cost:1LAto1DFA]{general case}~\cite{PigPis14},
 	\item $\ge\Cexp$: otherwise \hyperref[cost:1DLAto1DFAu]{\ODLA{}\tto\ODFA} would be less than~$\Cexp$ since \ODLA{}\tto\OLA is~$\Ctriv$.
 \end{itemize}
 \paragraph{\OLA{}\tto\ONFA}\label{cost:1DLAto1NFAu}
 \begin{itemize}
-	\item $\le\Cexp$: by using the transition table construction for the \hyperref[cost:1LAto1NFA]{general case} \cite{PigPis14},
+	\item $\le\Cexp$: by using the transition table construction for the \hyperref[cost:1LAto1NFA]{general case}~\cite{PigPis14},
 	\item $\ge\Cexp$: otherwise \hyperref[cost:1DLAto1NFAu]{\ODLA{}\tto\ONFA} would be less than~$\Cexp$ since \ODLA{}\tto\OLA is~$\Ctriv$.
 \end{itemize}
 \paragraph{\OLA{}\tto\TDFA}
