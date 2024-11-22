@@ -3,7 +3,7 @@ Given a natural number~$k$, a sweeping $k$-limited automaton is a sweeping machi
 In this chapter we show that, for every~$k$, deterministic sweeping \kLAs characterize regular languages, by proving that they are as powerful as finite state automata. We also study this equivalence from a descriptional complexity point of view.
 
 In order to prove the equivalence, we describe a way to construct, given a sweeping \kDLA, an equivalent \ONFA.
-To do so, we recall and revise some of the techniques presented in \Cref{ch:techniques} to obtain a simulation.
+To do so, we revise some of the techniques presented in \Cref{ch:techniques} to obtain a simulation.
 This construction requires the sweeping \kDLA to be converted in a specific normal form, as described in \Cref{sec:equiv-swep-dla}.
 \Cref{sec:crossseqswdla} extends and adapts the concept of crossing sequence to our model.
 \Cref{sec:swkdla-to-NFA} describes the simulation and proves its correctness and descriptional cost.
@@ -215,7 +215,7 @@ We are now ready to describe the simulation of sweeping \kDLAs by \ONFAs.
 The simulation combines three techniques: crossing sequences, transition tables (see \Cref{sec:transtab2DFA}), and a construction for the automaton recognizing the reversal of a given language (see \Cref{sub:reversal}).
 
 We want to build the simulation so that there is a one-to-one correspondence between accepting computations of the sweeping \kDLA in normal form and the ones of the simulating \ONFA.
-To do so we divide each of the former in three parts:
+To do so, we divide each of the former in three parts:
 \begin{itemize}
 	\item the first part is composed by the first~$k'$ sweeps, with the head ending to the right and the tape in a frozen state. We simulate this part by using crossing sequences, which also give us a way to compute the last symbol written on each cell,
 	\item the second part consists in the following sweep to the left, simulated by the reversal construction,
@@ -300,7 +300,7 @@ Refer to \Cref{fig:swepkDLAtoNFA} for an illustration of the construction.
 			      Unlike the proof of \Cref{lem:2DFAto1NFA-1}, the right end-marker is not passed in this phase, so there is no matching with a crossing sequence on the right boundary of~$\rem$.}
 		\item Consider the computation path corresponding to the~$(k'+1)$-th sweep.
 		      Given~$c_n=[q_1,\dots,q_{k'}]$, the computation starts with the head moving left from the right end-marker on a state~$p_n$ such that~$\delta(q_{k'},\rem)=(p_n,\rem,\tl)$ and proceeds in states~$p_{n-1},\dots,p_0$ while reading the symbols that are frozen on the tape.
-		      In particular, called~$\sigma_i:=\last(c_{i-1},c_i,w_i)$, we have~$\delta(p_i,\sigma_i)=(p_{i-1},\sigma_i,\tl)$, for each~$i\discint{1,\dots,n}$.
+		      In particular, called~$\sigma_i:=\last(c_{i-1},c_i,w_i)$, we have~$\delta(p_i,\sigma_i)=(p_{i-1},\sigma_i,\tl)$, for~$i\discint{1,\dots,n}$.
 		\item The last phase starts with a state~$s$ such that~$\delta(p_0,\lem)=(s,\lem,\tr)$ and proceeds with a read-only computation on the entire tape, which ends in passing the right end-marker in a final state.
 		      As showed in the proof of \Cref{thm:transtab2DFA} the existence of such a computation implies the existence of a sequence of pairs~$(\tau_i,r_i)$ such that~$\tau_0=\tau_\lem$,~$r_0=s$, and for all~$i$,~$\tau_i=\trapp_{\sigma_i}(\tau_{i-1})$ and~$r_i=\tau_i(r_{i-1})$, with~$\trapp_\rem(\tau_n)(r_n)\in F$.\footnote{%
 			      Here,~$p_0$ has the role that the initial state had in the \TDFA.}
@@ -308,7 +308,7 @@ Refer to \Cref{fig:swepkDLAtoNFA} for an illustration of the construction.
 	Each of the three phases determines what states of~$A'$ make an accepting computation path. In particular, for~$i\discint{0,\dots,n}$,~$\delta(q'_I,w_1\cdots w_i)=(c_i,p_i,\tau_i,r_i)$, as:
 	\begin{itemize}
 		\item $c_0$ is right-matched by~$[q_I]$ and~$\delta(p_0,\lem)=(r_0,\lem,\tr)$, thus~$(c_0,p_0,\tau_0,r_0)$ is an initial state (\Cref{sfig:swepkDLAtoNFA-start});
-		\item for each~$i\discint{1,\dots,n}$:
+		\item for~$i\discint{1,\dots,n}$:
 		      \begin{itemize}
 			      \item $c_{i-1}$ right-matches~$c_i$ \wrt~$w_i$,
 			      \item called~$\sigma_i:=\last(c_{i-1},c_i,w_i)$,~$\delta(p_i,\sigma_i)=(p_{i-1},\sigma_i,\tl)$,
@@ -325,7 +325,7 @@ Refer to \Cref{fig:swepkDLAtoNFA} for an illustration of the construction.
 \begin{proof}
 	First, notice that if~$A'$ accepts~$\emptyword$, then either the final state belongs to~$\set{q\in I\mid \emptyword\in\genlang(A)}$, which means~$A$ accepts~$\emptyword$, or the following argument holds for~$w=\emptyword$.
 	Notice that the states in~$I$ have no incoming transitions, as~$\tau_\lem$ cannot be obtained by applying the function~$t$.
-	Let~$w:=w_1\cdots w_n\in\genlang(A')$. For each~$i\discint{1,\dots,n}$, let~$(c_i,p_i,\tau_i,r_i)$ be the state guessed by~$A'$ after reading~$w_i$ in a fixed accepting computation,~$(c_0,p_0,\tau_0,r_0)$ being the guessed initial state.
+	Let~$w:=w_1\cdots w_n\in\genlang(A')$. For~$i\discint{1,\dots,n}$, let~$(c_i,p_i,\tau_i,r_i)$ be the state guessed by~$A'$ after reading~$w_i$ in a fixed accepting computation,~$(c_0,p_0,\tau_0,r_0)$ being the guessed initial state.
 	\begin{enumerate}
 		\item By a very similar argument to the one presented for the proof of \Cref{lem:2DFAto1NFA-2}, the components~$c_i$ represent actual crossing sequences for the first~$k'$ sweeps of~$A$.\footnote{%
 			      Firstly, since we are not interested in a crossing sequence for the right boundary of~$\rem$, there is no state~$n+1$.
@@ -395,7 +395,7 @@ The total number of valid crossing sequences for sweeping \kDLAs is therefore
 The construction is identical to the \TDFA case, provided that the updated definition of matching (\Cref{sub:crossseqswdla-matching}) is used.
 The correctness of the simulation follows from the same proof of \Cref{thm:2DFAto1NFA}.
 
-Different definitions of crossing sequences for machine with writing capabilities were studied by~\citeauthor{Hen65}~\cite{Hen65}.
+Different definitions of crossing sequences for machines with writing capabilities were studied by~\citeauthor{Hen65}~\cite{Hen65}.
 
 
 
@@ -411,7 +411,7 @@ The language extends the classic language family where the~$m$-th symbol from th
 In this case, we have~$m:=n^n$.
 
 
-\subsection{A sweeping \texorpdfstring{\kDLA}{k-DLA} accepting \texorpdfstring{$D_n$}{Ln}}
+\subsection{A sweeping \texorpdfstring{\DLA{2n}}{2n-DLA} accepting \texorpdfstring{$D_n$}{Ln}}
 Given a value for~$n$, we describe a \DLA{2n} that behaves as follows. Given an input word~$w$:
 \begin{enumerate}
 	\item On the first left-to-right traversal, the machine is kept in the initial state while simply leaving the symbols intact.\footnote{%
