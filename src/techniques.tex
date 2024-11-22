@@ -171,7 +171,7 @@ The full trajectory can be interpreted as a computation of the original machine,
 For example, in the case of the \TDFA in \Cref{fig:example-crosseq}, the crossing sequences~$[q_I]$,~$[q_I]$,~$[q_I]$,~$[q_I,q_2,q_f]$, and~$[q_I,q_1,q_f]$ are guessed in order.
 
 Let~$A:=(Q,\Sigma,\delta,q_I,F)$ be a \TDFA.
-Define the \ONFA~$A':=(Q',\Sigma,\delta',I,F')$ where\footnote{%
+Define the \ONFA~$A':=(Q',\Sigma,\delta',I',F')$ where\footnote{%
 	Originally, the construction was introduced for \TDFAs without end-markers~\cite{RabSco59}.
 	In that case,~$[q_I]$ is the crossing sequence of the left tape boundary, and it constitutes the initial state of the \ONFA.
 	Similarly, the right tape boundary is passed while the machine enters a final state; therefore, states storing crossing sequences~$[q_f]$, for all~$q_f\in F$, are set as final in the \ONFA (for details see, \eg[,]~\cite{HopUll79}).
@@ -184,7 +184,7 @@ Define the \ONFA~$A':=(Q',\Sigma,\delta',I,F')$ where\footnote{%
 Since \ONFAs do not read end-markers, the initial state will be guessed among the crossing sequences that match~$[q_I]$, which simulates entering the left end-marker from the left (as if~$\lem$ was entered, rather than being the initial position).
 For the same reason, final states correspond to crossing sequences that are compatible to the one passing the right end-marker:
 \begin{itemize}
-	\item $I:=\set{d\mid \text{$d$ is right-matched by~$[q_I]$ with respect to~$\lem$}}$.
+	\item $I':=\set{d\mid \text{$d$ is right-matched by~$[q_I]$ with respect to~$\lem$}}$.
 	\item $F':=\set{d\mid \exists q_f\in F: \text{$d$ right-matches~$[q_f]$ with respect to~$\rem$}}$.
 \end{itemize}
 In the previous example, the initial state is~$[q_I]$ as it matches~$[q_I]$ with respect to~$\lem$, and the machine accepts since the last entered state~$[q_I,q_1,q_f]$ matches the crossing sequence~$[q_f]$ at the right boundary of the tape with respect to~$\rem$.
@@ -226,7 +226,7 @@ In order to prove that~$A'$ accepts the same language as~$A$, we prove two separ
 		\item \label{lem:2DFAto1NFA-2-2} For~$j\discint{1,\dots,\floor{\frac{k}{2}}}$, if~$A$ is started in position~$i$ in state~$q_{2j}$, it eventually moves right from position~$i$ in state~$q_{2j+1}$.
 	\end{statements}
 	\begin{description}
-		\item[Base] By definition of~$I$,~$c_0$ is right-matched by~$[q_I]$ with respect to~$\lem$. Since position~$0$ contains~$\lem$, which cannot be passed to the left, the right-match must follow from \Cref{itm:crossmatch2DFA-3}, hence~$\delta(q_I,\lem)=(q_1,\tr)$ and~$[~]$ left-matches~$[q_2,\dots,q_k]$.
+		\item[Base] By definition of~$I'$,~$c_0$ is right-matched by~$[q_I]$ with respect to~$\lem$. Since position~$0$ contains~$\lem$, which cannot be passed to the left, the right-match must follow from \Cref{itm:crossmatch2DFA-3}, hence~$\delta(q_I,\lem)=(q_1,\tr)$ and~$[~]$ left-matches~$[q_2,\dots,q_k]$.
 		      \Cref{lem:2DFAto1NFA-2-1} is satisfied as~$A$ moves for the first time in position~$1$ in state~$q_1$.
 		      \Cref{lem:2DFAto1NFA-2-2} follows from the fact that the left-match with~$[~]$ must follow from repeated applications of \Cref{itm:crossmatch2DFA-4}, giving~$\delta(q_{2j},\lem)=(q_{2j+1},\tr)$ for all values of~$j$.
 		\item[Step] Assume~$A'$ transitions from state~$c_{i-1}=[q_1,\dots,q_k]$ to state~$c_i=[p_1,\dots,p_l]$ after reading~$w_i$.
@@ -318,8 +318,8 @@ We now prove the following auxiliary result, which we shall use to assume a corr
 \begin{proof}
 	By induction on~$w$:
 	\begin{description}
-		\item[Base] if~$w=\emptyword$,~$\delta'(q'_I,w)=(\tau_\emptyword,s)$ (with~$\delta(q_I,\lem)=(s,\tr)$).
-		\item[Step] if~$w=x\sigma$, with~$x\in\Sigma\star,\sigma\in\Sigma$, by induction hypothesis~$\delta'(q'_I,x)=(\tau_x,r)$.
+		\item[Base] If~$w=\emptyword$,~$\delta'(q'_I,w)=(\tau_\emptyword,s)$ (with~$\delta(q_I,\lem)=(s,\tr)$).
+		\item[Step] If~$w=x\sigma$, with~$x\in\Sigma\star,\sigma\in\Sigma$, by induction hypothesis~$\delta'(q'_I,x)=(\tau_x,r)$.
 		      By definition~$\delta'(q'_I,w)=\delta'(\delta'(q'_I,x),\sigma)=\delta'((\tau_x,p),\sigma)=(\pi,s)$, where~$\pi=\trapp_\sigma(\tau)=\tau_w$ and~$s=\pi(r)$. \qedhere
 	\end{description}
 \end{proof}
