@@ -15,7 +15,7 @@ Most of the concepts required for the simulations of \TNFAs via crossing sequenc
 \subsection{Crossing sequences}
 
 \paragraph{Valid crossing sequences} Because multiple computations are possible starting from a given configuration, \Cref{fact:crossing-2DFA-parity} does not hold in the nondeterministic case.
-However, for each computation that results in a crossing sequence containing a specific state in two separate positions of the same parity, there exists a computation that results in a crossing sequence for the same boundary that "short-circuits" the repetition and omits the subsequence in between the two occurrences.\footnote{%
+However, for each computation that results in a crossing sequence containing a specific state in two separate positions of the same parity, there exists a computation that results in a crossing sequence for the same boundary that "shortcuts" the repetition and omits the subsequence in between the two occurrences.\footnote{%
 	In particular, this holds for all crossing sequences of a given computation, along with all their repetitions, at the same time.}
 This is because the transition taken in correspondence of the last occurrence of the repeating state can be taken on the first occurrence instead.
 For this reason, the set of valid crossing sequences remains the same in the nondeterministic case, as each accepted word admits a computation that only results in crossing sequences without such repetitions.
@@ -24,8 +24,8 @@ For this reason, the set of valid crossing sequences remains the same in the non
 
 \paragraph{Simulation} The simulation is defined as for the \TDFA version.
 The proof still holds; however, given an input word, the simulated computation is of course just \emph{one} of the possible computations over said word.
-Precisely, not all accepting computations can be simulated by the \ONFA (since only valid crossing sequences are considered), but at least one accepting computation is simulated for each word accepted by the \TNFA.
-Because the set of states is unchanged, the cost of the simulation is the same.
+Precisely, because only valid crossing sequences are considered, all and only accepting computations that do not enter the same cell twice in the same state can be simulated.
+Furthermore, because the set of states is unchanged, the cost of the simulation is the same.
 The notes on sweeping \TDFAs in \Cref{sub:swep2DFA} still hold for sweeping \TNFAs.
 
 
@@ -42,7 +42,7 @@ The initial state is defined analogously.
 
 The proof still holds, with the note that the one-to-one relation is between computations of the \ODFA and the set of possible computations of the \TNFA over the same input.
 
-Because transition tables are defined differently, the complexity of the simulating machine changes, but remains exponential, as there are~$2^{\card Q^2}$ possible transition tables and~$2^{\card Q}$ subsets of~$Q$, giving a total of~$2^{\card Q^3}$ states.
+Because transition tables are defined differently, the complexity of the simulating machine changes, but remains exponential, as there are~$2^{\card Q^2}$ possible transition tables and~$2^{\card Q}$ subsets of~$Q$, giving a total of~$2^{\card Q^2+\card Q}$ states.
 
 Note that the existence of this simulation proves that the cost of simulating a \TNFA with a \ODFA is only single exponential.
 
