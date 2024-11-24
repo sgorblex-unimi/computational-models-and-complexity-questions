@@ -19,7 +19,7 @@ Finally, we discuss ideas to potentially improve these bounds, by applying to th
 
 
 \section{The general case}\label{sec:oncemarking-general}
-Once-marking $1$-limited automata (\OMOLAs) are a restriction of $1$-limited automata (see \Cref{def:kla}) that can only mark a single tape cell throughout the entire computation.
+Once-marking $1$-limited automata (\OMOLAs) are a restriction of $1$-limited automata (see \Cref{def:kla}) that can only mark exactly one tape cell throughout the entire computation.
 
 In the paper that introduced the model,~\citeauthor{PigPri23a} show that in the general case there is a double exponential tight bound for the simulation of a \OMOLA by a \ODFA~\cite{PigPri23a}.
 In particular, the upper bound is inherited from the simulation of \OLAs, while a new lower bound is proven with a restricted case of \OMOLA that is also sweeping and only nondeterministic in the first visit to tape cells.
@@ -61,10 +61,9 @@ We give here an exponential lower bound for the simulation of \OMODLAs by \ONFAs
 	Furthermore, if~$i\ne j$,~$w_iw_j$ and~$w_jw_i$ do not belong to~$\double$, as the two halves of each word are different.
 	Hence,~$S$ is a fooling set for~$\double$.
 	Since~$\card S=2^n$, every \ONFA accepting~$\double$ has at least~$2^n$ states.
-
-	Finally, we point out that, by replacing the marked cell with a simple check that the input length is~$2n$, the language~$\double$ can be accepted by a simple \TDFA with a slightly greater number of states.
-	Indeed, since \TDFAs can be considered a special case of \OMODLAs, the exponential cost of the simulation of \OMODLAs by \ONFAs can be simply considered a consequence of the one of \TDFAs by \ONFAs.
 \end{proof}
+	We point out that, in the previous proof, by replacing the marked cell with a simple check that the input length is~$2n$, we obtain a \TDFA accepting the language~$\double$ with a slightly greater number of states.
+	Indeed, since \TDFAs can be considered a special case of \OMODLAs, the exponential cost of the simulation of \OMODLAs by \ONFAs can be simply considered a consequence of the one of \TDFAs by \ONFAs.
 
 
 
