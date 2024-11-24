@@ -28,7 +28,7 @@ Here we give a description of each nontrivial result:
 \paragraph{\ONFA{}\tto\ODFA}\label{cost:1NFAto1DFA}
 \begin{itemize}
 	\item $\le\Cexp$: by using the subset construction presented by \triplecite{RabSco59},
-	\item $\ge\Cexp$: distinguishability arguments on the witness languages recognised by Meyer and Fischer's automaton~\cite{MeyFis71} and Moore's automaton~\cite{Moo71}.
+	\item $\ge\Cexp$: distinguishability arguments on the witness languages recognized by Meyer and Fischer's automaton~\cite{MeyFis71} and Moore's automaton~\cite{Moo71}.
 \end{itemize}
 \paragraph{\ONFA{}\tto\TDFA}
 \begin{itemize}
@@ -104,7 +104,7 @@ Here we give a description of each nontrivial result:
 \paragraph{\ODLA{}\tto\TNFA}\label{cost:1DLAto2NFA}
 \begin{itemize}
 	\item $\le\Cexp$: by using construction for \hyperref[cost:1DLAto1DFA]{\ODLA{}\tto\ODFA}, which is~$\le\Cexp$, combined with~$\Ctriv$ \ODFA{}\tto\TNFA,
-	\item $\ge\Cexp$: since the unary witness language~$\set{a^{2^n}}\star$ is recognized by the linear size \ODLA presented by \triplecite{PigPri19}, but cannot be recognised by a \TNFA with less than~$\Cexp$ states, as proven by \triplecite{MerPig00}.
+	\item $\ge\Cexp$: since the unary witness language~$\set{a^{2^n}}\star$ is recognized by the linear size \ODLA presented by \triplecite{PigPri19}, but cannot be recognized by a \TNFA with less than~$\Cexp$ states, as proven by \triplecite{MerPig00}.
 \end{itemize}
 \paragraph{\ODLA{}\tto\ONFA}
 \begin{itemize}
@@ -162,7 +162,7 @@ Here we give a description of each nontrivial result that hasn't been explained 
 \paragraph{\OMODLA{}\tto\ODFA}\label{cost:OM1DLAto1DFA}
 \begin{itemize}
 	\item $\le\Cexp$: by using the transition table construction for general \ODLAs presented by \triplecite{PigPis14},
-	\item $\ge\Cexp$: since the witness language~$K_n$ is recognized by a linear size \OMODLA, but cannot be recognised by a \TNFA with less than~$\Cexp$ states, as proven by \triplecite{PigPri23a}.
+	\item $\ge\Cexp$: since the witness language~$K_n$ is recognized by a linear size \OMODLA, but cannot be recognized by a \TNFA with less than~$\Cexp$ states, as proven by \triplecite{PigPri23a}.
 \end{itemize}
 \paragraph{\OMOLA{}\tto\OMODLA}
 \begin{itemize}
@@ -173,8 +173,7 @@ Here we give a description of each nontrivial result that hasn't been explained 
 \paragraph{\OMODLA{}\tto\ONFA}
 \begin{itemize}
 	\item $\le\Cexp$: by using construction for \hyperref[cost:OM1DLAto1DFA]{\OMODLA{}\tto\ODFA}, which is~$\le\Cexp$, combined with~$\Ctriv$ \ODFA{}\tto\ONFA,
-	\item previously mistakenly considered poly,
-	\item $\ge\Cexp$: since the witness language~$\double:=\set{ww\mid w\in\set{a,b}^n}$ is recognized by a linear size \OMODLA, but cannot be recognised by a \ONFA with less than~$\Cexp$ states (proven in \Cref{thm:OM1DLAto1NFAlower}).
+	\item $\ge\Cexp$: since the witness language~$\double:=\set{ww\mid w\in\set{a,b}^n}$ is recognized by a linear size \OMODLA, but cannot be recognized by a \ONFA with less than~$\Cexp$ states (proven in \Cref{thm:OM1DLAto1NFAlower}).
 \end{itemize}
 \paragraph{\OMODLA{}\tto\TDFA}\label{cost:OM1DLAto2DFA}
 \begin{itemize}
@@ -203,7 +202,8 @@ Many of these bounds, found by pioneer of unary descriptional complexity~\citefu
 \end{equation}
 where~$n\in\N$.
 The problem of approximating this function is known as Landau's problem.
-For the sake of our usage of the function, the following approximation, which was found by Landau himself in the early twentieth century, is sufficient~\cite{Lan03,Lan09}:
+For the sake of our usage of the function, the following approximation, which was found by Landau himself in the early twentieth century, is sufficient~\cite{Lan03,Lan09}:\footnote{%
+	The most accurate estimate known to date is~$F(n) = e^{(1+o(1))\sqrt{n\ln n}}$, found by \triplecite{Gef07}.}
 \begin{equation}
 	F(n) = \CsubEq \text.
 \end{equation}
@@ -267,7 +267,7 @@ Here we give a description of each nontrivial result in \Cref{tab:sims-1la-unary
 \paragraph{\ODLA{}\tto\TNFA}\label{cost:1DLAto2NFAu}
 \begin{itemize}
 	\item $\le\Cexp$: by using construction for \hyperref[cost:1DLAto1DFAu]{\ODLA{}\tto\ODFA}, which is~$\le\Cexp$, combined with~$\Ctriv$ \ODFA{}\tto\TNFA,
-	\item $\ge\Cexp$: since the witness language~$\set{a^{2^n}}\star$ is recognized by the linear size \ODLA presented by \triplecite{PigPri19}, but cannot be recognised by a \TNFA with less than~$\Cexp$ states, as proven by \triplecite{MerPig00},
+	\item $\ge\Cexp$: since the witness language~$\set{a^{2^n}}\star$ is recognized by the linear size \ODLA presented by \triplecite{PigPri19}, but cannot be recognized by a \TNFA with less than~$\Cexp$ states, as proven by \triplecite{MerPig00},
 	\item (previously proven~$\ge\CsubGe$ by \triplecite{KutPig+18}).
 \end{itemize}
 \paragraph{\ODLA{}\tto\ONFA}\label{cost:1LAto1NFAu}
