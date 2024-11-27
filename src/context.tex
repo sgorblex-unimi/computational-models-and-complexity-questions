@@ -24,24 +24,24 @@ At a given time of its computation, a nondeterministic machine has possibly mult
 We say that a nondeterministic machine accepts a string if there exists a computation path over that string which brings the machine to accept.
 
 One of the very first problems in the field was to determine if the nondeterministic and deterministic variants of the same computational model accept the same language class.
-While this was found to be the case for the canonical recognizers of recursively enumerable, context-sensitive and regular languages,~\citeauthor{Fis63} and~\citeauthor{Sch63} proved that deterministic pushdown automata accept a smaller class than their nondeterministic counterpart, called \emph{deterministic context-free languages}~\cite{Fis63,Sch63}.
-Concerning the regular language class,~\citeauthor{RabSco59} gave in~\citeyear{RabSco59} a construction, known as the \emph{subset} (or \emph{powerset}) \emph{construction}, to convert a nondeterministic finite automaton into an equivalent deterministic one~\cite{RabSco59}.
+While this was found to be the case for the canonical recognizers of recursively enumerable, context-sensitive and regular languages, \citeauthor{Fis63} and \citeauthor{Sch63} proved that deterministic pushdown automata accept a smaller class than their nondeterministic counterpart, called \emph{deterministic context-free languages}~\cite{Fis63,Sch63}.
+Concerning the regular language class, \citeauthor{RabSco59} gave in~\citeyear{RabSco59} a construction, known as the \emph{subset} (or \emph{powerset}) \emph{construction}, to convert a nondeterministic finite automaton into an equivalent deterministic one~\cite{RabSco59}.
 
-\paragraph{Two-way models} In the same article,~\citeauthor{RabSco59} defined \emph{two-way} nondeterministic and deterministic \emph{finite automata} (\TNFAs and \TDFAs, respectively).
+\paragraph{Two-way models} In the same article, \citeauthor{RabSco59} defined \emph{two-way} nondeterministic and deterministic \emph{finite automata} (\TNFAs and \TDFAs, respectively).
 These models act in a similar way to the classic, one-way finite automata (\ONFAs and \ODFAs), where the input is read one symbol at a time and the machine changes state depending on the scanned symbol and the current state. However, while one-way machines read the input symbols subsequently from left to right, two-way models can move left or right freely, as described by the transition rules.
 \citeauthor{RabSco59} proved that these new models also characterize regular languages, by providing a simulation of them by \ONFAs. The simulation is based on \emph{crossing sequences} (further details in \Cref{sec:crossseq2DFA})~\cite{RabSco59}.
-The same result was found in parallel by~\citeauthor{She59}, who used a different construction based on \emph{transition tables} and that also produces a simulating machine which is deterministic (see \Cref{sec:transtab2DFA})~\cite{She59}.
+The same result was found in parallel by \citeauthor{She59}, who used a different construction based on \emph{transition tables} and that also produces a simulating machine which is deterministic (see \Cref{sec:transtab2DFA})~\cite{She59}.
 
 
 
 \section{Descriptional complexity}\label{sec:context-descrcomp}
 
 \paragraph{Model size bounds} With many equivalent computational models accepting the same language classes, questions naturally arose about comparing them to one another.
-In~\citeyear{MeyFis71},~\citeauthor{MeyFis71} proposed to compare different descriptions for a language class by their size, that is, by how succinctly they can describe the chosen language~\cite{MeyFis71}.
+In~\citeyear{MeyFis71}, \citeauthor{MeyFis71} proposed to compare different descriptions for a language class by their size, that is, by how succinctly they can describe the chosen language~\cite{MeyFis71}.
 Concretely, this typically means comparing the size of the components of the models, such as the number of states or the size of the working alphabet.
 
-From the construction given by~\citeauthor{RabSco59}, it follows that each nondeterministic finite automaton can be simulated by a deterministic one by paying an exponential cost in the number of states.
-In their article,~\citeauthor{MeyFis71} proved that there exist families of languages for which this difference in size cannot be reduced, therefore giving a tight bound on the cost of removing nondeterminism from one-way finite automata~\cite{MeyFis71}.
+From the construction given by \citeauthor{RabSco59}, it follows that each nondeterministic finite automaton can be simulated by a deterministic one by paying an exponential cost in the number of states.
+In their article, \citeauthor{MeyFis71} proved that there exist families of languages for which this difference in size cannot be reduced, therefore giving a tight bound on the cost of removing nondeterminism from one-way finite automata~\cite{MeyFis71}.
 \citeauthor{Moo71} achieved the same result independently in the same year~\cite{Moo71}.
 
 See~\cite{KutMor+21} for a recent overview of descriptional complexity results and problems of interest.
@@ -60,7 +60,7 @@ These descriptional complexity results for regular language acceptors, summarize
 	\label{tab:sims-core-general-context}
 \end{table}
 
-These simulation costs were first discussed by~\citeauthor{SakSip78} in~\citeyear{SakSip78}, as the problem of using deterministic two-way movement to simulate nondeterministic computations~\cite{SakSip78}, or, in other words, the elimination of nondeterminism from finite automata using the capability of scanning the input tape in a two-way fashion.
+These simulation costs were first discussed by \citeauthor{SakSip78} in~\citeyear{SakSip78}, as the problem of using deterministic two-way movement to simulate nondeterministic computations~\cite{SakSip78}, or, in other words, the elimination of nondeterminism from finite automata using the capability of scanning the input tape in a two-way fashion.
 In their article, they described a parallelism between this and the famous \cP versus \cNP problem for time complexity classes, and conjectured that the costs of the afore-mentioned simulations are exponential.
 
 Later, new results around the unknown bounds were found, which gave them more importance in the realm of computational complexity.
@@ -68,12 +68,12 @@ Specifically, a relationship was found with the conjectured separation of the sp
 The class \cL is the set of languages accepted by deterministic Turing machines that write on a number of cells that is logarithmic in the length of the input, while \cNL is the set of languages accepted by nondeterministic such Turing machines.
 The two classes are believed not to be equal, but no proof has been found yet, making this problem the analogous for space complexity of the famous problem of \cP versus \cNP.
 \begin{enumerate}[(i)]
-	\item\label{itm:LvNL-1} In~\citeyear{BerLin77},~\citeauthor{BerLin77} proved that if~$\cL=\cNL$, then every~$n$-state \TNFA can be converted into a \TDFA of polynomial size in~$n$ that accepts a string~$w$ if and only if the original machine accepts~$w$, for all strings~$w$ of length at most~$n$.
+	\item\label{itm:LvNL-1} In~\citeyear{BerLin77}, \citeauthor{BerLin77} proved that if~$\cL=\cNL$, then every~$n$-state \TNFA can be converted into a \TDFA of polynomial size in~$n$ that accepts a string~$w$ if and only if the original machine accepts~$w$, for all strings~$w$ of length at most~$n$.
 	      That is, if~$\cL=\cNL$ then there exists a polynomial simulation of \TNFAs by \TDFAs on "short" inputs~\cite{BerLin77}.
-	\item In~\citeyear{GefPig11},~\citeauthor{GefPig11} proved that in the \emph{unary case} (that is, when the input alphabet is a singleton set) the hypothesis on the input length posed by~\citeauthor{BerLin77} is not needed.
+	\item In~\citeyear{GefPig11}, \citeauthor{GefPig11} proved that in the \emph{unary case} (that is, when the input alphabet is a singleton set) the hypothesis on the input length posed by \citeauthor{BerLin77} is not needed.
 	      Note that this implies that if a superpolynomial simulation of \TNFAs by \TDFAs is needed, even for the unary case, then~$\cL\ne\cNL$~\cite{GefPig11}.
-	\item In~\citeyear{Kap14},~\citeauthor{Kap14} generalized \ref{itm:LvNL-1} for the class \cPolyL, the class of languages accepted by deterministic Turing machines that write on a number of cells that is logarithmic in the length of the input and can access a \emph{polynomial advice}~\cite{Kap14,KarLip82}. In this case, the converse also holds.
-	\item In~\citeyear{KapPig12},~\citeauthor{KapPig12} proved that~$\cNL\subseteq\cPolyL$ is equivalent to the existence of a polynomial size simulation of \TNFAs by \TDFAs for the unary case~\cite{KapPig15}.
+	\item In~\citeyear{Kap14}, \citeauthor{Kap14} generalized \ref{itm:LvNL-1} for the class \cPolyL, the class of languages accepted by deterministic Turing machines that write on a number of cells that is logarithmic in the length of the input and can access a \emph{polynomial advice}~\cite{Kap14,KarLip82}. In this case, the converse also holds.
+	\item In~\citeyear{KapPig12}, \citeauthor{KapPig12} proved that~$\cNL\subseteq\cPolyL$ is equivalent to the existence of a polynomial size simulation of \TNFAs by \TDFAs for the unary case~\cite{KapPig15}.
 \end{enumerate}
 
 Because of the importance of its potential repercussions, the Sakoda and Sipser problem has been tackled in many ways over the past decades, spanning four lines of development:
@@ -93,7 +93,7 @@ Limited automata were introduced by~\citefullauthor{Hib67} in~\citeyear{Hib67} w
 These devices are nondeterministic Turing machines with rewriting restrictions.
 In particular, given a non-negative integer~$k$, a \emph{$k$-limited automaton} (\kLA) is a machine with a single tape delimited to the cells initially containing the input by special symbols called end-markers ($\lem$,$\rem$), which can only write on each cell on its first~$k$ visits.
 
-In his seminal paper,~\citeauthor{Hib67} proved that, for~$k\ge2$, the class accepted by deterministic $k$-limited automata (\kDLAs) is a strict subset of the class accepted by deterministic~$(k+1)$-limited automata, hence generating an infinite, fine-grained hierarchy of context-free languages.
+In his seminal paper, \citeauthor{Hib67} proved that, for~$k\ge2$, the class accepted by deterministic $k$-limited automata (\kDLAs) is a strict subset of the class accepted by deterministic~$(k+1)$-limited automata, hence generating an infinite, fine-grained hierarchy of context-free languages.
 Only in~\citeyear{PigPis15} it was proven that \DLA2s accept exactly deterministic context-free languages~\cite{PigPis15}.
 Furthermore, he proved that, for every~$k\ge2$, nondeterministic $k$-limited automata characterize the class of context-free languages.
 The latter result was proven by constructing simulations of \LA2s by models equivalent to pushdown automata and vice versa, along with reductions from \kLAs to \LA{(k-1)}s.\footnote{%
@@ -101,17 +101,17 @@ The latter result was proven by constructing simulations of \LA2s by models equi
 	A \LA2 accepting a Dyck language can be combined with a transformer applying the homomorphism, in order to accept any given language (see~\cite{Pig19} for details).}
 
 For~$k=0$, the model coincides with two-way finite automata, therefore the accepting power is limited to regular languages.
-In~\citeyear{WagWec86},~\citeauthor{WagWec86} proved that the accepting power of \TNFAs does not improve if the machines can overwrite the content of each tape cell only on the first visit to it, namely $1$-limited automata characterize regular languages~\cite{WagWec86}.
+In~\citeyear{WagWec86}, \citeauthor{WagWec86} proved that the accepting power of \TNFAs does not improve if the machines can overwrite the content of each tape cell only on the first visit to it, namely $1$-limited automata characterize regular languages~\cite{WagWec86}.
 
 \paragraph{$1$-limited automata and descriptional complexity}
-In~\citeyear{PigPis14},~\citeauthor{PigPis14} resumed the study of limited automata with a new focus on descriptional complexity, as a new way to tackle the Sakoda and Sipser problem~\cite{PigPis14}.
+In~\citeyear{PigPis14}, \citeauthor{PigPis14} resumed the study of limited automata with a new focus on descriptional complexity, as a new way to tackle the Sakoda and Sipser problem~\cite{PigPis14}.
 As we shall see, the size of a limited automaton can be expressed as a polynomial in the cardinalities of the state set and of the working alphabet.
-By revisiting the proof given by~\citeauthor{WagWec86},~\citeauthor{PigPis14} proved that an~$n$-state \OLA can be simulated by a \ONFA with a number of states exponential in~$n$.
+By revisiting the proof given by \citeauthor{WagWec86}, \citeauthor{PigPis14} proved that an~$n$-state \OLA can be simulated by a \ONFA with a number of states exponential in~$n$.
 Furthermore, they proved that if the \OLA is deterministic (\ODLA), the resulting finite automaton is also deterministic, while still exponential in size.
 % Matching lower bounds were found thanks to a "block" language (a language defined by a proposition on same-sized factors of each word) witness that the simulations of a \OLA by a \ONFA or a \ODFA may need an exponential and double exponential size blow-up, respectively.
 Matching lower bounds were found thanks to a language family witnessing that, in the worst case, the simulations of a \OLA by a \ONFA or a \ODFA need an exponential and double exponential size blow-up, respectively.
-Thanks to the study of the unary case,~\citeauthor{PigPri19} proved some of the remaining lower bounds, resulting in the costs summarized in \Cref{tab:sims-1la-general-context}~\cite{PigPri19}.
-The unary case was also studied by~\citeauthor{KutWen15}, who proved state lower bounds for the simulation of unary \kLA by different variants of finite automata~\cite{KutWen15}.
+Thanks to the study of the unary case, \citeauthor{PigPri19} proved some of the remaining lower bounds, resulting in the costs summarized in \Cref{tab:sims-1la-general-context}~\cite{PigPri19}.
+The unary case was also studied by \citeauthor{KutWen15}, who proved state lower bounds for the simulation of unary \kLA by different variants of finite automata~\cite{KutWen15}.
 
 \begin{table}
 	\centering
@@ -127,25 +127,25 @@ If such enhanced capabilities are given to the simulated machine instead (\ie it
 
 Similar variations of the simulations involved in the conjecture have been posed with the development of more variants of limited automata, also accepting regular languages.
 \citeauthor{GuiPri19} proved that each \OLA can be converted into another \OLA which works in linear time~\cite{GuiPri19} and has a size polynomial in the one of the original machine.
-In~\citeyear{PigPri23a},~\citeauthor{PigPri23a} introduced \emph{once-marking}, \emph{always-marking}, and \emph{forgetting} $1$-limited automata, which we shall describe below~\cite{PigPri23a,PigPri23}.
+In~\citeyear{PigPri23a}, \citeauthor{PigPri23a} introduced \emph{once-marking}, \emph{always-marking}, and \emph{forgetting} $1$-limited automata, which we shall describe below~\cite{PigPri23a,PigPri23}.
 
 
 \paragraph{Other limited automata}
-The context-free case has been studied from a descriptional complexity point of view by~\citeauthor{PigPis15}, who proved that a \LA2 can be simulated by a pushdown automaton of exponential size, while the opposite way has a polynomial cost and preservers determinism~\cite{PigPis15}.
-This result was then improved by~\citeauthor{KutPig+18}, who found an exponential simulation of \kLAs, for any~$k\ge2$, by pushdown automata~\cite{KutPig+18}.
+The context-free case has been studied from a descriptional complexity point of view by \citeauthor{PigPis15}, who proved that a \LA2 can be simulated by a pushdown automaton of exponential size, while the opposite way has a polynomial cost and preservers determinism~\cite{PigPis15}.
+This result was then improved by \citeauthor{KutPig+18}, who found an exponential simulation of \kLAs, for any~$k\ge2$, by pushdown automata~\cite{KutPig+18}.
 
 For the deterministic case, a simulation of \DLA2 by a deterministic pushdown automaton of double exponential size was found, and it is conjectured that such cost is optimal~\cite{PigPis15}.
 
-In~\citeyear{Pig16},~\citeauthor{Pig16} introduced \emph{strongly limited automata}, a restriction of \LA2 which closely imitates the moves that are used by limited automata to accept Dyck languages~\cite{Pig16}.
+In~\citeyear{Pig16}, \citeauthor{Pig16} introduced \emph{strongly limited automata}, a restriction of \LA2 which closely imitates the moves that are used by limited automata to accept Dyck languages~\cite{Pig16}.
 As proven in the article, strongly limited automata are equivalent, both in accepting power and descriptional complexity (up to a polynomial size difference), to pushdown automata or context-free grammars.
 
-In~\citeyear{WecBra79},~\citeauthor{WecBra79} studied limited automata when the number of rewriting-capable visits is a function of the length of the input (\emph{$f(n)$-limited})~\cite{WecBra79}.
+In~\citeyear{WecBra79}, \citeauthor{WecBra79} studied limited automata when the number of rewriting-capable visits is a function of the length of the input (\emph{$f(n)$-limited})~\cite{WecBra79}.
 
-See the recent survey by~\citeauthor{Pig19} for a review of limited automata variants and complexity results~\cite{Pig19}.
+See the recent survey by \citeauthor{Pig19} for a review of limited automata variants and complexity results~\cite{Pig19}.
 
 
 \subsection{Once-marking \texorpdfstring{$1$}{1}-limited automata}
-In~\citeyear{PigPri23a},~\citeauthor{PigPri23a} introduced several new variants of $1$-limited automata, with the aim of better understanding the double exponential gap between \OLA and \ODFA~\cite{PigPri23a,PigPri23}.
+In~\citeyear{PigPri23a}, \citeauthor{PigPri23a} introduced several new variants of $1$-limited automata, with the aim of better understanding the double exponential gap between \OLA and \ODFA~\cite{PigPri23a,PigPri23}.
 They suggested that such distance is due to the double role of the nondeterminism in \OLAs: in the choice of the symbol written on the first visit of each cell, and in the choices during the next visits, which depend on the symbol written during the first visit.
 In other words, different computation paths can replace the same input prefix on the tape with different strings, on which nondeterminism is once again applied.
 An interesting objective was to find some restrictions for which the double exponential gap is reduced to single exponential, as for \ODLA, while still allowing nondeterministic transitions.
@@ -153,20 +153,20 @@ On the other hand, it was relevant to find very restricted forms of $1$-limited 
 
 On the latter matter, the authors introduced \emph{once-marking} $1$-limited automata (\OMOLA), which have the restriction of only having the possibility to mark one single tape cell, leaving the rest unchanged~\cite{PigPri23}.
 They showed that the double exponential gap to \ODFA remains possible, even in further restricted cases, such as \emph{sweeping} \OMOLA that can only use nondeterminism in the first visit to tape cells.
-Fully deterministic \OMOLA (\OMODLA), on the other hand, can be simulated by \TDFAs with only a polynomial size increase (by an interesting computation tree simulation originally developed by~\citeauthor{Sip80a} for space bounded deterministic Turing machines and later improved by~\citeauthor{GefMer+07}~\cite{Sip80a,GefMer+07} in the restricted case of \TDFAs).
+Fully deterministic \OMOLA (\OMODLA), on the other hand, can be simulated by \TDFAs with only a polynomial size increase (by an interesting computation tree simulation originally developed by \citeauthor{Sip80a} for space bounded deterministic Turing machines and later improved by \citeauthor{GefMer+07}~\cite{Sip80a,GefMer+07} in the restricted case of \TDFAs).
 
 A different path of development was introduced with \emph{always-marking} $1$-limited automata (\AMOLA), which are forced to replace each input symbol~$\sigma$ with one that depends only on~$\sigma$.
 \citeauthor{PigPri23a} showed that the gap from \AMOLA, even in the nondeterministic version, to \ODFA reduces to a single exponential.
 The bounds to the other classic acceptors, notably \TNFA, remains exponential, even when considering a deterministic \AMOLA.
 
 In a different paper, the same authors introduced \emph{forgetting} $1$-limited automata (\FOLA), where during the first visit to each cell its input symbol is replaced with a unique fixed symbol, effectively erasing the original information~\cite{PigPri23,JanMra+93}.
-Thanks to the merging of constructions introduced for \AMOLA and techniques for unary languages (applied to the overwritten part of the tape),~\citeauthor{PigPri23} showed exponential gaps between \AMOLA and one-way finite automata, in both nondeterministic and deterministic versions, in addition to other superpolynomial bounds.
+Thanks to the merging of constructions introduced for \AMOLA and techniques for unary languages (applied to the overwritten part of the tape), \citeauthor{PigPri23} showed exponential gaps between \AMOLA and one-way finite automata, in both nondeterministic and deterministic versions, in addition to other superpolynomial bounds.
 
 Not much has been said regarding the \emph{unary} versions of these models, namely when the input alphabet consists of only one symbol.
-Unary models are particularly relevant when it comes to both descriptional complexity and broader automata theory because, as proven by~\citeauthor{GinRic62}, in the unary case the classes of regular and context-free languages coincide~\cite{GinRic62}.
+Unary models are particularly relevant when it comes to both descriptional complexity and broader automata theory because, as proven by \citeauthor{GinRic62}, in the unary case the classes of regular and context-free languages coincide~\cite{GinRic62}.
 
 One of the investigating threads of our work regarded the unary version of once-marking \OLAs.
-Unary forgetting \OLAs do not seem to have interesting succinctness properties, as pointed out by~\citeauthor{PigPri23}~\cite{PigPri23}.
+Unary forgetting \OLAs do not seem to have interesting succinctness properties, as pointed out by \citeauthor{PigPri23}~\cite{PigPri23}.
 Unary always-marking \OLAs are not particularly interesting as they are essentially equivalent to forgetting \OLA.
 
 
@@ -174,12 +174,12 @@ Unary always-marking \OLAs are not particularly interesting as they are essentia
 A two-way machine is said to be \emph{sweeping} when its tape head can only change direction of movement after scanning end-markers.
 Sweeping machines have been of interest in automata theory and descriptional complexity since they consist in a restriction that can sometimes imply lower accepting and/or descriptional power.
 
-Sweeping $k$-limited automata, where~$k$ is a non-negative integer, were first taken into consideration by~\citeauthor{KutPig+18}~\cite{KutPig+18}.
+Sweeping $k$-limited automata, where~$k$ is a non-negative integer, were first taken into consideration by \citeauthor{KutPig+18}~\cite{KutPig+18}.
 Unlike generic $k$-limited automata, in sweeping \kLA whenever the head reaches an end-marker all the tape cells have been rewritten the same number of times.
 In the same paper, the unary case was investigated, as in this context all types of $k$-limited automata accept regular languages (coinciding with context-free languages).
 In particular, the authors proved a subexponential lower bound in the number of states for the simulation of a sweeping \kDLA by a \ODFA, a polynomial lower bound for the simulation by a \TNFA (hence also by a \TDFA or a \ONFA), and a polynomial upper bound for the simulation by a \TDFA.
 All of these are, however, exponential in~$k$.
 
 The general (non unary) case, as well as the nondeterministic case, have not yet been studied extensively.
-In their paper,~\citeauthor{KutPig+18} claimed (without proof) that sweeping \kLAs can be simulated by a \ONFA, \ie they characterize regular languages (unlike their non-sweeping counterpart).
+In their paper, \citeauthor{KutPig+18} claimed (without proof) that sweeping \kLAs can be simulated by a \ONFA, \ie they characterize regular languages (unlike their non-sweeping counterpart).
 In our work, we prove this statement as well as give an analysis of related descriptional complexity aspects.
