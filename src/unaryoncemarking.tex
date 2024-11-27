@@ -9,7 +9,7 @@ The relative succinctness of these models has been inspected by providing simula
 At the same time, many bounds have been proven on the descriptional complexity of operations on unary languages (see, \eg[,]~\cite{HolKut03,KunOkh12,MerPig05,PigSha02}).
 Another reason why the unary case is studied extensively is that proving the Sakoda and Sipser conjecture, even in the unary case, would prove the separation of the space complexity classes~$\cL$ and~$\cNL$ (see \Cref{sec:context-descrcomp}).
 
-Once-marking $1$-limited automata consist in machines with a single tape, delimited by end-markers ($\lem$,$\rem$), that can only write once during the computation, on the first visit of a tape cell.
+Once-marking $1$-limited automata consist of machines with a single tape, delimited by end-markers ($\lem$,$\rem$), that can only write once during the computation, on the first visit of a tape cell.
 They have been introduced and studied by~\citeauthor{PigPri23a}, who proved a tight double exponential bound for the simulation by \ODFAs in the general case and a polynomial one by \TDFAs in the deterministic case~\cite{PigPri23a}.
 
 In \Cref{sec:oncemarking-general}, we revise the previous work on once-marking $1$-limited automata, proving a lower bound for the simulation by \ONFAs.
@@ -54,7 +54,7 @@ We give here an exponential lower bound for the simulation of \OMODLAs by \ONFAs
 	The resulting automaton, which only uses a counter up to~$n$ and saves a symbol in~$\set{a,b}$, has a linear number of states in~$n$.
 
 	We now prove that every \ONFA needs an exponential number of states to accept~$\double$.
-	In order to do so, we use the fooling set technique (see \Cref{sub:foolingsets}).
+	To do so, we use the fooling set technique (see \Cref{sub:foolingsets}).
 
 	Consider the set~$S:=\set{(w_i,w_i)\mid w_i\in\set{a,b}^n}$.
 	Obviously,~$w_iw_i\in\double$ for all~$i$.
@@ -110,7 +110,7 @@ An example is the "tool for constructing lower bound witnesses" proposed by~\cit
 Unfortunately, the results we could find in literature mainly study the concatenation of two unary languages over the same alphabet, as it was the case in~\cite{YuZhu+94,PigSha02}.
 Besides, such results, if extended to different alphabets, would only imply a quadratic lower bound, which is worse than the currently-known subexponential bound.
 
-\paragraph{Chrobak's witness language} A different approach could be to study a variation of the well-known witness language used by~\citeauthor{Chr86} to prove many of the lower bounds on basic unary regular language acceptors~\cite{Chr86}.
+\paragraph{Chrobak witness language} A different approach could be to study a variation of the well-known witness language used by~\citeauthor{Chr86} to prove many of the lower bounds on basic unary regular language acceptors~\cite{Chr86}.
 In particular, the concatenation of two similar (but different) witness languages might force a \ODFA to require a subexponential state component for each part of the input word, while a once-marking automaton could simply nondeterministically guess and mark the first symbol of the second part and separately verify that each of the two factors belongs to its respective language.
 
 
