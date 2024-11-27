@@ -3,8 +3,8 @@ While the construction presented in \Cref{ch:sweeping} proves that deterministic
 Furthermore, no substantial further size blow-up is required in this case.
 
 In this chapter, we revise the notions and techniques used for the simulation of sweeping \kDLAs by \ONFAs in the nondeterministic case, proving that all sweeping \kLAs accept only regular languages.
-In \Cref{sec:nondet-techniques}, we show how to extend the techniques presented in \Cref{ch:techniques} for the simulation of \TDFAs to the one of \TNFAs.
-In \Cref{sec:nondet-sweeping}, we show how to extend the simulation of \Cref{sec:swkdla-to-NFA} to simulate a nondeterministic sweeping \kLA.
+\Cref{sec:nondet-techniques} shows how to extend the techniques presented in \Cref{ch:techniques} for the simulation of \TDFAs to the one of \TNFAs.
+\Cref{sec:nondet-sweeping} shows how to extend the simulation of \Cref{sec:swkdla-to-NFA} to simulate a nondeterministic sweeping \kLA.
 
 
 
@@ -35,7 +35,7 @@ The notes on sweeping \TDFAs in \Cref{sub:swep2DFA} still hold for sweeping \TNF
 Specifically, given a \TNFA~$A=(Q,\Sigma,\delta,q_I,F)$, a transition table of~$A$ is a binary relation~$\tau\subseteq Q\times Q$.
 Transition tables are assigned to words as described in \Cref{def:transtab2DFA}, except of course we use~$(p,q)\in\tau$ instead of~$\tau(p)=q$.
 
-\paragraph{Simulation} The simulation is slightly different from the \TDFA version, having the second state component consisting in a set of states rather than a single state:~$Q':=\transtabset\times\subsets{Q}$.
+\paragraph{Simulation} The simulation is slightly different from the \TDFA version, having the second state component consisting into a set of states rather than a single state:~$Q':=\transtabset\times\subsets{Q}$.
 Because the transition table of any given input prefix is the same independently of the computation path taken, all the states that can be reached after reading said prefix can be grouped in a set, analogously to the subset construction~\cite{RabSco59,HopUll79}.
 The transition function is defined accordingly: given a state~$(\tau,\alpha)$ (where~$\alpha$ is a set of states of the \TNFA) and a symbol~$\sigma$,~$\delta((\tau,\alpha),\sigma)=(\pi,\beta)$ where~$\pi:=\trapp_\sigma(\tau)$ and~$\beta:=\set{q\in Q\mid p\in\alpha, (p,q)\in\pi}$.
 The initial state is defined analogously.
@@ -69,5 +69,5 @@ Unlike in the simulation of \TNFAs by \ODFAs by transition tables, we do not gro
 
 The correctness of the simulation derives from the nondeterministic versions of the proofs of correctness of the single components, following the steps used in the deterministic case.
 
-The cost of the simulation changes slightly, as changed the number of transition tables.
-If~$n$ is the number of states of the original machine, the number of states of the resulting \ONFAs is~$n^{k'+2}\cdot2^{n^2}$, plus the cost of the normal form construction, for a total of~$(2n+4)^{k'+2}\cdot2^{(2n+4)^2}$ states.
+The cost of the simulation changes slightly, as the number of transition tables changed.
+If~$n$ is the number of states of the original machine, then the number of states of the resulting \ONFAs is~$n^{k'+2}\cdot2^{n^2}$, plus the cost of the normal form construction, for a total of~$(2n+4)^{k'+2}\cdot2^{(2n+4)^2}$ states.
