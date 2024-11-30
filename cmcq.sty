@@ -1,8 +1,12 @@
-\newif\if@ironic
-\DeclareOption{ironic}{\@ironictrue}
+\newif\if@easteregg
+\DeclareOption{easteregg}{\@eastereggtrue}
+\newif\if@extras
+\DeclareOption{extras}{\@extrastrue}
+
 \ProcessOptions\relax
 
-\newcommand{\ironic}[2]{\if@ironic#1\else#2\fi}
+\newcommand{\easteregg}[1]{\if@easteregg#1\else\fi}
+\newcommand{\extra}[1]{\if@extras#1\else\fi}
 
 % MATHS
 \usepackage{amsmath,amssymb,amsthm}
@@ -214,3 +218,17 @@
 % HYPHENATION
 \hyphenation{Pi-ghiz-zi-ni}
 \hyphenation{Lan-gua-ges}
+
+
+% MISC
+
+\usepackage{epigraph}
+\newcommand{\openingquote}[2]{
+	\cleardoublepage
+	\thispagestyle{empty}
+	\vspace*{\fill}
+	\setlength{\epigraphwidth}{0.6\textwidth}
+	\epigraph{#1}{#2}
+	\vspace*{\fill}
+	\cleardoublepage
+}

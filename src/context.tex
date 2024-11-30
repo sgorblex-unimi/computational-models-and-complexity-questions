@@ -61,7 +61,8 @@ These descriptional complexity results for regular language acceptors, summarize
 \end{table}
 
 These simulation costs were first discussed by \citeauthor{SakSip78} in~\citeyear{SakSip78}, as the problem of using deterministic two-way movement to simulate nondeterministic computations~\cite{SakSip78}, or, in other words, the elimination of nondeterminism from finite automata using the capability of scanning the input tape in a two-way fashion.
-In their article, they described a parallelism between this and the famous \cP versus \cNP problem for time complexity classes, and conjectured that the costs of the afore-mentioned simulations are exponential.
+In their article, they described a parallelism between this and the famous \cP versus \cNP problem for time complexity classes, and conjectured that the costs of the afore-mentioned simulations are exponential.%
+\easteregg{\marginpar{"I have discovered a truly marvelous proof of this, which this margin is too narrow to contain."}}
 
 Later, new results around the unknown bounds were found, which gave them more importance in the realm of computational complexity.
 Specifically, a relationship was found with the conjectured separation of the space complexity classes \cL and \cNL.
@@ -135,6 +136,8 @@ The context-free case has been studied from a descriptional complexity point of 
 This result was then improved by \citeauthor{KutPig+18}, who found an exponential simulation of \kLAs, for any~$k\ge2$, by pushdown automata~\cite{KutPig+18}.
 
 For the deterministic case, a simulation of \DLA2 by a deterministic pushdown automaton of double exponential size was found, and it is conjectured that such cost is optimal~\cite{PigPis15}.
+
+\easteregg{\nocite{Ada79}} % TODO always check that it's citation number 42
 
 In~\citeyear{Pig16}, \citeauthor{Pig16} introduced \emph{strongly limited automata}, a restriction of \LA2 which closely imitates the moves that are used by limited automata to accept Dyck languages~\cite{Pig16}.
 As proven in the article, strongly limited automata are equivalent, both in accepting power and descriptional complexity (up to a polynomial size difference), to pushdown automata or context-free grammars.

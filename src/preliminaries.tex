@@ -24,7 +24,8 @@ Given a word~$w=x_1 x_2\cdots x_n$, the \emph{reversal} of~$w$ is~$w\rev:=x_n x_
 
 \paragraph{Languages} A \emph{language}~$L$ over an alphabet~$\Sigma$ is a set of words over~$\Sigma$, \ie~$L\subseteq\Sigma\star$.
 The symbol~$\emptyset$ denotes the empty language, not to be confused with the language~$\set{\emptyword}$.
-We sometimes omit the curly braces when denoting a singleton language (writing~$a$ instead of~$\set{a}$).
+We sometimes omit the curly braces when denoting a singleton language (writing~$a$ instead of~$\set{a}$).%
+\easteregg{\marginpar{"All the beautiful sounds of the world in a single word."}}
 A language over a unary alphabet is called unary.
 The \emph{product} of two languages~$L_1$ and~$L_2$ is the language where each word is the concatenation of a word from~$L_1$ and a word from~$L_2$: \begin{equation*} L_1\cdot L_2 := \set{xy\mid x\in L_1 \land y\in L_2} \end{equation*} Given a language~$L$,~$L^0$ denotes the language~$\set{\emptyword}$, and~$L^n$ denotes the product of~$L$ with itself~$n$ times.
 The \emph{Kleene closure} of a language~$L$ is the language~$L\star$ consisting of the concatenation of an arbitrary number of words from~$L$: \begin{equation*} L\star := L^0\cup L^1\cup\dots=\bigcup_{k=0}^\infty L^k \end{equation*} Additionally,~$L^+$ denotes the language~$\bigcup_{k=1}^\infty L^k$.
