@@ -167,7 +167,9 @@ Note that two crossing sequences need not be valid in order to match (\eg the em
 We now prove that a \TDFA can be simulated by a \ONFA whose states are the valid crossing sequences of the \TDFA.
 By \Cref{fact:crossing-2DFA-num} this also proves that an exponential number of states in the size of the \TDFA is sufficient for such a simulation.
 
-Intuitively, the simulating machine puts together pieces of the computation of~$A$ by guessing successive crossing sequences.
+Intuitively, the simulating machine puts together pieces of the computation of~$A$%
+\easteregg{\marginpar{"Take what's broken make it whole"}}
+by guessing successive crossing sequences.
 The full trajectory can be interpreted as a computation of the original machine, where acceptance is only possible if the right end-marker is passed while entering a final state.
 For example, in the case of the \TDFA in \Cref{fig:example-crosseq}, the crossing sequences~$[q_I]$,~$[q_I]$,~$[q_I]$,~$[q_I,q_2,q_f]$, and~$[q_I,q_1,q_f]$ are guessed in order.
 

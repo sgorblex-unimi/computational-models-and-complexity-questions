@@ -232,3 +232,8 @@
 	\vspace*{\fill}
 	\cleardoublepage
 }
+
+\usepackage{tikzducks}
+\newcommand{\tbaseduck}[1][]{\duck[#1]}
+\newcommand{\tAleduck}[1][]{\tbaseduck[tophat,bowtie,#1]}
+\newcommand{\Aleduck}[1][1]{\raisebox{-0.3ex}{\tikz\tAleduck[scale=#1];}}
