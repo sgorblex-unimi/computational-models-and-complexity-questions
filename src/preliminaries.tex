@@ -104,13 +104,22 @@ The transition function, however, also determines at each step the direction of 
 	The tape has a head, which initially points at~$\lem$.
 	This is known as the initial configuration of the machine.
 	In one move, the machine reads an input symbol, changes its state, and moves the tape head one position left or right, depending on whether~$\delta$ returns~$\tl$ or~$\tr$, respectively.
+	See \Cref{fig:tapemachine} for a representation of the configuration of the machine at a given time.
 	The sequence of configurations forms what is called a \emph{computation path}.
 	Furthermore, the head cannot pass the end-markers, except for the right end-marker at the end of computation, to accept the input.
 	The machine accepts the input if there exists a computation path that starts in the initial configuration and ends in a final state~$q_f\in F$ after moving right from~$\rem$.\footnote{%
-	Other models can be easily be converted to adhere to this behavior: if a machine accepts when a transition is undefined in a final state, that transition can be defined to bring to a new final state instead, which moves the head to the right until it passes the right boundary of the tape.}
+		Other models can be easily be converted to adhere to this behavior: if a machine accepts when a transition is undefined in a final state, that transition can be defined to bring to a new final state instead, which moves the head to the right until it passes the right boundary of the tape.}
 
 	\noindent The deterministic version of \TNFAs is denoted \TDFAs.
 \end{defn}
+
+\begin{figure}
+	\centering
+	\input{tikz/twoway_example.tikz}
+	\caption[Example two-way or limited automaton]{A two-way machine in a fixed configuration, with the head on the symbol~$\sigma_2$ and~$q$ as the current state.
+		In the case of two-way finite automata, the symbols~$\sigma_1,\dots,\sigma_n$ are input symbols, while for limited automata they belong to the working alphabet and might be the result of writing on the cells.}
+	\label{fig:tapemachine}
+\end{figure}
 
 Similarly to the one-way case, the relevant quantity for the descriptional complexity of these models is the number of states, as the transition function can be encoded with a string of length~$\Theta(\card Q\cdot(\card\Sigma+2)\cdot\log_2(2^{2\cdot\card Q}))$, which is polynomial in the number of states.
 
@@ -139,6 +148,7 @@ $1$-limited automata (that is, when~$k=1$) accept the class of regular languages
 	\end{itemize}
 	The initial configuration is the same as for \TNFAs.
 	In one move the machine, beside changing its state and moving the tape head, changes the content of scanned cell according to the transition function.
+	See \Cref{fig:tapemachine} for a representation of the machine at a given time.
 
 	Furthermore, the transition function is subject to restrictions which, essentially, allow to modify the content of a cell only during the first~$k$ visits.
 	In order to implement these restrictions,~$\delta$ is required to satisfy the following conditions. For each~$(t,y,d)\in\delta(s,x)$, with~$x\in\Gamma_i$:

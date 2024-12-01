@@ -215,12 +215,19 @@ We are now ready to describe the simulation of sweeping \kDLAs by \ONFAs.
 The simulation combines three techniques: crossing sequences, transition tables (see \Cref{sec:transtab2DFA}), and a construction for the automaton recognizing the reversal of a given language (see \Cref{sub:reversal}).
 
 We want to build the simulation so that there is a one-to-one correspondence between accepting computations of the sweeping \kDLA in normal form and the ones of the simulating \ONFA.
-To do so, we divide each of the former in three parts:
+To do so, we divide each of the former in three parts (see \Cref{fig:swepsimphases} for a visual representation):
 \begin{itemize}
 	\item the first part is composed by the first~$k'$ sweeps, with the head ending to the right and the tape in a frozen state. We simulate this part by using crossing sequences, which also give us a way to compute the last symbol written on each cell,
 	\item the second part consists in the following sweep to the left, simulated by the reversal construction,
 	\item the third part corresponds to the remaining sweeps and it is simulated using transition tables.
 \end{itemize}
+
+\begin{figure}
+	\centering
+	\input{tikz/swepsimphases.tikz}
+	\caption[Three parts of the computation of a sweeping \kDLA in normal form]{The three parts of each computation of a sweeping \kDLA in normal form used in the simulation by \ONFAs.}
+	\label{fig:swepsimphases}
+\end{figure}
 
 Let~$A:=(Q,\Sigma,\Gamma,\delta,q_I,F)$ be a sweeping \kDLA.
 Let~$\crosseqset$ be the set of its active crossing sequences and~$\transtabset$ is the set of its transition tables.

@@ -1,0 +1,12 @@
+\begin{tikzpicture}
+	\node (lem) {\Large $\lem$};
+	\node[cell] (0) [right=of lem]{$\sigma_0$};
+	\node[cell] (1) [right=of 0] {$\sigma_1$};
+	\node[cell] (2) [right=of 1] {$\sigma_2$};
+	\node[cell] (3) [right=of 2] {$\sigma_3$};
+	\node[cell, minimum width=2.5em] (worddots) [right=of 3] {$\dots$};
+	\node[cell] (last) [right=of worddots] {$\sigma_n$};
+	\node[node distance=0pt] (rem) [right=of last]{\Large $\rem$};
+	\node[cell] (control) [above=0.75cm of 2,thick] {$q$};
+	\draw[-latex] (control) -- (2);
+\end{tikzpicture}

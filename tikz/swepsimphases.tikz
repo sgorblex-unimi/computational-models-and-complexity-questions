@@ -1,0 +1,30 @@
+\begin{tikzpicture}
+	\node[tapeseg] (lem) {\Large$\lem$};
+	\node[tapeseg] (rem) [right=5 cm of lem] {\Large$\rem$};
+
+	\draw ([yshift=-1mm]lem.north east) -- ([yshift=-1mm]rem.north west)
+	([yshift=1mm]lem.south east) -- ([yshift=1mm]rem.south west)
+	([yshift=-1mm]lem.north east) -- ([yshift=1mm]lem.south east)
+	([yshift=-1mm]rem.north west) -- ([yshift=1mm]rem.south west);
+	\draw[dotted] ([shift={(1mm,0mm)}]rem.south) -- ([shift={(-1mm,0mm)}]lem.south);
+
+	\draw[] (lem.south) -- ([yshift=-1.5mm]rem.south)
+	-- ([yshift=-3mm]lem.south) -- ++(18mm,-1mm);
+	\draw[dashed] ([shift={(18mm,-4mm)}]lem.south) -- ++(7mm,-.4mm);
+	\draw[dashed]([shift={(-18mm,-6mm)}]rem.south) -- ++(-7mm,.4mm);
+	\draw[<-] ([yshift=-7mm]rem.south) -- ++(-18mm,1mm);
+	\draw[dotted] ([shift={(1mm,-7mm)}]rem.south) -- ([shift={(-1mm,-7mm)}]lem.south);
+	\draw[brace] ([shift={(1mm,0)}]rem.south) -- ([shift={(1mm,-7mm)}]rem.south) node[midway,right=1mm] {$k'$ sweeps};
+
+	\draw[->] ([yshift=-7mm]rem.south) -- ([yshift=-12mm]lem.south);
+	\draw[dotted] ([shift={(1mm,-12mm)}]rem.south) -- ([shift={(-1mm,-12mm)}]lem.south);
+	\draw[brace] ([shift={(1mm,-7mm)}]rem.south) -- ([shift={(1mm,-12mm)}]rem.south) node[midway,right=1mm] {$1$ sweep};
+
+	\draw ([yshift=-12mm]lem.south) -- ([yshift=-13.5mm]rem.south)
+	-- ([yshift=-15mm]lem.south) -- ++(18mm,-1mm);
+	\draw[dashed] ([shift={(18mm,-16mm)}]lem.south) -- ++(7mm,-.4mm);
+	\draw[dashed]([shift={(-18mm,-18mm)}]rem.south) -- ++(-7mm,.4mm);
+	\draw[<-] ([yshift=-19mm]rem.south) -- ++(-18mm,1mm);
+	\draw[dotted] ([shift={(1mm,-19mm)}]rem.south) -- ([shift={(-1mm,-19mm)}]lem.south);
+	\draw[brace] ([shift={(1mm,-12mm)}]rem.south) -- ([shift={(1mm,-19mm)}]rem.south) node[midway,right=1mm] {remaining sweeps};
+\end{tikzpicture}
