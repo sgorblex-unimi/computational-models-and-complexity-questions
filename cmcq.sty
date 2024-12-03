@@ -52,6 +52,19 @@
 % FIX UNICODE CHARACTERS
 \DeclareUnicodeCharacter{0229}{\c{e}}
 
+% DISABLE WHITE PAGE NUMBERING
+\renewcommand{\cleardoublepage}{
+  \clearpage
+  \if@twoside
+    \ifodd\c@page
+    \else
+      \thispagestyle{empty}
+      \hbox{}
+      \newpage
+    \fi
+  \fi
+}
+
 
 % GRAPHICS
 
