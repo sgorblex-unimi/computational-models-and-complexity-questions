@@ -2,6 +2,8 @@
 \DeclareOption{eastereggs}{\@eastereggstrue}
 \newif\if@extras
 \DeclareOption{extras}{\@extrastrue}
+\newif\if@print
+\DeclareOption{print}{\@printtrue}
 
 \ProcessOptions\relax
 
@@ -54,15 +56,15 @@
 
 % DISABLE WHITE PAGE NUMBERING
 \renewcommand{\cleardoublepage}{
-  \clearpage
-  \if@twoside
-    \ifodd\c@page
-    \else
-      \thispagestyle{empty}
-      \hbox{}
-      \newpage
-    \fi
-  \fi
+	\clearpage
+	\if@twoside
+		\ifodd\c@page
+		\else
+			\thispagestyle{empty}
+			\hbox{}
+			\newpage
+		\fi
+	\fi
 }
 
 % 42nd PAGE EASTER EGG
@@ -253,3 +255,14 @@
 
 \usepackage{tikzducks}
 \newcommand{\Aleduck}[1][]{\duck[tophat,bowtie,#1]}
+
+
+\if@print
+	\hypersetup{
+		colorlinks=true,
+		citecolor=black!60,
+		linkcolor=black!80,
+		filecolor=black,
+		urlcolor=black
+	}
+\fi
