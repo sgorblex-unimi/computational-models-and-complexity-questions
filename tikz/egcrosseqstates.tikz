@@ -6,7 +6,7 @@
 
 	\scriptsize
 	\path[->]
-	(q0)	edge node {$\lem/\tl$} (q1)
+	(q0)	edge node {$\rem/\tl$} (q1)
 	edge [loop below,left] node[shift={(-1.9mm,1.5mm)}] {$a,b/\tr$} (q0)
 	(q1)	edge node {$a,b/\tl$} (q2)
 	(q2)	edge node {$a/\tr$} (q3)
